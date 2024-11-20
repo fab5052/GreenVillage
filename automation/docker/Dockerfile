@@ -39,26 +39,18 @@ RUN echo 'xdebug.mode=develop,debug,coverage' >> /usr/local/etc/php/conf.d/xdebu
 RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini \
     && echo 'short_open_tag = Off' >> /usr/local/etc/php/php.ini
 
-# Installer Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
 RUN apt-get update && apt-get install -y curl \
     && curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
     && apt-get install -y nodejs
 
-
+# Installer Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Installer les dépendances front-end
 WORKDIR /var/www/html
 
-# RUN npm install
-
-
-# Copier uniquement les fichiers nécessaires à l'environnement
-# ATTENTION : Ne copiez pas tout le contexte local si vous avez une installation existante.
 COPY ./automation/docker/default-vhost.conf /etc/apache2/sites-available/default-vhost.conf
 
-# Activer la configuration Apache personnalisée
 RUN a2dissite 000-default.conf \
     && a2ensite default-vhost.conf
 
