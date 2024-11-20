@@ -12,6 +12,7 @@ services:
             - mysql
         ports:
             - 81:80 
+#        user: ${LOCAL_USER}    
 #       environment:    
 #          DATABASE_URL: "database://${MYSQL_USER:- user}:${MYSQL_PASSWORD:- pwd}@database:3306/${MYSQL_DATABASE:- app}"
 
@@ -21,9 +22,9 @@ services:
     container_name: mysql
     restart: always
     environment:
-        MYSQL_DATABASE: green-village
-        MYSQL_PASSWORD: Afpa1234
-        MYSQL_USER: admin
+        MYSQL_USER: ${MYSQL_USER}
+        MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        MYSQL_DATABASE: ${MYSQL_DATABASE}
         MYSQL_ROOT_PASSWORD: toor
     # healthcheck:
     #     test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
