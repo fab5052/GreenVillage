@@ -43,6 +43,7 @@
         "symfony/validator": "6.4.*",
         "symfony/web-link": "6.4.*",
         "symfony/yaml": "6.4.*",
+        "toneflix-code/fakerphp-lorem-toneflix": "^1.0",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0",
         "yokai/batch-symfony-framework": "^0.6.3"
