@@ -25,7 +25,7 @@ services:
         MYSQL_USER: ${MYSQL_USER}
         MYSQL_PASSWORD: ${MYSQL_PASSWORD}
         MYSQL_DATABASE: ${MYSQL_DATABASE}
-        MYSQL_ROOT_PASSWORD: toor
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     # healthcheck:
     #     test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
     #     timeout: 5s
@@ -46,7 +46,7 @@ services:
              PMA_HOST: mysql
             #  PMA_USER: admin
             #  PMA_PASSWORD: Afpa1234
-             MYSQL_ROOT_PASSWORD: toor
+             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
           links:
               - mysql
           ports:
