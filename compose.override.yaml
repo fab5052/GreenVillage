@@ -1,10 +1,14 @@
-
-services:
 ###> doctrine/doctrine-bundle ###
+services:
+#  server:
+#  environment:
+# DATABASE_URL: "mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@mysql:3306/${MYSQL_DATABASE}?serverVersion=8&charset=utf8"
+
   mysql:
     ports:
-      - "3306"
-###< doctrine/doctrine-bundle ###
+      - 3307:3306
+###> doctrine/doctrine-bundle ###
+
 
 ###> symfony/mailer ###
   mailer:
