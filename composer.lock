@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9290d7ee7153f6cd403179f7ed5e5d7e",
+    "content-hash": "5613efdff1d15a1d03d5173af3489cfc",
     "packages": [
         {
             "name": "composer/semver",
@@ -7494,6 +7494,142 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
+        },
+        {
+            "name": "yokai/batch",
+            "version": "0.6.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yokai-php/batch.git",
+                "reference": "a1099749676737db9fe5ab88dd88bc7c45b5218b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yokai-php/batch/zipball/a1099749676737db9fe5ab88dd88bc7c45b5218b",
+                "reference": "a1099749676737db9fe5ab88dd88bc7c45b5218b",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^8.1",
+                "psr/container": "^1.0|^2.0",
+                "psr/event-dispatcher": "^1.0",
+                "psr/log": "^1.0|^2.0|^3.0"
+            },
+            "require-dev": {
+                "phpspec/prophecy-phpunit": "^2.0",
+                "phpunit/phpunit": "^9.5",
+                "symfony/filesystem": "^6.4|^7.0"
+            },
+            "suggest": {
+                "yokai/batch-doctrine-dbal": "Store jobs executions in a relational database",
+                "yokai/batch-doctrine-orm": "Read from Doctrine ORM entities",
+                "yokai/batch-doctrine-persistence": "Write to Doctrine objects to managers",
+                "yokai/batch-symfony-console": "Add command to trigger jobs and async job launcher via command",
+                "yokai/batch-symfony-framework": "Integrate to Symfony framework via a bundle",
+                "yokai/batch-symfony-messenger": "Trigger jobs using message dispatch",
+                "yokai/batch-symfony-serializer": "Process items using (de)normalization, serialize job execution for certain storages",
+                "yokai/batch-symfony-validator": "Skip invalid items during process"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Yokai\\Batch\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Yann Eugoné",
+                    "email": "eugone.yann@gmail.com"
+                }
+            ],
+            "description": "Batch architecture library inspired by Akeneo Batch",
+            "keywords": [
+                "batch",
+                "execution",
+                "job",
+                "processor",
+                "reader",
+                "writer"
+            ],
+            "support": {
+                "source": "https://github.com/yokai-php/batch/tree/0.6.3"
+            },
+            "time": "2024-06-11T13:59:46+00:00"
+        },
+        {
+            "name": "yokai/batch-symfony-framework",
+            "version": "0.6.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yokai-php/batch-symfony-framework.git",
+                "reference": "3ef8cec834db7f37052c146f82996ddc41b7d3bc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yokai-php/batch-symfony-framework/zipball/3ef8cec834db7f37052c146f82996ddc41b7d3bc",
+                "reference": "3ef8cec834db7f37052c146f82996ddc41b7d3bc",
+                "shasum": ""
+            },
+            "require": {
+                "composer-runtime-api": "^2.0",
+                "php": "^8.1",
+                "psr/log": "^1.0|^2.0|^3.0",
+                "symfony/config": "^6.4|^7.0",
+                "symfony/console": "^6.4|^7.0",
+                "symfony/dependency-injection": "^6.4|^7.0",
+                "symfony/framework-bundle": "^6.4|^7.0",
+                "symfony/http-kernel": "^6.4|^7.0",
+                "yokai/batch": "^0.6.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5",
+                "sonata-project/admin-bundle": "^4.0",
+                "symfony/filesystem": "^6.4|^7.0",
+                "symfony/form": "^6.4|^7.0",
+                "symfony/security-bundle": "^6.4|^7.0",
+                "symfony/translation": "^6.4|^7.0",
+                "symfony/twig-bundle": "^6.4|^7.0"
+            },
+            "suggest": {
+                "sonata-project/admin-bundle": "If you want a SonataAdmin like rendering in the user interface",
+                "symfony/form": "If you want the JobExecution form filter in the user interface",
+                "symfony/messenger": "If you to launch jobs via messenger",
+                "symfony/security-bundle": "If you want to secure the access to JobExecution in the user interface",
+                "symfony/translation": "Required if you want to enable the user interface",
+                "symfony/twig-bundle": "Required if you want to enable the user interface"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Yokai\\Batch\\Bridge\\Symfony\\Framework\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Yann Eugoné",
+                    "email": "eugone.yann@gmail.com"
+                }
+            ],
+            "description": "symfony/framework-bundle bridge for yokai/batch",
+            "keywords": [
+                "batch",
+                "framework",
+                "job",
+                "symfony"
+            ],
+            "support": {
+                "source": "https://github.com/yokai-php/batch-symfony-framework/tree/0.6.3"
+            },
+            "time": "2024-08-14T15:03:00+00:00"
         }
     ],
     "packages-dev": [
