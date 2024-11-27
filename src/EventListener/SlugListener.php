@@ -24,7 +24,7 @@ class SlugListener
         $entity = $args->getEntity();
 
         // Vérifiez si l'entité utilise le SlugTrait
-        if (method_exists($entity, 'setSlug') && method_exists($entity, 'get) {
+        if (method_exists($entity, 'setSlug') && method_exists($entity, 'getRubrique')) {
             $slugify = new Slugify();
             $slug = $slugify->slugify($entity->getImage());
             $entity->setSlug($slug);
