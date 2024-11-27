@@ -13,10 +13,9 @@ services:
         ports:
             - 81:80 
 #        user: ${LOCAL_USER}    
-#       environment:    
-#          DATABASE_URL: "database://${MYSQL_USER:- user}:${MYSQL_PASSWORD:- pwd}@database:3306/${MYSQL_DATABASE:- app}"
+        # environment:    
+        #   DATABASE_URL: "mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@127.0.0.1:3306/${MYSQL_DATABASE}"
 
-###> doctrine/doctrine-bundle ###
   mysql:
     image: mysql:${MYSQL_VERSION:-8}
     container_name: mysql
@@ -25,7 +24,7 @@ services:
         MYSQL_USER: ${MYSQL_USER}
         MYSQL_PASSWORD: ${MYSQL_PASSWORD}
         MYSQL_DATABASE: ${MYSQL_DATABASE}
-        MYSQL_ROOT_PASSWORD: toor
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     # healthcheck:
     #     test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
     #     timeout: 5s
@@ -46,16 +45,12 @@ services:
              PMA_HOST: mysql
             #  PMA_USER: admin
             #  PMA_PASSWORD: Afpa1234
-             MYSQL_ROOT_PASSWORD: toor
+             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
           links:
               - mysql
           ports:
               - 8090:80
-      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./docker/db/data:/var/lib/postgresql/data:rw
-###< doctrine/doctrine-bundle ###
+
 
 volumes:
-###> doctrine/doctrine-bundle ###
   mysql_data:
-###< doctrine/doctrine-bundle ###

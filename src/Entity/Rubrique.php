@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use SlugTrait;
 use App\Repository\RubriqueRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -9,9 +10,12 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: RubriqueRepository::class)]
 class Rubrique
 {
+    use SlugTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(["read:produit", "read:sous_rubrique"])]
     private ?int $id = null;
 
     #[ORM\Column(nullable: true)]
