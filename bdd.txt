@@ -1,0 +1,309 @@
+    Produit
+        ID_Produit (PK)
+        LibelléCourt
+        LibelléLong (description)
+        RéférenceFournisseur
+		RéférenceSlug
+        PrixAchatHT
+        Photo
+        Stock
+		Created_at (
+        Actif (booléen)
+        ID_SousRubrique (FK)
+
+    Rubrique
+        ID_Rubrique (PK)
+        NomRubrique
+
+    SousRubrique
+        ID_SousRubrique (PK)
+        NomSousRubrique
+        ID_Rubrique (FK)
+
+    Fournisseur
+        ID_Fournisseur (PK)
+        NomFournisseur
+        Adresse
+        Téléphone
+        Email
+
+    Client
+        ID_Client (PK)
+        TypeClient (Particulier/Professionnel)
+        Nom
+        Prénom (si particulier)
+        RaisonSociale (si professionnel)
+        Email
+        Téléphone
+        AdresseFacturation
+        AdresseLivraison
+        Coefficient
+        ID_Commercial (FK)
+
+    Commercial
+        ID_Commercial (PK)
+        Nom
+        Prénom
+        Email
+        Téléphone
+
+    Commande
+        ID_Commande (PK)
+        DateCommande
+        Statut (En attente, Expédiée, Partiellement expédiée)
+        Réduction (si client professionnel)
+        ID_Client (FK)
+
+    LigneCommande
+        ID_LigneCommande (PK)
+        Quantité
+        PrixUnitaireHT
+        TotalHT
+        ID_Commande (FK)
+        ID_Produit (FK)
+
+    Paiement
+        ID_Paiement (PK)
+        Montant
+        ModePaiement (Virement, Chèque, CB)
+        DatePaiement
+        ID_Commande (FK)
+
+    Facture
+        ID_Facture (PK)
+        DateFacture
+        TotalHT
+        TotalTTC
+        ID_Commande (FK)
+
+    BonLivraison
+        ID_BonLivraison (PK)
+        DateBonLivraison
+        ID_Commande (FK)
+
+Relations entre les entités
+
+    Rubrique ↔ SousRubrique : Une rubrique peut avoir plusieurs sous-rubriques, mais une sous-rubrique appartient à une seule rubrique.
+        Relation : 1,1 ↔ 0,N
+
+    SousRubrique ↔ Produit : Une sous-rubrique peut contenir plusieurs produits, mais un produit appartient à une seule sous-rubrique.
+        Relation : 1,1 ↔ 0,N
+
+    Fournisseur ↔ Produit : Un fournisseur peut fournir plusieurs produits, mais un produit est fourni par un seul fournisseur.
+        Relation : 1,1 ↔ 0,N
+
+    Client ↔ Commande : Un client peut passer plusieurs commandes, mais une commande appartient à un seul client.
+        Relation : 1,1 ↔ 0,N
+
+    Commercial ↔ Client : Un commercial peut gérer plusieurs clients, mais un client est suivi par un seul commercial.
+        Relation : 1,1 ↔ 0,N
+
+    Commande ↔ LigneCommande : Une commande peut contenir plusieurs lignes de commande, mais une ligne de commande appartient à une seule commande.
+        Relation : 1,1 ↔ 0,N
+
+    Commande ↔ Paiement : Une commande peut être associée à un ou plusieurs paiements, mais un paiement appartient à une seule commande.
+        Relation : 1,N ↔ 0,N
+
+    Commande ↔ Facture : Une commande génère une seule facture, mais une facture est associée à une seule commande.
+        Relation : 1,1 ↔ 0,1
+
+    Commande ↔ BonLivraison : Une commande peut être associée à plusieurs bons de livraison, mais un bon de livraison appartient à une seule commande.
+        Relation : 1,1 ↔ 0,N
+
+    Produit ↔ LigneCommande : Un produit peut apparaître dans plusieurs lignes de commande, mais une ligne de commande concerne un seul produit.
+        Relation : 1,N ↔ 1,1
+		
+		
+CREATE TABLE rubric(
+   rub_id INT AUTO_INCREMENT,
+   rub_label VARCHAR(100)  NOT NULL,
+   rub_slug VARCHAR(50)  NOT NULL,
+   rub_desc TEXT,
+   rub_img VARCHAR(50) ,
+   rub_id_rub_parent_id INT NOT NULL,
+   PRIMARY KEY(rub_id),
+   UNIQUE(rub_slug),
+   FOREIGN KEY(rub_id_rub_parent_id) REFERENCES rubric(rub_id)
+);
+
+CREATE TABLE service(
+   serv_id INT AUTO_INCREMENT,
+   serv_type ENUM ('apres-vente','commercial','comptabilite','equipe'),
+   PRIMARY KEY(serv_id)
+);
+
+CREATE TABLE utilisateur(
+   user_id INT AUTO_INCREMENT,
+   user_ref VARCHAR(50)  NOT NULL,
+   user_firstname VARCHAR(100)  NOT NULL,
+   user_lastname VARCHAR(100)  NOT NULL,
+   user_phone VARCHAR(20) ,
+   user_email VARCHAR(255)  NOT NULL,
+   user_passwd VARCHAR(255)  NOT NULL,
+   user_role ENUM ( 'admin','user')  NOT NULL,
+   coef DECIMAL (5,2) DEFAULT 0 NOT NULL,
+   user_type ENUM ('particulier', 'professionnel'),
+   user_siret VARCHAR(20) ,
+   user_last_conn DATETIME NOT NULL,
+   serv_id INT,
+   PRIMARY KEY(user_id),
+   UNIQUE(user_ref),
+   UNIQUE(user_email),
+   UNIQUE(user_siret),
+   FOREIGN KEY(serv_id) REFERENCES service(serv_id)
+);
+
+CREATE TABLE address(
+   adr_id INT AUTO_INCREMENT,
+   adr_city VARCHAR(100)  NOT NULL,
+   adr_address VARCHAR(255)  NOT NULL,
+   adr_type ENUM ('livraison', 'facturation') NOT NULL,
+   adr_cp VARCHAR(50)  NOT NULL,
+   is_default BOOLEAN DEFAULT false,
+   user_id INT NOT NULL,
+   PRIMARY KEY(adr_id),
+   FOREIGN KEY(user_id) REFERENCES utilisateur(user_id)
+);
+
+CREATE TABLE supplier_details(
+   spl_id INT AUTO_INCREMENT,
+   spl_siret VARCHAR(50)  NOT NULL,
+   spl_type ENUM ('importateur', 'constructeur') NOT NULL,
+   spl_status BOOLEAN NOT NULL,
+   user_id INT NOT NULL,
+   PRIMARY KEY(spl_id),
+   UNIQUE(spl_siret),
+   FOREIGN KEY(user_id) REFERENCES utilisateur(user_id)
+);
+
+CREATE TABLE product(
+   prod_id INT AUTO_INCREMENT,
+   prod_label VARCHAR(100)  NOT NULL,
+   prod_ref VARCHAR(50)  NOT NULL,
+   prod_slug VARCHAR(100)  NOT NULL,
+   prod_desc TEXT,
+   prod_price DECIMAL(15,2)   NOT NULL,
+   prod_stock INT NOT NULL,
+   created_at DATETIME,
+   updated_at DATETIME,
+   spl_id INT NOT NULL,
+   rub_id INT NOT NULL,
+   PRIMARY KEY(prod_id),
+   UNIQUE(prod_ref),
+   UNIQUE(prod_slug),
+   FOREIGN KEY(spl_id) REFERENCES supplier_details(spl_id),
+   FOREIGN KEY(rub_id) REFERENCES rubric(rub_id)
+);
+
+CREATE TABLE order_history(
+   ord_id INT AUTO_INCREMENT,
+   ord_date DATETIME,
+   ord_ref VARCHAR(50)  NOT NULL,
+   ord_status ENUM ('en attente', 'expédiée', 'partiellement expédiée', 'livrée') NOT NULL,
+   payment_date DATETIME NOT NULL,
+   archive_doc VARCHAR(255) ,
+   payment_method ENUM  ('virement', 'chèque', 'carte bancaire') NOT NULL,
+   total DECIMAL(15,2)   NOT NULL,
+   invoice_date DATETIME,
+   payment_status ENUM ('en attente', 'validé', 'refusée') NOT NULL,
+   archive_type ENUM ('facture',' bon de livraison') NOT NULL,
+   user_id INT NOT NULL,
+   PRIMARY KEY(ord_id),
+   UNIQUE(ord_ref),
+   FOREIGN KEY(user_id) REFERENCES utilisateur(user_id)
+);
+
+CREATE TABLE delivery(
+   deliv_id INT AUTO_INCREMENT,
+   deli_date DATETIME NOT NULL,
+   shipping_note VARCHAR(100) ,
+   ord_id INT NOT NULL,
+   PRIMARY KEY(deliv_id),
+   FOREIGN KEY(ord_id) REFERENCES order_history(ord_id)
+);
+
+CREATE TABLE image(
+   img_id INT AUTO_INCREMENT,
+   prod_img VARCHAR(255) ,
+   prod_id INT NOT NULL,
+   PRIMARY KEY(img_id),
+   FOREIGN KEY(prod_id) REFERENCES product(prod_id)
+);
+
+CREATE TABLE orders_details(
+   prod_id INT,
+   ord_id INT,
+   det_qty INT NOT NULL CHECK (det_qty > 0) NOT NULL,
+   det_price DECIMAL(15,2)   NOT NULL,
+   PRIMARY KEY(prod_id, ord_id),
+   FOREIGN KEY(prod_id) REFERENCES product(prod_id),
+   FOREIGN KEY(ord_id) REFERENCES order_history(ord_id)
+);
+
+CREATE TABLE delivery_details(
+   prod_id INT,
+   deliv_id INT,
+   shipped_qty INT NOT NULL CHECK (shipped_qty >= 0),
+   PRIMARY KEY(prod_id, deliv_id),
+   FOREIGN KEY(prod_id) REFERENCES product(prod_id),
+   FOREIGN KEY(deliv_id) REFERENCES delivery(deliv_id)
+);
+		
+		
+		
+SELECT `id`, `libelle`, `slug`, `description`, `image`, `rubrique_parent_id`, `parent_id`, `rubrique_id` FROM `rubrique` WHERE 1SELECT 
+    r.rubrique_id AS rubriqueID,
+    r.rubrique_libelle AS rubriqueLibelle,
+    sr.rubrique AS SousRubriqueID,
+    sr.NomSousRubrique AS SousRubriqueName
+FROM 
+    rubrique r
+LEFT JOIN 
+    SousRubrique sr ON r.ID_Rubrique = sr.ID_Rubrique;
+	
+	
+	
+rubriq principale:
+
+INSERT INTO rubrique (nom, parent_id) VALUES ('Informatique', NULL);
+
+
+sous-rubriq:
+
+INSERT INTO rubrique (nom, parent_id) VALUES ('Programmation', 1);
+
+
+
+
+REQUÊTES SQL AVEC PARENT_ID NULLABLE
+
+Pour sélectionner uniquement les rubriques principales :
+
+SELECT * FROM rubrique WHERE parent_id IS NULL;
+
+
+Pour sélectionner les sous-rubriques d'une rubrique donnée (exemple : id = 1) :
+
+SELECT * FROM rubrique WHERE parent_id = 1;
+
+
+
+GESTION DES RUBRIQUES PRINCIPALES
+
+gérer la création et la lecture des rubriques principales et sous-rubriques :
+
+$rubrique = new Rubrique();
+$rubrique->setNom('Informatique');
+$rubrique->setParent(null); // Pas de parent, donc rubrique principale.
+
+$entityManager->persist($rubrique);
+$entityManager->flush();
+
+
+
+$sousRubrique = new Rubrique();
+$sousRubrique->setNom('Programmation');
+$sousRubrique->setParent($rubrique); // La rubrique "Informatique" est le parent.
+
+$entityManager->persist($sousRubrique);
+$entityManager->flush();

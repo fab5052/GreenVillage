@@ -3,19 +3,20 @@
 namespace App\Entity;
 
 use SlugTrait;
-use App\Repository\RubriqueRepository;
+use App\Repository\RubricRepository;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM;use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
-#[ORM\Entity(repositoryClass: RubriqueRepository::class)]
-class Rubrique
+#[ORM\Entity(repositoryClass: RubricRepository::class)]
+class Rubric
 {
-    use SlugTrait;
+#    use SlugTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(["read:produit", "read:sous_rubrique"])]
+#    #[Groups(["read:produit", "read:sous_rubrique"])]
     private ?int $id = null;
 
     #[ORM\Column(nullable: true)]

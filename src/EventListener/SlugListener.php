@@ -4,6 +4,11 @@ namespace App\EventListener;
 
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\Common\Collections\ArrayCollection;
+
+
 
 class SlugListener
 {
