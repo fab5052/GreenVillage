@@ -1,70 +1,70 @@
-# FROM php:8.3.7-apache
+FROM php:8.3.7-apache
 
-# # Télécharger et configurer l'installateur d'extensions PHP
-# ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
-# RUN chmod +x /usr/local/bin/install-php-extensions
+# Télécharger et configurer l'installateur d'extensions PHP
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+RUN chmod +x /usr/local/bin/install-php-extensions
 
-# # Installer des dépendances système
-# RUN apt-get update && apt-get install -y \
-#     acl \
-#     libicu-dev \
-#     nano \
-#     wget \
-#     zip \
-#     git \
-#     curl \
-#     && apt-get clean && rm -rf /var/lib/apt/lists/*
+# Installer des dépendances système
+RUN apt-get update && apt-get install -y \
+    acl \
+    libicu-dev \
+    nano \
+    wget \
+    zip \
+    git \
+    curl \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# # Activer les modules Apache
-# RUN a2enmod \
-#     rewrite \
-#     expires \
-#     headers
+# Activer les modules Apache
+RUN a2enmod \
+    rewrite \
+    expires \
+    headers
 
-# # Installer les extensions PHP nécessaires
-# RUN install-php-extensions \
-#     pdo_mysql \
-#     intl \
-#     apcu \
-#     xdebug \
+# Installer les extensions PHP nécessaires
+RUN install-php-extensions \
+    pdo_mysql \
+    intl \
+    apcu \
+    xdebug 
 #     opcache
 
-# ADD opcache.ini $PHP_INI_DIR/conf.d/
+# Installer OPcache
+RUN docker-php-ext-install opcache
 
-# # # Configurer Xdebug
-# # RUN echo 'xdebug.mode=develop,debug,coverage' >> /usr/local/etc/php/conf.d/xdebug.ini \
-# #     && echo 'xdebug.client_host=host.docker.internal' >> /usr/local/etc/php/conf.d/xdebug.ini
+# Copier un fichier de configuration personnalisée d'OPcache
+#COPY ./docker/php/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
+ADD opcache.ini $PHP_INI_DIR/conf.d/
 
-# # # Copier et activer php.ini (ajustez si nécessaire)
-# # RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini \
-# #     && echo 'short_open_tag = Off' >> /usr/local/etc/php/php.ini
+# Configurer Xdebug
+RUN echo 'xdebug.mode=develop,debug,coverage' >> /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo 'xdebug.client_host=host.docker.internal' >> /usr/local/etc/php/conf.d/xdebug.ini
 
-# # RUN apt-get update && apt-get install -y curl \
-# #     && curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
-# #     && apt-get install -y nodejs
+# # Copier et activer php.ini (ajustez si nécessaire)
+RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini \
+    && echo 'short_open_tag = Off' >> /usr/local/etc/php/php.ini
 
-# # # Installer Composer
-# # RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# RUN apt-get update && apt-get install -y curl \
+#     && curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
+#     && apt-get install -y nodejs
 
-# # Installer les dépendances front-end
-# WORKDIR /var/www/html
+# # Installer Composer
+# RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# COPY ./automation/docker/default-vhost.conf /etc/apache2/sites-available/default-vhost.conf
+# Installer les dépendances front-end
+WORKDIR /var/www/html
 
-# RUN a2dissite 000-default.conf \
-#     && a2ensite default-vhost.conf
+COPY ./automation/docker/default-vhost.conf /etc/apache2/sites-available/default-vhost.conf
 
-# # Ajouter un script d'entrée Docker
-# COPY ./automation/scripts/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-# RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+RUN a2dissite 000-default.conf \
+    && a2ensite default-vhost.conf
 
-# # Exposer le port HTTP
-# EXPOSE 80
+# Ajouter un script d'entrée Docker
+COPY ./automation/scripts/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-# # Commande par défaut
-# CMD ["/usr/local/bin/docker-entrypoint.sh"]
+# Exposer le port HTTP
+EXPOSE 80
 
-# syntax = docker/dockerfile:1.3
-FROM golang
-
-RUN --mount=type=cache,target=/root/.cache/go-build go build ...
+# Commande par défaut
+CMD ["/usr/local/bin/docker-entrypoint.sh"]
