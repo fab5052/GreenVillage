@@ -7,6 +7,7 @@
         "php": ">=8.1",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "amphp/http": "^2.1",
         "cocur/slugify": "^4.6",
         "doctrine/annotations": "^2.0",
         "doctrine/collections": "^2.2",
@@ -38,6 +39,7 @@
         "symfony/property-access": "6.4.*",
         "symfony/property-info": "6.4.*",
         "symfony/runtime": "6.4.*",
+        "symfony/security-acl": "^3.3",
         "symfony/security-bundle": "6.4.*",
         "symfony/serializer": "6.4.*",
         "symfony/stimulus-bundle": "^2.21",
@@ -113,6 +115,7 @@
         "symfony/maker-bundle": "^1.0",
         "symfony/phpunit-bridge": "^7.1",
         "symfony/stopwatch": "6.4.*",
-        "symfony/web-profiler-bundle": "6.4.*"
+        "symfony/web-profiler-bundle": "6.4.*",
+        "twig/intl-extra": "^3.15"
     }
 }

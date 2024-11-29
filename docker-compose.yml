@@ -13,8 +13,8 @@ services:
         ports:
             - 81:80 
 #        user: ${LOCAL_USER}    
-        # environment:    
-        #   DATABASE_URL: "mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@127.0.0.1:3306/${MYSQL_DATABASE}"
+        environment:    
+           DATABASE_URL: "mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@mysql:3306/${MYSQL_DATABASE}"
 
   mysql:
     image: mysql:${MYSQL_VERSION:-8}

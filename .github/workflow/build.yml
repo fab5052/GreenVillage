@@ -26,5 +26,5 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: bricefa5052/GreenVillage:latest
+          tags: bricefa5052/greenvillage:latest
           platforms: linux/amd64,linux/arm64
