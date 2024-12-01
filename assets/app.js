@@ -1,4 +1,13 @@
 import './bootstrap.js';
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+function App() {
+    return <h1>Hello React in Symfony!</h1>;
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
+
 /*
  * Welcome to your app's main JavaScript file!
  *

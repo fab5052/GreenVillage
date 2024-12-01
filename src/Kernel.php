@@ -9,3 +9,5 @@ class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
 }
+
+require_once dirname(__DIR__).'/vendor/autoload.php';

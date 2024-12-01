@@ -4,70 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3fd0f69794ac8519be4e4ddb87797141",
+    "content-hash": "ae279438e3382f76ac008dbaa7423277",
     "packages": [
-        {
-            "name": "amnuts/opcache-gui",
-            "version": "3.5.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/amnuts/opcache-gui.git",
-                "reference": "4ad9866c4bb5a96fd8a40353afb15f6934f4919b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/amnuts/opcache-gui/zipball/4ad9866c4bb5a96fd8a40353afb15f6934f4919b",
-                "reference": "4ad9866c4bb5a96fd8a40353afb15f6934f4919b",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "ext-zend-opcache": "*",
-                "php": ">=7.1.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Amnuts\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Andrew Collington",
-                    "email": "andy@amnuts.com",
-                    "homepage": "https://blog.amnuts.com/",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Contributors",
-                    "homepage": "https://github.com/amnuts/opcache-gui/graphs/contributors"
-                }
-            ],
-            "description": "A clean, effective and responsive interface for Zend OPcache, with real(ish)-time monitoring, filtering and the ability to invalidate files",
-            "keywords": [
-                "Opcache",
-                "cache",
-                "gui",
-                "interface",
-                "opcodes"
-            ],
-            "support": {
-                "email": "andy@amnuts.com",
-                "issues": "https://github.com/amnuts/opcache-gui/issues",
-                "source": "https://github.com/amnuts/opcache-gui/tree/3.5.5"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/amnuts",
-                    "type": "github"
-                }
-            ],
-            "time": "2024-06-23T13:01:33+00:00"
-        },
         {
             "name": "amphp/hpack",
             "version": "v3.2.1",
@@ -267,6 +205,55 @@
                 }
             ],
             "time": "2024-03-21T19:16:53+00:00"
+        },
+        {
+            "name": "axios/tools",
+            "version": "2.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/AxiosLeo/php-tools.git",
+                "reference": "cd576f058db7b633750d62bb6d7d1840f0ab8d5e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/AxiosLeo/php-tools/zipball/cd576f058db7b633750d62bb6d7d1840f0ab8d5e",
+                "reference": "cd576f058db7b633750d62bb6d7d1840f0ab8d5e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.52.1",
+                "phpunit/phpunit": "^9.5",
+                "symfony/var-dumper": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "functions.php"
+                ],
+                "psr-4": {
+                    "axios\\tools\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "axios",
+                    "email": "axiosleo@foxmail.com"
+                }
+            ],
+            "description": "some tools",
+            "homepage": "https://github.com/AxiosCros/php-tools",
+            "support": {
+                "issues": "https://github.com/AxiosCros/php-tools/issues",
+                "source": "https://github.com/AxiosLeo/php-tools/tree/2.1.2"
+            },
+            "time": "2024-04-02T07:47:52+00:00"
         },
         {
             "name": "cocur/slugify",
@@ -2208,6 +2195,72 @@
                 }
             ],
             "time": "2024-11-12T13:57:08+00:00"
+        },
+        {
+            "name": "nodejs-php-fallback/nodejs-php-fallback",
+            "version": "1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kylekatarnls/nodejs-php-fallback.git",
+                "reference": "0dbdbc0cccf3c6c4a86189b21ce898252e287072"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kylekatarnls/nodejs-php-fallback/zipball/0dbdbc0cccf3c6c4a86189b21ce898252e287072",
+                "reference": "0dbdbc0cccf3c6c4a86189b21ce898252e287072",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0 || ^2.0",
+                "php": ">=7.3"
+            },
+            "require-dev": {
+                "composer/composer": "^2.0",
+                "phpmd/phpmd": "^2.9",
+                "phpunit/phpunit": "^8.5"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "NodejsPhpFallback\\ComposerPlugin",
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "NodejsPhpFallback\\": "src/NodejsPhpFallback/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kyle",
+                    "email": "kylekatarnls@gmail.com"
+                }
+            ],
+            "description": "Allow you to call node.js module or scripts throught PHP and call a fallback function if node.js is not available",
+            "support": {
+                "issues": "https://github.com/kylekatarnls/nodejs-php-fallback/issues",
+                "source": "https://github.com/kylekatarnls/nodejs-php-fallback/tree/1.6.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/kylekatarnls",
+                    "type": "github"
+                },
+                {
+                    "url": "https://opencollective.com/Carbon",
+                    "type": "open_collective"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/nesbot/carbon",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-10-30T09:26:47+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -7108,16 +7161,16 @@
         },
         {
             "name": "symfony/stimulus-bundle",
-            "version": "v2.21.0",
+            "version": "v2.22.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/stimulus-bundle.git",
-                "reference": "e5f7747b514865719e0990389ce35a9b71bebb48"
+                "reference": "2e840a3b12f06b33441cc3eb8907f51b806a7e4b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/stimulus-bundle/zipball/e5f7747b514865719e0990389ce35a9b71bebb48",
-                "reference": "e5f7747b514865719e0990389ce35a9b71bebb48",
+                "url": "https://api.github.com/repos/symfony/stimulus-bundle/zipball/2e840a3b12f06b33441cc3eb8907f51b806a7e4b",
+                "reference": "2e840a3b12f06b33441cc3eb8907f51b806a7e4b",
                 "shasum": ""
             },
             "require": {
@@ -7157,7 +7210,7 @@
                 "symfony-ux"
             ],
             "support": {
-                "source": "https://github.com/symfony/stimulus-bundle/tree/v2.21.0"
+                "source": "https://github.com/symfony/stimulus-bundle/tree/v2.22.0"
             },
             "funding": [
                 {
@@ -7173,7 +7226,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-10-05T22:11:16+00:00"
+            "time": "2024-11-20T07:57:38+00:00"
         },
         {
             "name": "symfony/stopwatch",
@@ -7691,16 +7744,16 @@
         },
         {
             "name": "symfony/ux-turbo",
-            "version": "v2.21.0",
+            "version": "v2.22.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ux-turbo.git",
-                "reference": "075c609e54fc421c6b1c1974e46e9a8b2d44277c"
+                "reference": "f7af0aa09190354dd4630ea330d8a3fc3e8ef278"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ux-turbo/zipball/075c609e54fc421c6b1c1974e46e9a8b2d44277c",
-                "reference": "075c609e54fc421c6b1c1974e46e9a8b2d44277c",
+                "url": "https://api.github.com/repos/symfony/ux-turbo/zipball/f7af0aa09190354dd4630ea330d8a3fc3e8ef278",
+                "reference": "f7af0aa09190354dd4630ea330d8a3fc3e8ef278",
                 "shasum": ""
             },
             "require": {
@@ -7769,7 +7822,7 @@
                 "turbo-stream"
             ],
             "support": {
-                "source": "https://github.com/symfony/ux-turbo/tree/v2.21.0"
+                "source": "https://github.com/symfony/ux-turbo/tree/v2.22.0"
             },
             "funding": [
                 {
@@ -7785,7 +7838,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-10-21T19:07:02+00:00"
+            "time": "2024-11-29T15:25:16+00:00"
         },
         {
             "name": "symfony/validator",
@@ -8750,6 +8803,68 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "amnuts/opcache-gui",
+            "version": "3.5.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/amnuts/opcache-gui.git",
+                "reference": "4ad9866c4bb5a96fd8a40353afb15f6934f4919b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/amnuts/opcache-gui/zipball/4ad9866c4bb5a96fd8a40353afb15f6934f4919b",
+                "reference": "4ad9866c4bb5a96fd8a40353afb15f6934f4919b",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-zend-opcache": "*",
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Amnuts\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andrew Collington",
+                    "email": "andy@amnuts.com",
+                    "homepage": "https://blog.amnuts.com/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/amnuts/opcache-gui/graphs/contributors"
+                }
+            ],
+            "description": "A clean, effective and responsive interface for Zend OPcache, with real(ish)-time monitoring, filtering and the ability to invalidate files",
+            "keywords": [
+                "Opcache",
+                "cache",
+                "gui",
+                "interface",
+                "opcodes"
+            ],
+            "support": {
+                "email": "andy@amnuts.com",
+                "issues": "https://github.com/amnuts/opcache-gui/issues",
+                "source": "https://github.com/amnuts/opcache-gui/tree/3.5.5"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/amnuts",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-06-23T13:01:33+00:00"
+        },
         {
             "name": "behat/transliterator",
             "version": "v1.5.0",

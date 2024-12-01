@@ -4,6 +4,11 @@ FROM php:8.3.7-apache
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 RUN chmod +x /usr/local/bin/install-php-extensions
 
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
+    && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
+    && php -r "unlink('composer-setup.php');"
+
+
 # Installer des dépendances système
 RUN apt-get update && apt-get install -y \
     acl \
@@ -26,15 +31,15 @@ RUN install-php-extensions \
     pdo_mysql \
     intl \
     apcu \
-    xdebug 
-#     opcache
+    xdebug \
+    opcache 
 
 # Installer OPcache
-RUN docker-php-ext-install opcache
+#RUN docker-php-ext-install opcache
 
 # Copier un fichier de configuration personnalisée d'OPcache
 #COPY ./docker/php/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
-ADD opcache.ini $PHP_INI_DIR/conf.d/
+ADD opcache.ini $PHP_INI_DIR/conf.d/opcache.ini
 
 # Configurer Xdebug
 RUN echo 'xdebug.mode=develop,debug,coverage' >> /usr/local/etc/php/conf.d/xdebug.ini \
