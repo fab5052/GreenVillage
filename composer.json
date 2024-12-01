@@ -100,6 +100,10 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+            
+        
+        
+        
         ]
     },
     "conflict": {
@@ -116,6 +120,7 @@
         "doctrine/doctrine-fixtures-bundle": "^3.6",
         "gedmo/doctrine-extensions": "^3.17",
         "phpunit/phpunit": "^9.5",
+        "shopify/shopify-api": "^5.8",
         "symfony/browser-kit": "6.4.*",
         "symfony/css-selector": "6.4.*",
         "symfony/debug-bundle": "6.4.*",

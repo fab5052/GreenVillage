@@ -98,4 +98,65 @@ class Rubric
 
         return $this;
     }
+    
+     /**
+     * @return Collection<int, self>
+     */
+    public function getRubrics(): Collection
+    {
+        return $this->rubrics;
+    }
+
+    public function addRubric(self $rubric): static
+    {
+        if (!$this->rubrics->contains($rubric)) {
+            $this->rubrics->add($rubric);
+            $rubric->setParent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRubric(self $rubric): static
+    {
+        if ($this->rubrics->removeElement($rubric)) {
+            // set the owning side to null (unless already changed)
+            if ($rubric->getParent() === $this) {
+                $rubric->setParent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Product>
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): static
+    {
+        if (!$this->products->contains($product)) {
+            $this->products->add($product);
+            $product->setRubric($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): static
+    {
+        if ($this->products->removeElement($product)) {
+            // set the owning side to null (unless already changed)
+            if ($product->getRubric() === $this) {
+                $product->setRubric(null);
+            }
+        }
+
+        return $this;
+    }
 }
+
