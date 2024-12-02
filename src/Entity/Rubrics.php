@@ -3,13 +3,13 @@
 namespace App\Entity;
 
 use SlugTrait;
-use App\Repository\RubricRepository;
+use App\Repository\RubricsRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-#[ORM\Entity(repositoryClass: RubricRepository::class)]
-class Rubric
+#[ORM\Entity(repositoryClass: RubricsRepository::class)]
+class Rubrics
 {
 #    use SlugTrait;
 
@@ -99,64 +99,64 @@ class Rubric
         return $this;
     }
     
-     /**
-     * @return Collection<int, self>
-     */
-    public function getRubrics(): Collection
-    {
-        return $this->rubrics;
-    }
+    //  /**
+    //  * @return Collection<int, self>
+    //  */
+    // public function getRubric(): Collection
+    // {
+    //     return $this->rubrics;
+    // }
 
-    public function addRubric(self $rubric): static
-    {
-        if (!$this->rubrics->contains($rubric)) {
-            $this->rubrics->add($rubric);
-            $rubric->setParent($this);
-        }
+    // public function addRubric(self $rubric): static
+    // {
+    //     if (!$this->rubrics->contains($rubric)) {
+    //         $this->rubrics->add($rubric);
+    //         $rubric->setIdParent($this);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function removeRubric(self $rubric): static
-    {
-        if ($this->rubrics->removeElement($rubric)) {
-            // set the owning side to null (unless already changed)
-            if ($rubric->getParent() === $this) {
-                $rubric->setParent(null);
-            }
-        }
+    // public function removeRubric(self $rubric): static
+    // {
+    //     if ($this->rubrics->removeElement($rubric)) {
+    //         // set the owning side to null (unless already changed)
+    //         if ($rubric->getIdParent() === $this) {
+    //             $rubric->setIDParent(null);
+    //         }
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    /**
-     * @return Collection<int, Product>
-     */
-    public function getProducts(): Collection
-    {
-        return $this->products;
-    }
+    // /**
+    //  * @return Collection<int, Product>
+    //  */
+    // public function getProducts(): Collection
+    // {
+    //     return $this->products;
+    // }
 
-    public function addProduct(Product $product): static
-    {
-        if (!$this->products->contains($product)) {
-            $this->products->add($product);
-            $product->setRubric($this);
-        }
+    // public function addProduct(Product $product): static
+    // {
+    //     if (!$this->products->contains($product)) {
+    //         $this->products->add($product);
+    //         $product->setRubric($this);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function removeProduct(Product $product): static
-    {
-        if ($this->products->removeElement($product)) {
-            // set the owning side to null (unless already changed)
-            if ($product->getRubric() === $this) {
-                $product->setRubric(null);
-            }
-        }
+    // public function removeProduct(Product $product): static
+    // {
+    //     if ($this->products->removeElement($product)) {
+    //         // set the owning side to null (unless already changed)
+    //         if ($product->getRubric() === $this) {
+    //             $product->setRubric(null);
+    //         }
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 }
 

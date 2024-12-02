@@ -1,3 +1,0 @@
-[submodule "opcache"]
-	path = opcache
-	url = http://localhost:81/opcache

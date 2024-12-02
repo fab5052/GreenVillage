@@ -116,7 +116,6 @@
         }
     },
     "require-dev": {
-        "amnuts/opcache-gui": "^3.5",
         "doctrine/doctrine-fixtures-bundle": "^3.6",
         "gedmo/doctrine-extensions": "^3.17",
         "phpunit/phpunit": "^9.5",

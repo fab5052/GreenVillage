@@ -4,9 +4,10 @@ controllers:
         namespace: App\Controller
     type: attribute
 
-app_opcache:
-  path: /../
-  controller: App\Controller\OpcacheController::opcache-gui
+opcache:
+    path: /opcache
+    controller: App\Controller\OpcacheController::index
+
 
 app_register:
   path: /register
@@ -40,11 +41,11 @@ app_changePassword:
     role: ROLE_USER
 
 # Accueil
-app_index:
-  path: /
-  controller: App\Controller\MainController::index
-  defaults:
-    role: ROLE_USER
+# app_index:
+#   path: /
+#   controller: App\Controller\MainController::index
+#   defaults:
+#     role: ROLE_USER
 
 # Toutes les rubriques
 app_rubrics:

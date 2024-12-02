@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "var": "^0.4.0"
+  },
+  "devDependencies": {
+    "@symfony/webpack-encore": "^5.0.1"
   }
 }

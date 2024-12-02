@@ -25,6 +25,9 @@
   },
   "homepage": "https://github.com/amnuts/opcache-gui#readme",
   "dependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.12.1"
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "jsx": "^0.9.89",
+    "sass": "^1.81.0",
+    "scss": "^0.2.4"
   }
 }

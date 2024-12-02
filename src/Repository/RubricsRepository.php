@@ -2,18 +2,18 @@
 
 namespace App\Repository;
 
-use App\Entity\Rubric;
+use App\Entity\Rubrics;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Rubric>
+ * @extends ServiceEntityRepository<Rubrics>
  */
-class RubricRepository extends ServiceEntityRepository
+class RubricsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Rubric::class);
+        parent::__construct($registry, Rubrics::class);
     }
 
 //    /**
