@@ -17,9 +17,9 @@ class SlugListener
         $entity = $args->getEntity();
 
         // Vérifiez si l'entité utilise le SlugTrait
-        if (method_exists($entity, 'setSlug') && method_exists($entity, 'getRubrique')) {
+        if (method_exists($entity, 'setSlug') && method_exists($entity, 'getRubrics')) {
             $slugify = new Slugify();
-            $slug = $slugify->slugify($entity->getNom());
+            $slug = $slugify->slugify($entity->getRubrics());
             $entity->setSlug($slug);
         }
     }
@@ -29,9 +29,9 @@ class SlugListener
         $entity = $args->getEntity();
 
         // Vérifiez si l'entité utilise le SlugTrait
-        if (method_exists($entity, 'setSlug') && method_exists($entity, 'getRubrique')) {
+        if (method_exists($entity, 'setSlug') && method_exists($entity, 'getRubrics')) {
             $slugify = new Slugify();
-            $slug = $slugify->slugify($entity->getImage());
+            $slug = $slugify->slugify($entity->getRubrics());
             $entity->setSlug($slug);
         }
     }

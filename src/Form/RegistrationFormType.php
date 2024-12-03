@@ -67,25 +67,33 @@ class RegistrationFormType extends AbstractType
             ],
             'label' => 'En m\'inscrivant à ce site j\'accepte...'
         ])
-        ->add('plainPassword', PasswordType::class, [
-                'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password',
-                'class' => 'form-control'
-                ],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                ],
-                'label' => 'Mot de passe'
-            ])
-        ;                
+        ->add('plainPassword', RepeatedType::class, [
+            'type' => PasswordType::class,
+            'first_options' => [
+                'label' => 'Mot de passe',
+                'attr' => ['class' => 'form-control'],
+            ],
+            'second_options' => [
+                'label' => 'Confirmer le mot de passe',
+                'attr' => ['class' => 'form-control'],
+            ],
+            'invalid_message' => 'Les mots de passe doivent correspondre.',
+            'mapped' => false,
+            'constraints' => [
+                new NotBlank([
+                    'message' => 'Veuillez saisir un mot de passe',
+                ]),
+                new Length([
+                    'min' => 6,
+                    'minMessage' => 'Le mot de passe doit contenir au moins {{ limit }} caractères.',
+                    'max' => 4096,
+                ]),
+            ],
+             'label' => 'Mot de passe'
+   
+        ]);
+
+                           
 }        
     
 

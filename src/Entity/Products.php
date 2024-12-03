@@ -3,9 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\ProductsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProductsRepository::class)]
+#[ORM\UniqueConstraint(name: 'slug', columns: ['slug'])]
+#[ORM\UniqueConstraint(name: 'ref', columns: ['ref'])]
 class Products
 {
     #[ORM\Id]
@@ -13,32 +18,29 @@ class Products
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $SousRubrique = null;
-
     #[ORM\Column(length: 100)]
-    private ?string $name = null;
+    private ?string $label = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column]
-    private ?int $price = null;
-
-    #[ORM\Column]
-    private ?int $stock = null;
+    #[ORM\Column(length: 100)]
+    private ?string $ref = null;
 
     #[ORM\Column(length: 100)]
     private ?string $slug = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $image = null;
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
+    private ?string $price = null;
+
+    #[ORM\Column]
+    private ?int $stock = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $updateAt = null;
+    private ?\DateTimeImmutable $updatedAt = null;
 
     public function getId(): ?int
     {

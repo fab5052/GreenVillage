@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use SlugTrait;
+use Trait\SlugTrait;
 use App\Repository\RubricsRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,56 +10,60 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: RubricsRepository::class)]
-class Rubrics
+class Rubrics 
 {
-#    use SlugTrait;
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-#    #[Groups(["read:produit", "read:sous_rubrique"])]
+    #[Groups(["read:products", "read:parent"])]
     private ?int $id = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $parent_id = null;
+    private ?int $parent = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $nom = null;
+    private ?string $label = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 100)]
     private ?string $slug = null;
 
     #[ORM\Column(length: 255)]
     private ?string $image = null;
+
+    public function __construct()
+    {
+        $this->rubrics = new ArrayCollection();
+        $this->products = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getParentId(): ?int
+    public function getParent(): ?self
     {
-        return $this->parent_id;
+        return $this->parent;
     }
 
-    public function setParentId(?int $parent_id): static
+    public function setParent(?self $parent): static
     {
-        $this->parent_id = $parent_id;
+        $this->parent = $parent;
 
         return $this;
     }
 
-    public function getNom(): ?string
+    public function getLabel(): ?string
     {
-        return $this->nom;
+        return $this->label;
     }
 
-    public function setNom(string $nom): static
+    public function setLabel(string $nom): static
     {
-        $this->nom = $nom;
+        $this->label = $label;
 
         return $this;
     }
@@ -100,64 +104,66 @@ class Rubrics
         return $this;
     }
     
-    //  /**
-    //  * @return Collection<int, self>
-    //  */
-    // public function getRubric(): Collection
-    // {
-    //     return $this->rubrics;
-    // }
+     /**
+     * @return Collection<int, self>
+     */
+    public function getRubrics(): Collection
+    {
+        return $this->rubrics;
+    }
 
-    // public function addRubric(self $rubric): static
-    // {
-    //     if (!$this->rubrics->contains($rubric)) {
-    //         $this->rubrics->add($rubric);
-    //         $rubric->setIdParent($this);
-    //     }
+    public function addRubric(self $rubric): static
+    {
+        if (!$this->rubrics->contains($rubric)) {
+            $this->rubrics->add($rubric);
+            $rubric->setParent($this);
+        }
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
-    // public function removeRubric(self $rubric): static
-    // {
-    //     if ($this->rubrics->removeElement($rubric)) {
-    //         // set the owning side to null (unless already changed)
-    //         if ($rubric->getIdParent() === $this) {
-    //             $rubric->setIDParent(null);
-    //         }
-    //     }
+    public function removeRubric(self $rubric): static
+    {
+        if ($this->rubrics->removeElement($rubric)) {
+            // set the owning side to null (unless already changed)
+            if ($rubric->getParent() === $this) {
+                $rubric->setParent(null);
+            }
+        }
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
-    // /**
-    //  * @return Collection<int, Product>
-    //  */
-    // public function getProducts(): Collection
-    // {
-    //     return $this->products;
-    // }
+    /**
+     * @return Collection<int, Product>
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
 
-    // public function addProduct(Product $product): static
-    // {
-    //     if (!$this->products->contains($product)) {
-    //         $this->products->add($product);
-    //         $product->setRubric($this);
-    //     }
+    public function addProduct(Product $product): static
+    {
+        if (!$this->products->contains($product)) {
+            $this->products->add($product);
+            $product->setRubric($this);
+        }
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
-    // public function removeProduct(Product $product): static
-    // {
-    //     if ($this->products->removeElement($product)) {
-    //         // set the owning side to null (unless already changed)
-    //         if ($product->getRubric() === $this) {
-    //             $product->setRubric(null);
-    //         }
-    //     }
+    public function removeProduct(Product $product): static
+    {
+        if ($this->products->removeElement($product)) {
+            // set the owning side to null (unless already changed)
+            if ($product->getRubric() === $this) {
+                $product->setRubric(null);
+            }
+        }
 
-    //     return $this;
-    // }
+        return $this;
+    }
 }
+
+
 
