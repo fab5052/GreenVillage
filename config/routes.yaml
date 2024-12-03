@@ -9,53 +9,58 @@ opcache:
     controller: App\Controller\OpcacheController::index
 
 
+app_dashboardAdmin:
+  path: /admin/dashboard
+  controller: App\controller\AdminController::admin
+
+app_dashboardClient:
+  path: /client/dashboard
+  controller: App\controller\ClientController::client
+
+app_dashboardCommercial:
+  path: /commercial/dashboard
+  controller: App\controller\CommercialController::commercial
+
 app_register:
   path: /register
   controller: App\Controller\RegistrationController::register
 
-#verifier email
 app_verify:
   path: /verif/{token}
   controller: App\Controller\RegistrationController::verifUser
 
-#resend email
 app_resend:
   path: /resend
   controller: App\Controller\RegistrationController::resendVerification
 
-# Connexion
 app_login:
   path: /login
   controller: App\Controller\SecurityController::login
 
-# Deconnexion
 app_logout:
   path: /logout
   controller: App\Controller\SecurityController::logout
 
-#Changer de mot de passe
 app_changePassword:
   path: /changePassword/{id}
   controller: App\Controller\SecurityController::changePassword
   defaults:
     role: ROLE_USER
 
-# Accueil
+
 # app_index:
 #   path: /
 #   controller: App\Controller\MainController::index
 #   defaults:
 #     role: ROLE_USER
 
-# Toutes les rubriques
 app_rubrics:
   path: /rubrics
   controller: App\Controller\MainController::rubrics
 
-# Tout les produits d'une rubrique
 app_productsByRubric:
   path: /products/{slug}
-  controller: App\Controller\MainController::productsByRubric
+  controller: App\Controller\MainController::productsRubrics
 
 #Tout les Produits
 app_products:
