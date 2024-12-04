@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use App\Repository\OrdersRepository;
 use App\Entity\OrderDetails;
-use App\Entity\OrderStatus;
+// use App\Enum\OrderStatus;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\DBAL\Types\Types;
@@ -47,24 +47,7 @@ class Orders
         return $this;
     }
 
-    #[ORM\Column(type: Types::STRING, enumType: OrderStatus::class)]
-    private OrderStatus $status;
 
-    public function __construct()
-    {
-        $this->status = OrderStatus::PENDING;
-    }
-
-    // Getter et Setter pour $status
-    public function getStatus(): OrderStatus
-    {
-        return $this->status;
-    }
-
-    public function setStatus(OrderStatus $status): void
-    {
-        $this->status = $status;
-    }
 }
 
 
