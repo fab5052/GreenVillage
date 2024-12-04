@@ -68,7 +68,7 @@ RUN chmod +x /usr/bin/composer
 # # Installer Composer
 # RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-WORKDIR /var/www
+WORKDIR /var/www/html
 
 COPY ./automation/docker/default-vhost.conf /etc/apache2/sites-available/default-vhost.conf
 

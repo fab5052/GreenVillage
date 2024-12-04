@@ -36,14 +36,14 @@ class UsersRepository extends ServiceEntityRepository implements PasswordUpgrade
         $this->getEntityManager()->flush();
 
 
-        if ($user->getRole() === UserRole::ADMIN) {
-            echo 'This user is an admin.';
-        }
+        // if ($user->getRole() === UserRole::ADMIN) {
+        //     echo 'This user is an admin.';
+        // }
         
-        $user =new Users();
-        $user->setUsername('john_doe');
-        $user->setPassword('secure_password');
-        $user->setRole(UserRole::ADMIN);
+        // $user =new Users();
+        // $user->setUsername('john_doe');
+        // $user->setPassword('secure_password');
+        // $user->setRole(UserRole::ADMIN);
     }
 
 

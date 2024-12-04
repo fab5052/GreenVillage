@@ -14,17 +14,31 @@
 <body>
     <div id="root">
 <div="container">
-{% block body %}{% endblock %}
+		{% for messages in app.flashes %}
+			{% for message in messages %}
+				<div class="text-center py-2">
+					<div class="p-2 bg-gray-800 text-gray-100 rounded-lg flex items-center justify-center" role="alert">
+						<span class="font-semibold text-sm">
+							{{ message | raw }}
+						</span>
+					</div>
+				</div>
+			{% endfor %}
+            {% endfor %}
 
-    {% block javascripts %}
+
+
+
+      </div>
+</div>
+{% block body %}{% endblock %}
+    
     {{ encore_entry_script_tags('app') }}
         <script src="{{ asset('build/runtime.js') }}"></script>
         <script src="{{ asset('build/app.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         {{ encore_entry_script_tags('app') }}
-    {% endblock %}
+     {% block javascripts %} {% endblock %}
 
-      </div>
-</div>
-    </body>
+       </body>
 </html>

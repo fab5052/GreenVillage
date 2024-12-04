@@ -89,19 +89,19 @@ class OrderDetails
     //     }
     // }
     
-    $status = OrderStatus::PENDING;
+    // $status = OrderStatus::PENDING;
 
-    echo $status->value; // Output: pending
-    echo $status->getDescription(); // Output: La commande est en attente.
+    // echo $status->value; // Output: pending
+    // echo $status->getDescription(); // Output: La commande est en attente.
 
-    $status = OrderStatus::SENT;
+    // $status = OrderStatus::SENT;
 
-    echo $status->getDescription(); // Output: La commande a été envoyée.
-    echo $status->isFinal() ? 'État final' : 'État non final'; // Output: État final
+    // echo $status->getDescription(); // Output: La commande a été envoyée.
+    // echo $status->isFinal() ? 'État final' : 'État non final'; // Output: État final
 
-    foreach (OrderStatus::cases() as $status) {
-       echo $status->name . ' => ' . $status->getDescription() . PHP_EOL;
-   }
+    // foreach (OrderStatus::cases() as $status) {
+    //    echo $status->name . ' => ' . $status->getDescription() . PHP_EOL;
+   
   
 
       

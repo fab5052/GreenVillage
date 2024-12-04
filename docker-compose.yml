@@ -28,6 +28,7 @@ services:
         MYSQL_PASSWORD: ${MYSQL_PASSWORD}
         MYSQL_DATABASE: ${MYSQL_DATABASE}
         MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        MAILER_DSN: smtp://mailhog:1025
     # healthcheck:
     #     test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
     #     timeout: 5s

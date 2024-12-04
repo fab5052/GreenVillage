@@ -48,6 +48,10 @@ app_changePassword:
     role: ROLE_USER
 
 
+app_home:
+  path: /
+  controller: App\Controller\HomeController::index
+
 # app_index:
 #   path: /
 #   controller: App\Controller\MainController::index
