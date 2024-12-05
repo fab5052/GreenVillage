@@ -90,26 +90,52 @@ class RegistrationFormType extends AbstractType
                 ]),
             ],
         ])
-        ->add('confirmPassword', PasswordType::class, [
-            'label' => 'Confirmer le nouveau mot de passe',
+        ->add('plainPassword', RepeatedType::class, [
+            'type' => PasswordType::class,
+            'first_options' => [
+                'label' => 'Mot de passe',
+                'attr' => ['class' => 'form-control'],
+            ],
+            'second_options' => [
+                'label' => 'Confirmer le mot de passe',
+                'attr' => ['class' => 'form-control'],
+            ],
+            'invalid_message' => 'Les mots de passe doivent correspondre.',
             'mapped' => false,
             'constraints' => [
                 new NotBlank([
-                    'message' => 'Veuillez confirmer votre nouveau mot de passe.',
+                    'message' => 'Veuillez saisir un mot de passe',
+                ]),
+                new Length([
+                    'min' => 6,
+                    'minMessage' => 'Le mot de passe doit contenir au moins {{ limit }} caractères.',
+                    'max' => 4096,
                 ]),
             ],
-        ])
+             'label' => 'Mot de passe'
    
-             ;
-             $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
-                 $form = $event->getForm();
-                 $plainPassword = $form->get('plainPassword')->getData();
-                 $confirmPassword = $form->get('confirmPassword')->getData();
+        ]);
+
+            // ->add('confirmPassword', PasswordType::class, [
+        //     'label' => 'Confirmer le nouveau mot de passe',
+        //     'mapped' => false,
+        //     'constraints' => [
+        //         new NotBlank([
+        //             'message' => 'Veuillez confirmer votre nouveau mot de passe.',
+        //         ]),
+        //     ],
+        // ])
+   
+        //      ;
+        //      $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+        //          $form = $event->getForm();
+        //          $plainPassword = $form->get('plainPassword')->getData();
+        //          $confirmPassword = $form->get('confirmPassword')->getData();
      
-                 if ($plainPassword !== $confirmPassword) {
-                     $form->get('confirmPassword')->addError(new FormError('Les mots de passe ne correspondent pas.'));
-                 }
-             });
+        //          if ($plainPassword !== $confirmPassword) {
+        //              $form->get('confirmPassword')->addError(new FormError('Les mots de passe ne correspondent pas.'));
+        //          }
+        //      });
          }
 
     public function configureOptions(OptionsResolver $resolver): void

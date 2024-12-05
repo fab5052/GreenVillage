@@ -16,7 +16,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\SecurityRequestAttributes;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
-class Login extends AbstractLoginFormAuthenticator
+class UsersAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
 
@@ -24,11 +24,12 @@ class Login extends AbstractLoginFormAuthenticator
 
     public function __construct(private UrlGeneratorInterface $urlGenerator)
     {
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function authenticate(Request $request): Passport
     {
-        $email = $request->getPayload()->getString('email');
+        $email = $request->request->get('email', '');
 
         $request->getSession()->set(SecurityRequestAttributes::LAST_USERNAME, $email);
 
@@ -46,26 +47,26 @@ class Login extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        // if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
-        //     return new RedirectResponse($targetPath);
-        // }
-
-        // Redirection basée sur les rôles
-        $roles = $token->getRoleNames(); // Récupère les rôles de l'utilisateur connecté
-
-        if (in_array('ROLE_ADMIN', $roles, true)) {
-            return new RedirectResponse($this->urlGenerator->generate('admin_dashboard'));
+        if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
+            return new RedirectResponse($targetPath);
         }
+        
+        // Redirection basée sur les rôles
+        // $roles = $token->getRoleNames(); // Récupère les rôles de l'utilisateur connecté
+
+        // if (in_array('ROLE_ADMIN', $roles, true)) {
+        //     return new RedirectResponse($this->urlGenerator->generate('admin_dashboard'));
+        // }
     
-        if (in_array('ROLE_CLIENT', $roles, true)) {
-            return new RedirectResponse($this->urlGenerator->generate('client_dashboard'));
-        } 
+        // if (in_array('ROLE_CLIENT', $roles, true)) {
+        //     return new RedirectResponse($this->urlGenerator->generate('client_dashboard'));
+        // } 
 
-        if (in_array('ROLE_COMMERCIAL', $roles, true)) {
-            return new RedirectResponse($this->urlGenerator->generate('commercial_dashboard'));
-        } 
+        // if (in_array('ROLE_COMMERCIAL', $roles, true)) {
+        //     return new RedirectResponse($this->urlGenerator->generate('commercial_dashboard'));
+        // } 
 
-//        return new RedirectResponse($this->urlGenerator->generate('home'));
+        return new RedirectResponse($this->urlGenerator->generate('main'));
     }
     //     // For example:
     //     // return new RedirectResponse($this->urlGenerator->generate('some_route'));

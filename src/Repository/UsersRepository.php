@@ -32,6 +32,7 @@ class UsersRepository extends ServiceEntityRepository implements PasswordUpgrade
 
         $user = new Users();
         $user->setPassword($newHashedPassword);
+        $user->getIsVerified();
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
 

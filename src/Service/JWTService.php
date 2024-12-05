@@ -35,19 +35,21 @@ class JWTService
 
         // On génère la signature
         $secret = base64_encode($secret);
+
         $signature = hash_hmac('sha256', $base64Header . '.' . $base64Payload, $secret, true);
 
         $base64Signature = base64_encode($signature);
 
-        $signature = str_replace(['+', '/', '='], ['-', '_', ''], $base64Signature);
+        $base64Signature = str_replace(['+', '/', '='], ['-', '_', ''], $base64Signature);
 
         // On crée le token
-        $jwt = $base64Header . '.' . $base64Payload . '.' . $signature;
+        $jwt = $base64Header . '.' . $base64Payload . '.' . $base64Signature;
 
         return $jwt;
     }
 
     //On vérifie que le token est valide (correctement formé)
+
     public function isValid(string $token): bool
     {
         return preg_match(
