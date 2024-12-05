@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Enum\UserRole;
 use App\Repository\UsersRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Trait\CreatedAtTrait;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -14,15 +15,19 @@ use Symfony\Component\Uid\Uuid;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
+/**
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ */
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
-#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+//#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    use CreatedAtTrait;
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Column(type: 'integer')]
+    private ?int $id;
 
     #[ORM\Column(length: 180)]
     private ?string $email = null;
@@ -42,8 +47,8 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Length(min: 6)]
     private ?string $password = null;
 
-    #[ORM\Column(type: 'string', enumType: UserRole::class)]
-    private ?UserRole $role = null;
+    // #[ORM\Column(type: 'string', enumType: UserRole::class)]
+    // private ?UserRole $role = null;
 
     #[ORM\Column(length: 50)]
     private ?string $UserName = null;
@@ -120,17 +125,17 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getRole(): ?UserRole
-    {
-        return $this->role;
-    }
+    // public function getRole(): ?UserRole
+    // {
+    //     return $this->role;
+    // }
 
-    public function setRole(UserRole $role): self
-    {
-        $this->role = $role;
+    // public function setRole(UserRole $role): self
+    // {
+    //     $this->role = $role;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * @see PasswordAuthenticatedUserInterface
@@ -140,7 +145,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->password;
     }
 
-    public function setPassword(string $password): static
+    public function setPassword(string $password): self
     {
         $this->password = $password;
 
@@ -239,16 +244,31 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-    public function getUserName(): ?string
-    {
-        return $this->UserName;
-    }
+    // public function getUserName(): ?string
+    // {
+    //     return $this->UserName;
+    // }
 
-    public function setUserName(string $UserName): static
-    {
-        $this->UserName = $UserName;
+    // public function setUserName(string $UserName): static
+    // {
+    //     $this->UserName = $UserName;
 
-        return $this;
-    }
+    //     return $this;
+    // }
+    
+//     #[ORM\Column(type: 'datetime_immutable')]
+// private ?\DateTimeImmutable $createdAt = null;
+
+// public function getCreatedAt(): ?\DateTimeImmutable
+// {
+//     return $this->createdAt;
+// }
+
+// public function setCreatedAt(\DateTimeImmutable $createdAt): self
+// {
+//     $this->createdAt = $createdAt;
+//     return $this;
+// }
+
 }
 

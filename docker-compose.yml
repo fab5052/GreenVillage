@@ -1,33 +1,32 @@
 
 services:
 
-  server:
+  php:
         build:
             context: .
             dockerfile: ./automation/docker/Dockerfile
-        container_name: server
+        container_name: php
         volumes:
             - ./:/var/www/html
+        # networks:
+        #     - app_network    
         links:
             - mysql
-        networks:
-            - grevil
         ports:
-            - 81:80 
-#        user: ${LOCAL_USER}    
+            - 81:80  
         environment:    
-           DATABASE_URL: "mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@mysql:3306/${MYSQL_DATABASE}"
-           PHP_OPCACHE_VALIDATE_TIMESTAMPS: 1
+          DATABASE_URL: "mysql://root:root_password@mysql:3306/database_name"
+          PHP_OPCACHE_VALIDATE_TIMESTAMPS: 1
 
   mysql:
-    image: mysql:${MYSQL_VERSION:-8}
+    image: mysql:8.2
     container_name: mysql
     restart: unless-stopped
     environment:
-        MYSQL_USER: ${MYSQL_USER}
-        MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-        MYSQL_DATABASE: ${MYSQL_DATABASE}
-        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        MYSQL_USER: admin
+        MYSQL_PASSWORD: Afpa
+        MYSQL_DATABASE: green_village
+        MYSQL_ROOT_PASSWORD: toor
         MAILER_DSN: smtp://mailhog:1025
     # healthcheck:
     #     test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
@@ -36,26 +35,25 @@ services:
     #     start_period: 60s
     volumes:
       - mysql_data:/var/lib/mysql
-    networks:
-      - grevil
+    # networks:
+    #   - app_network
     ports:
       - 3307:3306
   
   phpmyadmin:
           image: phpmyadmin/phpmyadmin
           container_name: phpmyadmin
-          depends_on:
-             - mysql
+          # depends_on:
+          #    - database
           restart: always
           environment:
              PMA_HOST: mysql
             #  PMA_USER: admin
             #  PMA_PASSWORD: Afpa1234
-             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+             MYSQL_ROOT_PASSWORD: toor
+
           links:
               - mysql
-          networks:
-              - grevil
           ports:
               - 8090:80
 
@@ -64,11 +62,10 @@ services:
           ports:
               - 1025:1025
               - 8025:8025          
-
-networks:
-    grevil:
-     name:  GreVil
-     driver: bridge
-
+              
+# networks:
+#     app_network: 
+#          driver: bridge
 volumes:
     mysql_data:
+  
