@@ -5,10 +5,11 @@ namespace App\Controller;
 use App\Entity\Users;
 use App\Form\RegistrationFormType;
 use App\Repository\UsersRepository;
-use App\Security\UsersAuthenticator;
+use App\Security\UserAuthenticator;
 use App\Service\JWTService;
 use App\Service\SendMailService;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,23 +20,56 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UsersAuthenticator $authenticator, EntityManagerInterface $entityManager, SendMailService $mail, JWTService $jwt): Response    {
-        $user = new Users();
-        $form = $this->createForm(RegistrationFormType::class, $user);
 
-        $form->handleRequest($request);
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher,
+    Security $security, EntityManagerInterface $entityManager,
+    JWTService $jwt, SendMailService $mail): Response
+   {
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Encode le mot de passe
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
+       $ref = mt_rand(10000, 99999);
+       $userRepository = $entityManager->getRepository(Users::class);
+       $existingUser = $userRepository->findOneBy(['ref' => $ref]);
+       
+       if ($existingUser !== null) {
+           
+           $ref = mt_rand(10000, 99999);
+           
+           $this->addFlash('error', 'Un utilisateur avec le même ref existe déjà');
+           return $this->redirectToRoute('app_register');
+       }
+       $user = new Users();
+       $form = $this->createForm(RegistrationFormType::class, $user);
+       $form->handleRequest($request);
 
-            $entityManager->persist($user);
-            $entityManager->flush();
+       if ($form->isSubmitted() && $form->isValid()) {
+           /** @var string $plainPassword */
+           $plainPassword = $form->get('plainPassword')->getData();
+           // encode the plain password
+           $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
+           $user->setRoles(['ROLE_USER']);
+           $user->setIsVerified(false);
+//           $user->setRef("Cli:{$ref}");
+//           $user->setLastConnect(new \DateTimeImmutable());
+           $entityManager->persist($user);
+           $entityManager->flush();
+
+    // public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UsersAuthenticator $authenticator, EntityManagerInterface $entityManager, SendMailService $mail, JWTService $jwt): Response    {
+    //     $user = new Users();
+    //     $form = $this->createForm(RegistrationFormType::class, $user);
+
+        // $form->handleRequest($request);
+
+        // if ($form->isSubmitted() && $form->isValid()) {
+        //     // Encode le mot de passe
+        //     $user->setPassword(
+        //         $userPasswordHasher->hashPassword(
+        //             $user,
+        //             $form->get('plainPassword')->getData()
+        //         )
+        //     );
+
+        //     $entityManager->persist($user);
+        //     $entityManager->flush();
 
 
             // On génère le JWT de l'utilisateur
@@ -62,7 +96,7 @@ class RegistrationController extends AbstractController
                 compact('user', 'token')
             );
 
-            return $userAuthenticator->authenticateUser(
+            return $userAuthenticator->authenticateUsers(
                 $user,
                 $authenticator,
                 $request

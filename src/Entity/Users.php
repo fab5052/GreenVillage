@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
-//#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use CreatedAtTrait;
@@ -127,12 +127,12 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     // public function getRole(): ?UserRole
     // {
-    //     return $this->role;
+    //     return $this->roles;
     // }
 
     // public function setRole(UserRole $role): self
     // {
-    //     $this->role = $role;
+    //     $this->roles = $role;
 
     //     return $this;
     // }
@@ -152,14 +152,14 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function eraseCredentials()
-    {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
-    }
+    // /**
+    //  * @see UserInterface
+    //  */
+    // public function eraseCredentials()
+    // {
+    //     // If you store any temporary, sensitive data on the user, clear it here
+    //     $this->plainPassword = null;
+    // }
 
     public function getLastname(): ?string
     {
@@ -244,31 +244,31 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-    // public function getUserName(): ?string
-    // {
-    //     return $this->UserName;
-    // }
+    public function getUserName(): ?string
+    {
+        return $this->UserName;
+    }
 
-    // public function setUserName(string $UserName): static
-    // {
-    //     $this->UserName = $UserName;
+    public function setUserName(string $UserName): static
+    {
+        $this->UserName = $UserName;
 
-    //     return $this;
-    // }
+        return $this;
+    }
     
-//     #[ORM\Column(type: 'datetime_immutable')]
-// private ?\DateTimeImmutable $createdAt = null;
+    #[ORM\Column(type: 'datetime_immutable')]
+private ?\DateTimeImmutable $createdAt = null;
 
-// public function getCreatedAt(): ?\DateTimeImmutable
-// {
-//     return $this->createdAt;
-// }
+public function getCreatedAt(): ?\DateTimeImmutable
+{
+    return $this->createdAt;
+}
 
-// public function setCreatedAt(\DateTimeImmutable $createdAt): self
-// {
-//     $this->createdAt = $createdAt;
-//     return $this;
-// }
+public function setCreatedAt(\DateTimeImmutable $createdAt): self
+{
+    $this->createdAt = $createdAt;
+    return $this;
+}
 
 }
 

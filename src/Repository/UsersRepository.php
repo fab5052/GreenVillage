@@ -23,10 +23,10 @@ class UsersRepository extends ServiceEntityRepository implements PasswordUpgrade
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */
-    public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
+    public function upgradePassword(PasswordAuthenticatedUserInterface $users, string $newHashedPassword): void
     {
-        if (!$user instanceof Users) {
-            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', $user::class));
+        if (!$users instanceof Users) {
+            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', $users::class));
         }
 
 

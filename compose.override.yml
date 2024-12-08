@@ -1,0 +1,12 @@
+#version: '3'
+
+# services:
+# ###> doctrine/doctrine-bundle ###
+#   database:
+#     # depends_on:
+#     #   - mysql
+#     # environment:
+#     #   - database=green_village
+#     ports:
+#       - '5432'
+###< doctrine/doctrine-bundle ###

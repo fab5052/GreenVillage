@@ -105,10 +105,6 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-            
-        
-        
-        
         ]
     },
     "conflict": {

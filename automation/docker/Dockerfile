@@ -36,7 +36,7 @@ RUN docker-php-ext-install opcache
 
 # Copier un fichier de configuration personnalisée d'OPcache
 # COPY ./docker/php/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
-ADD GreenVillage/opcache.ini $PHP_INI_DIR/conf.d/opcache.ini
+ADD opcache.ini $PHP_INI_DIR/conf.d/opcache.ini
 
 # Install nvm
 # RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash \
@@ -70,12 +70,12 @@ RUN apt-get update && apt-get install -y curl \
 
 WORKDIR /var/www
 
-COPY ./GreenVillage/automation/docker/default-vhost.conf /etc/apache2/sites-available/default-vhost.conf
+COPY ./automation/docker/default-vhost.conf /etc/apache2/sites-available/default-vhost.conf
 
 RUN a2dissite 000-default.conf \
     && a2ensite default-vhost.conf
     
-COPY ./GreenVillage/automation/scripts/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+COPY ./automation/scripts/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 

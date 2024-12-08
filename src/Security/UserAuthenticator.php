@@ -15,8 +15,10 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordC
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\SecurityRequestAttributes;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
-class UsersAuthenticator extends AbstractLoginFormAuthenticator
+
+class UserAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
 
@@ -52,7 +54,7 @@ class UsersAuthenticator extends AbstractLoginFormAuthenticator
         }
         
         // Redirection basée sur les rôles
-        // $roles = $token->getRoleNames(); // Récupère les rôles de l'utilisateur connecté
+        $roles = $token->getRoleNames(); // Récupère les rôles de l'utilisateur connecté
 
         // if (in_array('ROLE_ADMIN', $roles, true)) {
         //     return new RedirectResponse($this->urlGenerator->generate('admin_dashboard'));
