@@ -101,6 +101,18 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return (string) $this->email;
     }
 
+    // public function getRole(): ?UserRole
+    // {
+    //     return $this->roles;
+    // }
+
+    // public function setRole(UserRole $role): self
+    // {
+    //     $this->role = $role;
+
+    //     return $this;
+    // }
+
     /**
      * @see UserInterface
      *
@@ -125,17 +137,6 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    // public function getRole(): ?UserRole
-    // {
-    //     return $this->role;
-    // }
-
-    // public function setRole(UserRole $role): self
-    // {
-    //     $this->role = $role;
-
-    //     return $this;
-    // }
 
     /**
      * @see PasswordAuthenticatedUserInterface

@@ -5,9 +5,10 @@ namespace App\Controller;
 use App\Entity\Users;
 use App\Form\RegistrationFormType;
 use App\Repository\UsersRepository;
-use App\Security\UsersAuthenticator;
+use App\Security\UserAuthenticator;
+use App\Security\EmailVerifier;
 use App\Service\JWTService;
-use App\Service\SendMailService;
+use App\Service\SendEmailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,11 +16,19 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
+use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
 {
+    private EmailVerifier $emailVerifier;
+
+    public function __construct(EmailVerifier $emailVerifier)
+    {
+        $this->emailVerifier = $emailVerifier;
+    }
+    
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UsersAuthenticator $authenticator, EntityManagerInterface $entityManager, SendMailService $mail, JWTService $jwt): Response    {
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UserAuthenticator $authenticator, EntityManagerInterface $entityManager, SendEmailService $mail, JWTService $jwt): Response    {
         $user = new Users();
         $form = $this->createForm(RegistrationFormType::class, $user);
 
@@ -98,45 +107,44 @@ class RegistrationController extends AbstractController
         return $this->redirectToRoute('app_login');
     }
 
-    #[Route('/renvoiverif', name: 'resend_verif')]
-    public function resendVerif( JWTService $jwt, SendMailService $mail, UsersRepository $usersRepository): Response
-    {
-        $user = $this->getUser();
+    // #[Route('/renvoiverif', name: 'resend_verif')]
+    // public function resendVerif($token, JWTService $jwt, SendEmailService $mail, UserRepository $usersRepository, EntityManagerInterface $em): Response
+    // {
+    //     $user = $this->getUser();
 
-        if(!$user){
-            $this->addFlash('danger', 'Vous devez être connecté pour accéder à cette page');
-            return $this->redirectToRoute('app_login');    
-        }
+    //     if(!$user){
+    //         $this->addFlash('danger', 'Vous devez être connecté pour accéder à cette page');
+    //         return $this->redirectToRoute('app_login');    
+    //     }
 
-        if($user->getIsVerified()){
-            $this->addFlash('warning', 'Cet utilisateur est déjà activé');
-            return $this->redirectToRoute('profile_index');    
-        }
+    //     if($user->getIsVerified()){
+    //         $this->addFlash('warning', 'Cet utilisateur est déjà activé');
+    //         return $this->redirectToRoute('profile_index');    
+    //     }
 
-        // On génère le JWT de l'utilisateur
-        // On crée le Header
-        $header = [
-            'typ' => 'JWT',
-            'alg' => 'HS256'
-        ];
+    //     // On génère le JWT de l'utilisateur et on crée le Header
+    //     $header = [
+    //         'typ' => 'JWT',
+    //         'alg' => 'HS256'
+    //     ];
 
-        // On crée le Payload
-        $payload = [
-            'user_id' => $user->getId()
-        ];
+    //     // On crée le Payload
+    //     $payload = [
+    //         'user_id' => $user->getId()
+    //     ];
 
-        // On génère le token
-        $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
+    //     // On génère le token
+    //     $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
 
-        // On envoie un mail
-        $mail->send(
-            'no-reply@monsite.net',
-            $user->getEmail(),
-            'Activation de votre compte sur le site e-commerce',
-            'register',
-            compact('user', 'token')
-        );
-        $this->addFlash('success', 'Email de vérification envoyé');
-        return $this->redirectToRoute('profile_index');
-    }
-}
+    //     // On envoie un mail
+    //     $mail->send(
+    //         'no-reply@monsite.net',
+    //         $user->getEmail(),
+    //         'Activation de votre compte sur le site e-commerce',
+    //         'register',
+    //         compact('user', 'token')
+    //     );
+    //     $this->addFlash('success', 'Email de vérification envoyé');
+    //     return $this->redirectToRoute('profile_index');
+    // }
+};

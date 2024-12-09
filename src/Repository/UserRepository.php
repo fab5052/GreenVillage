@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 /**
  * @extends ServiceEntityRepository<Users>
  */
-class UsersRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
+class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -25,10 +25,33 @@ class UsersRepository extends ServiceEntityRepository implements PasswordUpgrade
      */
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
+
+        // if (!$user instanceof Users) {
+        //     throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
+        // }
+
+        // $user = new Users();
+        // $user->setPassword($newHashedPassword);
+        // $this->_em->persist($user);
+        // $this->_em->flush();
+
         if (!$user instanceof Users) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', $user::class));
+        
+
+        if ($user->getRole() === UserRole::CLIENT) {
+            echo 'This user is an User.';
         }
 
+        $user = new Users();
+        $user->setPassword($newHashedPassword);
+        $user->getIsVerified();
+        $this->getEntityManager()->persist($user);
+        $this->getEntityManager()->flush();
+
+        if ($user->getRole() === UserRole::COMMERCIAL) {
+            echo 'This user is an User.';
+        }
 
         $user = new Users();
         $user->setPassword($newHashedPassword);
@@ -37,17 +60,19 @@ class UsersRepository extends ServiceEntityRepository implements PasswordUpgrade
         $this->getEntityManager()->flush();
 
 
-        // if ($user->getRole() === UserRole::ADMIN) {
-        //     echo 'This user is an admin.';
-        // }
+        if ($user->getRole() === UserRole::ADMIN) {
+            echo 'This user is an admin.';
+        }
         
-        // $user =new Users();
-        // $user->setUsername('john_doe');
-        // $user->setPassword('secure_password');
-        // $user->setRole(UserRole::ADMIN);
+        $user =new Users();
+        $user->setUsername('john_doe');
+        $user->setPassword('secure_password');
+        $user->setRole(UserRole::ADMIN);
+        $this->getEntityManager()->persist($user);
+        $this->getEntityManager()->flush();
     }
-
-
+    }
+}
 
     //    /**
     //     * @return User[] Returns an array of User objects
@@ -73,4 +98,4 @@ class UsersRepository extends ServiceEntityRepository implements PasswordUpgrade
     //            ->getOneOrNullResult()
     //        ;
     //    }
-}
+
