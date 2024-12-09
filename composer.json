@@ -54,7 +54,10 @@
     },
     "config": {
         "allow-plugins": {
+            "enumag/no-thanks": true,
+            "nodejs-php-fallback/nodejs-php-fallback": true,
             "php-http/discovery": true,
+            "radic/composer-exclude-classmap-plugin": false,
             "symfony/flex": true,
             "symfony/runtime": true
         },
@@ -102,8 +105,14 @@
         }
     },
     "require-dev": {
+        "api-platform/doctrine-orm": "^4.0",
+        "api-platform/symfony": "^4.0",
         "doctrine/doctrine-fixtures-bundle": "^3.6",
         "enumag/no-thanks": "^0.3.0",
+        "laravel-doctrine/orm": "^3.0",
+        "lexik/jwt-authentication-bundle": "^3.1",
+        "maennchen/zipstream-php": "^3.1",
+        "nelmio/cors-bundle": "^2.5",
         "nodejs-php-fallback/uglify": "^1.0",
         "phpunit/phpunit": "^9.5",
         "radic/composer-exclude-classmap-plugin": "^1.0",
@@ -113,6 +122,8 @@
         "symfony/maker-bundle": "^1.0",
         "symfony/phpunit-bridge": "^7.1",
         "symfony/stopwatch": "6.4.*",
-        "symfony/web-profiler-bundle": "6.4.*"
+        "symfony/web-profiler-bundle": "6.4.*",
+        "symfony/webpack-encore-bundle": "^2.2",
+        "symfonycasts/verify-email-bundle": "^1.17"
     }
 }
