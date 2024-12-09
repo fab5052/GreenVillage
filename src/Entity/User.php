@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use App\Enum\UserRole;
-use App\Repository\UsersRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Trait\CreatedAtTrait;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -15,18 +15,19 @@ use Symfony\Component\Uid\Uuid;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
- */
-#[ORM\Entity(repositoryClass: UsersRepository::class)]
+// /**
+//  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+//  */
+#[ORM\Table(name: '`user`')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
-class Users implements UserInterface, PasswordAuthenticatedUserInterface
+#[UniqueEntity(fields: ['email'], message: 'Un compte existe avec cet email')]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use CreatedAtTrait;
     
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column]
     private ?int $id;
 
     #[ORM\Column(length: 180)]
@@ -50,8 +51,8 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     // #[ORM\Column(type: 'string', enumType: UserRole::class)]
     // private ?UserRole $role = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $UserName = null;
+    // #[ORM\Column(length: 50)]
+    // private ?string $UserName = null;
 
     #[ORM\Column(type: 'string', length: 100)]
     private $lastname;
@@ -67,6 +68,12 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string', length: 150)]
     private $city;
+
+    /**
+ * Non persistée, utilisée uniquement pour stocker temporairement le mot de passe en clair.
+ */
+    #[ORM\Column(nullable: true)]
+    private ?string $plainPassword = null;
 
     #[ORM\Column(type: 'boolean')]
     private $is_verified = false;
@@ -104,7 +111,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see UserInterface
      *
-     * @return list<string>
+     * @return list<string>$roles
      */
     public function getRoles(): array
     {
@@ -115,27 +122,25 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
-    /**
-     * @param list<string> $roles
-     */
-    public function setRoles(array $roles): static
-    {
-        $this->roles = $roles;
 
-        return $this;
-    }
-
-    // public function getRole(): ?UserRole
+    // public function setRoles(array $roles): static
     // {
-    //     return $this->roles;
-    // }
-
-    // public function setRole(UserRole $role): self
-    // {
-    //     $this->roles = $role;
+    //     $this->roles = $roles;
 
     //     return $this;
     // }
+
+    // public function getRole(): ?UserRole
+    // {
+    //     return $this->role;
+    // }
+
+    public function setRole(UserRole $role): self
+    {
+        $this->roles = $role;
+
+        return $this;
+    }
 
     /**
      * @see PasswordAuthenticatedUserInterface
@@ -152,14 +157,23 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    // /**
-    //  * @see UserInterface
-    //  */
-    // public function eraseCredentials()
-    // {
-    //     // If you store any temporary, sensitive data on the user, clear it here
-    //     $this->plainPassword = null;
-    // }
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        $this->plainPassword = null;
+    }
+
+
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+    
+    public function setPlainPassword(?string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
+        return $this;
+    }
 
     public function getLastname(): ?string
     {
@@ -221,7 +235,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getIsVerified(): ?bool
+    public function getisVerified(): ?bool
     {
         return $this->is_verified;
     }
@@ -244,17 +258,17 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-    public function getUserName(): ?string
-    {
-        return $this->UserName;
-    }
+    // public function getUserName(): ?string
+    // {
+    //     return $this->UserName;
+    // }
 
-    public function setUserName(string $UserName): static
-    {
-        $this->UserName = $UserName;
+    // public function setUserName(string $UserName): static
+    // {
+    //     $this->UserName = $UserName;
 
-        return $this;
-    }
+    //     return $this;
+    // }
     
     #[ORM\Column(type: 'datetime_immutable')]
 private ?\DateTimeImmutable $createdAt = null;

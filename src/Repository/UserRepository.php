@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Users;
+use App\Entity\User;
 use App\Enum\UserRole;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -11,13 +11,13 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 /**
- * @extends ServiceEntityRepository<Users>
+ * @extends ServiceEntityRepository<User>
  */
-class UsersRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
+class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Users::class);
+        parent::__construct($registry, User::class);
     }
 
     /**
@@ -25,26 +25,26 @@ class UsersRepository extends ServiceEntityRepository implements PasswordUpgrade
      */
     public function upgradePassword(PasswordAuthenticatedUserInterface $users, string $newHashedPassword): void
     {
-        if (!$users instanceof Users) {
+        if (!$users instanceof User) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', $users::class));
         }
 
-
-        $user = new Users();
+        $user = new User();
         $user->setPassword($newHashedPassword);
         $user->getIsVerified();
+        $user->setRole(UserRole::CLIENT);
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
 
 
-        // if ($user->getRole() === UserRole::ADMIN) {
-        //     echo 'This user is an admin.';
-        // }
+        if ($user === UserRole::ADMIN) {
+            echo 'This user is an admin.';
+        }
         
-        // $user =new Users();
-        // $user->setUsername('john_doe');
-        // $user->setPassword('secure_password');
-        // $user->setRole(UserRole::ADMIN);
+        $user =new User();
+        $user->setEmail('fab@gmail.com');
+        $user->setPassword('secure_password');
+        $user->setRole(UserRole::ADMIN);
     }
 
 

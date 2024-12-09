@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Form\ResetPasswordFormType;
 use App\Form\ResetPasswordRequestFormType;
-use App\Repository\UsersRepository;
+use App\Repository\UserRepository;
 use App\Service\SendMailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -36,7 +36,7 @@ class SecurityController extends AbstractController
         ]);
     }
 
-    #[Route('/deconnexion', name:'app_logout')]
+    #[Route('/logout', name:'app_logout')]
     public function logout(): void
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
@@ -45,7 +45,7 @@ class SecurityController extends AbstractController
     #[Route('/oubli-pass', name:'forgotten_password')]
     public function forgottenPassword(
         Request $request,
-        UsersRepository $usersRepository,
+        UserRepository $userRepository,
         TokenGeneratorInterface $tokenGenerator,
         EntityManagerInterface $entityManager,
         SendMailService $mail
@@ -57,7 +57,7 @@ class SecurityController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             //On va chercher l'utilisateur par son email
-            $user = $usersRepository->findOneByEmail($form->get('email')->getData());
+            $user = $userRepository->findOneByEmail($form->get('email')->getData());
 
             // On vérifie si on a un utilisateur
             if($user){
@@ -75,7 +75,7 @@ class SecurityController extends AbstractController
 
                 // Envoi du mail
                 $mail->send(
-                    'no-reply@e-commerce.fr',
+                    'no-reply@greenvillage.fr',
                     $user->getEmail(),
                     'Réinitialisation de mot de passe',
                     'password_reset',
@@ -99,13 +99,13 @@ class SecurityController extends AbstractController
     public function resetPass(
         string $token,
         Request $request,
-        UsersRepository $usersRepository,
+        UserRepository $userRepository,
         EntityManagerInterface $entityManager,
         UserPasswordHasherInterface $passwordHasher
     ): Response
     {
         // On vérifie si on a ce token dans la base
-        $user = $usersRepository->findOneByResetToken($token);
+        $user = $userRepository->findOneByResetToken($token);
         
         if($user){
             $form = $this->createForm(ResetPasswordFormType::class);

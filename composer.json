@@ -59,6 +59,7 @@
         "symfony/webpack-encore-bundle": "^2.2",
         "symfony/yaml": "6.4.*",
         "toneflix-code/fakerphp-lorem-toneflix": "^1.0",
+        "twbs/bootstrap": "^5.3",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0",
         "yokai/batch-symfony-console": "^0.6.3",
@@ -67,6 +68,7 @@
     "config": {
         "allow-plugins": {
             "cweagans/composer-patches": true,
+            "enumag/no-thanks": true,
             "nodejs-php-fallback/nodejs-php-fallback": true,
             "php-http/discovery": true,
             "symfony/flex": true,
@@ -118,6 +120,7 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.6",
+        "enumag/no-thanks": "^0.3.0",
         "gedmo/doctrine-extensions": "^3.17",
         "phpunit/phpunit": "^9.5",
         "shopify/shopify-api": "^5.8",

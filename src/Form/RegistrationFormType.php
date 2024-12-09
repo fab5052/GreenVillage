@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Users;
+use App\Entity\User;
 use Enum\UserRole;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -115,7 +115,7 @@ class RegistrationFormType extends AbstractType
              'label' => 'Mot de passe'
    
         ]);
-
+    }
             // ->add('confirmPassword', PasswordType::class, [
         //     'label' => 'Confirmer le nouveau mot de passe',
         //     'mapped' => false,
@@ -127,21 +127,20 @@ class RegistrationFormType extends AbstractType
         // ])
    
         //      ;
-        //      $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
-        //          $form = $event->getForm();
-        //          $plainPassword = $form->get('plainPassword')->getData();
-        //          $confirmPassword = $form->get('confirmPassword')->getData();
-     
-        //          if ($plainPassword !== $confirmPassword) {
-        //              $form->get('confirmPassword')->addError(new FormError('Les mots de passe ne correspondent pas.'));
-        //          }
-        //      });
-         }
+        //  $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+        //      $form = $event->getForm();
+        //      $plainPassword = $form->get('plainPassword')->getData();
+        //      $confirmPassword = $form->get('confirmPassword')->getData();   
+        //      if ($plainPassword !== $confirmPassword) {
+        //          $form->get('confirmPassword')->addError(new FormError('Les mots de passe ne correspondent pas.'));
+        //      }
+        //  });
+        //  }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Users::class,
+            'data_class' => User::class,
         ]);
     }
 }
