@@ -15,16 +15,18 @@ use Symfony\Component\Uid\Uuid;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
+#[ORM\Entity(repositoryClass: UserRepository::class)]
 // /**
 //  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
 //  */
-#[ORM\Table(name: '`user`')]
+//#[ORM\Table(name: '`user`')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 #[UniqueEntity(fields: ['email'], message: 'Un compte existe avec cet email')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User 
+     implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use CreatedAtTrait;
-    
+ //   use EnumType;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -123,24 +125,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-    // public function setRoles(array $roles): static
-    // {
-    //     $this->roles = $roles;
+    public function setRoles(array $roles): static
+    {
+        $this->roles = $roles;
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
     // public function getRole(): ?UserRole
     // {
     //     return $this->role;
     // }
 
-    public function setRole(UserRole $role): self
-    {
-        $this->roles = $role;
+    // public function setRole(UserRole $role): self
+    // {
+    //     $this->role = $role;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * @see PasswordAuthenticatedUserInterface
@@ -270,19 +272,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     //     return $this;
     // }
     
-    #[ORM\Column(type: 'datetime_immutable')]
-private ?\DateTimeImmutable $createdAt = null;
+//     #[ORM\Column(type: 'datetime_immutable')]
+// private ?\DateTimeImmutable $createdAt = null;
 
-public function getCreatedAt(): ?\DateTimeImmutable
-{
-    return $this->createdAt;
-}
+// public function getCreatedAt(): ?\DateTimeImmutable
+// {
+//     return $this->createdAt;
+// }
 
-public function setCreatedAt(\DateTimeImmutable $createdAt): self
-{
-    $this->createdAt = $createdAt;
-    return $this;
-}
+// public function setCreatedAt(\DateTimeImmutable $createdAt): self
+// {
+//     $this->createdAt = $createdAt;
+//     return $this;
+// }
 
 }
 

@@ -1,12 +1,14 @@
-#version: '3'
+#ersion: '3'
 
-# services:
-# ###> doctrine/doctrine-bundle ###
-#   database:
-#     # depends_on:
-#     #   - mysql
-#     # environment:
-#     #   - database=green_village
-#     ports:
-#       - '5432'
+services:
+###> doctrine/doctrine-bundle ###
+  database:
+    ports:
+      - "3306"
 ###< doctrine/doctrine-bundle ###
+
+###> symfony/mailer ###
+  mailer:
+    image: mailhog/mailhog
+    ports: ["1025", "8025"]
+###< symfony/mailer ###

@@ -49,24 +49,24 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
-            return new RedirectResponse($targetPath);
-        }
+        // if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
+        //     return new RedirectResponse($targetPath);
+        // }
         
         // Redirection basée sur les rôles
         $roles = $token->getRoleNames(); // Récupère les rôles de l'utilisateur connecté
 
-        if (in_array('ROLE_ADMIN', $roles, true)) {
-            return new RedirectResponse($this->urlGenerator->generate('admin_dashboard'));
-        }
+        // if (in_array('ROLE_ADMIN', $roles, true)) {
+        //     return new RedirectResponse($this->urlGenerator->generate('admin_dashboard'));
+        // }
     
-        if (in_array('ROLE_CLIENT', $roles, true)) {
-            return new RedirectResponse($this->urlGenerator->generate('client_dashboard'));
-        } 
+        // if (in_array('ROLE_CLIENT', $roles, true)) {
+        //     return new RedirectResponse($this->urlGenerator->generate('client_dashboard'));
+        // } 
 
-        if (in_array('ROLE_COMMERCIAL', $roles, true)) {
-            return new RedirectResponse($this->urlGenerator->generate('commercial_dashboard'));
-        } 
+        // if (in_array('ROLE_COMMERCIAL', $roles, true)) {
+        //     return new RedirectResponse($this->urlGenerator->generate('commercial_dashboard'));
+        // } 
 
         return new RedirectResponse($this->urlGenerator->generate('main'));
     }

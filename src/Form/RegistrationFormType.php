@@ -10,10 +10,11 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Mail;
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
@@ -115,8 +116,8 @@ class RegistrationFormType extends AbstractType
              'label' => 'Mot de passe'
    
         ]);
-    }
-            // ->add('confirmPassword', PasswordType::class, [
+    
+        //     ->add('confirmPassword', PasswordType::class, [
         //     'label' => 'Confirmer le nouveau mot de passe',
         //     'mapped' => false,
         //     'constraints' => [
@@ -126,16 +127,17 @@ class RegistrationFormType extends AbstractType
         //     ],
         // ])
    
-        //      ;
-        //  $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
-        //      $form = $event->getForm();
-        //      $plainPassword = $form->get('plainPassword')->getData();
+             ;
+         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+             $form = $event->getForm();
+             $plainPassword = $form->get('plainPassword')->getData();
         //      $confirmPassword = $form->get('confirmPassword')->getData();   
         //      if ($plainPassword !== $confirmPassword) {
         //          $form->get('confirmPassword')->addError(new FormError('Les mots de passe ne correspondent pas.'));
         //      }
         //  });
-        //  }
+        });
+    }   
 
     public function configureOptions(OptionsResolver $resolver): void
     {
