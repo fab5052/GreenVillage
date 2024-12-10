@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Users;
+use App\Entity\User;
 use App\Enum\UserRole;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -11,13 +11,13 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 /**
- * @extends ServiceEntityRepository<Users>
+ * @extends ServiceEntityRepository<User>
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Users::class);
+        parent::__construct($registry, User::class);
     }
 
     /**
@@ -35,7 +35,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         // $this->_em->persist($user);
         // $this->_em->flush();
 
-        if (!$user instanceof Users) {
+        if (!$user instanceof User) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', $user::class));
         
 
@@ -43,7 +43,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             echo 'This user is an User.';
         }
 
-        $user = new Users();
+        $user = new User();
         $user->setPassword($newHashedPassword);
         $user->getIsVerified();
         $this->getEntityManager()->persist($user);
@@ -53,7 +53,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             echo 'This user is an User.';
         }
 
-        $user = new Users();
+        $user = new User();
         $user->setPassword($newHashedPassword);
         $user->getIsVerified();
         $this->getEntityManager()->persist($user);
@@ -64,7 +64,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             echo 'This user is an admin.';
         }
         
-        $user =new Users();
+        $user =new User();
         $user->setUsername('john_doe');
         $user->setPassword('secure_password');
         $user->setRole(UserRole::ADMIN);

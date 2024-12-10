@@ -51,26 +51,26 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
         
-        // Redirection basée sur les rôles
-        // $roles = $token->getRoleNames(); // Récupère les rôles de l'utilisateur connecté
+       // Redirection basée sur les rôles
+        $roles = $token->getRoleNames(); // Récupère les rôles de l'utilisateur connecté
 
-        // if (in_array('ROLE_ADMIN', $roles, true)) {
-        //     return new RedirectResponse($this->urlGenerator->generate('admin_dashboard'));
-        // }
+        if (in_array('ROLE_ADMIN', $roles, true)) {
+            return new RedirectResponse($this->urlGenerator->generate('admin_dashboard'));
+        }
     
-        // if (in_array('ROLE_CLIENT', $roles, true)) {
-        //     return new RedirectResponse($this->urlGenerator->generate('client_dashboard'));
-        // } 
+        if (in_array('ROLE_CLIENT', $roles, true)) {
+            return new RedirectResponse($this->urlGenerator->generate('client_dashboard'));
+        } 
 
-        // if (in_array('ROLE_COMMERCIAL', $roles, true)) {
-        //     return new RedirectResponse($this->urlGenerator->generate('commercial_dashboard'));
-        // } 
+        if (in_array('ROLE_COMMERCIAL', $roles, true)) {
+            return new RedirectResponse($this->urlGenerator->generate('commercial_dashboard'));
+        } 
 
-    //     return new RedirectResponse($this->urlGenerator->generate('main'));
+         return new RedirectResponse($this->urlGenerator->generate('main'));
     // }
     //     // For example:
     //     // return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+    //    throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
     protected function getLoginUrl(Request $request): string

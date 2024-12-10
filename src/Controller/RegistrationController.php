@@ -2,14 +2,15 @@
 
 namespace App\Controller;
 
-use App\Entity\Users;
+use App\Entity\User;
 use App\Form\RegistrationFormType;
-use App\Repository\UsersRepository;
+use App\Repository\UserRepository;
 use App\Security\UserAuthenticator;
-use App\Security\EmailVerifier;
+use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 use App\Service\JWTService;
 use App\Service\SendEmailService;
 use Doctrine\ORM\EntityManagerInterface;
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,16 +21,16 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
 {
-    private EmailVerifier $emailVerifier;
+    private VerifyEmail $verifyEmail;
 
-    public function __construct(EmailVerifier $emailVerifier)
+    public function __construct(VerifyEmail $verifyEmail)
     {
-        $this->emailVerifier = $emailVerifier;
+        $this->verifyEmail = $verifyEmail;
     }
     
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UserAuthenticator $authenticator, EntityManagerInterface $entityManager, SendEmailService $mail, JWTService $jwt): Response    {
-        $user = new Users();
+        $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
 
         $form->handleRequest($request);
@@ -84,7 +85,7 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/verif/{token}', name: 'verify_user')]
-    public function verifyUser($token, JWTService $jwt, UsersRepository $usersRepository, EntityManagerInterface $em): Response
+    public function verifyUser($token, JWTService $jwt, UserRepository $userRepository, EntityManagerInterface $em): Response
     {
         //On vérifie si le token est valide, n'a pas expiré et n'a pas été modifié
         if($jwt->isValid($token) && !$jwt->isExpired($token) && $jwt->check($token, $this->getParameter('app.jwtsecret'))){
@@ -92,7 +93,7 @@ class RegistrationController extends AbstractController
             $payload = $jwt->getPayload($token);
 
             // On récupère le user du token
-            $user = $usersRepository->find($payload['user_id']);
+            $user = $userRepository->find($payload['user_id']);
 
             //On vérifie que l'utilisateur existe et n'a pas encore activé son compte
             if($user && !$user->getIsVerified()){
@@ -107,44 +108,44 @@ class RegistrationController extends AbstractController
         return $this->redirectToRoute('app_login');
     }
 
-    // #[Route('/renvoiverif', name: 'resend_verif')]
-    // public function resendVerif($token, JWTService $jwt, SendEmailService $mail, UserRepository $usersRepository, EntityManagerInterface $em): Response
-    // {
-    //     $user = $this->getUser();
+    #[Route('/renvoiverif', name: 'resend_verif')]
+    public function resendVerif($token, JWTService $jwt, SendEmailService $mail, UserRepository $userRepository, EntityManagerInterface $em): Response
+    {
+        $user = $this->getUser();
 
-    //     if(!$user){
-    //         $this->addFlash('danger', 'Vous devez être connecté pour accéder à cette page');
-    //         return $this->redirectToRoute('app_login');    
-    //     }
+        if(!$user){
+            $this->addFlash('danger', 'Vous devez être connecté pour accéder à cette page');
+            return $this->redirectToRoute('app_login');    
+        }
 
-    //     if($user->getIsVerified()){
-    //         $this->addFlash('warning', 'Cet utilisateur est déjà activé');
-    //         return $this->redirectToRoute('profile_index');    
-    //     }
+        if($user->getIsVerified()){
+            $this->addFlash('warning', 'Cet utilisateur est déjà activé');
+            return $this->redirectToRoute('profile_index');    
+        }
 
-    //     // On génère le JWT de l'utilisateur et on crée le Header
-    //     $header = [
-    //         'typ' => 'JWT',
-    //         'alg' => 'HS256'
-    //     ];
+        // On génère le JWT de l'utilisateur et on crée le Header
+        $header = [
+            'typ' => 'JWT',
+            'alg' => 'HS256'
+        ];
 
-    //     // On crée le Payload
-    //     $payload = [
-    //         'user_id' => $user->getId()
-    //     ];
+        // On crée le Payload
+        $payload = [
+            'user_id' => $user->getId()
+        ];
 
-    //     // On génère le token
-    //     $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
+        // On génère le token
+        $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
 
-    //     // On envoie un mail
-    //     $mail->send(
-    //         'no-reply@monsite.net',
-    //         $user->getEmail(),
-    //         'Activation de votre compte sur le site e-commerce',
-    //         'register',
-    //         compact('user', 'token')
-    //     );
-    //     $this->addFlash('success', 'Email de vérification envoyé');
-    //     return $this->redirectToRoute('profile_index');
-    // }
+        // On envoie un mail
+        $mail->send(
+            'no-reply@monsite.net',
+            $user->getEmail(),
+            'Activation de votre compte sur le site e-commerce',
+            'register',
+            compact('user', 'token')
+        );
+        $this->addFlash('success', 'Email de vérification envoyé');
+        return $this->redirectToRoute('profile_index');
+    }
 };
