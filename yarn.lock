@@ -1206,6 +1206,11 @@
   dependencies:
     "@babel/helper-define-polyfill-provider" "^0.6.3"
 
+"base64-js@0.0.2":
+  "integrity" "sha512-Pj9L87dCdGcKlSqPVUjD+q96pbIx1zQQLb2CUiWURfjiBELv84YX+0nGnKmyT/9KkC7PQk7UN1w+Al8bBozaxQ=="
+  "resolved" "https://registry.npmjs.org/base64-js/-/base64-js-0.0.2.tgz"
+  "version" "0.0.2"
+
 "big.js@^5.2.2":
   "integrity" "sha512-vyL2OymJxmarO8gxMr0mhChsO9QGwhynfuu4+MHTAW6czfq9humCB7rKpUjDd9YUiDPU4mzpyupFSvOClAwbmQ=="
   "resolved" "https://registry.npmjs.org/big.js/-/big.js-5.2.2.tgz"
@@ -1220,6 +1225,14 @@
   "integrity" "sha512-8HLCdWgyoMguSO9o+aH+iuZ+aht+mzW0u3HIMzVu7Srrpv7EBBxTnrFlSCskwdY1+EOFQSm7uMJhNQHkdPcmjg=="
   "resolved" "https://registry.npmjs.org/bootstrap/-/bootstrap-5.3.3.tgz"
   "version" "5.3.3"
+
+"bops@~0.1.1":
+  "integrity" "sha512-Cx1zStcMp+YoFan8OgudNPMih82eJZE+27feki1WeyoFTR9Ye7AR1SUW3saE6QQvdS/g52aJ2IojBjWOiRiLbw=="
+  "resolved" "https://registry.npmjs.org/bops/-/bops-0.1.1.tgz"
+  "version" "0.1.1"
+  dependencies:
+    "base64-js" "0.0.2"
+    "to-utf8" "0.0.1"
 
 "browserslist@^4.0.0", "browserslist@^4.23.3", "browserslist@^4.24.0", "browserslist@^4.24.2", "browserslist@>= 4.21.0":
   "integrity" "sha512-ZIc+Q62revdMcqC6aChtW4jz3My3klmCO1fEmINZY/8J3EpBg5/A/D0AKmBveUh6pgoeycoMkVMko84tuYS+Gg=="
@@ -2665,6 +2678,11 @@
   "resolved" "https://registry.npmjs.org/tmp/-/tmp-0.2.3.tgz"
   "version" "0.2.3"
 
+"to-utf8@0.0.1":
+  "integrity" "sha512-zks18/TWT1iHO3v0vFp5qLKOG27m67ycq/Y7a7cTiRuUNlc4gf3HGnkRgMv0NyhnfTamtkYBJl+YeD1/j07gBQ=="
+  "resolved" "https://registry.npmjs.org/to-utf8/-/to-utf8-0.0.1.tgz"
+  "version" "0.0.1"
+
 "undici-types@~6.20.0":
   "integrity" "sha512-Ny6QZ2Nju20vw1SRHe3d9jVu6gJ+4e3+MMpqu7pqE5HT6WsTSlce++GQmK5UXS8mzV8DSYHrQH+Xrf2jVcuKNg=="
   "resolved" "https://registry.npmjs.org/undici-types/-/undici-types-6.20.0.tgz"
@@ -2821,3 +2839,10 @@
   "integrity" "sha512-b4JR1PFR10y1mKjhHY9LaGo6tmrgjit7hxVIeAmyMw3jegXR4dhYqLaQF5zMXZxY7tLpMyJeLjr1C4rLmkVe8g=="
   "resolved" "https://registry.npmjs.org/yocto-queue/-/yocto-queue-1.1.1.tgz"
   "version" "1.1.1"
+
+"zip@^1.2.0":
+  "integrity" "sha512-8B4Z9BXJKkI8BkHhKvQan4rwCzUENnj95YHFYrI7F1NbqKCIdW86kujctzEB+kJ6XapHPiAhiZ9xi5GbW5SPdw=="
+  "resolved" "https://registry.npmjs.org/zip/-/zip-1.2.0.tgz"
+  "version" "1.2.0"
+  dependencies:
+    "bops" "~0.1.1"

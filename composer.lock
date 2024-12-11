@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "d013dfbe4edfb757102688350655ff82",
+=======
+    "content-hash": "35a67002d89c657e8f4575af31c306ea",
+>>>>>>> 9a68ca93 (qffazefa)
     "packages": [
         {
             "name": "amphp/hpack",
