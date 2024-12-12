@@ -47,16 +47,11 @@ app_changePassword:
   defaults:
     role: ROLE_USER
 
-
-app_home:
+app_index:
   path: /
-  controller: App\Controller\HomeController::index
-
-# app_index:
-#   path: /
-#   controller: App\Controller\MainController::index
-#   defaults:
-#     role: ROLE_USER
+  controller: App\Controller\IndexController::index
+  defaults:
+    role: ROLE_USER
 
 app_rubrics:
   path: /rubrics

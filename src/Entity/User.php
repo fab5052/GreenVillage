@@ -2,28 +2,26 @@
 
 namespace App\Entity;
 
-use App\Enum\UserRole;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Trait\CreatedAtTrait;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Doctrine\DBAL\Types\Types;
-use Symfony\Component\Form\Extension\Core\Type\EnumType;
-use Symfony\Component\Uid\Uuid;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\Collection;
+ use Doctrine\DBAL\Types\Types;
+//use App\Enum\UserRole
+//use Symfony\Component\Form\Extension\Core\Type\EnumType;
+//use Symfony\Component\Uid\Uuid;
 
-#[ORM\Entity(repositoryClass: UserRepository::class)]
-// /**
-//  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
-//  */
-//#[ORM\Table(name: '`user`')]
-#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
-#[UniqueEntity(fields: ['email'], message: 'Un compte existe avec cet email')]
-class User 
-     implements UserInterface, PasswordAuthenticatedUserInterface
+/**
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ */
+// #[ORM\Table(name: '`user`')]
+// #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+// #[UniqueEntity(fields: ['email'], message: 'Un compte existe avec cet email')]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use CreatedAtTrait;
  //   use EnumType;
@@ -32,8 +30,18 @@ class User
     #[ORM\Column]
     private ?int $id;
 
-    #[ORM\Column(length: 180)]
-    private ?string $email = null;
+    #[ORM\Column(type: 'string', length: 180, unique: true)]
+    private $email;
+
+    // #[ORM\Column(type: 'json')]
+    // private $roles = [];
+
+    #[ORM\Column(type: 'string')]
+    private $password;
+
+
+    // #[ORM\Column(length: 180)]
+    // private ?string $email = null;
 
     /**
      * @var list<string> The user roles
@@ -41,20 +49,17 @@ class User
     #[ORM\Column]
     private array $roles = [];
 
-    /**
-     * @var string The hashed password
-     */
-    #[ORM\Column]
+    // /**
+    //  * @var string The hashed password
+    //  */
+    // #[ORM\Column]
     
-    #[Assert\NotBlank]
-    #[Assert\Length(min: 6)]
-    private ?string $password = null;
+    // #[Assert\NotBlank]
+    // #[Assert\Length(min: 6)]
+    // private ?string $password = null;
 
     // #[ORM\Column(type: 'string', enumType: UserRole::class)]
     // private ?UserRole $role = null;
-
-    // #[ORM\Column(length: 50)]
-    // private ?string $UserName = null;
 
     #[ORM\Column(type: 'string', length: 100)]
     private $lastname;
@@ -71,11 +76,11 @@ class User
     #[ORM\Column(type: 'string', length: 150)]
     private $city;
 
-    /**
- * Non persistée, utilisée uniquement pour stocker temporairement le mot de passe en clair.
- */
-    #[ORM\Column(nullable: true)]
-    private ?string $plainPassword = null;
+//     /**
+//  * Non persistée, utilisée uniquement pour stocker temporairement le mot de passe en clair.
+//  */
+     #[ORM\Column(nullable: true)]
+//     private ?string $plainPassword = null;
 
     #[ORM\Column(type: 'boolean')]
     private $is_verified = false;
@@ -162,20 +167,20 @@ class User
     public function eraseCredentials()
     {
         // If you store any temporary, sensitive data on the user, clear it here
-        $this->plainPassword = null;
+      //  $this->plainPassword = null;
     }
 
 
-    public function getPlainPassword(): ?string
-    {
-        return $this->plainPassword;
-    }
+    // public function getPlainPassword(): ?string
+    // {
+    //     return $this->plainPassword;
+    // }
     
-    public function setPlainPassword(?string $plainPassword): self
-    {
-        $this->plainPassword = $plainPassword;
-        return $this;
-    }
+    // public function setPlainPassword(?string $plainPassword): self
+    // {
+    //     $this->plainPassword = $plainPassword;
+    //     return $this;
+    // }
 
     public function getLastname(): ?string
     {

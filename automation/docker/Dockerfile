@@ -39,10 +39,10 @@ RUN docker-php-ext-install opcache
 ADD opcache.ini $PHP_INI_DIR/conf.d/opcache.ini
 
 # Install nvm
-# RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash \
-#     && export NVM_DIR="/root/.nvm" \
-#     && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" \
-#     && nvm install 22
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash \
+    && export NVM_DIR="/root/.nvm" \
+    && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" \
+    && nvm install 22
 
 RUN wget https://getcomposer.org/installer -O /var/www/composer-setup.php
 RUN php /var/www/composer-setup.php 
@@ -66,7 +66,7 @@ RUN apt-get update && apt-get install -y curl \
     && apt-get install -y nodejs
 
 # # Installer Composer
-# RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 WORKDIR /var/www
 
