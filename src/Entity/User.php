@@ -2,86 +2,72 @@
 
 namespace App\Entity;
 
-use App\Enum\UserRole;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Trait\CreatedAtTrait;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Doctrine\DBAL\Types\Types;
-use Symfony\Component\Form\Extension\Core\Type\EnumType;
-use Symfony\Component\Uid\Uuid;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
+//use App\Enum\UserRole
+//use Symfony\Component\Form\Extension\Core\Type\EnumType;
+//use Symfony\Component\Uid\Uuid;
+
+
+/**
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ */
+#[ORM\Table(name: '`user`')]
+#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-// /**
-//  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
-//  */
-//#[ORM\Table(name: '`user`')]
-#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
-#[UniqueEntity(fields: ['email'], message: 'Un compte existe avec cet email')]
-class User 
-     implements UserInterface, PasswordAuthenticatedUserInterface
+
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    use CreatedAtTrait;
+    //use CreatedAtTrait;
  //   use EnumType;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id;
 
-    #[ORM\Column(length: 180)]
-    private ?string $email = null;
-
-    /**
-     * @var list<string> The user roles
-     */
-    #[ORM\Column]
-    private array $roles = [];
-
-    /**
-     * @var string The hashed password
-     */
-    #[ORM\Column]
+    #[ORM\Column(type: 'string', length: 180, unique: true)]
+    private ?string $email;
     
-    #[Assert\NotBlank]
-    #[Assert\Length(min: 6)]
-    private ?string $password = null;
-
-    // #[ORM\Column(type: 'string', enumType: UserRole::class)]
-    // private ?UserRole $role = null;
-
-    // #[ORM\Column(length: 50)]
-    // private ?string $UserName = null;
-
+    #[ORM\Column(type: 'json')]
+    private array $roles = [];
+    
+    #[ORM\Column(type: 'string')]
+    private ?string $password;
+    
     #[ORM\Column(type: 'string', length: 100)]
-    private $lastname;
-
+    private ?string $lastname;
+    
     #[ORM\Column(type: 'string', length: 100)]
-    private $firstname;
-
+    private ?string $firstname;
+    
     #[ORM\Column(type: 'string', length: 255)]
-    private $address;
-
+    private ?string $address;
+    
     #[ORM\Column(type: 'string', length: 5)]
-    private $zipcode;
-
+    private ?string $zipcode;
+    
     #[ORM\Column(type: 'string', length: 150)]
-    private $city;
-
-    /**
- * Non persistée, utilisée uniquement pour stocker temporairement le mot de passe en clair.
- */
-    #[ORM\Column(nullable: true)]
-    private ?string $plainPassword = null;
-
+    private ?string $city;
+    
     #[ORM\Column(type: 'boolean')]
-    private $is_verified = false;
-
+    private bool $is_verified = false;
+    
     #[ORM\Column(type: 'string', length: 100, nullable: true)]
-    private $resetToken;
+    private ?string $resetToken = null;
+
+    #[ORM\Column(type: 'datetime_immutable')]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $plainPassword = null;      
 
     public function getId(): ?int
     {
@@ -132,17 +118,7 @@ class User
         return $this;
     }
 
-    // public function getRole(): ?UserRole
-    // {
-    //     return $this->role;
-    // }
 
-    // public function setRole(UserRole $role): self
-    // {
-    //     $this->role = $role;
-
-    //     return $this;
-    // }
 
     /**
      * @see PasswordAuthenticatedUserInterface
@@ -162,9 +138,8 @@ class User
     public function eraseCredentials()
     {
         // If you store any temporary, sensitive data on the user, clear it here
-        $this->plainPassword = null;
+       // $this->plainPassword = null;
     }
-
 
     public function getPlainPassword(): ?string
     {
@@ -237,7 +212,7 @@ class User
         return $this;
     }
 
-    public function getisVerified(): ?bool
+    public function isVerified(): ?bool
     {
         return $this->is_verified;
     }
@@ -260,31 +235,20 @@ class User
 
         return $this;
     }
-    // public function getUserName(): ?string
-    // {
-    //     return $this->UserName;
-    // }
 
-    // public function setUserName(string $UserName): static
-    // {
-    //     $this->UserName = $UserName;
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+    return $this->createdAt;
+    }
 
-    //     return $this;
-    // }
-    
-//     #[ORM\Column(type: 'datetime_immutable')]
-// private ?\DateTimeImmutable $createdAt = null;
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    {
+    $this->createdAt = $createdAt;
+    return $this;
+    }
 
-// public function getCreatedAt(): ?\DateTimeImmutable
-// {
-//     return $this->createdAt;
-// }
-
-// public function setCreatedAt(\DateTimeImmutable $createdAt): self
-// {
-//     $this->createdAt = $createdAt;
-//     return $this;
-// }
-
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable(); // Initialisation par défaut
+    }
 }
-

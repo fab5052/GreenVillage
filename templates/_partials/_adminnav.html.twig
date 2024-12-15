@@ -1,0 +1,28 @@
+<aside class="col-3 border border-light bg-white p-2">
+    <article class="card mb-3">
+        <div class="card-header">
+            Catégories
+        </div>
+        <div class="card-body">
+            <p><a href="{{ path('app_categorie') }}">Liste des catégories</a></p>
+            <p><a href="">Ajouter une catégorie</a></p>
+        </div>
+    </article>
+    <article class="card mb-3">
+        <div class="card-header">
+            Plats
+        </div>
+        <div class="card-body">
+            <p><a href="{{ path('admin_plat_index') }}">Liste des produits</a></p>
+            <p><a href="{{ path('admin_plat_add') }}">Ajouter un produit</a></p>
+        </div>
+    </article>
+    <article class="card mb-3">
+        <div class="card-header">
+            Utilisateurs
+        </div>
+        {# <div class="card-body">
+            <p><a href="{{ path('admin_utilisateur_index') }}">Liste des utilisateurs</a></p>
+        </div> #}
+    </article>
+</aside>

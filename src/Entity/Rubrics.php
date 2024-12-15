@@ -37,11 +37,17 @@ class Rubrics
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class, cascade: ['persist', 'remove'])]
     private Collection $subRubrics;
 
+    /**
+     * @var Collection<int, Products>
+     */
+    #[ORM\OneToMany(targetEntity: Products::class, mappedBy: 'relation')]
+    private Collection $relation;
+
 
     public function __construct()
     {
         $this->subRubrics = new ArrayCollection();
-//         $this->product = new ArrayCollection();
+       // $this->products = new ArrayCollection();
      }
 
     public function getId(): ?int
@@ -198,6 +204,36 @@ class Rubrics
 
     //     return $this;
     // }
+
+    // /**
+    //  * @return Collection<int, Products>
+    //  */
+    // public function getRelation(): Collection
+    // {
+    //     return $this->relation;
+    // }
+
+    // public function addRelation(Products $relation): static
+    // {
+    //     if (!$this->relation->contains($relation)) {
+    //         $this->relation->add($relation);
+    //         $relation->setRelation($this);
+    //     }
+
+    //     return $this;
+    // }
+// 
+    // public function removeRelation(Products $relation): static
+    // {
+    //     if ($this->relation->removeElement($relation)) {
+    //         // set the owning side to null (unless already changed)
+    //         if ($relation->getRelation() === $this) {
+    //             $relation->setRelation(null);
+    //         }
+    //     }
+
+    //     return $this;
+   // }
 
 
 }

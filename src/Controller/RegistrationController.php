@@ -68,8 +68,9 @@ public function register(Request $request, UserPasswordHasherInterface $userPass
          $user,$form->get('plainPassword')->getData()
                )
             );        
-               $user->getRoles();
+               $user->setRoles(['ROLE_CLIENT']);
                $user->setIsVerified(false);
+               $user->setCreatedAt(new \DateTimeImmutable());
                $entityManager->persist($user);
                $entityManager->flush();
 
@@ -91,12 +92,14 @@ public function register(Request $request, UserPasswordHasherInterface $userPass
 
             // On envoie un mail
             $mail->send(
-                'no-reply@greenvillage',
+                'no-reply@greenvillage.fr',
                 $user->getEmail(),
                 'Activation de votre compte sur notre site !!!',
                 'register',
                 compact('user', 'token')
             );
+
+            $this->addFlash('success', 'Utilisateur inscrit, veuillez cliquer sur le lien reçu pour confirmer votre adresse e-mail');
 
             return $userAuthenticator->authenticateUser(
                 $user,
@@ -112,7 +115,7 @@ public function register(Request $request, UserPasswordHasherInterface $userPass
    }
 
 
-#[Route('/verif/{token}', name: 'verify_user')]
+#[Route('/verif/{token}', name: 'verifyUser')]
 public function verifyUser($token, JWTService $jwt, UserRepository $userRepository, EntityManagerInterface $em): Response
     {
         //On vérifie si le token est valide, n'a pas expiré et n'a pas été modifié
@@ -124,19 +127,19 @@ public function verifyUser($token, JWTService $jwt, UserRepository $userReposito
             $user = $userRepository->find($payload['user_id']);
 
             //On vérifie que l'utilisateur existe et n'a pas encore activé son compte
-            if($user && !$user->getIsVerified()){
-                $user->setIsVerified(true);
+            if($user && !$user->isVerified()){
+                $user->isVerified(true);
                 $em->flush();
                 $this->addFlash('success', 'Utilisateur activé');
-                return $this->redirectToRoute('profile_index');
+                return $this->redirectToRoute('app_profile');
             }
         }
         // Ici un problème se pose dans le token
         $this->addFlash('danger', 'Le token est invalide ou a expiré');
-        return $this->redirectToRoute('app_login');
+        return $this->redirectToRoute('app_register');
     }
 
-    #[Route('/renvoiverif', name: 'resend_verif')]
+    #[Route('/verif/resend', name: 'resend_verif')]
     public function resendVerif( JWTService $jwt, SendMailService $mail,  EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
@@ -146,7 +149,7 @@ public function verifyUser($token, JWTService $jwt, UserRepository $userReposito
             return $this->redirectToRoute('app_login');
         }
     
-        if ($user->getIsVerified()) {
+        if ($user->isVerified()) {
             $this->addFlash('info', "Votre compte est déjà activé.");
             return $this->redirectToRoute('app_profile');
         }
@@ -168,13 +171,13 @@ public function verifyUser($token, JWTService $jwt, UserRepository $userReposito
 
         // On envoie un mail
         $mail->send(
-            'no-reply@monsite.net',
+            'no-reply@greenvillage.fr',
             $user->getEmail(),
             'Activation de votre compte sur le site e-commerce',
             'register',
             compact('user', 'token')
         );
         $this->addFlash('success', 'Email de vérification envoyé');
-        return $this->redirectToRoute('profile_index');
+        return $this->redirectToRoute('app_login');
     }
 }
