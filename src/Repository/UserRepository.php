@@ -30,9 +30,10 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         }
 
         $user = new User();
+        //$user->setEmail($userAuthenticated);
         $user->setPassword($newHashedPassword);
-        $user->getIsVerified();
-  //      $user->setRoles(UserRole::CLIENT);
+        $user->isVerified();
+        $user->getRoles();
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
 

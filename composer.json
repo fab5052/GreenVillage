@@ -8,8 +8,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "amphp/http": "^2.1",
-        "api-platform/doctrine-orm": "^4.0",
-        "api-platform/symfony": "^4.0",
+        "api-platform/core": "^4.0",
         "axios/tools": "^2.1",
         "cocur/slugify": "^4.6",
         "composer/composer": "^2.8",
@@ -17,6 +16,7 @@
         "doctrine/collections": "^2.2",
         "doctrine/dbal": "^4.2",
         "doctrine/doctrine-bundle": "^2.13",
+        "doctrine/doctrine-fixtures-bundle": "^4.0",
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^3.3",
         "lexik/jwt-authentication-bundle": "^3.1",
@@ -42,6 +42,7 @@
         "symfony/notifier": "6.4.*",
         "symfony/polyfill-ctype": "^1.31",
         "symfony/polyfill-php72": "^1.31",
+        "symfony/polyfill-uuid": "*",
         "symfony/process": "6.4.*",
         "symfony/property-access": "6.4.*",
         "symfony/property-info": "6.4.*",
@@ -61,15 +62,13 @@
         "toneflix-code/fakerphp-lorem-toneflix": "^1.0",
         "twbs/bootstrap": "^5.3",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0",
-        "yokai/batch-symfony-console": "^0.6.3",
-        "yokai/batch-symfony-framework": "^0.6.3"
+        "twig/twig": "^2.12|^3.0"
     },
     "config": {
         "allow-plugins": {
             "cweagans/composer-patches": true,
             "enumag/no-thanks": true,
-            "nodejs-php-fallback/nodejs-php-fallback": true,
+            "nodejs-php-fallback/nodejs-php-fallback": false,
             "php-http/discovery": true,
             "symfony/flex": true,
             "symfony/runtime": true
@@ -119,18 +118,14 @@
         }
     },
     "require-dev": {
-        "doctrine/doctrine-fixtures-bundle": "^3.6",
         "enumag/no-thanks": "^0.3.0",
-        "gedmo/doctrine-extensions": "^3.17",
         "phpunit/phpunit": "^9.5",
-        "shopify/shopify-api": "^5.8",
         "symfony/browser-kit": "6.4.*",
         "symfony/css-selector": "6.4.*",
         "symfony/debug-bundle": "6.4.*",
         "symfony/maker-bundle": "^1.0",
         "symfony/phpunit-bridge": "^7.1",
         "symfony/stopwatch": "6.4.*",
-        "symfony/web-profiler-bundle": "6.4.*",
-        "twig/intl-extra": "^3.15"
+        "symfony/web-profiler-bundle": "6.4.*"
     }
 }

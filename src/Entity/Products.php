@@ -4,20 +4,24 @@ namespace App\Entity;
 
 use App\Entity\Trait\SlugTrait;
 use App\Entity\Trait\CreatedAtTrait;
+use App\Assert\GreaterThan;
 use App\Repository\ProductsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use DateTime;
 
+
+
 #[ORM\Entity(repositoryClass: ProductsRepository::class)]
-//#[ORM\UniqueConstraint(name: 'slug', columns: ['slug'])]
+#[ORM\UniqueConstraint(name: 'slug', columns: ['slug'])]
 #[ORM\UniqueConstraint(name: 'reference', columns: ['reference'])]
 class Products
 {
     use CreatedAtTrait;
-//    use SlugTrait;
+    use SlugTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -38,6 +42,28 @@ class Products
 
     #[ORM\Column(length: 255)]
     private ?string $reference = null;
+
+    #[Assert\GreaterThan(
+        value: 0,
+        message: "Le produit est indisponible."
+    )]
+
+    #[ORM\Column(type: 'integer')]
+    private int $stock;
+
+    #[ORM\Column(type: 'boolean')]
+    private bool $isAvailable = true;
+
+    #[ORM\ManyToOne(inversedBy: 'relation')]
+    private ?Rubrics $relation = null;
+
+    public function setStock(int $stock): self
+    {
+    $this->stock = $stock;
+    $this->isAvailable = $stock > 0;
+
+    return $this;
+    }
 
     public function getId(): ?int
     {
@@ -80,6 +106,8 @@ class Products
         return $this;
     }
 
+    
+
     // public function getSlug(): ?string
     // {
     //     return $this->slug;
@@ -116,5 +144,22 @@ class Products
         return $this;
     }
 
+
+    public function isAvailable(): bool
+{
+    return $this->stock > 0;
+}
+
+    public function getRelation(): ?Rubrics
+    {
+        return $this->relation;
+    }
+
+    public function setRelation(?Rubrics $relation): static
+    {
+        $this->relation = $relation;
+
+        return $this;
+    }
 
 }

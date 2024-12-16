@@ -17,6 +17,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\SecurityRequestAttributes;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 
 class UserAuthenticator extends AbstractLoginFormAuthenticator
@@ -61,27 +62,35 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
         //     return new RedirectResponse($this->urlGenerator->generate('admin_dashboard'));
         // }
     
-        // if (in_array('ROLE_CLIENT', $roles, true)) {
-        //     return new RedirectResponse($this->urlGenerator->generate('client_dashboard'));
-        // } 
+//return new RedirectResponse($this->urlGenerator->generate('app_home'));
+    
+    //   Redirection basée sur les rôles
+    //    $roles = $token->getRoleNames(); // Récupère les rôles de l'utilisateur connecté
+
+    //     if (in_array('ROLE_ADMIN', $roles, true)) {
+    //         return new RedirectResponse($this->urlGenerator->generate('admin_dashboard'));
+    //     }
+    
+    //     if (in_array('ROLE_CLIENT', $roles, true)) {
+    //         return new RedirectResponse($this->urlGenerator->generate('login'));
+    //     } 
 
         // if (in_array('ROLE_COMMERCIAL', $roles, true)) {
         //     return new RedirectResponse($this->urlGenerator->generate('commercial_dashboard'));
         // } 
 
-        return new RedirectResponse($this->urlGenerator->generate('main'));
+    //    return new RedirectResponse($this->urlGenerator->generate('main'));
+    
+    //
+        // For example:
+   return new RedirectResponse($this->urlGenerator->generate('app_profile'));
+    //     throw new \Exception('TODO: provide a valid redirect inside '.__FILE__); }
     }
-    //     // For example:
-    //     // return new RedirectResponse($this->urlGenerator->generate('some_route'));
-    //     throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
-    // }
-
     protected function getLoginUrl(Request $request): string
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
     }
 }
-
 
 
 

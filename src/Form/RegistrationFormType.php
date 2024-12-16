@@ -72,25 +72,25 @@ class RegistrationFormType extends AbstractType
             ],
             'label' => 'En m\'inscrivant à ce site j\'accepte...'
         ])
-        ->add('plainPassword', PasswordType::class, [
-            'label' => 'Mot de passe',
-            'mapped' => false,
-            'attr' => ['autocomplete' => 'new-password'],
-            'constraints' => [
-                new NotBlank([
-                    'message' => 'Entrez votre mot de passe',
-                ]),
-                new Length([
-                    'min' => 6,
-                    'minMessage' => 'Votre mot de passe doit comporter au moins {{ limit }} caractères',
-                    'max' => 4096,
-                ]),
-                new Regex([
-                    'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/',
-                    'message' => 'Votre mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial',
-                ]),
-            ],
-        ])
+        // ->add('plainPassword', PasswordType::class, [
+        //     'label' => 'Mot de passe',
+        //     'mapped' => false,
+        //     'attr' => ['autocomplete' => 'new-password'],
+        //     'constraints' => [
+        //         new NotBlank([
+        //             'message' => 'Entrez votre mot de passe',
+        //         ]),
+        //         new Length([
+        //             'min' => 6,
+        //             'minMessage' => 'Votre mot de passe doit comporter au moins {{ limit }} caractères',
+        //             'max' => 4096,
+        //         ]),
+        //         new Regex([
+        //             'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/',
+        //             'message' => 'Votre mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial',
+        //         ]),
+        //     ],
+        // ])
         ->add('plainPassword', RepeatedType::class, [
             'type' => PasswordType::class,
             'first_options' => [
@@ -127,17 +127,18 @@ class RegistrationFormType extends AbstractType
         //     ],
         // ])
    
-             ;
-         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
-             $form = $event->getForm();
-             $plainPassword = $form->get('plainPassword')->getData();
-        //      $confirmPassword = $form->get('confirmPassword')->getData();   
-        //      if ($plainPassword !== $confirmPassword) {
-        //          $form->get('confirmPassword')->addError(new FormError('Les mots de passe ne correspondent pas.'));
-        //      }
-        //  });
-        });
-    }   
+        //      ;
+        //  $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+        //      $form = $event->getForm();
+        //      $plainPassword = $form->get('plainPassword')->getData();
+             //$confirmPassword = $form->get('confirmPassword')->getData();   
+            //  if ($plainPassword !== $confirmPassword) {
+            //      $form->get('confirmPassword')->addError(new FormError('Les mots de passe ne correspondent pas.'));
+            //  }
+        //   });
+        }
+    
+      
 
     public function configureOptions(OptionsResolver $resolver): void
     {
@@ -145,4 +146,5 @@ class RegistrationFormType extends AbstractType
             'data_class' => User::class,
         ]);
     }
+
 }

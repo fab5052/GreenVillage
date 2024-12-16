@@ -9,11 +9,6 @@ require dirname(__DIR__).'/vendor/autoload_runtime.php';
 <<<<<<< HEAD
 
 
-=======
-
-// #dd($_SERVER);
->>>>>>> 82662cc1 (fezafa)
-
 // (new Dotenv())->bootEnv(dirname(__DIR__).'/.env');
 // if ($_SERVER['APP_DEBUG']) {
 //     umask(0000);
@@ -32,13 +27,14 @@ require dirname(__DIR__).'/vendor/autoload_runtime.php';
 // $kernel->terminate($request, $response);
 
 return function (array $context) {
-     return new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
+   return new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
 
 
-require_once dirname(__DIR__).'/vendor/autoload.php';
+//require_once dirname(_DIR__).'/vendor/autoload_runtime.php';
 
-<<<<<<< HEAD
-dd($_SERVER);
+//require_once dirname(__DIR__).'/vendor/autoload.php';
+
+// dd($_SERVER);
 
 =======
 >>>>>>> 82662cc1 (fezafa)

@@ -9,17 +9,17 @@ opcache:
     controller: App\Controller\OpcacheController::index
 
 
-app_dashboardAdmin:
-  path: /admin/dashboard
-  controller: App\controller\AdminController::admin
+# app_dashboardAdmin:
+#   path: /admin/dashboard
+#   controller: App\controller\AdminController::admin
 
-app_dashboardClient:
-  path: /client/dashboard
-  controller: App\controller\ClientController::client
+# app_dashboardClient:
+#   path: /client/dashboard
+#   controller: App\controller\ClientController::client
 
-app_dashboardCommercial:
-  path: /commercial/dashboard
-  controller: App\controller\CommercialController::commercial
+# app_dashboardCommercial:
+#   path: /commercial/dashboard
+#   controller: App\controller\CommercialController::commercial
 
 app_register:
   path: /register
@@ -27,11 +27,11 @@ app_register:
 
 app_verify:
   path: /verif/{token}
-  controller: App\Controller\RegistrationController::verifUser
+  controller: App\Controller\RegistrationController::verifyUser
 
 app_resend:
-  path: /resend
-  controller: App\Controller\RegistrationController::resendVerification
+  path: /verif/resend
+  controller: App\Controller\RegistrationController::resend_verif
 
 app_login:
   path: /login
@@ -49,38 +49,50 @@ app_changePassword:
 
 app_index:
   path: /
-  controller: App\Controller\IndexController::index
+  controller: App\Controller\HomeController::index
+  defaults:
+     role: ROLE_USER
+
+app_orders:
+  path: /orders
+  controller: App\Controller\OrdersController::index
   defaults:
     role: ROLE_USER
 
-app_rubrics:
-  path: /rubrics
-  controller: App\Controller\MainController::rubrics
-
-app_productsByRubric:
-  path: /products/{slug}
-  controller: App\Controller\MainController::productsRubrics
-
-#Tout les Produits
-app_products:
-  path: /products
-  controller: App\Controller\MainController::products
+app_orders_details:
+  path: /orders_details
+  controller: App\Controller\OrdersController::index
   defaults:
-    role: ROLE_USER
+    role: ROLE_USER    
 
-# Details d'un produit
-app_productDetails:
-  path: /product/{slug}
-  controller: App\Controller\MainController::productDetails
-  defaults:
-    role: ROLE_USER
+# app_rubrics:
+#   path: /rubrics
+#   controller: App\Controller\MainController::rubrics
 
-# Panier
-app_cart:
-  path: /cart
-  controller: App\Controller\CartController::viewCart
-  defaults:
-    role: ROLE_USER
+# app_productsByRubric:
+#   path: /products/{slug}
+#   controller: App\Controller\MainController::productsRubrics
+
+# #Tout les Produits
+# app_products:
+#   path: /products
+#   controller: App\Controller\MainController::products
+#   defaults:
+#     role: ROLE_USER
+
+# # Details d'un produit
+# app_productDetails:
+#   path: /product/{slug}
+#   controller: App\Controller\MainController::productDetails
+#   defaults:
+#     role: ROLE_USER
+
+# # Panier
+# app_cart:
+#   path: /cart
+#   controller: App\Controller\CartController::viewCart
+#   defaults:
+#     role: ROLE_USER
 
 # Profil
 app_profile:
@@ -89,23 +101,23 @@ app_profile:
   defaults:
     role: ROLE_USER
 
-# Modifier une adresse
-app_updateAddress:
-  path: /address/{id}/edit
-  controller: App\Controller\ProfilController::updateAddress
-  defaults:
-    role: ROLE_USER
+# # Modifier une adresse
+# app_updateAddress:
+#   path: /address/{id}/edit
+#   controller: App\Controller\ProfilController::updateAddress
+#   defaults:
+#     role: ROLE_USER
 
-# Supprimer une adresse
-app_deleteAddress:
-  path: /address/{id}/delete
-  controller: App\Controller\ProfilController::deleteAddress
-  defaults:
-    role: ROLE_USER
+# # Supprimer une adresse
+# app_deleteAddress:
+#   path: /address/{id}/delete
+#   controller: App\Controller\ProfilController::deleteAddress
+#   defaults:
+#     role: ROLE_USER
 
-# Ajouter une adresse
-app_addAddress:
-  path: /address/new
-  controller: App\Controller\ProfilController::addAddress
-  defaults:
-    role: ROLE_USER
+# # Ajouter une adresse
+# app_addAddress:
+#   path: /address/new
+#   controller: App\Controller\ProfilController::addAddress
+#   defaults:
+#     role: ROLE_USER
