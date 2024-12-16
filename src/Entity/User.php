@@ -33,7 +33,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id;
 
-    #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[ORM\Column(type: 'string', length: 50, unique: true)]
     private ?string $email;
     
     #[ORM\Column(type: 'json')]
@@ -42,19 +42,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string')]
     private ?string $password;
     
-    #[ORM\Column(type: 'string', length: 100)]
+    #[ORM\Column(type: 'string', length: 50)]
     private ?string $lastname;
     
-    #[ORM\Column(type: 'string', length: 100)]
+    #[ORM\Column(type: 'string', length: 50)]
     private ?string $firstname;
     
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 150)]
     private ?string $address;
     
     #[ORM\Column(type: 'string', length: 5)]
+    // #[Assert\Length(
+    //     max: 5,
+    //     maxMessage: 'Le code postal doit contenir au maximum {{ limit }} caractères.'
+    // )]
+    // #[Assert\Regex(
+    //     pattern: '/^\d{1,5}$/',
+    //     message: 'Le code postal doit contenir uniquement des chiffres.'
+    // )]
     private ?string $zipcode;
     
-    #[ORM\Column(type: 'string', length: 150)]
+    #[ORM\Column(type: 'string', length: 100)]
     private ?string $city;
     
     #[ORM\Column(type: 'boolean')]

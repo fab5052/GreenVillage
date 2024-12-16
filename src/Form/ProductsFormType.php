@@ -4,14 +4,15 @@ namespace App\Form;
 
 use App\Entity\Rubrics;
 use App\Entity\Products;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormType;
 use App\Repository\RubricsRepository;
+use Doctrine\DBAL\Types\IntegerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\Positive;
@@ -42,9 +43,16 @@ class ProductsFormType extends AbstractType
                     )
                 ]
             ])
-            ->add('stock', options:[
-                'label' => 'Unités en stock'
+            ->add('stock', IntegerType::class, [
+                'label' => 'Article disponible',
+                'constraints' => [
+                    new \Symfony\Component\Validator\Constraints\GreaterThan([
+                        'value' => 0,
+                        'message' => 'Le stock doit être supérieur à 0 pour être disponible.',
+                    ]),
+                ],
             ])
+            
             ->add('Rubrics', EntityType::class, [
                 'class' => Rubrics::class,
                 'choice_label' => 'label',

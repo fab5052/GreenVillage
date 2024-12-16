@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormCo;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Email;
@@ -52,8 +52,12 @@ class RegistrationFormType extends AbstractType
             'label' => 'Adresse'
         ])
         ->add('zipcode', TextType::class, [
-            'attr' => [
-                'class' => 'form-control'
+            'mapped' => false,       
+            'constraints' => [
+                new Regex([
+                  'pattern' => '/^\d{1,5}$/',
+                  'message' => 'Le code postal doit contenir uniquement des chiffres.',
+                ]),
             ],
             'label' => 'Code postal'
         ])
@@ -61,7 +65,7 @@ class RegistrationFormType extends AbstractType
             'attr' => [
                 'class' => 'form-control'
             ],
-            'label' => 'Ville'
+            'label' => 'Ville',
         ])
         ->add('RGPDConsent', CheckboxType::class, [
             'mapped' => false,
