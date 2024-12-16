@@ -4,6 +4,8 @@
 
 {% block body %}
 
+{# {% use "bootstrap_5.html.twig" %} #}
+
 {% for label, messages in app.flashes %}
     <div class="alert alert-{{ label }}">
         {% for message in messages %}

@@ -86,7 +86,8 @@ window.flux = {
 		this.imageContainer = $('<div class="images loading"></div>').css({
 			'position': 'relative',
 			'overflow': 'hidden',
-			'min-height': '100px'
+			'min-height': '100px',
+			'min-width': '2000px'
 		}).appendTo(this.surface);
 		
 		// If the height/width is already set then resize the container

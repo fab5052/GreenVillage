@@ -2,11 +2,11 @@
 
 namespace App\Form;
 
-use App\Entity\Rubrics;
-use App\Entity\Products;
+use App\Entity\Rubric;
+use App\Entity\Product;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormType;
-use App\Repository\RubricsRepository;
+use App\Repository\RubricRepository;
 use Doctrine\DBAL\Types\IntegerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\Positive;
 
-class ProductsFormType extends AbstractType
+class ProductFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -54,11 +54,11 @@ class ProductsFormType extends AbstractType
             ])
             
             ->add('Rubrics', EntityType::class, [
-                'class' => Rubrics::class,
+                'class' => Rubric::class,
                 'choice_label' => 'label',
                 'label' => 'Rubriques',
                 'group_by' => 'parent.label',
-                'query_builder' => function(RubricsRepository $rR){
+                'query_builder' => function(RubricRepository $rR){
                     return $rR->createQueryBuilder('r')
                         ->where('r.parent IS NOT NULL')
                         ->orderBy('r.label', 'ASC');
@@ -84,7 +84,7 @@ class ProductsFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Products::class,
+            'data_class' => Product::class,
         ]);
     }
 }

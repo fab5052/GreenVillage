@@ -89,7 +89,7 @@ class RegistrationController extends AbstractController
     }
     
 
-#[Route('/verif/{token}', name: 'verify_user')]
+#[Route('/verif/{token}', name: 'verif_user')]
 public function verifyUser($token, JWTService $jwt, UserRepository $userRepository, EntityManagerInterface $em): Response
     {
         //On vérifie si le token est valide, n'a pas expiré et n'a pas été modifié

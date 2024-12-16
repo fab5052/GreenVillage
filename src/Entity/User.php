@@ -11,19 +11,15 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
-use Doctrine\DBAL\Types\Types;
-use App\Enum\UserRole;
-use Symfony\Component\Form\Extension\Core\Type\EnumType;
-use Symfony\Component\Uid\Uuid;
-
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 #[UniqueEntity(fields: ['email'], message: 'Un compte existe avec cet email')]
-
-class User implements UserInterface, PasswordAuthenticatedUserInterface
-{
+class User 
+    implements UserInterface, PasswordAuthenticatedUserInterface
+    {
     //use CreatedAtTrait;
  //   use EnumType;
     #[ORM\Id]
@@ -31,34 +27,45 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id;
 
-    #[ORM\Column(type: 'string', length: 50, unique: true)]
-    private ?string $email;
-    
-    #[ORM\Column(type: 'json')]
+    #[ORM\Column(length: 180)]
+    private ?string $email = null;
+
+    /**
+     * @var list<string> The user roles
+     */
+    #[ORM\Column]
     private array $roles = [];
-    
-    #[ORM\Column(type: 'string')]
-    private ?string $password;
-    
-    #[ORM\Column(type: 'string', length: 50)]
+
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column]
+    private ?string $password = null;
+
+    // #[ORM\Column(type: 'string', enumType: UserRole::class)]
+    // private ?UserRole $role = null;
+
+    // #[ORM\Column(length: 50)]
+    // private ?string $UserName = null;
+
+    #[ORM\Column(type: 'string', length: 100)]
     private ?string $lastname;
     
-    #[ORM\Column(type: 'string', length: 50)]
+    #[ORM\Column(type: 'string', length: 100)]
     private ?string $firstname;
     
-    #[ORM\Column(type: 'string', length: 150)]
+    #[ORM\Column(type: 'string', length: 255)]
     private ?string $address;
     
     #[ORM\Column(type: 'string', length: 5)]
-    #[Assert\Length(
-        max: 5,
-        maxMessage: 'Le code postal doit contenir au maximum {{ limit }} caractères.'
-    )]
     private ?string $zipcode;
     
-    #[ORM\Column(type: 'string', length: 100)]
-    private ?string $city;
-    
+    #[ORM\Column(type: 'string', length: 150)]
+    private $city;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $plainPassword = null;
+
     #[ORM\Column(type: 'boolean')]
     private bool $is_verified = false;
     
@@ -74,10 +81,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'datetime', nullable: true)]
     private ?\DateTime $lastConnect = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?string $plainPassword = null;  
-    
-     /**
+
+    /**
     * @var Collection<int, InfoSuppliers>
     */
     #[ORM\OneToMany(targetEntity: InfoSuppliers::class, mappedBy: 'user')]

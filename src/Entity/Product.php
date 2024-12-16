@@ -98,7 +98,7 @@ class Product
 
     public function __construct()
     {
-        $this->image = new ArrayCollection();
+        $this->images = new ArrayCollection();
         $this->deliveryDetails = new ArrayCollection();
 
     }

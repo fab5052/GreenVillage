@@ -1,4 +1,4 @@
-a,
+/* a,
 address,
 article,
 aside,
@@ -58,8 +58,8 @@ video {
   font-size:100%;
   font:inherit;
   vertical-align:baseline
-}
-article,
+} */
+/* article,
 aside,
 details,
 figcaption,
@@ -70,12 +70,12 @@ hgroup,
 nav,
 section {
   display:block
-}
-table {
+} */
+/* table {
   border-collapse:collapse;
   border-spacing:0
-}
-caption,
+} */
+/* caption,
 th {
   text-align:left;
   font-weight:400
@@ -101,7 +101,7 @@ h4,
 h5,
 h6 {
   font-size:100%
-}
+} */
 textarea {
   overflow:auto;
   resize:none
@@ -117,7 +117,7 @@ button,
 input {
   outline:0
 }
-b,
+/* b,
 em,
 h1,
 h2,
@@ -127,7 +127,7 @@ h5,
 h6,
 strong {
   font-weight:700
-}
+} */
 a {
   text-decoration:none
 }
@@ -3984,7 +3984,6 @@ header .header-search-cate {
   padding-top:40px;
   text-align:center;
   font-size:14px;
-  background:url(../../images/details/blank.png) center 4px no-repeat;
   background-size:40px auto
 }
 .header-msg .msg-bot {
@@ -14631,7 +14630,7 @@ body.blur .wrap {
   padding:0 16px;
   border:1px solid transparent
 }
-@media (max-width:860px) {
+/* @media (max-width:860px) {
   .custom-card-popup .popup-main {
     width:100vw;
     height:117.7vw;
@@ -14701,32 +14700,48 @@ body.blur .wrap {
   }
   .custom-card-popup-item {
     padding:8px
-  }
+  } 
+} */
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
 }
 .custom-event-popup-icon {
   width:100px;
   height:50px;
-  object-fit:contain
+  /* object-fit:contain */
 }
 .top-left {
   display:flex;
   align-items:center;
-  justify-content:flex-start;
-  overflow:hidden
+  justify-content:
+   space-between;
+  overflow-x:hidden;
+  position: relative;
+  width: 100vw;
 }
 .stylus_bfitem {
   display:flex;
   align-items:center;
-  text-align:left;
+  margin-left:4px;
   white-space:nowrap
 }
+
 .flip-countdown {
-  display:none;
-  margin-left:12px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-left:4px;
   font-weight:700;
   line-height:0;
   font-size:22px
 }
+.countdown-item {
+  min-width: 50px;
+  display: flex;
+}
+
 .flipcountdown-show {
   display:inline-flex;
   align-items:center;
@@ -14734,11 +14749,11 @@ body.blur .wrap {
 }
 .flip-countdown .countdown-item {
   display:inline-flex;
-  flex:none
+
 }
 .countdown-flip {
   position:relative;
-  display:inline-block;
+  /* display:inline-block; */
   text-align:center;
   border-radius:4px;
   margin:0 1px;
@@ -14810,7 +14825,7 @@ body.blur .wrap {
   transform:perspective(160px) rotateX(180deg)
 }
 .stylus_bfitem_b {
-  margin:0 20px;
+  margin:0 10px;
   width:1px;
   height:22px;
   background-color:rgba(255,255,255,.4)
