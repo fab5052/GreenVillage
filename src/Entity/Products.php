@@ -16,12 +16,12 @@ use DateTime;
 
 
 #[ORM\Entity(repositoryClass: ProductsRepository::class)]
-#[ORM\UniqueConstraint(name: 'slug', columns: ['slug'])]
+//#[ORM\UniqueConstraint(name: 'slug', columns: ['slug'])]
 #[ORM\UniqueConstraint(name: 'reference', columns: ['reference'])]
 class Products
 {
     use CreatedAtTrait;
-    use SlugTrait;
+  //  use SlugTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -43,6 +43,11 @@ class Products
     #[ORM\Column(length: 255)]
     private ?string $reference = null;
 
+    // /**
+    //  * @ORM\Column(type="string", length=255)
+    //  */
+    // private $slug;
+
     #[Assert\GreaterThan(
         value: 0,
         message: "Le produit est indisponible."
@@ -53,9 +58,6 @@ class Products
 
     #[ORM\Column(type: 'boolean')]
     private bool $isAvailable = true;
-
-    #[ORM\ManyToOne(inversedBy: 'relation')]
-    private ?Rubrics $relation = null;
 
     public function setStock(int $stock): self
     {
@@ -106,8 +108,6 @@ class Products
         return $this;
     }
 
-    
-
     // public function getSlug(): ?string
     // {
     //     return $this->slug;
@@ -149,17 +149,5 @@ class Products
 {
     return $this->stock > 0;
 }
-
-    public function getRelation(): ?Rubrics
-    {
-        return $this->relation;
-    }
-
-    public function setRelation(?Rubrics $relation): static
-    {
-        $this->relation = $relation;
-
-        return $this;
-    }
 
 }

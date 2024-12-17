@@ -1,0 +1,132 @@
+#version: '3'
+
+services:
+
+  server:
+        build:
+            context: .
+            dockerfile: ./automation/docker/Dockerfile
+        container_name: server
+        volumes:
+            - ./:/var/www
+  #          - /:/var/lib/mysql
+        # networks:
+        #     - MyNetwork   
+        links:
+            - mysql
+        ports:
+            - 81:80
+        environment:  
+#          DATABASE_URL: 'mysql://${MYSQL_USER:-root}:${MYSQL_ROOT_PASSWORD:-password}@mysql:3306/${MYSQL_DATABASE:-green_village}?serverVersion=8.2&charset=utf8mb4'
+#           MYSQL_USER: root
+# #         MYSQL_PASSWORD: Afpa
+#           MYSQL_DATABASE: green_village
+#           MYSQL_ROOT_PASSWORD: password
+          PHP_OPCACHE_VALIDATE_TIMESTAMPS: 1
+
+  mysql:
+    image: mysql:8.2
+    container_name: mysql
+    restart: always
+    environment:
+#        MYSQL_USER: root
+#        MYSQL_PASSWORD: Afpa
+        MYSQL_DATABASE: green_village
+        MYSQL_ROOT_PASSWORD: password
+        MAILER_DSN: smtp://mailhog:1025
+    # healthcheck:
+    #     test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+    #     timeout: 5s
+    #     retries: 5
+    #     start_period: 60s
+    volumes:
+      - mysql_data:/var/lib/mysql
+    # networks:
+    #   - MyNetwork
+    ports:
+      - 3307:3306
+  
+  phpmyadmin:
+          image: phpmyadmin/phpmyadmin
+          container_name: phpmyadmin
+          depends_on:
+              - mysql
+          restart: always
+          environment:
+             PMA_HOST: mysql
+            #  PMA_USER: root
+            #  PMA_PASSWORD: password
+            #  MYSQL_USER: root
+            #  MYSQL_PASSWORD: Afpa
+            # MYSQL_DATABASE: green_village
+             MYSQL_ROOT_PASSWORD: password
+          links:
+              - mysql
+        #   networks:
+        #       - MyNetwork
+          ports:
+              - 8095:80
+
+  mailhog:
+          image: mailhog/mailhog
+          ports:
+              - 1025:1025
+              - 8025:8025 
+          logging:
+             driver: 'none'      
+          
+
+#   mysql:
+#     image: 'mysql:8.2'
+#     environment:
+#       MYSQL_ROOT_PASSWORD: password
+#       MYSQL_DATABASE: green_village
+#     # networks:
+#     #     - MyNetwork  
+#     # depends_on:
+#     #     - mysql 
+#     # links:
+#     #     - mysql  
+#     ports:
+#       # To allow the host machine to access the ports below, modify the lines below.
+#       # For example, to allow the host to connect to port 3306 on the container, you would change
+#       # "3306" to "3306:3306". Where the first port is exposed to the host and the second is the container port.
+#       # See https://docs.docker.com/compose/compose-file/compose-file-v3/#ports for more information.
+#       - '3306'
+              
+# networks:
+#     MyNetwork: 
+#         #  driver: bridge
+volumes:
+     mysql_data:
+  
+# networks:
+#     MyNetwork: 
+#           logging:
+#              driver: 'none'      
+          
+
+#   database:
+#     image: 'mysql:8.2'
+#     environment:
+#       MYSQL_ROOT_PASSWORD: password
+#       MYSQL_DATABASE: green_village
+#     networks:
+#         - MyNetwork  
+#     depends_on:
+#         - mysql 
+#     links:
+#         - mysql  
+#     ports:
+#       # To allow the host machine to access the ports below, modify the lines below.
+#       # For example, to allow the host to connect to port 3306 on the container, you would change
+#       # "3306" to "3306:3306". Where the first port is exposed to the host and the second is the container port.
+#       # See https://docs.docker.com/compose/compose-file/compose-file-v3/#ports for more information.
+#       - '3306'
+              
+# networks:
+#     MyNetwork: 
+#          driver: bridge
+# volumes:
+#     mysql_data:
+  

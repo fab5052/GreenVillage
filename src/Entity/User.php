@@ -41,9 +41,6 @@ class User
      * @var string The hashed password
      */
     #[ORM\Column]
-    
-    #[Assert\NotBlank]
-    #[Assert\Length(min: 6)]
     private ?string $password = null;
 
     // #[ORM\Column(type: 'string', enumType: UserRole::class)]
@@ -67,9 +64,6 @@ class User
     #[ORM\Column(type: 'string', length: 150)]
     private $city;
 
-    /**
- * Non persistée, utilisée uniquement pour stocker temporairement le mot de passe en clair.
- */
     #[ORM\Column(nullable: true)]
     private ?string $plainPassword = null;
 
@@ -152,19 +146,19 @@ class User
     public function eraseCredentials()
     {
         // If you store any temporary, sensitive data on the user, clear it here
-        $this->plainPassword = null;
+        //$this->plainPassword = null;
     }
 
-    // public function getPlainPassword(): ?string
-    // {
-    //     return $this->plainPassword;
-    // }
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
     
-    // public function setPlainPassword(?string $plainPassword): self
-    // {
-    //     $this->plainPassword = $plainPassword;
-    //     return $this;
-    // }
+    public function setPlainPassword(?string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
+        return $this;
+    }
 
     public function getLastname(): ?string
     {

@@ -6,7 +6,6 @@ use App\Kernel;
 // use Symfony\Component\HttpFoundation\Request;
 
 require dirname(__DIR__).'/vendor/autoload_runtime.php';
-<<<<<<< HEAD
 
 
 // (new Dotenv())->bootEnv(dirname(__DIR__).'/.env');
@@ -36,6 +35,4 @@ return function (array $context) {
 
 // dd($_SERVER);
 
-=======
->>>>>>> 82662cc1 (fezafa)
 };

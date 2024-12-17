@@ -51,9 +51,9 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        // if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
-        //     return new RedirectResponse($targetPath);
-        // }
+        if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
+            return new RedirectResponse($targetPath);
+        }
         
         // // Redirection basée sur les rôles
         // $roles = $token->getRoleNames(); // Récupère les rôles de l'utilisateur connecté
@@ -64,26 +64,26 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
     
 //return new RedirectResponse($this->urlGenerator->generate('app_home'));
     
-    //   Redirection basée sur les rôles
+     // Redirection basée sur les rôles
     //    $roles = $token->getRoleNames(); // Récupère les rôles de l'utilisateur connecté
 
     //     if (in_array('ROLE_ADMIN', $roles, true)) {
     //         return new RedirectResponse($this->urlGenerator->generate('admin_dashboard'));
     //     }
     
-    //     if (in_array('ROLE_CLIENT', $roles, true)) {
+    //     if (in_array('ROLE_USER', $roles, true)) {
     //         return new RedirectResponse($this->urlGenerator->generate('login'));
     //     } 
 
-        // if (in_array('ROLE_COMMERCIAL', $roles, true)) {
-        //     return new RedirectResponse($this->urlGenerator->generate('commercial_dashboard'));
-        // } 
+    //     if (in_array('ROLE_COMMERCIAL', $roles, true)) {
+    //         return new RedirectResponse($this->urlGenerator->generate('commercial_dashboard'));
+    //     } 
 
-    //    return new RedirectResponse($this->urlGenerator->generate('main'));
+      // return new RedirectResponse($this->urlGenerator->generate('main'));
     
-    //
+    
         // For example:
-   return new RedirectResponse($this->urlGenerator->generate('app_profile'));
+   return new RedirectResponse($this->urlGenerator->generate('app_login'));
     //     throw new \Exception('TODO: provide a valid redirect inside '.__FILE__); }
     }
     protected function getLoginUrl(Request $request): string

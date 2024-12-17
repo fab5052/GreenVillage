@@ -6,11 +6,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-//  #[IsGranted("ROLE_USER")]
-#[Route('/profile', name: 'profile_')]
+//#[IsGranted("ROLE_USER")]
+
+//#[Route('/profile', name: 'profile_')]
 class ProfileController extends AbstractController
 {
-    #[Route('/', name: 'index')]
+    #[Route('/profile', name: 'app_profile')]
     public function index(): Response
     {
         return $this->render('profile/index.html.twig', [
@@ -18,11 +19,11 @@ class ProfileController extends AbstractController
         ]);
     }
 
-    #[Route('/commande', name: 'profile')]
-    public function commande(): Response
-    {
-        return $this->render('profile/profile.html.twig', [
-            'controller_name' => 'Commandes de l\'utilisateur',
-        ]);
-    }
+    // #[Route('/commande', name: 'profile')]
+    // public function commande(): Response
+    // {
+    //     return $this->render('profile/profile.html.twig', [
+    //         'controller_name' => 'Commandes de l\'utilisateur',
+    //     ]);
+    // }
 }

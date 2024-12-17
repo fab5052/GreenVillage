@@ -27,7 +27,7 @@ app_register:
 
 app_verify:
   path: /verif/{token}
-  controller: App\Controller\RegistrationController::verifyUser
+  controller: App\Controller\RegistrationController::verif_user
 
 app_resend:
   path: /verif/resend
@@ -47,11 +47,11 @@ app_changePassword:
   defaults:
     role: ROLE_USER
 
-app_index:
+app_home:
   path: /
   controller: App\Controller\HomeController::index
-  defaults:
-     role: ROLE_USER
+  # defaults:
+  #    role: ROLE_USER
 
 app_orders:
   path: /orders
@@ -97,7 +97,7 @@ app_orders_details:
 # Profil
 app_profile:
   path: /profile
-  controller: App\Controller\ProfilController::profile
+  controller: App\Controller\ProfileController::profile
   defaults:
     role: ROLE_USER
 

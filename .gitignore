@@ -2,32 +2,31 @@
 /.env.local
 /.env.local.php
 /.env.*.local
-config/secrets/prod/prod.decrypt.private.php
+/config/secrets/prod/prod.decrypt.private.php
 public/bundles/
-var/
-vendor/
+/var/
+/vendor/
 .env
 /compose.override.yaml
-docker-compose.yml
+#/docker-compose.yml
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
 /phpunit.xml
-.phpunit.result.cache
+#.phpunit.result.cache
 ###< phpunit/phpunit ###
 
 ###> symfony/phpunit-bridge ###
 .phpunit.result.cache
-/phpunit.xml
+#/phpunit.xml
 ###< symfony/phpunit-bridge ###
 
 ###> symfony/asset-mapper ###
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
-node_modules
-node_modules
-node_modules
+/node_modules/
+
 
 ###> symfony/webpack-encore-bundle ###
 node_modules/
