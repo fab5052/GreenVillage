@@ -127,17 +127,17 @@ class RegistrationFormType extends AbstractType
         //     ],
         // ])
    
-             ;
-         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
-             $form = $event->getForm();
-             $plainPassword = $form->get('plainPassword')->getData();
-        //      $confirmPassword = $form->get('confirmPassword')->getData();   
-        //      if ($plainPassword !== $confirmPassword) {
-        //          $form->get('confirmPassword')->addError(new FormError('Les mots de passe ne correspondent pas.'));
-        //      }
-        //  });
-        });
-    }   
+    //          ;
+    //      $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+    //          $form = $event->getForm();
+    //          $plainPassword = $form->get('plainPassword')->getData();
+    //     //      $confirmPassword = $form->get('confirmPassword')->getData();   
+    //     //      if ($plainPassword !== $confirmPassword) {
+    //     //          $form->get('confirmPassword')->addError(new FormError('Les mots de passe ne correspondent pas.'));
+    //     //      }
+    //     //  });
+    //     });
+     }   
 
     public function configureOptions(OptionsResolver $resolver): void
     {

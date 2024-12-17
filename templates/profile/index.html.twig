@@ -1,20 +1,118 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProfileController!{% endblock %}
+{% block title %}Votre Profile !{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/style.css')}}">
+
+{% endblock %}
+
+
+
+{% use "bootstrap_5_layout.html.twig" %}
+
+{# {% if error %}
+	<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %} #}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+{% comment %} {% if app.user %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ profile }}! ✅</h1>
+	<div class="alert alert-warning alert-dismissible" role="alert">
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		<div class="alert-message">
+			<strong>Votre compte n'est pas activé</strong>,
+			<a href="{{ path('resend_verif') }}">renvoyer le lien d'activation</a>
+		</div>
+	</div>
+{% endif %} {% endcomment %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/fabrice/GreenVillage/src/Controller/ProfileController.php'|file_link(0) }}">src/Controller/ProfileController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/fabrice/GreenVillage/templates/profile/index.html.twig'|file_link(0) }}">templates/profile/index.html.twig</a></code></li>
-    </ul>
+{% if app.user %}
+<div class="container justify-content-center" id="mentions" >
+    <div class='row mt-5'>
+<h1>Heureux de vous Revoir  {{app.user.firstname}} !</h1>
+<h2 class="mt-2">
+    You are logged in as </h2>
+    {{ app.user.userIdentifier }},
 </div>
+
+
+</div>
+
+<div class="container" >
+    <div class='row mt-5'>
+        <div class='col-sm-8 offset-sm-2'>
+        <h1 class='justify-content-center d-flex'>Informations d'utilisateur</h1>
+<table class ='table table-light table-hover mt-4'>
+<thead>
+    <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Email</th>
+        <th>Adresse</th>
+        <th>Code Postal</th>
+        <th>Ville</th>
+    </tr>
+</thead>
+
+<tbody>
+    <tr>
+        <td>{{ app.user.lastname }}</td>
+        <td>{{ app.user.firstname }}</td>
+        <td>{{ app.user.email }}</td>
+        <td>{{ app.user.address }}</td>
+        <td>{{ app.user.zipcode }}</td>
+        <td>{{ app.user.city }}</td>
+    </tr>
+</tbody>
+
+<a href="{{ path('app_logout') }}" class="btn btn-danger mt-3">Se déconnecter</a>
+</div>
+{% else %}
+<div class="alert alert-danger">Vous devez être connecté pour voir cette page.</div>
+{% endif %}
+
+{% if app.user and app.user.isVerified == false %}
+
+<div class="container" id="mentions" >
+<h1>Connexion/Inscription</h1>
+</div>
+
+
+
+	<div class="card col-3 mx-auto ml-0">
+		<h3>Connexion</h3>
+		<div class="card-body">
+			<p>Vous avez deja un compte connectez vous des maintenant !!!</p>
+			<a href="{{path ('app_login')}}" class="btn btn-link d-flex justify-content-center" type="button">Se Connecter</a>
+		</div>
+	</div>
+
+	<div class="card col-3">
+		<h3>Inscription</h3>
+		<div class="card-body">
+			<p>Vous n'avez toujours pas de compte pour en cree un c'est juste ici !!!</p>
+			<a href="{{path ('app_register')}}" class="btn btn-link d-flex justify-content-center" type="button">S'inscrire</a>
+		</div>
+	</div>
+{% endif %}
+
+
+
+{% if app.user and app.user.isVerified == false %}
+
+    <div class="card col-3">
+       <h3>Voir vos commandes</h3>
+            <div class="card-body">
+          <p>Vos informations sur vos commande !!!</p>
+            <a href="{{path ('app_orders_details')}}" class="btn btn-link d-flex justify-content-center" type="button">voir Profil</a>
+            </div>
+    </div>
+</div>
+{% endif %}
+
+
 {% endblock %}
+
+
+ 

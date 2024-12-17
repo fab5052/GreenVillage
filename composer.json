@@ -34,6 +34,7 @@
         "symfony/form": "6.4.*",
         "symfony/framework-bundle": "6.4.*",
         "symfony/http-client": "6.4.*",
+        "symfony/http-foundation": "6.4.*",
         "symfony/http-kernel": "6.4.*",
         "symfony/intl": "6.4.*",
         "symfony/mailer": "6.4.*",
@@ -119,7 +120,7 @@
         }
     },
     "require-dev": {
-        "doctrine/doctrine-fixtures-bundle": "^3.6",
+        "doctrine/doctrine-fixtures-bundle": "*",
         "enumag/no-thanks": "^0.3.0",
         "gedmo/doctrine-extensions": "^3.17",
         "phpunit/phpunit": "^9.5",

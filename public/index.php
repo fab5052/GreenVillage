@@ -6,13 +6,8 @@ use App\Kernel;
 // use Symfony\Component\HttpFoundation\Request;
 
 require dirname(__DIR__).'/vendor/autoload_runtime.php';
-<<<<<<< HEAD
 
 
-=======
-
-// #dd($_SERVER);
->>>>>>> 82662cc1 (fezafa)
 
 // (new Dotenv())->bootEnv(dirname(__DIR__).'/.env');
 // if ($_SERVER['APP_DEBUG']) {
@@ -35,11 +30,8 @@ return function (array $context) {
      return new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
 
 
-require_once dirname(__DIR__).'/vendor/autoload.php';
+// require_once dirname(__DIR__).'/vendor/autoload.php';
 
-<<<<<<< HEAD
-dd($_SERVER);
+// dd($_SERVER);
 
-=======
->>>>>>> 82662cc1 (fezafa)
 };

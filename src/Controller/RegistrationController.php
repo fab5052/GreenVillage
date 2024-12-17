@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Enum\UserRole;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use App\Security\UserAuthenticator;
 use App\Service\JWTService;
 use App\Service\SendMailService;
 use Doctrine\ORM\EntityManagerInterface;
+use PharIo\Manifest\Email;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,44 +24,21 @@ class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
 
-//     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher,
-//     Security $security, EntityManagerInterface $entityManager,
-//     JWTService $jwt, SendMailService $mail): Response
-//    {
-
-  //     $ref = mt_rand(10000, 99999);
-//        $userRepository = $entityManager->getRepository(User::class);
-//        $existingUser = $userRepository->findOneBy(['ref' => $ref]);
-       
-//        if ($existingUser !== null) {
-           
-//            $ref = mt_rand(10000, 99999);
-           
-//            $this->addFlash('error', 'Un utilisateur avec le même ref existe déjà');
-//            return $this->redirectToRoute('app_register');
-//        }
-//        $user = new User();
-//        $form = $this->createForm(RegistrationFormType::class, $user);
-//        $form->handleRequest($request);
-
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            /** @var string $plainPassword */
-//            $plainPassword = $form->get('plainPassword')->getData();
-//            // encode the plain password
-//            $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
-//            $user->setRoles(['ROLE_USER']);
-//            $user->setIsVerified(false);
-// //           $user->setRef("Cli:{$ref}");
-// //           $user->setLastConnect(new \DateTimeImmutable());
-//            $entityManager->persist($user);
-//            $entityManager->flush();
-
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UserAuthenticator $authenticator, EntityManagerInterface $entityManager, SendMailService $mail, JWTService $jwt): Response    {
+    public function register(
+        Request $request,
+        UserPasswordHasherInterface $userPasswordHasher,
+        UserAuthenticatorInterface $userAuthenticator,
+        UserAuthenticator $authenticator,
+        Security $security,
+        EntityManagerInterface $entityManager,
+        SendMailService $mail,
+        JWTService $jwt
+    ): Response {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
-
+    
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
             // Encode le mot de passe
             $user->setPassword(
@@ -68,26 +47,22 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
+    
             $entityManager->persist($user);
             $entityManager->flush();
-
-
+    
             // On génère le JWT de l'utilisateur
-            // On crée le Header
             $header = [
                 'typ' => 'JWT',
                 'alg' => 'HS256'
             ];
-
-            // On crée le Payload
+    
             $payload = [
                 'user_id' => $user->getId()
             ];
-
-            // On génère le token
+    
             $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
-
+    
             // On envoie un mail
             $mail->send(
                 'no-reply@greenvillage',
@@ -96,20 +71,23 @@ class RegistrationController extends AbstractController
                 'register',
                 compact('user', 'token')
             );
+    
+            // Authentification avec Security
+            //$security->login($user, authenticatorUtils);
 
             return $userAuthenticator->authenticateUser(
                 $user,
-                $userAuthenticator,
+                $authenticator,
                 $request
             );
-            
+    
+           // return $this->redirectToRoute('main');
         }
-
+    
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
-   }
-
+    }
     #[Route('/verif/{token}', name: 'verify_user')]
     public function verifyUser($token, JWTService $jwt, UserRepository $userRepository, EntityManagerInterface $em): Response
     {
@@ -122,19 +100,19 @@ class RegistrationController extends AbstractController
             $user = $userRepository->find($payload['user_id']);
 
             //On vérifie que l'utilisateur existe et n'a pas encore activé son compte
-            if($user && !$user->getIsVerified()){
-                $user->setIsVerified(true);
+            if($user && !$user->isVerified()){
+                $user->isVerified(true);
                 $em->flush();
                 $this->addFlash('success', 'Utilisateur activé');
-                return $this->redirectToRoute('profile_index');
+                return $this->redirectToRoute('app_profile');
             }
         }
         // Ici un problème se pose dans le token
         $this->addFlash('danger', 'Le token est invalide ou a expiré');
-        return $this->redirectToRoute('app_login');
+        return $this->redirectToRoute('app_register');
     }
 
-    #[Route('/renvoiverif', name: 'resend_verif')]
+    #[Route('/verif/resend', name: 'resend_verif')]
     public function resendVerif( JWTService $jwt, SendMailService $mail,  EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
@@ -144,7 +122,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
     
-        if ($user->getIsVerified()) {
+        if ($user->isVerified()) {
             $this->addFlash('info', "Votre compte est déjà activé.");
             return $this->redirectToRoute('app_profile');
         }

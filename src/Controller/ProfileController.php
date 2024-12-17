@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Address;
+use App\Entity\User;
 use App\Form\UserFormType;
 use App\Form\AddressFormType;
-use App\Repository\AddressRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,39 +17,39 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
     
 class ProfileController extends AbstractController
 {
-    // #[Route('/profile', name: 'app_profile')]
-    // private $validator;
+    #[Route('/profile', name: 'app_profile')]
+    private $validator;
 
-    // public function __construct(ValidatorInterface $validator)
-    // {
-    //     $this->validator = $validator;
-    // }
+    public function __construct(ValidatorInterface $validator)
+    {
+        $this->validator = $validator;
+    }
 
-    // public function profile(AddressRepository $addressRepository): Response
-    // {
-     //   $user = $this->getUser();
+    public function profile(UserRepository $userRepository): Response
+    {
+       $user = $this->getUser();
 
         //Vérification si l'utilisateur est connecté
-        // if (!$user) {
-        //     return $this->redirectToRoute('app_login');
-        // }
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
 
-        // try {
+        try {
 
-        //     if (!$this->validator->validate($user)) {
-        //         throw new \RuntimeException('Utilisateur non valide');
-        //     }
-        // } catch (\RuntimeException $e) {
-        //     $this->addFlash('error', $e->getMessage());
-        //     return $this->redirectToRoute('app_index');
-        // }
+            if (!$this->validator->validate($user)) {
+                throw new \RuntimeException('Utilisateur non valide');
+            }
+        } catch (\RuntimeException $e) {
+            $this->addFlash('error', $e->getMessage());
+            return $this->redirectToRoute('app_register');
+        }
 
-       // Affichage du profil en cas de succès
-    //     return $this->render('profile/index.html.twig', [
-    //         'controller_name' => 'ProfileController',
-    //         'user' => $user
-    //     ]);
-    // }
+       //Affichage du profil en cas de succès
+        return $this->render('profile/index.html.twig', [
+            'controller_name' => 'ProfileController',
+            'user' => $user
+        ]);
+    }
 
     public function updateProfile(Request $request, EntityManagerInterface $entityManager): Response
     {
