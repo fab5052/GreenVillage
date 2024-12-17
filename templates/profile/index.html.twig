@@ -16,18 +16,10 @@
 {% endif %} #}
 
 {% block body %}
-{% comment %} {% if app.user %}
 
-	<div class="alert alert-warning alert-dismissible" role="alert">
-		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-		<div class="alert-message">
-			<strong>Votre compte n'est pas activé</strong>,
-			<a href="{{ path('resend_verif') }}">renvoyer le lien d'activation</a>
-		</div>
-	</div>
-{% endif %} {% endcomment %}
 
-{% if app.user %}
+{% if app.user and app.user.isVerified == false %}
+
 <div class="container justify-content-center" id="mentions" >
     <div class='row mt-5'>
 <h1>Heureux de vous Revoir  {{app.user.firstname}} !</h1>
@@ -35,9 +27,9 @@
     You are logged in as </h2>
     {{ app.user.userIdentifier }},
 </div>
-
-
 </div>
+{% endif %}
+
 
 <div class="container" >
     <div class='row mt-5'>
@@ -54,7 +46,7 @@
         <th>Ville</th>
     </tr>
 </thead>
-
+{% if app.user %}
 <tbody>
     <tr>
         <td>{{ app.user.lastname }}</td>
@@ -72,30 +64,6 @@
 <div class="alert alert-danger">Vous devez être connecté pour voir cette page.</div>
 {% endif %}
 
-{% if app.user and app.user.isVerified == false %}
-
-<div class="container" id="mentions" >
-<h1>Connexion/Inscription</h1>
-</div>
-
-
-
-	<div class="card col-3 mx-auto ml-0">
-		<h3>Connexion</h3>
-		<div class="card-body">
-			<p>Vous avez deja un compte connectez vous des maintenant !!!</p>
-			<a href="{{path ('app_login')}}" class="btn btn-link d-flex justify-content-center" type="button">Se Connecter</a>
-		</div>
-	</div>
-
-	<div class="card col-3">
-		<h3>Inscription</h3>
-		<div class="card-body">
-			<p>Vous n'avez toujours pas de compte pour en cree un c'est juste ici !!!</p>
-			<a href="{{path ('app_register')}}" class="btn btn-link d-flex justify-content-center" type="button">S'inscrire</a>
-		</div>
-	</div>
-{% endif %}
 
 
 

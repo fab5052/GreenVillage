@@ -32,24 +32,27 @@ class AppFixtures extends Fixture
         foreach ($user as $userData) {
             $userDB = new User();
             $userDB 
+                ->setCreatedAt(new \DateTimeImmutable())
+                ->setIsVerified($userData[true])
                 ->setEmail($userData['email']) 
                 ->setLastname($userData['nom'])
                 ->setFirstname($userData['prenom'])                
                 ->setAddress($userData['adresse'])
                 ->setZipcode($userData['cp'])
-                ->setCity($userData['ville']);
-            $userDB->setIsVerified($userData[false]);
+                ->setCity($userData['ville'])
+                ->setRoles($userData['ROLE_USER']);
+           // $userDB->setIsVerified($userData[false]);
             $userDB->setPassword(
                 $this->passwordEncoder->hashPassword($userDB, 'secret')
             );
-            $userDB->setCreatedAt(new \DateTimeImmutable);
-            $userDB->setRoles(['ROLE_CLIENT']);
+          //  $userDB->setCreatedAt(new \DateTimeImmutable);
+          //  $userDB->setRoles(['ROLE_USER']);
             $manager->persist($userDB);
         }
     }
 
     $admin = new User();
-    $admin->setEmail('admin@thedistrict.fr');
+    $admin->setEmail('admin@greenvillage.fr');
     $admin->setFirstname('Fabrice');
     $admin->setLastname('Beaujois');    
     $admin->setAddress('12 rue du port');

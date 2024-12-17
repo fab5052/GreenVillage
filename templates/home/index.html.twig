@@ -376,6 +376,12 @@ filter: dropshadow(color=#000FFF, offx=1, offy=1);
 {# <link rel="stylesheet" href="{{ asset('css.nav.css')}}"> #}
 {% endblock %}
 
+{% if app.user and not app.user.isVerified %}
+    <div class="alert alert-warning">
+        Votre compte n'est pas activé. 
+        <a href="{{ path('resend_verif') }}" class="btn btn-link">Renvoyer l'email d'activation</a>
+    </div>
+{% endif %}
 
 
 <style>

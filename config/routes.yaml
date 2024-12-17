@@ -42,8 +42,8 @@ app_logout:
   controller: App\Controller\SecurityController::logout
 
 app_reset_password:
-  path: /changePassword/{id}
-  controller: App\Controller\SecurityController::change_password
+  path: /reset/password/{id}
+  controller: App\Controller\SecurityController::reset_password
   defaults:
     role: ROLE_USER
 
@@ -64,6 +64,12 @@ app_orders_details:
   controller: App\Controller\OrdersController::index
   defaults:
     role: ROLE_USER    
+
+app_search:
+  path: /search
+  # controller: App\Controller\OrdersController::index
+  defaults:
+    role: ROLE_USER
 
 # app_rubrics:
 #   path: /rubrics

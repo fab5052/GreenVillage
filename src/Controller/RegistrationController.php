@@ -29,8 +29,8 @@ class RegistrationController extends AbstractController
         UserPasswordHasherInterface $userPasswordHasher,
         UserAuthenticatorInterface $userAuthenticator,
         UserAuthenticator $authenticator,
-        Security $security,
         EntityManagerInterface $entityManager,
+        UserRepository $userRepository, // Pour rechercher les utilisateurs existants
         SendMailService $mail,
         JWTService $jwt
     ): Response {
@@ -40,54 +40,64 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
     
         if ($form->isSubmitted() && $form->isValid()) {
-            // Encode le mot de passe
+            // Vérifier si l'email existe déjà
+            $existingUser = $userRepository->findOneBy(['email' => $user->getEmail()]);
+            if ($existingUser) {
+                $this->addFlash('error', 'Cette adresse e-mail est déjà utilisée.');
+                return $this->redirectToRoute('app_register');
+            }
+    
+            // Hachage du mot de passe
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
             );
+            $user->setRoles(['ROLE_USER']);
+            $user->setIsVerified(false);
+            $user->setCreatedAt(new \DateTimeImmutable());
     
+            // Sauvegarde de l'utilisateur
             $entityManager->persist($user);
             $entityManager->flush();
+            
     
-            // On génère le JWT de l'utilisateur
-            $header = [
-                'typ' => 'JWT',
-                'alg' => 'HS256'
-            ];
-    
-            $payload = [
-                'user_id' => $user->getId()
-            ];
-    
+            // Génération du JWT et envoi de l'email
+            $header = ['typ' => 'JWT', 'alg' => 'HS256'];
+            $payload = ['user_id' => $user->getId()];
             $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
     
-            // On envoie un mail
             $mail->send(
-                'no-reply@greenvillage',
+                'no-reply@greenvillage.fr',
                 $user->getEmail(),
                 'Activation de votre compte sur notre site !!!',
                 'register',
                 compact('user', 'token')
             );
+            
+             
+            $this->addFlash('warning', 'Veuillez activer votre compte en cliquant sur le lien envoyé à votre adresse e-mail. Si vous n\'avez pas reçu d\'e-mail, utilisez le lien pour le renvoyer.');
+            //return $this->redirectToRoute('app_home');
+            
     
-            // Authentification avec Security
-            //$security->login($user, authenticatorUtils);
-
+            // Authentification de l'utilisateur
             return $userAuthenticator->authenticateUser(
                 $user,
                 $authenticator,
                 $request
             );
-    
-           // return $this->redirectToRoute('main');
+            
+            
+        
+            
+ 
         }
-    
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
+
     #[Route('/verif/{token}', name: 'verify_user')]
     public function verifyUser($token, JWTService $jwt, UserRepository $userRepository, EntityManagerInterface $em): Response
     {
@@ -104,7 +114,7 @@ class RegistrationController extends AbstractController
                 $user->isVerified(true);
                 $em->flush();
                 $this->addFlash('success', 'Utilisateur activé');
-                return $this->redirectToRoute('app_profile');
+                return $this->redirectToRoute('app_login');
             }
         }
         // Ici un problème se pose dans le token
@@ -124,7 +134,7 @@ class RegistrationController extends AbstractController
     
         if ($user->isVerified()) {
             $this->addFlash('info', "Votre compte est déjà activé.");
-            return $this->redirectToRoute('app_profile');
+            return $this->redirectToRoute('app_home');
         }
 
         // On génère le JWT de l'utilisateur
@@ -146,11 +156,11 @@ class RegistrationController extends AbstractController
         $mail->send(
             'no-reply@monsite.net',
             $user->getEmail(),
-            'Activation de votre compte sur le site e-commerce',
+            'Activation de votre compte sur le site',
             'register',
             compact('user', 'token')
         );
-        $this->addFlash('success', 'Email de vérification envoyé');
-        return $this->redirectToRoute('profile_index');
+        $this->addFlash('success', 'Email de vérification envoyé veuillez cliquer sur le lien envoyé');
+        return $this->redirectToRoute('app_login');
     }
 }

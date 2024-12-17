@@ -95,7 +95,7 @@ class SecurityController extends AbstractController
         ]);
     }
 
-    #[Route('/oubli-pass/{token}', name:'reset_password')]
+    #[Route('/reset/password/{token}', name:'reset_password')]
     public function resetPass(
         string $token,
         Request $request,

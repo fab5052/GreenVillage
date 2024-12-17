@@ -15,67 +15,88 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
     
+#[Route('/profile', name: 'profile_')]
 class ProfileController extends AbstractController
 {
-    #[Route('/profile', name: 'app_profile')]
-    private $validator;
-
-    public function __construct(ValidatorInterface $validator)
+    #[Route('/', name: 'index')]
+    public function index(): Response
     {
-        $this->validator = $validator;
+        return $this->render('profile/index.html.twig', [
+            'controller_name' => 'Profil de l\'utilisateur',
+        ]);
     }
 
-    public function profile(UserRepository $userRepository): Response
+
+#[Route('/commandes', name: 'orders')]
+    public function orders(): Response
     {
-       $user = $this->getUser();
+        return $this->render('profile/index.html.twig', [
+            'controller_name' => 'Commandes de l\'utilisateur',
+        ]);
+    }
 
-        //Vérification si l'utilisateur est connecté
-        if (!$user) {
-            return $this->redirectToRoute('app_login');
-        }
+}
+// class ProfileController extends AbstractController
+// {
+//     #[Route('/profile', name: 'app_profile')]
+//     private $validator;
 
-        try {
+//     public function __construct(ValidatorInterface $validator)
+//     {
+//         $this->validator = $validator;
+//     }
 
-            if (!$this->validator->validate($user)) {
-                throw new \RuntimeException('Utilisateur non valide');
-            }
-        } catch (\RuntimeException $e) {
-            $this->addFlash('error', $e->getMessage());
-            return $this->redirectToRoute('app_register');
-        }
+//     public function profile(UserRepository $userRepository): Response
+//     {
+//        $user = $this->getUser();
+
+//         //Vérification si l'utilisateur est connecté
+//         if (!$user) {
+//             return $this->redirectToRoute('app_login');
+//         }
+
+//         try {
+
+//             if (!$this->validator->validate($user)) {
+//                 throw new \RuntimeException('Utilisateur non valide');
+//             }
+//         } catch (\RuntimeException $e) {
+//             $this->addFlash('error', $e->getMessage());
+//             return $this->redirectToRoute('app_register');
+//         }
 
        //Affichage du profil en cas de succès
-        return $this->render('profile/index.html.twig', [
-            'controller_name' => 'ProfileController',
-            'user' => $user
-        ]);
-    }
+    //     return $this->render('profile/index.html.twig', [
+    //         'controller_name' => 'ProfileController',
+    //         'user' => $user
+    //     ]);
+    // }
 
-    public function updateProfile(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $user = $this->getUser();
+    // public function updateProfile(Request $request, EntityManagerInterface $entityManager): Response
+    // {
+    //     $user = $this->getUser();
 
-        if (!$user) {
-            return $this->redirectToRoute('app_login');
-        }
+    //     if (!$user) {
+    //         return $this->redirectToRoute('app_login');
+    //     }
 
-        $form = $this->createForm(UserFormType::class, $user);
+    //     $form = $this->createForm(UserFormType::class, $user);
 
-        $form->handleRequest($request);
+    //     $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+    //     if ($form->isSubmitted() && $form->isValid()) {
 
-            $entityManager->persist($user);
-            $entityManager->flush();
+    //         $entityManager->persist($user);
+    //         $entityManager->flush();
 
-            return $this->redirectToRoute('app_profile');
-        }
+    //         return $this->redirectToRoute('app_profile');
+    //     }
 
-        return $this->render('profil/updateProfile/updateProfile.html.twig  ', [
-            'controller_name' => 'ProfileController',
-            'form' => $form->createView()
-        ]);
-    }
+    //     return $this->render('profil/updateProfile/updateProfile.html.twig  ', [
+    //         'controller_name' => 'ProfileController',
+    //         'form' => $form->createView()
+    //     ]);
+    // }
 
 
     // public function addAddress(Request $request, EntityManagerInterface $entityManager): Response
@@ -176,4 +197,3 @@ class ProfileController extends AbstractController
     //     $entityManager->flush();
     //     return $this->redirectToRoute('app_profile');
     // }
-}
