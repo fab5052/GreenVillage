@@ -51,7 +51,8 @@ class AppFixtures extends Fixture
     $admin = new User();
     $admin->setEmail('admin@thedistrict.fr');
     $admin->setFirstname('Fabrice');
-    $admin->setLastname('Beaujois');    $admin->setAddress('12 rue du port');
+    $admin->setLastname('Beaujois');    
+    $admin->setAddress('12 rue du port');
     $admin->setZipcode('80850');
     $admin->setCity('Berto');
     $admin->setPassword(
