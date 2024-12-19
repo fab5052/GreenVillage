@@ -48,7 +48,6 @@ app_changePassword:
     role: ROLE_USER
 
 app_home:
-<<<<<<< HEAD
   path: /
   controller: App\Controller\HomeController::index
   # defaults:
@@ -57,10 +56,6 @@ app_home:
 app_orders:
   path: /orders
   controller: App\Controller\OrdersController::index
-=======
-  path: /home
-  controller: App\Controller\HomeController::index
->>>>>>> 9a68ca93 (qffazefa)
   defaults:
     role: ROLE_USER
 
@@ -102,7 +97,7 @@ app_orders_details:
 # Profil
 app_profile:
   path: /profile
-  controller: App\Controller\ProfileController::profile
+  controller: App\Controller\ProfileController::index
   defaults:
     role: ROLE_USER
 

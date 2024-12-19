@@ -58,7 +58,7 @@
         "symfony/ux-turbo": "^2.21",
         "symfony/validator": "6.4.*",
         "symfony/web-link": "6.4.*",
-        "symfony/webpack-encore-bundle": "^2.2",
+        "symfony/webpack-encore-bundle": "*",
         "symfony/yaml": "6.4.*",
         "toneflix-code/fakerphp-lorem-toneflix": "^1.0",
         "twbs/bootstrap": "^5.3",

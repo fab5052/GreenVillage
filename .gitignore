@@ -8,17 +8,18 @@ public/bundles/
 /vendor/
 .env
 /compose.override.yaml
-#/docker-compose.yml
+/docker-compose.override.yaml
+/docker-compose.yml
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
 /phpunit.xml
-#.phpunit.result.cache
+.phpunit.result.cache
 ###< phpunit/phpunit ###
 
 ###> symfony/phpunit-bridge ###
 .phpunit.result.cache
-#/phpunit.xml
+/phpunit.xml
 ###< symfony/phpunit-bridge ###
 
 ###> symfony/asset-mapper ###

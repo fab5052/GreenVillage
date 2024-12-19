@@ -1,40 +1,29 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Votre Profile !{% endblock %}
-{% block stylesheets %}
-	<link rel="stylesheet" href="{{ asset('css/style.css')}}">
 
-{% endblock %}
 
 {% block body %}
 
 {% use "bootstrap_5_layout.html.twig" %}
 
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/style.css')}}">
+
+{% endblock %}
+
 {# {% if error %}
 	<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 {% endif %} #}
 
-{% if app.user and app.user.isVerified == false %}
-
-
-	<div class="alert alert-warning alert-dismissible" role="alert">
-		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-		<div class="alert-message">
-			<strong>Votre compte n'est pas activé</strong>,
-			<a href="{{ path('resend_verif') }}">renvoyer le lien d'activation</a>
-		</div>
-	</div>
-{% endif %}
-
+{% if app.user %}
 <div class="container" id="mentions" >
 <h1>Heureux de vous Revoir  {{app.user.firstname}} !!!</h1>
-{% if app.user and app.user.isVerified == false %}
 
 	<div class="mb-3">
 		You are logged in as
 		{{ app.user.userIdentifier }},
 	</div>
-{% endif %}
 
 </div>
 
@@ -54,9 +43,7 @@
     </tr>
 </thead>
 
-{% if app.user and app.user.isVerified == false %}
-<tbody>
-    <tr>
+
 <tbody>
     <tr>
         <td>{{ app.user.lastname }}</td>
@@ -68,8 +55,6 @@
     </tr>
 </tbody>
 
-    </tr>
-</tbody>
 {% endif %}
 
 </table>
@@ -81,7 +66,6 @@
 <h1>Connexion/Inscription</h1>
 </div>
 
-{% if app.user and app.user.isVerified == false %}
 
 {% if not app.user %}
 	<div class="card  col-3">
@@ -99,9 +83,7 @@
 			<a href="{{path ('app_register')}}" class="btn btn-link d-flex justify-content-center" type="button">S'inscrire</a>
 		</div>
 	</div>
-{% endif %}
 
-{% if app.user and app.user.isVerified == false %}
 
     <div class="card col-3">
        
@@ -113,9 +95,7 @@
             </div>
     </div>
 </div>
-{% endif %}
 
-{% if app.user and app.user.isVerified == false %}
 
 <a href="{{ path('app_logout') }}" class="btn btn-link d-block justify-content-center" type="button">Se deconnecté</a>
     {% endif %}
