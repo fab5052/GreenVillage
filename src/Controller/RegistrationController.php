@@ -85,7 +85,7 @@ public function register(
             )
         );
         $user->setRoles(['ROLE_USER']);
-        $user->setIsVerified(false);
+        $user->isVerified();
         $user->setCreatedAt(new \DateTimeImmutable());
 
         // Sauvegarde de l'utilisateur
@@ -134,10 +134,11 @@ public function register(
 
             //On vérifie que l'utilisateur existe et n'a pas encore activé son compte
             if($user && !$user->isVerified()){
-                $user->isVerified(true);
+                $user->setIsVerified(true);
+                $em->persist($user);
                 $em->flush();
-                $this->addFlash('success', 'Utilisateur activé');
-                return $this->redirectToRoute('app_profile');
+                $this->addFlash('success', 'Utilisateur activé avc succés vous pouvez vous connecter !');
+                return $this->redirectToRoute('app_login');
             }
         }
         // Ici un problème se pose dans le token

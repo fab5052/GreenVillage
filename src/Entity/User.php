@@ -12,15 +12,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-// /**
-//  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
-//  */
-//#[ORM\Table(name: '`user`')]
+
+#[ORM\Table(name: '`user`')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 #[UniqueEntity(fields: ['email'], message: 'Un compte existe avec cet email')]
 class User 
-     implements UserInterface, PasswordAuthenticatedUserInterface
-{
+    implements UserInterface, PasswordAuthenticatedUserInterface
+    {
     //use CreatedAtTrait;
  //   use EnumType;
     #[ORM\Id]

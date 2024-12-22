@@ -3,12 +3,12 @@
 /.env.local.php
 /.env.*.local
 /config/secrets/prod/prod.decrypt.private.php
-public/bundles/
+/public/bundles/
 /var/
 /vendor/
 .env
 /compose.override.yaml
-#/docker-compose.yml
+/docker-compose.yml
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
@@ -38,3 +38,5 @@ yarn-error.log
 ###> lexik/jwt-authentication-bundle ###
 /config/jwt/*.pem
 ###< lexik/jwt-authentication-bundle ###
+
+/mysql_data

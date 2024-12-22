@@ -33,7 +33,7 @@ class JWTService
         $base64Header = str_replace(['+', '/', '='], ['-', '_', ''], $base64Header);
         $base64Payload = str_replace(['+', '/', '='], ['-', '_', ''], $base64Payload);
 
-        // On génère la signature
+        // Génèrer la signature
         $secret = base64_encode($secret);
 
         $signature = hash_hmac('sha256', $base64Header . '.' . $base64Payload, $secret, true);
@@ -42,13 +42,13 @@ class JWTService
 
         $base64Signature = str_replace(['+', '/', '='], ['-', '_', ''], $base64Signature);
 
-        // On crée le token
+        // Créer le token
         $jwt = $base64Header . '.' . $base64Payload . '.' . $base64Signature;
 
         return $jwt;
     }
 
-    //On vérifie que le token est valide (correctement formé)
+    //Vérif token si valide (correctement formé)
 
     public function isValid(string $token): bool
     {
@@ -58,25 +58,25 @@ class JWTService
         ) === 1;
     }
 
-    // On récupère le Payload
+    // Récupèrer Payload
     public function getPayload(string $token): array
     {
-        // On démonte le token
+        // Démonte le token
         $array = explode('.', $token);
 
-        // On décode le Payload
+        // Décode le Payload
         $payload = json_decode(base64_decode($array[1]), true);
 
         return $payload;
     }
 
-    // On récupère le Header
+    // Récupèrer le Header
     public function getHeader(string $token): array
     {
-        // On démonte le token
+        // Démonter le token
         $array = explode('.', $token);
 
-        // On décode le Header
+        // Décoder le Header
         $header = json_decode(base64_decode($array[0]), true);
 
         return $header;
