@@ -7,14 +7,11 @@
 
 {% use "bootstrap_5_layout.html.twig" %}
 
-{% block stylesheets %}
-	<link rel="stylesheet" href="{{ asset('css/style.css')}}">
-
-{% endblock %}
-
 {# {% if error %}
 	<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 {% endif %} #}
+
+<div class="main">
 
 {% if app.user %}
 <div class="container" id="mentions" >
@@ -63,8 +60,8 @@
 </div>
 
 <div class="container" id="mentions" >
+<div class="row col-12 p-0 d-flex justify-content-evenly">
 <h1>Connexion/Inscription</h1>
-</div>
 
 
 {% if not app.user %}
@@ -96,11 +93,11 @@
     </div>
 </div>
 
-
+{% else %}
 <a href="{{ path('app_logout') }}" class="btn btn-link d-block justify-content-center" type="button">Se deconnecté</a>
     {% endif %}
-
-
+</div>
+</div>
 
 
 {% endblock %}
