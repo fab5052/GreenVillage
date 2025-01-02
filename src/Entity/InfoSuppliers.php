@@ -24,7 +24,7 @@ class InfoSuppliers
     #[ORM\Column(length: 50)]
     private ?string $reference = null;
 
-    #[ORM\ManyToOne(inversedBy: 'InfoSuppliers')]
+    #[ORM\ManyToOne(inversedBy: 'infoSuppliers')]
     private ?User $user = null;
 
     /**

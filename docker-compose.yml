@@ -16,6 +16,7 @@ services:
             - mysql
         ports:
             - 81:80
+        restart: always
         environment:  
 #          DATABASE_URL: 'mysql://${MYSQL_USER:-root}:${MYSQL_ROOT_PASSWORD:-password}@mysql:3306/${MYSQL_DATABASE:-green_village}?serverVersion=8.2&charset=utf8mb4'
 #           MYSQL_USER: root
@@ -73,7 +74,9 @@ services:
               - 1025:1025
               - 8025:8025 
           logging:
-             driver: 'none'      
+             driver: 'none'     
+          restart: always
+ 
           
 
 #   mysql:

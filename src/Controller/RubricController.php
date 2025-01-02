@@ -18,11 +18,21 @@ class RubricController extends AbstractController
     {
         try {
             $viewRubrics = $entityManager->getRepository(Rubric::class)->findBy(['parent' => null]);
+          // $lastRubric = $entityManager->getRepository(Rubric::class)->findOneBy([], ['createdAt' => 'DESC']);
+
         } catch (Exception $e) {
             $this->addFlash('error', 'Impossible de charger les rubriques. Veuillez réessayer plus tard.');
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('rubric_rubrics');
         }
+        
+    // public function showLastRubric(): Response
+    // {
+    //     $lastRubric = $this->getDoctrine()
+    //         ->getRepository(Rubric::class)
+    //         ->findOneBy([], ['createdAt' => 'DESC']);
 
+        
+            
         return $this->render('rubric/rubrics.html.twig', [
             'rubrics' => $viewRubrics
         ]);

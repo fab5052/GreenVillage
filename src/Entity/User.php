@@ -9,10 +9,11 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-
 #[ORM\Table(name: '`user`')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 #[UniqueEntity(fields: ['email'], message: 'Un compte existe avec cet email')]
@@ -73,7 +74,34 @@ class User
 
     #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $siret = null;
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTime $lastConnect = null;
+
+
+    /**
+    * @var Collection<int, InfoSuppliers>
+    */
+    #[ORM\OneToMany(targetEntity: InfoSuppliers::class, mappedBy: 'user')]
+    private Collection $infoSuppliers;
+
+    /**
+    * @var Collection<int, Orders>
+    */
+    #[ORM\OneToMany(targetEntity: Orders::class, mappedBy: 'user')]
+    private Collection $orders;
      
+    public function __construct()
+    {
+       // $this->address = new ArrayCollection();
+        $this->infoSuppliers = new ArrayCollection();
+        $this->orders = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable(); 
+        $this->lastConnect = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -123,8 +151,6 @@ class User
 
         return $this;
     }
-
-
 
     /**
      * @see PasswordAuthenticatedUserInterface
@@ -242,6 +268,31 @@ class User
         return $this;
     }
 
+    public function getSiret(): ?string
+    {
+        return $this->siret;
+    }
+
+    public function setSiret(?string $siret): static
+    {
+        $this->siret = $siret;
+
+        return $this;
+    }
+
+    public function getLastConnect(): ?\DateTime
+    {
+        return $this->lastConnect;
+    }
+
+    public function setLastConnect(\DateTime $lastConnect): self
+    {
+        $this->lastConnect = $lastConnect;
+
+        return $this;
+    }
+
+        
     public function getCreatedAt(): ?\DateTimeImmutable
     {
     return $this->createdAt;
@@ -250,11 +301,69 @@ class User
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
     $this->createdAt = $createdAt;
+    
     return $this;
     }
 
-    public function __construct()
-    {
-        $this->createdAt = new \DateTimeImmutable(); // Initialisation par défaut
+
+/**
+* @return Collection<int, infoSuppliers>
+*/
+public function getInfoSuppliers(): Collection
+{
+    return $this->infoSuppliers;
+}
+
+public function addInfoSupplier(InfoSuppliers $infoSupplier): self
+{
+    if (!$this->infoSuppliers->contains($infoSupplier)) {
+        $this->infoSuppliers[] = $infoSupplier;
+        $infoSupplier->setUser($this);
     }
+
+    return $this;
+}
+
+public function removeInfoSupplier(InfoSuppliers $infoSupplier): self
+{
+    if ($this->infoSuppliers->removeElement($infoSupplier)) {
+        if ($infoSupplier->getUser() === $this) {
+            $infoSupplier->setUser(null);
+        }
+    }
+
+    return $this;
+}
+
+    /**
+     * @return Collection<int, Orders>
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrders(Orders $orders): static
+    {
+        if (!$this->orders->contains($orders)) {
+            $this->orders->add($orders);
+            $orders->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Orders $orders): static
+    {
+        if ($this->orders->removeElement($orders)) {
+            // set the owning side to null (unless already changed)
+            if ($orders->getUser() === $this) {
+                $orders->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }

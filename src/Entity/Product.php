@@ -19,12 +19,12 @@ use DateTime;
 
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
-//#[ORM\UniqueConstraint(name: 'slug', columns: ['slug'])]
+#[ORM\UniqueConstraint(name: 'slug', columns: ['slug'])]
 #[ORM\UniqueConstraint(name: 'reference', columns: ['reference'])]
 class Product
 {
     //use CreatedAtTrait;
-    use SlugTrait;
+    //use SlugTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -43,13 +43,14 @@ class Product
     #[Groups(['product:read'])]
     private ?string $price = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 50)]
     private ?string $reference = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $slug;
+    #[ORM\Column(type: 'string', length: '100', unique: true)]
+    #[Assert\NotBlank(message: 'Le slug ne peut pas être vide.')]
+    #[Assert\Unique]
+
+    private ?string $slug = null;
 
     
     #[ORM\Column]
@@ -58,30 +59,34 @@ class Product
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\ManyToOne(inversedBy: 'product')]
+    #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?InfoSuppliers $supplier = null;
+    private ?InfoSuppliers $suppliers = null;
 
-    /**
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    private ?Rubric $rubric = null;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
+    private ?string $weight = null;
+
+    #[ORM\ManyToOne(targetEntity: Tva::class, inversedBy: 'products')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Tva $tva = null;
+
+        /**
      * @var Collection<int, Image>
      */
     #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'product')]
     private Collection $image;
 
-    #[ORM\ManyToOne(inversedBy: 'product')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Rubric $viewRubrics = null;
-
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
-    private ?string $weight = null;
-
-    #[ORM\ManyToOne(inversedBy: 'products')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Tva $tva = null;
+    #[ORM\OneToMany(mappedBy: "product", targetEntity: DeliveryDetails::class)]
+    private Collection $deliveryDetails;
 
     public function __construct()
     {
         $this->image = new ArrayCollection();
+        $this->deliveryDetails = new ArrayCollection();
+
     }
 
 
@@ -102,6 +107,11 @@ class Product
     $this->isAvailable = $stock > 0;
 
     return $this;
+    }
+
+    public function isAvailable(): bool
+    {
+        return $this->stock > 0;
     }
 
     public function getId(): ?int
@@ -157,14 +167,14 @@ class Product
         return $this;
     }
 
-    // public function getImage(): ?string
+    // public function getViewRubrics(): ?string
     // {
-    //     return $this->image;
+    //     return $this->viewRubrics;
     // }
 
-    // public function setImage(string $image): static
+    // public function viewRubric(string $viewRubric): static
     // {
-    //     $this->image = $image;
+    //     $this->viewRubrics = $viewRubric;
 
     //     return $this;
     // }
@@ -181,11 +191,6 @@ class Product
         return $this;
     }
 
-
-    public function isAvailable(): bool
-{
-    return $this->stock > 0;
-}
 
 public function getCreatedAt(): ?\DateTimeImmutable
 {
@@ -213,12 +218,12 @@ public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
 
 public function getInfoSuppliers(): ?InfoSuppliers
 {
-    return $this->supplier;
+    return $this->suppliers;
 }
 
-public function setInfoSupplier(?InfoSuppliers $supplier): static
+public function setInfoSupplier(?InfoSuppliers $infoSuppliers): static
 {
-    $this->supplier = $supplier;
+    $this->suppliers = $infoSuppliers;
 
     return $this;
 }
@@ -251,14 +256,14 @@ public function removeImage(Image $image): static
     return $this;
 }
 
-public function getRubrics(): ?Rubric
+public function getRubric(): ?Rubric
 {
-    return $this->viewRubrics;
+    return $this->rubric;
 }
 
 public function setRubric( ?Rubric $rubric): static
 {
-    $this->viewRubrics = $rubric;
+    $this->rubric = $rubric;
 
     return $this;
 }
@@ -283,6 +288,35 @@ public function getTva(): ?Tva
 public function setTva(?Tva $tva): static
 {
     $this->tva = $tva;
+
+    return $this;
+}
+
+/**
+ * @return Collection<int, DeliveryDetails>
+ */
+public function getDeliveryDetails(): Collection
+{
+    return $this->deliveryDetails;
+}
+
+public function addDeliveryDetail(DeliveryDetails $deliveryDetail): self
+{
+    if (!$this->deliveryDetails->contains($deliveryDetail)) {
+        $this->deliveryDetails->add($deliveryDetail);
+        $deliveryDetail->setProduct($this);
+    }
+
+    return $this;
+}
+
+public function removeDeliveryDetail(DeliveryDetails $deliveryDetail): self
+{
+    if ($this->deliveryDetails->removeElement($deliveryDetail)) {
+        if ($deliveryDetail->getProduct() === $this) {
+            $deliveryDetail->setProduct(null);
+        }
+    }
 
     return $this;
 }

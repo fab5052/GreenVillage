@@ -1,116 +1,107 @@
-
-
-
 <header>
+	<nav class="nav">
+		<div class="container-fluid col-12 offset-0">
+		<div class="container-nav">
+			<div class="logo ">
+				<a href="{{ path('app_home') }}">
+					<img class=" logo">
+				</a>
+			</div>
 
-<nav class="nav">
-<div class="container-nav">
-<div class="logo ">
-      <a href="{{ path('app_home') }}">
-        <img class=" logo">
-      </a>
-      </div>
+			<span class="navTrigger mr-1">
+				<i></i>
+				<i></i>
+				<i></i>
+			</span>
 
-<span class="navTrigger">
-	<i></i>
-	<i></i>
-	<i></i>
-</span>
+			{# <div class="settings"></div>
+			<div class="scrollbar" id="style-1"> #}
 
-
-
-<!-- {# <div>
-	<a class="logo" href="http://startific.com"></a>
-</div> #} -->
-
-
-
-{# <div class="settings"></div>
-<div class="scrollbar" id="style-1"> #}
-
-<div id="mainListDiv" class="main_list">
-<ul class="navlinks">
+			<div id="mainListDiv" class="main_list">
+				<ul class="navlinks ">
 
 
+					<li>
+						<a href="{{ path('app_home') }}">
+							<i class="fa fa-home fa-lg"></i>
+							<span class="nav-text">Home</span>
+						</a>
+					</li>
 
-<li>
-<a href="{{ path('app_home') }}">
- <i class="fa fa-home fa-lg"></i>
-  <span class="nav-text">Home</span>
-</a>
-</li>
+					<li>
+						<a href="{{ path('app_home') }}">
+							<span class="material-symbols-outlined d-flex" style="font-size: 40">
+								fastfood
+							</span>
 
-<li class="d-flex">
-	<a href="{{ path('app_home') }}">
-<span class="material-symbols-outlined d-flex" style="font-size: 40">
-	fastfood
-</span>
+							<i class='fas fa-hamburger'></i>
+							<span class="nav-text">Catégories</span>
 
-<i class='fas fa-hamburger'></i>
-<span class="nav-text">Catégories</span>
-</a>
-</li>
+							{# <style>
+								.material-symbols-outlined {
+							font-variation-settings: 'Strait' , sans-serif , 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 40,
+							
+								}
+							</style> #}
+						</a>
+					</li>
 
-<li>
-<a href="{{ path('app_login') }}">
+					<li>
+						<a href="{{ path('app_login') }}">
 
-				<i class="fa fa-user fa-lg"></i>
-				<span class="nav-text">Login</span>
-			</a>
-		</li>
-
-
-		<li>
-		
-		<i class="fa fa-envelope fa-lg"></i>
-				<span class="nav-text">Contact</span>
-			</a>
-		</li>
+							<i class="fa fa-user fa-lg"></i>
+							<span class="nav-text">Login</span>
+						</a>
+					</li>
 
 
-		<li>
-			<a href="{{ path('app_register') }}">Inscription</a>
-		</li> 
-	</ul>
+					<li>
 
-</div>
+						<i class="fa fa-envelope fa-lg"></i>
+						<span class="nav-text">Contact</span>
 
-
+					</li>
 
 
-<div class="nav-authentification d-flex ">
+					<li>
+						<a href="{{ path('app_register') }}">Inscription</a>
+					</li>
+				</ul>
 
-<ul class=" d-flex">
+			</div>
 
-<li>
-<a href="{{ path('app_orders') }}"> 
-<i class="fa fa-shopping-cart fa-lg"></i>
-<span class="nav-text">Panier</span></a>
-</li>
-	
 
-<li>
-<a href="{{ path('app_profile') }}">
-		<i class="fa fa-user fa-lg"></i>
-		<span class="nav-text">Profile</span>
-</a>
-</li>
+			<div class="nav-authentification mx-auto">
+				<ul>
+					<li>
+						<div id="search">
+							<form class="search" action="results.php" method="GET" accept-charset="utf-8">
+								<input
+								type="text" name="input" class="input" placeholder="Search"/>
+								<!-- {# <a href="{{ path('app_search') }}"> #} -->
 
-<li>
-<div id="search">
-			<form class="search" action="results.php" method="GET" accept-charset="utf-8">
-				<input
-				type="text" name="input" class="input" placeholder="Search"/>
-				<!-- {# <a href="{{ path('app_search') }}"> #} -->
+								<button type="reset" class="search " id="search-button"></form>
 
-				<button type="reset" class="search " id="search-button"></form>
+							</button>
+						</div>
+					</li>
+					<li>
+						<a href="{{ path('app_orders') }}">
+							<i class="fa fa-shopping-cart fa-lg"></i>
+							<span class="nav-text">Panier</span>
+						</a>
+					</li>
 
-			</button>
+
+					<li>
+						<a href="{{ path('app_profile') }}">
+							<i class="fa fa-user fa-lg"></i>
+							<span class="nav-text">Profile</span>
+						</a>
+					</li>
+      			</ul>
+			</div>
 		</div>
-</li>
-</ul>
-</div>
-
 
               
 {# <a class="nav-link" href="{{ path('app_plat_cat', {'libelle': 'valeur_du_libelle'}) }}">Plats</a> #}

@@ -49,9 +49,9 @@ app_changePassword:
 
 app_home:
   path: /
-  controller: App\Controller\HomeController::index
-  # defaults:
-  #    role: ROLE_USER
+  controller: App\Controller\RubricController::index
+  defaults:
+     role: ROLE_USER
 
 app_orders:
   path: /orders
@@ -65,25 +65,30 @@ app_orders_details:
   defaults:
     role: ROLE_USER    
 
-# app_rubrics:
-#   path: /rubrics
-#   controller: App\Controller\MainController::rubrics
+app_rubrics:
+  path: /rubrics
+  controller: App\Controller\RubricController::rubrics
 
-# app_productsByRubric:
-#   path: /products/{slug}
-#   controller: App\Controller\MainController::productsRubrics
-
-#Tout les Produits
-app_product:
-  path: /product
-  controller: App\Controller\ProductController::index
+app_products_by_rubric:
+  path: /rubric/{slug}
+  controller: App\Controller\ProductController::ByRubric
   defaults:
     role: ROLE_USER
 
+
+# app_product:
+#   path: /products
+#   controller: App\Controller\ProductController::products
+
+# app_productsByRubric:
+#   path: /rubric/{slug}
+#   controller: App\Controller\ProductController::productsByRubric
+
+
 # # Details d'un produit
-# app_productDetails:
-#   path: /product/{slug}
-#   controller: App\Controller\MainController::productDetails
+# app_details:
+#   path: /details/{slug}
+#   controller: App\Controller\ProductController::details
 #   defaults:
 #     role: ROLE_USER
 

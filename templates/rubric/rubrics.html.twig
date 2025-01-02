@@ -4,50 +4,542 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container mx-auto mt-12 p-6 bg-gray-100 shadow-lg rounded-xl">
-		<h1 class="text-4xl font-bold text-gray-800 text-center mb-8">Rubriques</h1>
 
-		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-			{% for rubric in rubrics %}
-				<div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
-					<div class="mb-4">
-						<h2 class="text-lg font-semibold text-gray-700 uppercase">{{ rubric.label }}</h2>
-						<p class="text-sm text-gray-500">ID:
-							{{ rubric.id }}</p>
+<style>
+	.trans3d {
+		transform-style: preserve-3d;
+		transform: translate3d(0, 0, 0);
+	}
 
-						{% if rubric.image %}
-							<img src="{{ rubric.image }}" alt="{{ rubric.label }}" class="w-full h-32 object-cover rounded-md mt-3">
-						{% endif %}
 
-						<p class="text-gray-600 mt-3">{{ rubric.content }}</p>
-					</div>
+	.item {
+		display: block;
+		position: absolute;
+		width: 250px;
+		height: 300px;
+		opacity: 0.95;
+		border-radius: 10px;
+		overflow: hidden;
 
-					{% if rubric.rubrics %}
-						<div class="mt-4">
-							<h3 class="text-md font-medium text-gray-600">Sous-rubriques</h3>
-							<ul class="space-y-4 mt-2">
-								{% for subrubric in rubric.rubrics %}
-									<li class="bg-gray-50 p-4 rounded-md shadow-sm hover:shadow-lg transition-shadow duration-300 transform hover:scale-105">
-										<h4 class="text-sm font-semibold text-gray-700">{{ subrubric.label }}</h4>
-										<p class="text-xs text-gray-500">ID:
-											{{ subrubric.id }}</p>
 
-										{% if subrubric.image %}
-											<img src="{{ subrubric.image }}" alt="{{ subrubric.label }}" class="w-full h-24 object-cover rounded-md mt-2">
-										{% endif %}
+	}
 
-										<p class="text-gray-500 mt-2 text-sm">{{ subrubric.content }}</p>
+	/*.item .cards {
+		justify-content: center;
+		align-items: center;
+		
+		border-radius: 15px;
+		cursor: pointer;
+		background-color: transparent;
+		position: relative;
+	
+	}*/
 
-										<a href="{{ path('product_by_rubric', {'slug': subrubric.slug}) }}" class="mt-3 inline-block px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200">
-											Voir les instruments
-										</a>
-									</li>
-								{% endfor %}
-							</ul>
+
+	.container-carousel {
+		perspective: 1200px;
+		position: relative;
+		width: 300px;
+		height: 300px;
+		margin: 0 auto;
+		transform-origin: center center;
+		transform-style: preserve-3d;
+		transition: transform 1.5s;
+	}
+
+	.carousel {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		transform-style: preserve-3d;
+		transition: transform 1s ease-in-out;
+	}
+
+
+	.item img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		border-radius: 10px;
+	}
+
+	button.prev,
+	button.next {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		background: rgba(0, 0, 0, 0.5);
+		color: #fff;
+		border: none;
+		padding: 10px;
+		cursor: pointer;
+	}
+
+	button.prev {
+		left: -250px;
+	}
+
+	button.next {
+		right: -350px;
+	}
+
+	.item h2 {
+		z-index: 1;
+		position: absolute;
+		justify-content: center;
+		color: #ebd7b5;
+		font-size: 4vh;
+		text-shadow: -1px -1px 10px rgba(0, 0, 0, 0.9);
+		font-weight: 700;
+		overflow: hidden;
+		margin-left: 30px;
+
+
+
+	}
+
+	h5 {
+		color: rgb(154, 146, 77);
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+		font-size: 18px;
+		text-shadow: 4px solid #FFF;
+		font-weight: 600;
+
+	}
+
+	.next,
+	.prev {
+		color: #444;
+		position: absolute;
+		top: 1300px;
+		padding-bottom: 15px;
+
+		padding: 0.5em 2em;
+		cursor: pointer;
+		background: #a5969662;
+		max-height: 40px;
+		border-radius: 5px;
+		border-top: 1px solid #FFF;
+		box-shadow: -1px 3px 0 #999;
+		transition: box-shadow 0.1s, top 0.1s;
+	}
+
+	.next:hover,
+	.prev:hover {
+		color: #000;
+		top: 1300px;
+	}
+
+	.next:active,
+	.prev:active {
+		top: 1300px;
+		box-shadow: 1px 0 3px 1px #88a9b6;
+
+	}
+
+	.next {
+		right: 5.1em;
+	}
+
+	.prev {
+		left: 5em;
+	}
+
+	.rubric-button {
+		background-color: #46484ad2;
+		color: #fff;
+		font-size: 16px;
+		padding: none;
+		margin: 10px 0px;
+		border-radius: 5px;
+		transition: background-color 0.3s ease;
+		cursor: pointer;
+		width: 25%;
+	}
+	
+	.rubric-button:hover {
+		background-color: #2779bd;
+	}
+	
+	.card.rub {
+		max-width:90%;
+	}
+	.rubric-nav {
+		width: auto;
+		margin-left: 25px;
+	}
+	@media (max-width: 768px) {
+		.container-carousel {
+			width: 220px;
+			height: 250px;
+			padding: auto center;
+			margin-top: 15px;
+			margin-bottom: 300px;
+			position: relative;
+			perspective: 200;
+			transform-style: preserve-3d;
+			transition: transform 1.5s;
+			justify-content: center;
+			justify-items: center;
+			align-items: center;
+		}
+
+		.item {
+			display: block;
+			position: absolute;
+			width: 200px;
+			height: 250px;
+			justify-content: center;
+			align-items: center;
+			opacity: 0.95;
+			border-radius: 10px;
+			justify-items: center;
+
+		}
+
+		.item .cards {
+			justify-content: center;
+			align-items: center;
+
+			border-radius: 15px;
+			cursor: pointer;
+			background-color: transparent;
+
+		}
+
+		.item img {
+
+			height: 100%;
+			width: 100%;
+		}
+
+		.item h2 {
+			height: 100px;
+			width: 100px;
+			font-size: 3.8vw;
+			text-shadow: -1px -1px 9px rgba(0, 0, 0, 0.9);
+			font-weight: 750;
+			color: #ebd7b5;
+			align-items: center;
+			margin-left: 25px;
+		}
+
+		h5 {
+			font-size: 2.6vw;
+			text-shadow: -1px -1px 2px rgba(0, 0, 0, 0.25);
+			font-weight: 550;
+			margin: 0 auto;
+		}
+
+		.next,
+		.prev {
+			top: 1250px;
+			position: absolute;
+			height: 4vh;
+			width: 18vw;
+			margin-bottom: 50px;
+			margin: 0 auto;
+			padding: 0.6em 1.3em;
+
+
+		}
+
+		.next:hover,
+		.prev:hover {
+			color: #000;
+			top: 1250px;
+			padding: 0.5em 2em;
+
+			height: 4vh;
+			width: 18vw;
+
+
+		}
+
+		.next:active,
+		.prev:active {
+			top: 1250px;
+			padding: 0.5em 2em;
+
+			height: 4vh;
+			width: 18vw;
+			box-shadow: 0 0 0 1px #999;
+
+
+		}
+	}
+
+	@media (max-width: 480px),
+	(min-width: 479px) {
+		.container-carousel {
+			width: 125px;
+			height: 200px;
+			padding: 5px 0;
+			margin: 0 auto;
+			perspective: 500;
+			top: 250px;
+			margin-bottom: 300px;
+			margin-left: none;
+			margin-right: none;
+			position: relative;
+			transform-style: preserve-3d;
+			transition: transform 1.5s;
+			justify-content: center;
+		}
+
+		.item {
+			display: block;
+			position: absolute;
+			width: 125px;
+			height: 200px;
+			overflow: hidden;
+
+			opacity: 0.95;
+			border-radius: 10px;
+		}
+
+		.item .cards {
+			justify-content: center;
+			align-items: center;
+
+			border-radius: 15px;
+			cursor: pointer;
+			background-color: transparent;
+
+
+
+		}
+
+		.item img {
+			height: 100%;
+			width: 100%;
+		}
+
+		.item h2 {
+			font-size: 4.5vw;
+			text-shadow: -1px -1px 9px rgba(0, 0, 0, 0.9);
+			font-weight: 750;
+		}
+
+		.next,
+		.prev h5 {
+
+			font-size: 2vw;
+			text-shadow: -1px -1px 2px rgba(0, 0, 0, 0.5);
+			font-weight: 750;
+		}
+
+		.next,
+		.prev {
+			margin: auto;
+			top: 65%;
+			height: 4vh;
+			width: 18vw;
+			margin-bottom: 50px;
+			justify-content: center;
+
+		}
+
+		.next:hover,
+		.prev:hover {
+			padding: 0 2px;
+
+			color: #000;
+			top: 65%;
+			height: 4vh;
+			width: 18vw;
+			margin-bottom: 50px;
+
+		}
+
+		.next:active,
+		.prev:active {
+			padding: 0 2px;
+
+			top: 65%;
+			height: 4vh;
+			width: 18vw;
+			box-shadow: 0 0 1px 1px #999;
+			margin-bottom: 50px;
+
+		}
+	}
+</style>
+
+<main class="myH2">
+	
+				<div class="container-fluid mx-auto mt-12 p-6 bg-gray-100 shadow-lg rounded-xl">
+					<h1 class="text-4xl font-bold text-gray-800 text-center mb-8">Rubriques</h1>
+					<div class="rubric-nav justify-content-center  d-flex text-center mb-2">
+						{% for rubric in rubrics %}
+							<button 
+								class="rubric-button justify-content-center bg-blue-200 text-white font-bold py-2 d m-4"
+								onclick="showSubrubrics('{{ rubric.id }}')">
+								{{ rubric.label }}
+								{% if rubric.image %}
+								<img src="{{ rubric.image }}" alt="{{ rubric.label }}" class="card rub mx-auto justify-content-center h-32  mt-3">
+							{% endif %}
+							</button>
+							{% endfor %}
 						</div>
-					{% endif %}
-				</div>
-			{% endfor %}
+		
+						
+
+			<section class="myP">
+
+
+			
+                            <div id="contentContainer" class="trans3d">
+                                <section id="carouselContainer" class="trans3d">
+											
+
+                                    <div class="container container-carousel">
+										{% for rubric in rubrics %} 
+										{% for subrubric in rubric.rubrics %}
+                                        <div id="carouselItem" class="carousel">
+											
+											  {% if rubric.rubrics %} 
+											{% set total_subrubrics = rubric.rubrics|length %}
+                                          
+                                                {% set angle = loop.index0 * (360 / total_subrubrics) %}
+											<div class="item cards carouselItem"
+												 data-parent-id="{{ rubric.id }}"
+												 style:'transform: rotateY({{ angle }}deg) translateZ(300px);'>
+												<a href="{{ path('app_products_by_rubric', {'slug': subrubric.slug}) }}">
+													<h2 class="item">{{ subrubric.label }}</h2>
+													{% if subrubric.image %}
+														<img src="{{ subrubric.image }}" alt="{{ subrubric.label }}" style="object-fit: cover;">
+													{% endif %}
+													<p class="text-gray-600 mt-3">{{ subrubric.description }}</p>
+												</a>
+											</div>
+										
+										{% endif %}
+									</div>
+										{% endfor %}
+										{% endfor %}
+
+                                        
+                                 
+								  <div class="next">
+								<h5>Suivant</h5>
+							</div>
+							<div class="prev">
+								<h5>Précédent</h5>
+							</div>	
+								 </div>	
+                                </section>
+                            </div>
+	
+	 </section>
 		</div>
-	</div>
+</main>
+
+
+{% block javascripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+	function showSubrubrics(rubricId) {
+		const allItems = document.querySelectorAll('.carouselItem');
+		const selectedItems = document.querySelectorAll(`.carouselItem[data-parent-id="${rubricId}"]`);
+	
+		// Cacher tous les éléments
+		allItems.forEach(item => item.style.display = 'none');
+	
+		// Afficher uniquement les sous-rubriques associées
+		selectedItems.forEach(item => item.style.display = 'block');
+	
+		// Réinitialiser la rotation
+		currdeg = 0;
+		gsap.to(".carousel", {
+			duration: 1,
+			rotationY: currdeg,
+			ease: "expo.inOut"
+		});
+	}
+
+	var w,
+		container,
+		carousel,
+		item,
+		itemLength,
+		rY,
+		radius;
+	var rotationY = 0;
+
+	$(document).ready(init);
+
+	function init() {
+		w = $(window);
+		container = $('#contentContainer');
+		carousel = $('#carouselContainer');
+		item = $('.carouselItem');
+
+		itemLength = item.length;
+		rY = 360 / itemLength;
+		radius = Math.round((170) / Math.tan(Math.PI / itemLength));
+
+		// set container 3d props
+		/*itemLength = item.length;
+		 rY = 360 / itemLength;
+		 radius = Math.round((container.width() / 2) / Math.tan(Math.PI / itemLength));
+	
+		 // set container 3d props
+	    
+		 gsap.set(container, {perspective: 1000});
+		 gsap.set(carousel, {z: -(radius), transformOrigin: "center center " + -radius + "px"});*/
+
+
+
+		// create carousel item props
+		item.each(function (i) {
+			var $item = $(this);
+			gsap.set($item, {
+				rotationY: rY * i,
+				z: radius,
+				transformOrigin: "50% 50% " + - radius + "px"
+			});
+		});
+
+		// Initial animation
+		gsap.fromTo(item, {
+			autoAlpha: 0,
+			scale: 0
+		}, {
+			duration: 1,
+			autoAlpha: 1,
+			scale: 1,
+			stagger: 0,
+			ease: "expo.inOut"
+		});
+	}
+
+
+
+	// Rotation functions
+	var currdeg = 0;
+
+	$(".next").on("click", {
+		d: "n"
+	}, rotate);
+	$(".prev").on("click", {
+		d: "p"
+	}, rotate);
+
+	function rotate(e) {
+		if (e.data.d == "n") {
+			currdeg = currdeg + rY;
+		}
+		if (e.data.d == "p") {
+			currdeg = currdeg - rY;
+		}
+		gsap.to(".carousel", {
+			duration: 1,
+			rotationY: currdeg,
+			ease: "expo.inOut"
+		});
+	}
+</script>
+
+{% endblock %}
 {% endblock %}

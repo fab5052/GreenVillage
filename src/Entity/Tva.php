@@ -22,7 +22,7 @@ class Tva
     /**
      * @var Collection<int, Product>
      */
-    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'Tva')]
+    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'tva')]
     private Collection $products;
 
     public function __construct()

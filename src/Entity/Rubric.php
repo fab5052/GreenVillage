@@ -8,21 +8,30 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
+use App\EventListener\SlugListener;
+
 
 #[ORM\Entity(repositoryClass: RubricRepository::class)]
+#[ORM\UniqueConstraint(name: 'slug', columns: ['slug'])]
+
 class Rubric 
 {
-    use SlugTrait;
+   //use SlugTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    //#[Groups(["read:products", "read:parent"])]
+    // #[Groups(["product:read", "parent:read"])]
     private ?int $id = null;
 
-
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 50)]
     private ?string $label = null;
+
+    #[ORM\Column(length: 100)]
+    //#[Assert\NotBlank(message: 'Le slug ne peut pas être vide.')]
+    private ?string $slug = null; 
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
@@ -30,24 +39,20 @@ class Rubric
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
-    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'rubrics')]
-    #[ORM\JoinColumn(name: 'parent_id', referencedColumnName: 'id', onDelete: 'SET NULL', nullable: true)]
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'rubrics', cascade: ['remove'])]    
     private ?self $parent = null;
 
-    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
     private Collection $rubrics;
 
-    /**
-     * @var Collection<int, Product>
-     */
     #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'rubric')]
-    private Collection $product;
+    private Collection $products;
 
 
     public function __construct()
     {
         $this->rubrics = new ArrayCollection();
-        $this->product = new ArrayCollection();
+        $this->products = new ArrayCollection();
      }
 
     public function getId(): ?int
@@ -61,7 +66,7 @@ class Rubric
         return $this->parent;
     }
 
-    public function setParent(?self $parent): self
+    public function setParent(?self $parent): static
     {
         $this->parent = $parent;
 
@@ -149,25 +154,26 @@ class Rubric
      */
     public function getProducts(): Collection
     {
-        return $this->product;
+        return $this->products;
     }
 
-    public function addProduct(Product $products): static
+    public function addProduct(Product $product): static
     {
-        if (!$this->product->contains($products)) {
-            $this->product->add($products);
-            $products->setRubric(null);
+        if (!$this->products->contains($product)) {
+            $this->products->add($product);
+            $product->setRubric($this);
         }
 
         return $this;
     }
 
-    public function removeProduct(Product $products): static
+    public function removeProduct(Product $product): self
     {
-        if ($this->product->removeElement($products)) {
-            if ($products->getRubrics() === $this) {
-                $products->setRubric($this);
-            }}
+        if ($this->products->removeElement($product)) {
+            if ($product->getRubric() === $this) {
+                $product->setRubric(null);
+            }
+        }
 
         return $this;
     }

@@ -19,6 +19,7 @@
         "doctrine/doctrine-fixtures-bundle": "^4.0",
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^3.3",
+        "knplabs/knp-paginator-bundle": "^6.6",
         "lexik/jwt-authentication-bundle": "^3.1",
         "nelmio/cors-bundle": "^2.5",
         "nodejs-php-fallback/nodejs-php-fallback": "^1.6",
