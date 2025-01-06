@@ -2,39 +2,39 @@
 
 namespace App\Repository;
 
-use App\Entity\Rubrics;
+use App\Entity\InfoSuppliers;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Rubrics>
+ * @extends ServiceEntityRepository<InfoSuppliers>
  */
-class RubricsRepository extends ServiceEntityRepository
+class InfoSuppliersRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Rubrics::class);
+        parent::__construct($registry, InfoSuppliers::class);
     }
 
 //    /**
-//     * @return Rubrique[] Returns an array of Rubrique objects
+//     * @return InfoSuppliers[] Returns an array of InfoSuppliers objects
 //     */
 //    public function findByExampleField($value): array
 //    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
+//        return $this->createQueryBuilder('i')
+//            ->andWhere('i.exampleField = :val')
 //            ->setParameter('val', $value)
-//            ->orderBy('r.id', 'ASC')
+//            ->orderBy('i.id', 'ASC')
 //            ->setMaxResults(10)
 //            ->getQuery()
 //            ->getResult()
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Rubrique
+//    public function findOneBySomeField($value): ?InfoSuppliers
 //    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
+//        return $this->createQueryBuilder('i')
+//            ->andWhere('i.exampleField = :val')
 //            ->setParameter('val', $value)
 //            ->getQuery()
 //            ->getOneOrNullResult()

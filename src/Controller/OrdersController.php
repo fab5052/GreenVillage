@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Orders;
+use App\Entity\Order;
 use App\Form\OrdersType;
-use App\Repository\OrdersRepository;
+use App\Repository\OrderRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Attribute\Route;
 final class OrdersController extends AbstractController
 {
     #[Route(name: 'app_orders_index', methods: ['GET'])]
-    public function index(OrdersRepository $ordersRepository): Response
+    public function index(OrderRepository $ordersRepository): Response
     {
         return $this->render('orders/index.html.twig', [
             'orders' => $ordersRepository->findAll(),
@@ -25,7 +25,7 @@ final class OrdersController extends AbstractController
     #[Route('/new', name: 'app_orders_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $order = new Orders();
+        $order = new Order();
         $form = $this->createForm(OrdersType::class, $order);
         $form->handleRequest($request);
 
@@ -43,7 +43,7 @@ final class OrdersController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_orders_show', methods: ['GET'])]
-    public function show(Orders $order): Response
+    public function show(Order $order): Response
     {
         return $this->render('orders/show.html.twig', [
             'order' => $order,
@@ -51,7 +51,7 @@ final class OrdersController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_orders_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Orders $order, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Order $order, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(OrdersType::class, $order);
         $form->handleRequest($request);
@@ -69,7 +69,7 @@ final class OrdersController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_orders_delete', methods: ['POST'])]
-    public function delete(Request $request, Orders $order, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Order $order, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$order->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($order);
