@@ -75,6 +75,9 @@
             "migrations/.gitignore"
         ]
     },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v6.6.1"
+    },
     "lexik/jwt-authentication-bundle": {
         "version": "3.1",
         "recipe": {
@@ -112,6 +115,40 @@
             "phpunit.xml.dist",
             "tests/bootstrap.php"
         ]
+    },
+    "sonata-project/classification-bundle": {
+        "version": "4.9",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "3.7",
+            "ref": "e79fbb2e8658677e5d5d9199db7d2735332c4b7d"
+        },
+        "files": [
+            "config/packages/sonata_classification.yaml",
+            "src/Entity/SonataClassificationCategory.php",
+            "src/Entity/SonataClassificationCollection.php",
+            "src/Entity/SonataClassificationContext.php",
+            "src/Entity/SonataClassificationTag.php"
+        ]
+    },
+    "sonata-project/doctrine-extensions": {
+        "version": "2.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "1.8",
+            "ref": "4ea4a4b6730f83239608d7d4c849533645c70169"
+        }
+    },
+    "sonata-project/form-extensions": {
+        "version": "2.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "1.4",
+            "ref": "9c8a1e8ce2b1f215015ed16652c4ed18eb5867fd"
+        }
     },
     "symfony/asset-mapper": {
         "version": "6.4",
@@ -319,18 +356,6 @@
         "files": [
             "config/packages/twig.yaml",
             "templates/base.html.twig"
-        ]
-    },
-    "symfony/uid": {
-        "version": "6.4",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "6.2",
-            "ref": "d294ad4add3e15d7eb1bae0221588ca89b38e558"
-        },
-        "files": [
-            "config/packages/uid.yaml"
         ]
     },
     "symfony/ux-turbo": {

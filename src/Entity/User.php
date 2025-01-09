@@ -10,19 +10,17 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\DBAL\Types\Types;
-//use App\Enum\UserRole
-//use Symfony\Component\Form\Extension\Core\Type\EnumType;
-//use Symfony\Component\Uid\Uuid;
+use App\Enum\UserRole;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
+use Symfony\Component\Uid\Uuid;
 
-
-/**
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
- */
-#[ORM\Table(name: '`user`')]
-#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\Table(name: '`user`')]
+#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[UniqueEntity(fields: ['email'], message: 'Un compte existe avec cet email')]
 
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -52,14 +50,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $address;
     
     #[ORM\Column(type: 'string', length: 5)]
-    // #[Assert\Length(
-    //     max: 5,
-    //     maxMessage: 'Le code postal doit contenir au maximum {{ limit }} caractères.'
-    // )]
-    // #[Assert\Regex(
-    //     pattern: '/^\d{1,5}$/',
-    //     message: 'Le code postal doit contenir uniquement des chiffres.'
-    // )]
+    #[Assert\Length(
+        max: 5,
+        maxMessage: 'Le code postal doit contenir au maximum {{ limit }} caractères.'
+    )]
     private ?string $zipcode;
     
     #[ORM\Column(type: 'string', length: 100)]
@@ -74,8 +68,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $siret = null;
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTime $lastConnect = null;
+
     #[ORM\Column(nullable: true)]
-    private ?string $plainPassword = null;      
+    private ?string $plainPassword = null;  
+    
+     /**
+    * @var Collection<int, InfoSuppliers>
+    */
+    #[ORM\OneToMany(targetEntity: InfoSuppliers::class, mappedBy: 'user')]
+    private Collection $infoSuppliers;
+
+    /**
+    * @var Collection<int, Order>
+    */
+    #[ORM\OneToMany(targetEntity: Order::class, mappedBy: 'user')]
+    private Collection $orders;
+     
+    public function __construct()
+    {
+       // $this->address = new ArrayCollection();
+        $this->infoSuppliers = new ArrayCollection();
+        $this->orders = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable(); 
+        $this->lastConnect = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -126,8 +147,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-
-
     /**
      * @see PasswordAuthenticatedUserInterface
      */
@@ -146,7 +165,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function eraseCredentials()
     {
         // If you store any temporary, sensitive data on the user, clear it here
-       // $this->plainPassword = null;
+        //$this->plainPassword = null;
     }
 
     public function getPlainPassword(): ?string
@@ -244,6 +263,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getSiret(): ?string
+    {
+        return $this->siret;
+    }
+
+    public function setSiret(?string $siret): static
+    {
+        $this->siret = $siret;
+
+        return $this;
+    }
+
+    public function getLastConnect(): ?\DateTime
+    {
+        return $this->lastConnect;
+    }
+
+    public function setLastConnect(\DateTime $lastConnect): self
+    {
+        $this->lastConnect = $lastConnect;
+
+        return $this;
+    }
+
+        
     public function getCreatedAt(): ?\DateTimeImmutable
     {
     return $this->createdAt;
@@ -252,11 +296,69 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
     $this->createdAt = $createdAt;
+    
     return $this;
     }
 
-    public function __construct()
-    {
-        $this->createdAt = new \DateTimeImmutable(); // Initialisation par défaut
+
+/**
+* @return Collection<int, infoSuppliers>
+*/
+public function getInfoSuppliers(): Collection
+{
+    return $this->infoSuppliers;
+}
+
+public function addInfoSupplier(InfoSuppliers $infoSupplier): self
+{
+    if (!$this->infoSuppliers->contains($infoSupplier)) {
+        $this->infoSuppliers[] = $infoSupplier;
+        $infoSupplier->setUser($this);
     }
+
+    return $this;
+}
+
+public function removeInfoSupplier(InfoSuppliers $infoSupplier): self
+{
+    if ($this->infoSuppliers->removeElement($infoSupplier)) {
+        if ($infoSupplier->getUser() === $this) {
+            $infoSupplier->setUser(null);
+        }
+    }
+
+    return $this;
+}
+
+    /**
+     * @return Collection<int, Order>
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Order $order): static
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders->add($order);
+            $order->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Order $order): static
+    {
+        if ($this->orders->removeElement($order)) {
+            // set the owning side to null (unless already changed)
+            if ($order->getUser() === $this) {
+                $order->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }

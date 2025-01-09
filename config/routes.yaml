@@ -50,19 +50,25 @@ app_changePassword:
 
 app_home:
   path: /
-  controller: App\Controller\HomeController::index
+  controller: App\Controller\RubricController::index
+  defaults:
+     role: ROLE_USER
+
+app_last_rubric:
+  path: /last_rubric
+  controller: App\Controller\RubricController::showLastRubric     
   defaults:
      role: ROLE_USER
 
 app_orders:
   path: /orders
-  controller: App\Controller\OrdersController::index
+  controller: App\Controller\OrderController::index
   defaults:
     role: ROLE_USER
 
 app_orders_details:
   path: /orders_details
-  controller: App\Controller\OrdersController::index
+  controller: App\Controller\OrderController::index
   defaults:
     role: ROLE_USER    
 
@@ -70,32 +76,32 @@ app_orders_details:
 #   path: /rubrics
 #   controller: App\Controller\MainController::rubrics
 
-# app_productsByRubric:
-#   path: /products/{slug}
-#   controller: App\Controller\MainController::productsRubrics
+app_products_by_rubric:
+  path: /rubric/{slug}
+  controller: App\Controller\ProductController::ByRubric
 
-# #Tout les Produits
-# app_products:
-#   path: /products
-#   controller: App\Controller\MainController::products
-#   defaults:
-#     role: ROLE_USER
+##Tout les Produits
+app_products:
+  path: /products
+  controller: App\Controller\ProductController::index
+  defaults:
+    role: ROLE_USER
 
-# # Details d'un produit
-# app_productDetails:
-#   path: /product/{slug}
-#   controller: App\Controller\MainController::productDetails
-#   defaults:
-#     role: ROLE_USER
+## Details d'un produit
+app_product_details:
+  path: /{slug}
+  controller: App\Controller\ProductController::details
+  defaults:
+    role: ROLE_USER
 
-# # Panier
+## Panier
 # app_cart:
 #   path: /cart
 #   controller: App\Controller\CartController::viewCart
 #   defaults:
 #     role: ROLE_USER
 
-# Profil
+## Profile
 app_profile:
   path: /profile
   controller: App\Controller\ProfilController::profile
