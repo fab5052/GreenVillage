@@ -47,28 +47,29 @@ app_changePassword:
   defaults:
     role: ROLE_USER
 
-# app_home:
-#   path: /
-#   controller: App\Controller\RubricController::index
-  # defaults:
-  #    role: ROLE_USER
+app_home:
+  path: /
+  controller: App\Controller\RubricController::index
+  defaults:
+     role: ROLE_USER
+
+app_last_rubric:
+  path: /last_rubric
+  controller: App\Controller\RubricController::showLastRubric     
+  defaults:
+     role: ROLE_USER  
 
 app_orders:
   path: /orders
-  controller: App\Controller\OrdersController::index
+  controller: App\Controller\OrderController::index
   defaults:
     role: ROLE_USER
 
 app_orders_details:
   path: /orders_details
-  controller: App\Controller\OrdersController::index
+  controller: App\Controller\OrderController::index
   defaults:
     role: ROLE_USER    
-
-app_home:
-  path: /rubric
-  controller: App\Controller\RubricController::index
-
 
 # app_productsByRubric:
 #   path: /products/{slug}
