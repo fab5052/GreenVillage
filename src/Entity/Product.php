@@ -6,6 +6,7 @@ use App\Entity\Trait\SlugTrait;
 use App\Entity\Trait\CreatedAtTrait;
 use App\Entity\InfoSuppliers;
 use App\Entity\Rubric;
+use App\Entity\Image;
 use App\Assert\GreaterThan;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;

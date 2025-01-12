@@ -9,7 +9,8 @@ services:
         container_name: server
         volumes:
             - ./:/var/www
-  #          - /:/var/lib/mysql
+#            - cache_volume:/var/www/var/cache  
+        restart: always
         # networks:
         #     - MyNetwork   
         links:
@@ -72,10 +73,19 @@ services:
           ports:
               - 1025:1025
               - 8025:8025 
+          restart: always
           logging:
              driver: 'none'      
           
+   
 
+volumes:
+  mysql_data:
+  cache_volume:
+    driver: local
+    driver_opts:
+      type: "tmpfs"
+      device: "tmpfs"
 #   mysql:
 #     image: 'mysql:8.2'
 #     environment:
@@ -97,8 +107,8 @@ services:
 # networks:
 #     MyNetwork: 
 #         #  driver: bridge
-volumes:
-     mysql_data:
+# volumes:
+   
   
 # networks:
 #     MyNetwork: 

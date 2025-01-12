@@ -36,8 +36,12 @@ class Rubric
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
+
     #[ORM\Column(length: 255)]
     private ?string $image = null;
+
+    #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
+    private ?\DateTimeImmutable $createdAt;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'rubrics', cascade: ['remove'])]    
     private ?self $parent = null;
@@ -47,7 +51,6 @@ class Rubric
 
     #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'rubric')]
     private Collection $products;
-
 
     public function __construct()
     {
@@ -177,6 +180,18 @@ class Rubric
 
         return $this;
     }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+{
+    return $this->createdAt;
+}
+
+public function setCreatedAt(\DateTimeImmutable $createdAt): static
+{
+    $this->createdAt = $createdAt;
+
+    return $this;
+}
 
 }
 

@@ -15,10 +15,10 @@
 
 {% if app.user %}
 <div class="container" id="mentions" >
-<h1>Heureux de vous Revoir  {{app.user.firstname}} !!!</h1>
+<h1>Heureux de vous revoir  {{app.user.firstname}} !!!</h1>
 
-	<div class="mb-3">
-		You are logged in as
+	<div class="table table-light table-hover mb-3">
+		Votre indentifiant de connexion:
 		{{ app.user.userIdentifier }},
 	</div>
 
@@ -51,21 +51,31 @@
         <td>{{ app.user.city }}</td>
     </tr>
 </tbody>
+</table>
+
+<div class="card col-sm-8 offset-sm-2 justify-content-center">     
+  <div class="card-body justify-content-center d-block">
+   <h3>Voir vos commandes</h3>
+            <p>Cliquer ici pour voir les informations sur vos commandes...</p>
+            <a href="{{path ('app_orders_details')}}" class="btn btn-link d-flex justify-content-center" type="button">Détails/Commandes</a>
+            </div>
+    </div>
 
 {% endif %}
 
-</table>
+
         </div>
     </div>
 </div>
 
+
+{% if not app.user %}
 <div class="container" id="mentions" >
-<div class="row col-12 p-0 d-flex justify-content-evenly">
+<div class="row col-12  m-3 d-flex align-content-center justify-content-center">
 <h1>Connexion/Inscription</h1>
 
 
-{% if not app.user %}
-	<div class="card  col-3">
+<div class="card col-3 m-3">
 		<h3>Connexion</h3>
 		<div class="card-body">
 			<p>Vous avez deja un compte connectez vous des maintenant !!!</p>
@@ -73,7 +83,7 @@
 		</div>
 	</div>
 
-	<div class="card col-3">
+	<div class="card col-3 m-3">
 		<h3>Inscription</h3>
 		<div class="card-body">
 			<p>Vous n'avez toujours pas de compte pour en cree un c'est juste ici !!!</p>
@@ -82,15 +92,7 @@
 	</div>
 
 
-    <div class="card col-3">
-       
-            <div class="card-body">
-<h3>Voir vos commandes</h3>
 
-            <p>Pour voir votre profil est vos informations/commande  c'est juste ici !!!</p>
-            <a href="{{path ('app_orders_details')}}" class="btn btn-link d-flex justify-content-center" type="button">voir Profil</a>
-            </div>
-    </div>
 </div>
 
 {% else %}

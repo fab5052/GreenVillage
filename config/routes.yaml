@@ -27,7 +27,7 @@ app_register:
 
 app_verify:
   path: /verif/{token}
-  controller: App\Controller\RegistrationController::verif_user
+  controller: App\Controller\RegistrationController::verify_user
 
 app_resend:
   path: /verif/resend
@@ -47,6 +47,7 @@ app_changePassword:
   defaults:
     role: ROLE_USER
 
+
 app_home:
   path: /
   controller: App\Controller\RubricController::index
@@ -57,7 +58,7 @@ app_last_rubric:
   path: /last_rubric
   controller: App\Controller\RubricController::showLastRubric     
   defaults:
-     role: ROLE_USER  
+     role: ROLE_USER
 
 app_orders:
   path: /orders
@@ -71,37 +72,44 @@ app_orders_details:
   defaults:
     role: ROLE_USER    
 
-# app_productsByRubric:
-#   path: /products/{slug}
-#   controller: App\Controller\ProductController::ByRubrics
+# app_rubrics:
+#   path: /rubrics
+#   controller: App\Controller\MainController::rubrics
 
-# #Tout les Produits
-# app_products:
-#   path: /products
-#   controller: App\Controller\MainController::products
-#   defaults:
-#     role: ROLE_USER
+app_products_by_rubric:
+  path: /rubric/{slug}
+  controller: App\Controller\ProductController::ByRubric
 
-# # Details d'un produit
-# app_productDetails:
-#   path: /product/{slug}
-#   controller: App\Controller\MainController::productDetails
-#   defaults:
-#     role: ROLE_USER
+##Tout les Produits
+app_products:
+  path: /products
+  controller: App\Controller\ProductController::index
+  defaults:
+    role: ROLE_USER
 
-# # Panier
+## Details d'un produit
+app_product_details:
+  path: /{slug}
+  controller: App\Controller\ProductController::details
+  defaults:
+    role: ROLE_USER
+
+## Panier
 # app_cart:
 #   path: /cart
 #   controller: App\Controller\CartController::viewCart
 #   defaults:
 #     role: ROLE_USER
 
-# Profil
+## Profile
 app_profile:
   path: /profile
   controller: App\Controller\ProfileController::index
-  defaults:
-    role: ROLE_USER
+  # defaults:
+  #   role: ROLE_USER
+
+app_search:
+  path: _partials/search    
 
 # # Modifier une adresse
 # app_updateAddress:

@@ -6,7 +6,7 @@ use App\Entity\Order;
 use App\Entity\Product;
 use App\Entity\OrderDetails;
 use App\Repository\ProductRepository;
-use App\Service\SendEmailService;
+use App\Service\SendMailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,13 +18,13 @@ class CartController extends AbstractController
 {
     private function calculateProductDetails(Product $product, int $quantity): array
     {
-        $taxRate = $product->getTax()?->getRate() ?? 0;
-        $priceWithTax = $product->getPrice() * (1 + $taxRate / 100);
-        $total = $priceWithTax * $quantity;
-        $totalTaxes = ($priceWithTax - $product->getPrice()) * $quantity;
+        $tvaRate = $product->getTva()?->getRate() ?? 0;
+        $priceWithTva = $product->getPrice() * (1 + $tvaRate / 100);
+        $total = $priceWithTva * $quantity;
+        $totalTaxes = ($priceWithTva - $product->getPrice()) * $quantity;
 
         return [
-            'priceWithTax' => $priceWithTax,
+            'priceWithTva' => $priceWithTva,
             'total' => $total,
             'totalTaxes' => $totalTaxes,
         ];
@@ -126,7 +126,7 @@ class CartController extends AbstractController
     }
 
     #[Route('/order', name: 'order')]
-    public function order(SessionInterface $session, EntityManagerInterface $entityManager, SendEmailService $mail): Response
+    public function order(SessionInterface $session, EntityManagerInterface $entityManager, SendMailService $mail): Response
     {
         try {
             if (!$this->getUser()) {
@@ -148,7 +148,7 @@ class CartController extends AbstractController
 
             $order = (new Order())
                 ->setUser($this->getUser())
-                ->setRef('Com:' . uniqid() . mt_rand(100, 999))
+                ->setReference('Com:' . uniqid() . mt_rand(100, 999))
                 ->setPaymentMethod($paiement)
                 ->setType('commande')
                 ->setPaymentDate(new \DateTimeImmutable())
@@ -166,12 +166,12 @@ class CartController extends AbstractController
                     $totalAmount += $productDetails['total'];
 
                     $orderDetail = (new OrderDetails())
-                        ->setOrder($order)
+                        ->setOrderDetails($orderDetails)
                         ->setProduct($product)
                         ->setQuantity($quantity)
                         ->setPrice($productDetails['priceWithTax']);
 
-                    $orderDetails[] = $orderDetail;
+                    $orderDetails[] = $orderDetails;
                     $entityManager->persist($orderDetail);
                 } else {
                     $this->addFlash('warning', "Le produit avec l'ID ($id) n'existe pas et a été ignoré.");

@@ -16,7 +16,7 @@ class Image
 
     #[ORM\Column(length: 255)]
     #[Groups(['product:read'])]
-    private ?string $img = null;
+    private ?string $image = null;
 
     #[ORM\ManyToOne(inversedBy: 'image')]
     private ?Product $product = null;
@@ -26,14 +26,14 @@ class Image
         return $this->id;
     }
 
-    public function getImg(): ?string
+    public function getImage(): ?string
     {
-        return $this->img;
+        return $this->image;
     }
 
-    public function setImg(string $img): static
+    public function setImage(string $image): static
     {
-        $this->img = $img;
+        $this->image = $image;
 
         return $this;
     }

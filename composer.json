@@ -19,6 +19,7 @@
         "doctrine/doctrine-fixtures-bundle": "^4.0",
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^3.3.1",
+        "easycorp/easyadmin-bundle": "^4.21",
         "javiereguiluz/easyslugger": "^1.0",
         "knplabs/knp-paginator-bundle": "*",
         "lexik/jwt-authentication-bundle": "^3.1",
@@ -101,8 +102,7 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd",
-            "importmap:install": "symfony-cmd"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
             
@@ -110,6 +110,12 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "fixtures": [
+            "php bin/console d:d:d --force --if-exists",
+            "php bin/console d:d:c",
+            "php bin/console d:s:u --force",
+            "php bin/console d:f:l --append"
         ]
     },
     "conflict": {

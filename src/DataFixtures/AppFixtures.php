@@ -15,17 +15,22 @@ use Doctrine\DBAL\Types\DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Slugger;
+use App\Entity\Trait\SlugTrait;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AppFixtures extends Fixture
 {
-   private UserPasswordHasherInterface $passwordEncoder;
+    private SluggerInterface $slugger;
 
-public function __construct(UserPasswordHasherInterface $passwordEncoder)
-{
-    $this->passwordEncoder = $passwordEncoder;
-}
+    private UserPasswordHasherInterface $passwordEncoder;
+
+
+    public function __construct(UserPasswordHasherInterface $passwordEncoder, SluggerInterface $slugger)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+        $this->slugger = $slugger;
+    }
 
 public function load(ObjectManager $manager): void
 {
@@ -45,8 +50,7 @@ public function load(ObjectManager $manager): void
     
     $faker = \Faker\Factory::create('fr_FR');
 
-    // Création des utilisateurs
-
+    // Utilisateurs
 
     $users = [];
     for ($i = 0; $i < 5; $i++) {
@@ -63,37 +67,43 @@ public function load(ObjectManager $manager): void
         $manager->persist($user);
         $users[] = $user;
     }
-    $manager->flush(); // Assurez-vous que les utilisateurs sont persistés
+    $manager->flush(); 
 
-    // Création des rubriques
+    
+    // Rubriques
     $rubrics = [];
     $rubricLabels = ['vent', 'percussions', 'cordes', 'electronique'];
 
     foreach ($rubricLabels as $label) {
         $rubric = new Rubric();
-        $rubric->setLabel($label)
-               ->setSlug($label)
-               ->setImage($faker->imageUrl);
+        $rubric->setCreatedAt(new \DateTimeImmutable())
+                ->setLabel($label)
+                ->setSlug($this->slugger->slug($label)->lower())
+                ->setImage($faker->imageUrl);           
         $manager->persist($rubric);
         $rubrics[] = $rubric;
     }
-    $manager->flush(); // Assurez-vous que les rubriques sont persistées
+    $manager->flush(); 
 
-    // Création des sous-rubriques
+
+    // Sous-rubriques
     $subRubricLabels = ['saxo', 'trompette', 'batterie', 'tamtam', 'guitare', 'piano', 'synthétiseur', 'amplificateur'];
 
     foreach ($subRubricLabels as $label) {
         $subRubric = new Rubric();
-        $subRubric->setLabel($label)
-                  ->setSlug($slugger)
-                  ->setImage($faker->imageUrl)
-                  ->setDescription($faker->paragraph)
-                  ->setParent($faker->randomElement($rubrics)); // Associe une rubrique parent existante
+        $subRubric->setCreatedAt(new \DateTimeImmutable());
+        $uniqueSlug = $this->slugger->slug($label)->lower() . '-' . uniqid();
+        $subRubric->setSlug($uniqueSlug)
+                   ->setLabel($label)
+                   ->setImage($faker->imageUrl)
+                   ->setDescription($faker->paragraph)
+                   ->setParent($faker->randomElement($rubrics));
         $manager->persist($subRubric);
     }
-    $manager->flush(); // Assurez-vous que les sous-rubriques sont persistées
+    $manager->flush();
 
-    // Création des fournisseurs
+   
+    // Fournisseurs
     $supplierTypes = ['constructeur', 'importateur'];
     $suppliers = [];
     for ($i = 0; $i < 5; $i++) { 
@@ -105,22 +115,18 @@ public function load(ObjectManager $manager): void
         $manager->persist($supplier);
         $suppliers[] = $supplier;
     }
-    $manager->flush(); // Assurez-vous que les fournisseurs sont persistés
+    $manager->flush(); 
 
-    for ($i = 0; $i < 10; $i++) {
-        $tva = new Tva(); 
-        $tva->setRate('18.60');
-    //         >setProduct($faker->randomElement($manager->getRepository(Product::class)->findAll()));
-        $manager->persist($tva);
-        }
-    $manager->flush();
-    
-
-    // Création des produits
+     
+    // Produits
     for ($i = 0; $i < 50; $i++) {
+        $tva = new Tva();
+        $tva->setRate('18.60');
+        $manager->persist($tva);
+
         $product = new Product();
         $product->setLabel($faker->sentence)
-                ->setSlug($faker->slug)
+                ->setSlug($this->slugger->slug($faker->sentence)->lower() . '-' . uniqid())
                 ->setStock(mt_rand(1, 100))
                 ->setPrice(mt_rand(1, 100))
                 ->setReference("GrVi:" . mt_rand(10000, 99999))
@@ -135,11 +141,11 @@ public function load(ObjectManager $manager): void
     }
     $manager->flush();
 
-    // Création des images
+    // Images
     for ($i = 0; $i < 10; $i++) {
         $image = new Image();
-        $image->setImg($faker->imageUrl)
-              ->setProduct($faker->randomElement($manager->getRepository(Product::class)->findAll()));
+        $image->setImage($faker->imageUrl);
+        $image->setProduct($faker->randomElement($manager->getRepository(Product::class)->findAll()));
         $manager->persist($image);
     }
     $manager->flush();
@@ -149,9 +155,9 @@ public function load(ObjectManager $manager): void
 
 
 
-## Services
+  // Services
 
-    #Creation de services lier a des utilisateurs
+    ## Creation de services suivant les utilisateurs
 
     // $servicetype = ['apres-vente', 'commercial', 'equipe'];
 

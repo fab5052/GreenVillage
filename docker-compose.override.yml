@@ -1,0 +1,6 @@
+# services:
+#   server:
+#     command: sh -c "chown -R www-data:www-data /var/www/var/cache && php-fpm"
+    # args: 
+    #       UID: ${UID:-1000}
+    #       GID: ${GID:-1000}

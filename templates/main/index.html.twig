@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Village Green | Accueil
+{% endblock %}
+
+{% block body %}
+	<div>
+		<div class="h-64 m-2 rounded-xl shadow-xl ">
+			<img class="hidden lg:flex w-full h-full object-cover rounded-xl" src="{{ asset('images/hands-1851426_1920.webp') }}" alt="Mains jouant d'un instrument de musique"/>
+			<h1 class="text-4xl  font-serif text-black flex justify-center mb-4">
+				Bienvenue sur notre site E-commerce
+			</h1>
+		</div>
+		<div id="root"></div>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	{{ encore_entry_script_tags('searchbar') }}
+{% endblock %}

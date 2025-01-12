@@ -61,29 +61,28 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
         // if (in_array('ROLE_ADMIN', $roles, true)) {
         //     return new RedirectResponse($this->urlGenerator->generate('admin_dashboard'));
         // }
-    
-//return new RedirectResponse($this->urlGenerator->generate('app_home'));
+  //  return new RedirectResponse($this->urlGenerator->generate('app_home'));
     
      // Redirection basée sur les rôles
-    //    $roles = $token->getRoleNames(); // Récupère les rôles de l'utilisateur connecté
+       $roles = $token->getRoleNames(); // Récupère les rôles de l'utilisateur connecté
 
-    //     if (in_array('ROLE_ADMIN', $roles, true)) {
-    //         return new RedirectResponse($this->urlGenerator->generate('admin_dashboard'));
-    //     }
+        if (in_array('ROLE_ADMIN', $roles, true)) {
+            return new RedirectResponse($this->urlGenerator->generate('admin_dashboard'));
+        }
     
-    //     if (in_array('ROLE_USER', $roles, true)) {
-    //         return new RedirectResponse($this->urlGenerator->generate('login'));
-    //     } 
+        if (in_array('ROLE_USER', $roles, true)) {
+            return new RedirectResponse($this->urlGenerator->generate('app_home'));
+        } 
 
-    //     if (in_array('ROLE_COMMERCIAL', $roles, true)) {
-    //         return new RedirectResponse($this->urlGenerator->generate('commercial_dashboard'));
-    //     } 
+        if (in_array('ROLE_COMMERCIAL', $roles, true)) {
+            return new RedirectResponse($this->urlGenerator->generate('commercial_dashboard'));
+        } 
 
-      // return new RedirectResponse($this->urlGenerator->generate('main'));
+ return new RedirectResponse($this->urlGenerator->generate('main'));
     
     
         // For example:
-   return new RedirectResponse($this->urlGenerator->generate('app_login'));
+ //  return new RedirectResponse($this->urlGenerator->generate('app_login'));
     //     throw new \Exception('TODO: provide a valid redirect inside '.__FILE__); }
     }
     protected function getLoginUrl(Request $request): string

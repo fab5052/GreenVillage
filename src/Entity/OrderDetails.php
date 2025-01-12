@@ -7,12 +7,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
-#use App\Entity\OrderStatus;
+use App\Entity\Orders;
 use App\Enum\OrderStatus;
+use App\Entity\DeliveryDetails;
 
-
+use Doctrine\Common\Collections\Order;
 
 #[ORM\Entity(repositoryClass: OrderDetailsRepository::class)]
+#[ORM\Table(name: '`order_details`')]
 class OrderDetails
 {
     #[ORM\Id]
@@ -20,30 +22,26 @@ class OrderDetails
     #[ORM\Column]
     private ?int $id = null;
 
-    
+    #[ORM\Id]
+    #[ORM\ManyToOne(targetEntity: Product::class, inversedBy: "orderDetails")]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
+    private ?Product $product = null;
 
-    #[ORM\Column]
+    #[ORM\Id]
+    #[ORM\ManyToOne(targetEntity: Order::class, inversedBy: "orderDetails")]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
+    private ?Order $order = null;
+
+    #[ORM\Column(type: Types::INTEGER, nullable: false)]
     private ?int $quantity = null;
+    private ?string $price = null;
 
-    #[ORM\Column]
-    private ?int $price = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getQuantity(): ?int
-    {
-        return $this->quantity;
-    }
-
-    public function setQuantity(int $quantity): static
-    {
-        $this->quantity = $quantity;
-
-        return $this;
-    }
 
     public function getPrice(): ?int
     {
@@ -56,10 +54,46 @@ class OrderDetails
 
         return $this;
     }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): self
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    public function getOrder(): ?Order
+    {
+        return $this->order;
+    }
+
+    public function setOrder(?Order $order): self
+    {
+        $this->order = $order;
+
+        return $this;
+    }
+
+    public function getQuantity(): ?int
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(int $quantity): self
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
 }
 
     // enum OrderStatus: string
-    // {
+    // {s
     //     case PENDING = 'pending';   // Commande en attente
     //     case SENT = 'sent';         // Commande envoyée
     //     case REJECTED = 'rejected'; // Commande refusée

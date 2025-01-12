@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Order;
-use App\Form\OrdersType;
+use App\Form\OrderType;
 use App\Repository\OrderRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,13 +12,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/orders')]
-final class OrdersController extends AbstractController
+final class OrderController extends AbstractController
 {
     #[Route(name: 'app_orders_index', methods: ['GET'])]
-    public function index(OrderRepository $ordersRepository): Response
+    public function index(OrderRepository $orderRepository): Response
     {
         return $this->render('orders/index.html.twig', [
-            'orders' => $ordersRepository->findAll(),
+            'orders' => $orderRepository->findAll(),
         ]);
     }
 
@@ -26,7 +26,7 @@ final class OrdersController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $order = new Order();
-        $form = $this->createForm(OrdersType::class, $order);
+        $form = $this->createForm(OrderType::class, $order);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -53,7 +53,7 @@ final class OrdersController extends AbstractController
     #[Route('/{id}/edit', name: 'app_orders_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Order $order, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(OrdersType::class, $order);
+        $form = $this->createForm(OrderType::class, $order);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,3 +79,4 @@ final class OrdersController extends AbstractController
         return $this->redirectToRoute('app_orders_index', [], Response::HTTP_SEE_OTHER);
     }
 }
+

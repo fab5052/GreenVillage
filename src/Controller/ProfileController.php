@@ -2,13 +2,18 @@
 
 namespace App\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Form\UserFormType;
+
 
 //#[IsGranted("ROLE_USER")]
 
-//#[Route('/profile', name: 'profile_')]
+#[Route('/profile', name: 'profile_')]
 class ProfileController extends AbstractController
 {
     #[Route('/profile', name: 'app_profile')]

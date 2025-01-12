@@ -42,12 +42,12 @@ rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awes
 					</li>
 
 					<li>
-						<a href="{{ path('app_home') }}">
+						<a href="{{ path('app_products') }}">
 							<span class="material-symbols-outlined d-flex" style="font-size: 40">
-								fastfood
+								
 							</span>
 
-							<i class='fas fa-hamburger'></i>
+							<i class='fas fa-material'></i>
 							<span class="nav-text">Catégories</span>
 
 							{# <style>
@@ -91,11 +91,11 @@ rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awes
 							<form class="search" action="results.php" method="GET" accept-charset="utf-8">
 								<input
 								type="text" name="input" class="input" placeholder="Search"/>
-								<!-- {# <a href="{{ path('app_search') }}"> #} -->
+						
 
-								<button type="reset" class="search " id="search-button"></form>
-
-							</button>
+							<button type="reset" class="search " id="search-button"></form>
+	                           <a href="{{ path('app_search') }}">
+							</button></a>
 						</div>
 					</li>
 					<li>

@@ -22,7 +22,7 @@ class RubricController extends AbstractController
 
         } catch (Exception $e) {
             $this->addFlash('error', 'Impossible de charger les rubriques. Veuillez réessayer plus tard.');
-            return $this->redirectToRoute('rubric_rubrics');
+            return $this->redirectToRoute('app_home');
         }
         
     // public function showLastRubric(): Response
