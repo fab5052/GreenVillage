@@ -53,7 +53,7 @@ class Order
     /**
      * @var Collection<int, Delivery>
      */
-    #[ORM\OneToMany(targetEntity: Delivery::class, mappedBy: 'ord')]
+    #[ORM\OneToMany(targetEntity: Delivery::class, mappedBy: 'order')]
     private Collection $deliveries;
 
     public function __construct()
@@ -198,7 +198,7 @@ class Order
     {
         if (!$this->deliveries->contains($delivery)) {
             $this->deliveries->add($delivery);
-            $delivery->setOrd($this);
+            $delivery->setOrder($this);
         }
 
         return $this;
@@ -208,8 +208,8 @@ class Order
     {
         if ($this->deliveries->removeElement($delivery)) {
             // set the owning side to null (unless already changed)
-            if ($delivery->getOrd() === $this) {
-                $delivery->setOrd(null);
+            if ($delivery->getOrder() === $this) {
+                $delivery->setOrder(null);
             }
         }
 

@@ -9,11 +9,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/rubrics', name: 'rubric_')]
+// #[Route('/rubrics', name: 'rubric_')]
 class RubricController extends AbstractController
 {
 
-    #[Route('/', name: 'index')]
+    #[Route('/', name: 'home')]
     public function index(EntityManagerInterface $entityManager): Response
     {
         try {
@@ -34,7 +34,8 @@ class RubricController extends AbstractController
         
             
         return $this->render('rubric/rubrics.html.twig', [
-            'rubrics' => $viewRubrics
+            'rubric' => $viewRubrics,
+            'rubrics' => $viewRubrics,
         ]);
     }
 }

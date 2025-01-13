@@ -6,22 +6,14 @@ use App\Repository\OrderDetailsRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
 use Symfony\Component\Uid\Uuid;
-use Symfony\Component\Form\Extension\Core\Type\EnumType;
-use App\Entity\Orders;
 use App\Enum\OrderStatus;
-use App\Entity\DeliveryDetails;
-
-use Doctrine\Common\Collections\Order;
+use App\Entity\Order;
+// use Doctrine\Common\Collections\Order;
 
 #[ORM\Entity(repositoryClass: OrderDetailsRepository::class)]
 #[ORM\Table(name: '`order_details`')]
 class OrderDetails
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
     #[ORM\Id]
     #[ORM\ManyToOne(targetEntity: Product::class, inversedBy: "orderDetails")]
     #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
@@ -32,28 +24,20 @@ class OrderDetails
     #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?Order $order = null;
 
+    // #[ORM\ManyToOne(inversedBy: 'orders')]
+    // #[ORM\JoinColumn(nullable: false)]
+    // private ?User $user = null;
+
     #[ORM\Column(type: Types::INTEGER, nullable: false)]
     private ?int $quantity = null;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $price = null;
 
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-
-    public function getPrice(): ?int
-    {
-        return $this->price;
-    }
-
-    public function setPrice(int $price): static
-    {
-        $this->price = $price;
-
-        return $this;
-    }
+    // public function getId(): ?int
+    // {
+    //     return $this->id;
+    // }
 
     public function getProduct(): ?Product
     {
@@ -63,7 +47,6 @@ class OrderDetails
     public function setProduct(?Product $product): self
     {
         $this->product = $product;
-
         return $this;
     }
 
@@ -75,9 +58,19 @@ class OrderDetails
     public function setOrder(?Order $order): self
     {
         $this->order = $order;
-
         return $this;
     }
+
+    // public function getUser(): ?User
+    // {
+    //     return $this->user;
+    // }
+
+    // public function setUser(?User $user): static
+    // {
+    //     $this->user = $user;
+    //     return $this;
+    // }
 
     public function getQuantity(): ?int
     {
@@ -87,10 +80,22 @@ class OrderDetails
     public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
+        return $this;
+    }
 
+    public function getPrice(): ?string
+    {
+        return $this->price;
+    }
+
+    public function setPrice(string $price): self
+    {
+        $this->price = $price;
         return $this;
     }
 }
+
+
 
     // enum OrderStatus: string
     // {s

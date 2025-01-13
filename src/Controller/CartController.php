@@ -148,7 +148,7 @@ class CartController extends AbstractController
 
             $order = (new Order())
                 ->setUser($this->getUser())
-                ->setReference('Com:' . uniqid() . mt_rand(100, 999))
+                ->setReference('GreVil:' . uniqid() . mt_rand(100, 999))
                 ->setPaymentMethod($paiement)
                 ->setType('commande')
                 ->setPaymentDate(new \DateTimeImmutable())
@@ -157,35 +157,36 @@ class CartController extends AbstractController
                 ->setStatus('En Attente');
 
             $totalAmount = 0;
-            $orderDetails = [];
+            $orderDetails = []; // Initialize as an array
 
             foreach ($panier as $id => $quantity) {
                 $product = $entityManager->getRepository(Product::class)->find($id);
                 if ($product) {
                     $productDetails = $this->calculateProductDetails($product, $quantity);
                     $totalAmount += $productDetails['total'];
-
+            
                     $orderDetail = (new OrderDetails())
-                        ->setOrderDetails($orderDetails)
+                        ->setOrder($id)
                         ->setProduct($product)
                         ->setQuantity($quantity)
                         ->setPrice($productDetails['priceWithTax']);
-
-                    $orderDetails[] = $orderDetails;
-                    $entityManager->persist($orderDetail);
+            
+                    $orderDetails[] = $orderDetail; // Add the object to the array
+                    $entityManager->persist($orderDetail); // Persist each order detail
                 } else {
                     $this->addFlash('warning', "Le produit avec l'ID ($id) n'existe pas et a été ignoré.");
                 }
             }
-
+            
             if (empty($orderDetails)) {
                 $this->addFlash('warning', 'Aucun produit valide dans votre panier.');
                 return $this->redirectToRoute('cart_index');
             }
-
+            
             $order->setTotal($totalAmount);
             $entityManager->persist($order);
-            $entityManager->flush();
+            $entityManager->flush(); // Don't forget to flush all changes
+            
 
             $mail->send(
                 'no-reply@village-green.fr',
@@ -201,7 +202,7 @@ class CartController extends AbstractController
             $session->clear();
             $this->addFlash('success', 'Votre commande a été enregistrée avec succès.');
 
-            return $this->redirectToRoute('profile_index');
+            return $this->redirectToRoute('app_profile');
         } catch (\Exception $e) {
             $this->addFlash('error', 'Une erreur est survenue.');
             return $this->redirectToRoute('cart_index');

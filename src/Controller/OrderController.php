@@ -3,7 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Order;
-use App\Form\OrderType;
+use App\Entity\OrderDetails;
+use App\Form\OrderFormType;
 use App\Repository\OrderRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,7 +27,7 @@ final class OrderController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $order = new Order();
-        $form = $this->createForm(OrderType::class, $order);
+        $form = $this->createForm(OrderFormType::class, $order);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -53,7 +54,7 @@ final class OrderController extends AbstractController
     #[Route('/{id}/edit', name: 'app_orders_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Order $order, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(OrderType::class, $order);
+        $form = $this->createForm(OrderFormType::class, $order);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

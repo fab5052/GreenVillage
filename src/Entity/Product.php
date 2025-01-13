@@ -50,7 +50,6 @@ class Product
     #[ORM\Column(type: 'string', length: '100', unique: true)]
     #[Assert\NotBlank(message: 'Le slug ne peut pas être vide.')]
     #[Assert\Unique]
-
     private ?string $slug = null;
 
     
@@ -83,10 +82,18 @@ class Product
     #[ORM\OneToMany(mappedBy: "product", targetEntity: DeliveryDetails::class)]
     private Collection $deliveryDetails;
 
+        /**
+     * @var Collection<int, OrderDetails>
+     * @ORM\OneToMany(targetEntity="App\Entity\OrderDetails", mappedBy="product")
+     */
+    private Collection $orderDetails;
+
     public function __construct()
     {
         $this->image = new ArrayCollection();
         $this->deliveryDetails = new ArrayCollection();
+        $this->orderDetails = new ArrayCollection();
+
 
     }
 
@@ -315,4 +322,17 @@ public function removeDeliveryDetail(DeliveryDetails $deliveryDetail): self
 
     return $this;
 }
+
+public function getOrderDetails(): Collection
+{
+    return $this->orderDetails;
+}
+
+public function setOrderDetails(?OrderDetails $orderDetails): static
+{
+    $this->orderDetails = $orderDetails;
+
+    return $this;
+}
+
 }

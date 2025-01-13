@@ -50,13 +50,19 @@ app_changePassword:
 
 app_home:
   path: /
-  controller: App\Controller\RubricController::index
+  controller: App\Controller\MainController::index
   defaults:
      role: ROLE_USER
 
 app_last_rubric:
   path: /last_rubric
   controller: App\Controller\RubricController::showLastRubric     
+  defaults:
+     role: ROLE_USER
+
+app_rubric:
+  path: /
+  controller: App\Controller\RubricController::rubrics
   defaults:
      role: ROLE_USER
 
@@ -68,13 +74,13 @@ app_orders:
 
 app_orders_details:
   path: /orders_details
-  controller: App\Controller\OrderController::index
+  controller: App\Controller\OrderController::details
   defaults:
     role: ROLE_USER    
 
-# app_rubrics:
-#   path: /rubrics
-#   controller: App\Controller\MainController::rubrics
+app_rubrics:
+  path: /rubrics
+  controller: App\Controller\MainController::rubrics
 
 app_products_by_rubric:
   path: /rubric/{slug}
@@ -95,11 +101,11 @@ app_product_details:
     role: ROLE_USER
 
 ## Panier
-# app_cart:
-#   path: /cart
-#   controller: App\Controller\CartController::viewCart
-#   defaults:
-#     role: ROLE_USER
+app_cart:
+  path: /cart
+  controller: App\Controller\CartController::viewCart
+  defaults:
+    role: ROLE_USER
 
 ## Profile
 app_profile:

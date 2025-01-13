@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Address;
-use App\Form\OrderType;
+use App\Form\OrderFormType;
 use App\Form\BankCartType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,9 +36,9 @@ class PaiementAddressController extends AbstractController
                 return $this->redirectToRoute('app_login');
             }
 
-            $addresses = $entityManager->getRepository(Address::class)->findBy(['user' => $user]);
-            $session->set('user', $user);
-            $session->set('address', $addresses);
+            // $addresses = $entityManager->getRepository(Address::class)->findBy(['user' => $user]);
+            // $session->set('user', $user);
+            // $session->set('address', $addresses);
         } catch (\Exception $e) {
             $this->addFlash('error', 'Une erreur est survenue , reessayer plus tard.');
             return $this->redirectToRoute('cart_index');
@@ -46,7 +46,7 @@ class PaiementAddressController extends AbstractController
         return $this->render('paiement_address/Choice_address.html.twig', [
             'cart' => $cart,
             'user' => $user,
-            'addresses' => $addresses,
+            //'addresses' => $addresses,
         ]);
     }
 
@@ -62,7 +62,7 @@ class PaiementAddressController extends AbstractController
                 return $this->redirectToRoute('app_login');
             }
 
-            $formPaiementMethod = $this->createForm(OrderType::class, null, ['user' => $user]);
+            $formPaiementMethod = $this->createForm(OrderFormType::class, null, ['user' => $user]);
             $formPaiementMethod->handleRequest($request);
 
             if ($formPaiementMethod->isSubmitted() && $formPaiementMethod->isValid()) {

@@ -6,14 +6,14 @@
     {#
         Render a component by passing its name as first argument
         See https://symfony.com/bundles/ux-twig-component/current/index.html
-    #
-    {{ component('searchTerms', {
+    #}
+     component('searchTerms', {
         query: query
-    }) }}
+    })
 {% endblock %}
 
 {% block sidebar %}
     {{ parent() }}
 
     {{ show_source_code(_self) }}
-{% endblock %} #}
+{% endblock %} 
