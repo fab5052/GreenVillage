@@ -3,17 +3,11 @@
     "app": {
       "js": [
         "/build/runtime.js",
-        "/build/app.js",
-        "/build/searchbar.jsx"
+        "/build/app.js"
       ],
       "css": [
         "/build/app.css"
       ]
-    },
-    "searchbar": {
-      "jsx": [
-       "/build/searchbar"
-     ]
-   } 
+    }
   }
 }

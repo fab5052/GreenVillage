@@ -16,7 +16,7 @@ use App\Form\UserFormType;
 #[Route('/profile', name: 'profile_')]
 class ProfileController extends AbstractController
 {
-    #[Route('/profile', name: 'app_profile')]
+    #[Route('/', name: 'index')]
     public function index(): Response
     {
         return $this->render('profile/index.html.twig', [

@@ -370,19 +370,29 @@
 	
 				<div class="container-fluid mx-auto mt-12 p-6 bg-gray-100 shadow-lg rounded-xl">
 					<h1 class="text-4xl font-bold text-gray-800 text-center mb-8">Rubriques</h1>
-					<div class="rubric-nav justify-content-center  d-flex text-center mb-2">
+					<div class="card-wrapper justify-content-center  d-flex text-center mb-2">
+						<div class="card-container">
 						{% for rubric in rubrics %}
-							<button 
-								class="rubric-button justify-content-center bg-blue-200 text-white font-bold py-2 d m-4"
+						
+						
+							<div class="card-front justify-content-center bg-blue-200 text-white font-bold py-2 d m-4"
 								onclick="showSubrubrics('{{ rubric.id }}')">
-								{{ rubric.label }}
-								{% if rubric.image %}
+						
+							  {# <img class="card-img-top" src="holder.js/100px180/" alt="">
+							  <div class="card-body">
+								<h4 class="card-title">Title</h4>
+								<p class="card-text">Text</p>
+							  </div>
+							
+							</div>	#}
+							{% if rubric.image %} 
 								<img src="{{ rubric.image }}" alt="{{ rubric.label }}" class="card rub mx-auto justify-content-center h-32  mt-3">
 							{% endif %}
-							</button>
+							</div>
 							{% endfor %}
+							</div>
 						</div>
-		
+	div 
 						
 
 			<section class="myP">
