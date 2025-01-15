@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-//#[Route('/rubrics', name: 'rubric_')]
+#[Route('/rubrics', name: 'rubric_')]
 class RubricController extends AbstractController
 {
 
@@ -19,13 +19,15 @@ class RubricController extends AbstractController
     {
         try {
             // Chargement des rubriques principales avec leurs sous-rubriques
-            $rubrics = $entityManager->getRepository(Rubric::class)
-                ->createQueryBuilder('r')
-                ->leftJoin('r.children', 'c')
-                ->addSelect('c')
-                ->where('r.parent IS NULL')
-                ->getQuery()
-                ->getResult();
+            // $rubrics = $entityManager->getRepository(Rubric::class)
+            //     ->createQueryBuilder('r')
+            //     ->leftJoin('r.children', 'c')
+            //     ->addSelect('c')
+            //     ->where('r.parent IS NULL')
+            //     ->getQuery()
+            //     ->getResult();
+            $rubrics = $entityManager->getRepository(Rubric::class)->findBy(['parent' => null]);
+
         } catch (Exception $e) {
             $this->addFlash('error', 'Impossible de charger les rubriques. Veuillez réessayer plus tard.');
             $rubrics = [];

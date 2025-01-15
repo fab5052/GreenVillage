@@ -47,7 +47,7 @@ class Rubric
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'rubrics', cascade: ['remove'])]    
     private ?self $parent = null;
 
-    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent_id')]
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
     private Collection $rubrics;
 
     #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'rubric')]

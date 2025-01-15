@@ -3,15 +3,20 @@
     "app": {
       "js": [
         "/build/runtime.js",
+        "/build/vendors-node_modules_react-dom_index_js-node_modules_react_jsx-runtime_js.js",
         "/build/app.js"
-      ],
-      "css": [
-        "/build/app.css",
-        "/build/style.css"
+      ]
+    },
+    "navbar": {
+      "js": [
+        "/build/runtime.js"
       ]
     },
     "searchbar": {
-      "jsx":[
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors-node_modules_react-dom_index_js-node_modules_react_jsx-runtime_js.js",
+        "/build/vendors-node_modules_react-dom_client_js-node_modules_core-js_modules_es_array_for-each_js-no-0c05ec.js",
         "/build/searchbar.js"
       ]
     }

@@ -14,14 +14,22 @@ class MainController extends AbstractController
     public function index(EntityManagerInterface $entityManager): Response
     {
         try {
-            // Récupérer les rubriques principales (celles sans parent)
-            $rubrics = $entityManager->getRepository(Rubric::class)->findBy(['parent_id' => null]);
+            // Chargement des rubriques principales avec leurs sous-rubriques
+            // $rubrics = $entityManager->getRepository(Rubric::class)
+            //     ->createQueryBuilder('r')
+            //     ->leftJoin('r.children', 'c')
+            //     ->addSelect('c')
+            //     ->where('r.parent IS NULL')
+            //     ->getQuery()
+            //     ->getResult();
+            $rubrics = $entityManager->getRepository(Rubric::class)->findBy(['parent' => null]);
+
         } catch (\Exception $e) {
             $this->addFlash('error', 'Impossible de charger les rubriques. Veuillez réessayer plus tard.');
             $rubrics = [];
         }
-
-        return $this->render('rubric/rubrics.html.twig', [
+    
+        return $this->render('main/index.html.twig', [
             'rubrics' => $rubrics,
         ]);
     }

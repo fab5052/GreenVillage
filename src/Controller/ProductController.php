@@ -6,6 +6,7 @@ use App\Entity\Product;
 use App\Entity\Rubric;
 use App\Repository\ProductRepository;
 use App\Repository\RubricRepository;
+use App\Repository\OrderRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,15 +17,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/product', name: 'product_')]
 class ProductController extends AbstractController
 {
+    private OrderRepository $orderRepository;
     private ProductRepository $productRepository;
     private RubricRepository $rubricRepository;
     private PaginatorInterface $paginator;
 
     public function __construct(
+        OrderRepository $orderRepository,
         ProductRepository $productRepository,
         RubricRepository $rubricRepository,
         PaginatorInterface $paginator
     ) {
+        $this->orderRepository = $orderRepository;
         $this->productRepository = $productRepository;
         $this->rubricRepository = $rubricRepository;
         $this->paginator = $paginator;
@@ -34,18 +38,26 @@ class ProductController extends AbstractController
     public function index(Request $request): Response
     {
         try {
+            
+            $rubrics = $this->rubricRepository->findAll();
             $productsQuery = $this->productRepository->findAll();
             $paginatedProducts = $this->paginator->paginate(
                 $productsQuery,
                 $request->query->getInt('page', 1),
                 12);
-                $rubrics = $this->rubricRepository->findAll();    
+            $orders = $this->orderRepository->findAll(); 
+            if (!$orders || !$rubrics || !$paginatedProducts) {
+                $this->addFlash('error', 'Certaines données sont manquantes.');
+                return $this->redirectToRoute('home');
+            }          
+
         } catch (\Exception $exception) {
             $this->addFlash('error', 'Impossible de charger les produits. Veuillez réessayer plus tard.');
             return $this->redirectToRoute('home');
         }
 
         return $this->render('product/products.html.twig', [
+            'orders' => $orders,
             'rubrics' => $rubrics,
             'products' => $paginatedProducts,
         ]);
@@ -56,7 +68,7 @@ class ProductController extends AbstractController
     {
         try {
             $product = $this->productRepository->findOneBy(['slug' => $slug]);
-
+            // $order = $this->orderRepository->findAll();
             if (!$product) {
                 throw $this->createNotFoundException('Produit introuvable.');
             }
