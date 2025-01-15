@@ -15,6 +15,7 @@ use App\EventListener\SlugListener;
 
 #[ORM\Entity(repositoryClass: RubricRepository::class)]
 #[ORM\UniqueConstraint(name: 'slug', columns: ['slug'])]
+//#[ORM\UniqueConstraint(name: 'parent_id', columns: ['parent_id'])]
 
 class Rubric 
 {
@@ -23,7 +24,7 @@ class Rubric
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    // #[Groups(["product:read", "parent:read"])]
+    #[Groups(["product:read", "parent:read"])]
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
@@ -46,7 +47,7 @@ class Rubric
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'rubrics', cascade: ['remove'])]    
     private ?self $parent = null;
 
-    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent_id')]
     private Collection $rubrics;
 
     #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'rubric')]

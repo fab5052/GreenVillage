@@ -6,7 +6,13 @@
         "/build/app.js"
       ],
       "css": [
-        "/build/app.css"
+        "/build/app.css",
+        "/build/style.css"
+      ]
+    },
+    "searchbar": {
+      "jsx":[
+        "/build/searchbar.js"
       ]
     }
   }

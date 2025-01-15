@@ -57,14 +57,14 @@ app_home:
 app_last_rubric:
   path: /last_rubric
   controller: App\Controller\RubricController::showLastRubric     
-  defaults:
-     role: ROLE_USER
+  # defaults:
+  #    role: ROLE_USER
 
 app_rubric:
-  path: /
+  path: /rubric
   controller: App\Controller\RubricController::rubrics
-  defaults:
-     role: ROLE_USER
+  # defaults:
+  #    role: ROLE_USER
 
 app_orders:
   path: /orders
@@ -78,9 +78,9 @@ app_orders_details:
   defaults:
     role: ROLE_USER    
 
-app_rubrics:
-  path: /rubrics
-  controller: App\Controller\MainController::rubrics
+# app_rubrics:
+#   path: /
+#   controller: App\Controller\RubricController::rubrics
 
 app_products_by_rubric:
   path: /rubric/{slug}

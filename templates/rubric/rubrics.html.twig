@@ -373,10 +373,14 @@
 					<div class="card-wrapper justify-content-center  d-flex text-center mb-2">
 						<div class="card-container">
 						{% for rubric in rubrics %}
-						
-						
-							<div class="card-front justify-content-center bg-blue-200 text-white font-bold py-2 d m-4"
+						<div class="card-front justify-content-center bg-blue-200 text-white font-bold py-2 d m-4"
 								onclick="showSubrubrics('{{ rubric.id }}')">
+						<li>
+							<a href="{{ path('rubric_rubrics', { id: rubric.id }) }}">
+								{{ rubric.label}}
+							</a>
+						</li>
+						</div>	
 						
 							  {# <img class="card-img-top" src="holder.js/100px180/" alt="">
 							  <div class="card-body">
@@ -385,15 +389,14 @@
 							  </div>
 							
 							</div>	#}
-							{% if rubric.image %} 
+							{# {% if rubric.image %}  #}
 								<img src="{{ rubric.image }}" alt="{{ rubric.label }}" class="card rub mx-auto justify-content-center h-32  mt-3">
-							{% endif %}
+							{# {% endif %} #}
 							</div>
 							{% endfor %}
 							</div>
 						</div>
-	div 
-						
+			
 
 			<section class="myP">
               <div class="myH2">
@@ -414,7 +417,7 @@
                                                 {% set angle = loop.index0 * (360 / total_subrubrics) %}
 											<div class="item cards carouselItem"
 												 data-parent-id="{{ rubric.id }}"
-												 style:'transform: rotateY({{ angle }}deg) translateZ(300px);'>
+												 style= "transform: rotateY('{{ angle }}deg) translateZ(300px);'">
 												<a href="{{ path('app_products_by_rubric', {'slug': subrubric.slug}) }}">
 													<h2 class="item">{{ subrubric.label }}</h2>
 													{% if subrubric.image %}

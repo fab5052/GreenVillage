@@ -6,6 +6,22 @@
 
 {% block body %}
 <main class="main">
+
+    {# <section>
+        <h2>Nos rubriques</h2>
+        <ul>
+            {% for rubric in rubrics %}
+                <li>
+                    <a href="{{ path('rubric_rubrics', { id: rubric.id }) }}">
+                        {{ rubric.label}}
+                    </a>
+                </li>
+            {% else %}
+                <li>Aucune rubrique trouvée.</li>
+            {% endfor %}
+        </ul>
+    </section> #}
+
 	<div>
 		<div class="h-64 m-2 rounded-xl shadow-xl ">
 			<img class="hidden lg:flex w-full h-full object-cover rounded-xl" src="{{ asset('images/hands-1851426_1920.webp') }}" alt="Mains jouant d'un instrument de musique"/>

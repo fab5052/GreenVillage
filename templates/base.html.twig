@@ -17,13 +17,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet"/>
-        {% block stylesheet %}
-		<link rel="stylesheet" href="{{ asset("css/style.css")}}">
-		
-		
 
-		{{ encore_entry_link_tags('app') }}  	
-    {% endblock %}
+{% block stylesheet %}
+<link rel="stylesheet" href="{{ asset('css.style.css')}}">
+{% endblock %}
+{{ encore_entry_link_tags('app') }} 
 </head>
 <body>
 
