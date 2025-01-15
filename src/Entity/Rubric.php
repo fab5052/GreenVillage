@@ -70,7 +70,7 @@ class Rubric
         return $this->parent;
     }
 
-    public function setParent(?self $parent): static
+    public function setParent(?self $parent): self
     {
         $this->parent = $parent;
 
@@ -126,14 +126,14 @@ class Rubric
     }
     
      /**
-     * @return Collection<int, self>
+     * @return Collection<int, Rubric>
      */
     public function getRubrics(): Collection
     {
         return $this->rubrics;
     }
 
-    public function addRubric(self $rubric): static
+    public function addRubric(Rubric $rubric): self
     {
         if (!$this->rubrics->contains($rubric)) {
             $this->rubrics->add($rubric);
@@ -143,7 +143,7 @@ class Rubric
         return $this;
     }
 
-    public function removeRubric(self $rubric): static
+    public function removeRubric(Rubric $rubric): self
     {
         if ($this->rubrics->removeElement($rubric)) {
             if ($rubric->getParent() === $this) {

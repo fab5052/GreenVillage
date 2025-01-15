@@ -38,14 +38,15 @@ class ProductController extends AbstractController
             $paginatedProducts = $this->paginator->paginate(
                 $productsQuery,
                 $request->query->getInt('page', 1),
-                12
-            );
+                12);
+                $rubrics = $this->rubricRepository->findAll();    
         } catch (\Exception $exception) {
             $this->addFlash('error', 'Impossible de charger les produits. Veuillez réessayer plus tard.');
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('product/products.html.twig', [
+            'rubrics' => $rubrics,
             'products' => $paginatedProducts,
         ]);
     }

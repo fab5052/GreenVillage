@@ -3,6 +3,36 @@
 {% block title %}Produits{% endblock %}
 
 {% block body %}
+    <nav aria-label="breadcrumb" class="mt-2">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path("app_home") }}">Accueil</a></li>
+         {% for rubric in rubrics %}
+        <li class="breadcrumb-item"><a href="{{ path("app_products", { rubrics: rubric.slug }) }}">{{ rubric.label }}</a></li>
+         {% endfor %}
+    </ol>
+    </nav>
+
+    <div class="row">
+        {% for subRubrics in rubric.subRubrics %}
+            <div class="col-12 col-sm-6 col-md-4 col-xl-3 mt-2 ">
+                <div class="rubric text-center">
+                    <a href="{{ path("", { subRubrics: rubrics.parent_id }) }}">
+                        {# <div class="card" style="">
+                            <img src="/images/{{ rubric.image }}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ rubric.nom }}</h5>
+                                
+                            </div>
+                        </div> #}
+                        <img src="/images/{{ subRubrics.image }}" class="img-fluid  img-rubric">
+                        <div class="text-center rubric-texte">
+                            {{ sububrics.nom }}
+                        </div>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
     {# <header class="prod">
     {% for rubric in rubrics %}
         <img src="{{ asset('images/rubrics/') ~ lastRubric.featuredImage }}" alt="{{ lastPost.title }}">
@@ -26,7 +56,7 @@
                         <img src="{{ asset('images/rubrics/mini/300x300-') ~ post.featuredImage }}" alt="{{ post.title }}">
                         <div class="card-body">
                             {% for rubric in product.rubrics %}
-                                <span class="badge badge-primary">{{ rubric.name }}</span>
+                                <span class="badge badge-primary">{{ rubric.label }}</span>
                             {% endfor %}
                             <h3>{{ rubric.label }}</h3>
                             <p>{{ rubric.user.firstname }}</p>
