@@ -26,7 +26,7 @@ class Image
         return $this->id;
     }
 
-    public function getImage(): ?string
+    public function getImages(): ?string
     {
         return $this->image;
     }

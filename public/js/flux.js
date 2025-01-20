@@ -86,7 +86,7 @@ window.flux = {
 		this.imageContainer = $('<div class="images loading"></div>').css({
 			'position': 'relative',
 			'overflow': 'hidden',
-			'min-height': '100px',
+			'min-height': '200px',
 			'min-width': '2000px'
 		}).appendTo(this.surface);
 		
@@ -100,8 +100,8 @@ window.flux = {
 		}
 
 		// Create the placeholders for the current and next image
-		this.image1 = $('<div class="image1" style="height: 100%; width: 100%"></div>').appendTo(this.imageContainer);
-		this.image2 = $('<div class="image2" style="height: 100%; width: 100%"></div>').appendTo(this.imageContainer);
+		this.image1 = $('<div class="image1" style="height: 100%; width: 2000px"></div>').appendTo(this.imageContainer);
+		this.image2 = $('<div class="image2" style="height: 100%; width: 2000px"></div>').appendTo(this.imageContainer);
 
 		$(this.image1).add(this.image2).css({
 			'position': 'absolute',

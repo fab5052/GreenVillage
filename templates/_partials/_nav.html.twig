@@ -1,8 +1,8 @@
-{#
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">#}
 
-<link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+{# <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"> #}
 
 
 
@@ -21,19 +21,19 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> #}
 
 
-<link rel="stylesheet" href="{{ asset('css/style.css')}}">
+{# <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css')}}"> #}
 
 {% block header %}
 <header>
-	<section class="container-fluid d-flex mx-auto position-relative w-100">
+	<section class="container-xxl">
 		
 
-		<div class="row d-flex justify-content-between align-items-center">
+		<div class="row-cols-5 ">
 
 			
-			<div class="col-12 top-left">
+			<div class="top-left">
 								
-					<div class="stylus_bfitem6">
+					<div class="stylus_bfitem6 ">
 						<div class="stylus_bfitem_ico"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="25"
 								viewBox="0 0 20 25" fill="none">
 								<path
@@ -70,7 +70,7 @@
 						</div>
 					</div>
 					
-					<div class="flip-countdown flip-countdown1 black-countdown flipcountdown-show d-sm-flex  " data-time="3312">
+					<div class="flip-countdown flip-countdown1 black-countdown flipcountdown-show d-flex  " data-time="3312">
 						<div class="countdown-item">
 							<div class="countdown-flip flip-down" data-ctime="hour1">
 								<div data-t="0" class="countdown-num flip-front"></div>
@@ -103,10 +103,10 @@
 								<div data-t="0" class="countdown-num flip-back"></div>
 							</div>
 						</div>
-					
+					</div>
 					<div class="stylus_bfitem_b"></div>
 					<div class="stylus_bfitem">
-						<div class="stylus_bfitem_ico"><svg xmlns="http://www.w3.org/2000/svg" width="auto" height="auto"
+						<div class="stylus_bfitem_ico"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="25"
 								viewBox="0 0 21 25" fill="none">
 								<path
 									d="M10.0323 0.669236C10.3947 0.543848 10.7887 0.543848 11.1511 0.669236L19.704 3.62856C20.0402 3.74488 20.3317 3.96308 20.538 4.25281C20.7444 4.54254 20.8552 4.88938 20.8552 5.24507V13.8425C20.8552 17.5357 17.6958 21.0475 11.3768 24.3781C11.1341 24.5059 10.8642 24.5735 10.5898 24.5752C10.3155 24.5768 10.0448 24.5124 9.80054 24.3875C3.48588 21.1604 0.328125 17.6452 0.328125 13.8417V5.24507C0.328134 4.88938 0.439022 4.54254 0.645358 4.25281C0.851694 3.96308 1.14322 3.74488 1.47935 3.62856L10.0323 0.669236ZM10.5917 2.28746L2.03872 5.24422V13.8425C2.03872 16.8523 4.77481 19.898 10.5789 22.8642C16.3957 19.7988 19.1447 16.7437 19.1447 13.8425V5.24422L10.5917 2.2866V2.28746ZM15.6097 8.61751L15.6653 8.67225C15.8183 8.82541 15.9043 9.03306 15.9043 9.24957C15.9043 9.46609 15.8183 9.67374 15.6653 9.8269L10.7713 14.7201C10.6181 14.8731 10.4105 14.959 10.194 14.959C9.97746 14.959 9.76981 14.8731 9.61665 14.7201L6.53758 11.641C6.38455 11.4878 6.29859 11.2802 6.29859 11.0637C6.29859 10.8471 6.38455 10.6395 6.53758 10.4863L6.59317 10.4316C6.74634 10.2786 6.95399 10.1926 7.1705 10.1926C7.38701 10.1926 7.59466 10.2786 7.74783 10.4316L10.194 12.8795L14.4551 8.61751C14.6082 8.46448 14.8159 8.37852 15.0324 8.37852C15.2489 8.37852 15.4566 8.46448 15.6097 8.61751Z"
@@ -117,32 +117,32 @@
 							<div class="stylus_bfitem_t2">0,01 €/jour</div>
 						</div>
 					</div>
-					{# <div class="col-md-4 col-sm-6">
-						<a class="custom-event-topad-btn  " data-ga-cate="Recharge" data-ga-type="Entrance"
+											<a class="custom-event-topad-btn  " data-ga-cate="Recharge" data-ga-type="Entrance"
 							data-ga-label="5"
 							href="/?m=vip&amp;a=payment&amp;opt=339&amp;code=5&amp;fromtype=1&amp;special_style=1"
 							rel="nofollow">sauvegarder&nbsp;62%
 						</a>
-					</div> #}
-				</div>
-				</div>
-				</div>
+					
+				
+				
+				
 			</div>
 		</div>
-	
-
+	</div>
+</div>
 	</section>
 
 	<nav class="nav top-0">
 		<div class="container-nav mt-5">
-
+			<section class="container-xl">
+						<div class="row-cols-6 d-flex">
 			<div class="logo ">
 				<a href="{{ path('app_home') }}">
-					<img class=" logo" src="image/logo.png">
+					<img class="logo" src="image/logo.png">
 				</a>
 			</div>
 
-				<div id="mainListDiv" class="main_list">
+				<div id="mainListDiv" class="main_list ">
 					<ul class="navlinks">
 
 
@@ -241,7 +241,7 @@
 				<div class="surface" style="position: relative; min-width: 100vw; height: 25vh; z-index: 1;">  #}
 
 
-					<img  src="image/caption(1).jpg" alt="Image 1" />
+					<img  src="image/caption(2).jpg" alt="Image 1" />
 					<img src="image/caption(3).jpg" alt="Image 2" />
 					<img src="image/caption(4).jpg" alt="Image 3" />
 					<img src="image/caption(5).jpg" alt="Image 4" />
@@ -257,8 +257,11 @@
 
 
 			{# <section class="myP"></section>
-			<h2 class="myH2"></h2> #}
-		
+	
+				<h2 class="myH2"></h2> #}
+
+		</div>
+	</section>		
 </header>
 {% endblock %}
 
