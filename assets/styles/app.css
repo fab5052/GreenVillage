@@ -224,6 +224,7 @@
     overflow-y: scroll;
     overflow-x: hidden;
   } */
+
   * {
     box-sizing: border-box;
     margin: 0;
@@ -239,18 +240,18 @@
   overflow-x: hidden;
   }
   
-  header {
+  /* header {
     width: 100vw;
     height: auto;  
    /* display: flex;
-    vertical-align: middle; */
+    vertical-align: middle; *
     position: relative;
    /* top: 0;
      justify-items: center;
-      z-index: 2; */
+      z-index: 2; 
 
       left: 0;
-  }
+  } 
   /* header #logo {
     position: fixed;
     top : 35px;
@@ -276,7 +277,7 @@
     width: 100%;
    min-height: 20vh;
   overflow: hidden;
-    color: #0db39cd8;
+    color: #07554ad8;
     background-color: #6b6666f6;
   justify-items: center;
     z-index: 0;
@@ -286,16 +287,16 @@
   
   .main {
   
-      margin-top: 7vh; 
+      margin-top: 10vh; 
       margin-bottom: 5vh;
    
     }
     
   .slider-container {
     position: relative;
-    top: 5;
+    top: 10;
     width: 100vw;
-  max-height: 1200px; 
+  max-height: 800px; 
   background-position: center top;
     background-size: cover;
    z-index: 9;
@@ -418,7 +419,7 @@
     display: flex;
     margin: 0;
     z-index: 10;
-    height: 30vh;
+    height: 35vh;
     padding: 0;
     
   

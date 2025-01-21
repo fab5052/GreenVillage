@@ -25,15 +25,15 @@
 
 {% block header %}
 <header>
-	<section class="container-xxl">
+	<section class="container-fluid d-block">
 		
 
-		<div class="row-cols-5 ">
+		<div class="row-cols-1 ">
 
 			
 			<div class="top-left">
 								
-					<div class="stylus_bfitem6 ">
+					<div class="stylus_bfitem6 col-md-2 m-0 d-flex">
 						<div class="stylus_bfitem_ico"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="25"
 								viewBox="0 0 20 25" fill="none">
 								<path
@@ -122,20 +122,23 @@
 							href="/?m=vip&amp;a=payment&amp;opt=339&amp;code=5&amp;fromtype=1&amp;special_style=1"
 							rel="nofollow">sauvegarder&nbsp;62%
 						</a>
-					
+						{# <a class="custom-event-topad-btn  " 
+						>sauvegarder&nbsp;62%
+						</a> #}
 				
+					{# </div>
 				
-				
-			</div>
+			</div> #}
 		</div>
 	</div>
 </div>
 	</section>
-
 	<nav class="nav top-0">
-		<div class="container-nav mt-5">
-			<section class="container-xl">
+	<section class="container-xl">
 						<div class="row-cols-6 d-flex">
+
+		<div class="container-nav mt-5">
+		
 			<div class="logo ">
 				<a href="{{ path('app_home') }}">
 					<img class="logo" src="image/logo.png">
@@ -191,14 +194,11 @@
 				</div>
 
 
-	<a class="custom-event-topad-btn  " 
-				>sauvegarder&nbsp;62%
-				</a>
+	
 
 				<div class="nav-authentification d-flex ">
 
 				
-<div class="recharge-coupon-popup"></div>
 					<ul class=" d-flex">
 
 						<li>
@@ -230,9 +230,9 @@
 					</ul>
 				</div>
 			</div>
-
-	</nav>
-
+	
+	
+		</nav>
 	<div class="slider-container home ">
 		<div id="slider" class="images">
 {# 
@@ -241,27 +241,27 @@
 				<div class="surface" style="position: relative; min-width: 100vw; height: 25vh; z-index: 1;">  #}
 
 
-					<img  src="image/caption(2).jpg" alt="Image 1" />
-					<img src="image/caption(3).jpg" alt="Image 2" />
-					<img src="image/caption(4).jpg" alt="Image 3" />
-					<img src="image/caption(5).jpg" alt="Image 4" />
-					<img src="image/caption(6).jpg" alt="Image 5" />
-					<img src="image/caption(7).jpg" alt="Image 6" />
-					<img src="image/caption(9).jpg" alt="Image 7" />
-					<img src="image/caption(1).jpg" alt="Image 8" />
+					<img  src="image/caption(1).jpg" alt="Image 1" />
+					<img src="image/caption(2).jpg" alt="Image 2" />
+					<img src="image/caption(3).jpg" alt="Image 3" />
+					<img src="image/caption(4).jpg" alt="Image 4" />
+					<img src="image/caption(5).jpg" alt="Image 5" />
+					<img src="image/caption(6).jpg" alt="Image 6" />
+					{# <img src="image/caption(9).jpg" alt="Image 7" />
+					<img src="image/caption(2).jpg" alt="Image 8" /> #}
 
 				
 				</div>
 
 			 </div> 
-
-
+			
+			</div>
+		</section>
 			{# <section class="myP"></section>
 	
 				<h2 class="myH2"></h2> #}
-
-		</div>
-	</section>		
+			
+		
 </header>
 {% endblock %}
 

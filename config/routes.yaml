@@ -9,9 +9,11 @@ opcache:
     controller: App\Controller\OpcacheController::index
 
 
-# app_dashboardAdmin:
-#   path: /admin/dashboard
-#   controller: App\controller\AdminController::admin
+admin_user_index:
+   path: /admin/
+#  controller: App\Controller\RubricController::index
+   defaults:
+     role: ROLE_ADMIN
 
 # app_dashboardClient:
 #   path: /client/dashboard
@@ -52,13 +54,13 @@ app_home:
   path: /
   controller: App\Controller\RubricController::index
   defaults:
-     role: ROLE_USER
+    role: ROLE_USER
 
 app_last_rubric:
   path: /last_rubric
   controller: App\Controller\RubricController::showLastRubric     
   defaults:
-     role: ROLE_USER
+    role: ROLE_USER
 
 app_orders:
   path: /orders

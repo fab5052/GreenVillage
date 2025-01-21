@@ -245,7 +245,7 @@ window.flux = {
 				$(this.images).each(function(index, image){
 					var li = $('<li data-index="'+index+'">'+(index+1)+'</li>').css({
 						display: 'inline-block',
-						'margin-left': '0.5em',
+						'margin-left': '0.1em',
 						'cursor': 'pointer'
 					}).appendTo(_this.pagination);
 
