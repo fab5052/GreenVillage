@@ -21,6 +21,12 @@ opcache:
 #   path: /commercial/dashboard
 #   controller: App\controller\CommercialController::commercial
 
+admin_user_index:
+   path: /admin/
+#  controller: App\Controller\RubricController::index
+   defaults:
+     role: ROLE_ADMIN
+
 app_register:
   path: /register
   controller: App\Controller\RegistrationController::register
@@ -50,7 +56,7 @@ app_changePassword:
 
 app_home:
   path: /
-  controller: App\Controller\MainController::index
+  controller: App\Controller\RubricController::index
   # defaults:
   #    role: ROLE_USER
 

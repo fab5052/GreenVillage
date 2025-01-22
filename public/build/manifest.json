@@ -1,7 +1,6 @@
 {
-  "build/app.js": "/build/app.b1cacc23.js",
-  "build/searchbar.js": "/build/searchbar.a571761a.js",
-  "build/runtime.js": "/build/runtime.9b90c2b9.js",
-  "build/432.98f2a00d.js": "/build/432.98f2a00d.js",
-  "build/232.467f480d.js": "/build/232.467f480d.js"
+
+  "build/app.js": "/build/app.js",
+  "build/runtime.js": "/build/runtime.js",
+  "build/app.css": "/build/styles/app.css"
 }

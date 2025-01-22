@@ -28,9 +28,9 @@ RUN install-php-extensions \
     mysqli \
     intl \
     apcu \
-    xdebug \
-    php-fpm
+    xdebug 
     # opcache 
+
 
 # Installer OPcache
 RUN docker-php-ext-install opcache
@@ -83,13 +83,7 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 CMD ["/usr/local/bin/docker-entrypoint.sh"]
 
 # Crée un utilisateur avec un UID/GID correspondant à celui de l'utilisateur hôte
-ARG UID=1000
-ARG GID=1000
 
-RUN groupadd -g ${GID} symfony && \
-    useradd -u ${UID} -g symfony -m symfony
-
-USER symfony
 
 RUN chmod -R 777 /var/www && chown -R www-data:www-data /var/www
 

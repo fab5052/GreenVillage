@@ -78,7 +78,7 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
     //         return new RedirectResponse($this->urlGenerator->generate('commercial_dashboard'));
     //     } 
 
- return new RedirectResponse($this->urlGenerator->generate('home'));
+ return new RedirectResponse($this->urlGenerator->generate('app_home'));
     
     
         // For example:

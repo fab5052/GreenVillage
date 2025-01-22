@@ -1,5 +1,5 @@
 security:
-    #enable_authenticator_manager: true
+    #enable_authenticator_manager: false
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
@@ -29,7 +29,6 @@ security:
             # ->rememberMe()
             #     ->secret('%kernel.secret%')
             #    ->lifetime(604800) // 1 week in seconds
-            # remember_me: true
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 
@@ -40,17 +39,14 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/home, roles: ROLE_USER }
-        - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/commercial, roles: ROLE_COMMERCIAL }
+        - { path: ^/admin, roles: ROLE_ADMIN }
 
-#     role_hierarchy:
-#         ROLE_CLIENT: ROLE_USER
-#         ROLE_ADMIN: ROLE_COMMERCIAL
-#         ROLE_SUPER_ADMIN: ROLE_ADMIN
-# #     role_hierarchy:
-#         ROLE_PRODUCT_ADMIN: ROLE_USER
-# #        ROLE_ADMIN: ROLE_PRODUCT_ADMIN
-#         ROLE_SUPER_ADMIN: ROLE_ADMIN
+
+    # role_hierarchy:
+    #     ROLE_CLIENT: ROLE_USER
+    #     ROLE_ADMIN: ROLE_COMMERCIAL
+    #     ROLE_SUPER_ADMIN: ROLE_ADMIN
 
 
 when@test:
