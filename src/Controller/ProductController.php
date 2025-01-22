@@ -48,12 +48,12 @@ class ProductController extends AbstractController
             $orders = $this->orderRepository->findAll(); 
             if (!$orders || !$rubrics || !$paginatedProducts) {
                 $this->addFlash('error', 'Certaines données sont manquantes.');
-                return $this->redirectToRoute('home');
+                return $this->redirectToRoute('app_home');
             }          
 
         } catch (\Exception $exception) {
             $this->addFlash('error', 'Impossible de charger les produits. Veuillez réessayer plus tard.');
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->render('product/products.html.twig', [
@@ -63,13 +63,13 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/{slug}', name: 'details', methods: ['GET'])]
-    public function details(string $slug): Response
+    #[Route('/{slug}', name: 'productDetails', methods: ['GET'])]
+    public function productDetails(string $slug): Response
     {
         try {
-            $product = $this->productRepository->findOneBy(['slug' => $slug]);
-            // $order = $this->orderRepository->findAll();
-            if (!$product) {
+            $productDetails = $this->productRepository->findOneBy(['slug' => $slug]);
+            $orders = $this->orderRepository->findAll();
+            if (!$productDetails) {
                 throw $this->createNotFoundException('Produit introuvable.');
             }
         } catch (\Exception $exception) {
@@ -77,8 +77,8 @@ class ProductController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        return $this->render('product/product_details.html.twig', [
-            'product' => $product,
+        return $this->render('product/productDetails.html.twig', [
+            'product' => $productDetails,
         ]);
     }
 
@@ -92,14 +92,14 @@ class ProductController extends AbstractController
                 throw $this->createNotFoundException('Rubrique introuvable.');
             }
 
-            $productsByRubric = $this->productRepository->findBy(['rubric' => $rubric]);
+            $productsByRubric = $this->productRepository->findBy(['rubrics' => $rubric]);
         } catch (\Exception $exception) {
             $this->addFlash('error', 'Impossible de charger les produits par rubrique.');
             return $this->redirectToRoute('app_home');
         }
 
         return $this->render('product/products_by_rubric.html.twig', [
-            'rubric' => $rubric,
+            'rubrics' => $rubric,
             'products' => $productsByRubric,
         ]);
     }

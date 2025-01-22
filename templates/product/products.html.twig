@@ -1,79 +1,55 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Produits{% endblock %}
+{% block title %}Instrument |
+	{{ rubric.label }}
+{% endblock %}
 
 {% block body %}
-    <nav aria-label="breadcrumb" class="mt-2">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ path("app_home") }}">Accueil</a></li>
-         {% for rubric in rubrics %}
-        <li class="breadcrumb-item"><a href="{{ path("app_products", { rubrics: rubric.slug }) }}">{{ rubric.label }}</a></li>
+<main>
+	<div class="container mx-auto mt-16 p-8 bg-gray-50 rounded-xl shadow-xl">
+		<h1 class="text-5xl font-bold text-center text-gray-800 mb-12">Tous nos Instruments concernant :
+			{{ rubric.label }}</h1>
 
-    </ol>
-    </nav>
+		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
+			{% for product in products %}
+				<div class="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+					{% if is_granted('ROLE_USER') %}
+						<div class="p-4 text-sm text-gray-500">
+							<p class="mb-1">
+								<strong>Référence :</strong>
+								{{ product.reference }}</p>
+							<p>
+								<strong>Fournisseur :</strong>
+								{{ product.suppliers.reference }}</p>
+						</div>
+					{% endif %}
 
-    <div class="row">  
-    
-        {% for rubrics in rubric.rubrics %}
-            <div class="col-12 col-sm-6 col-md-4 col-xl-3 mt-2 ">
-                <div class="rubric text-center">
-                  
-                        {# <div class="card" style="">
-                            <img src="/images/{{ rubric.image }}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ rubric.nom }}</h5>
-                                
-                            </div>
-                        </div> #}
-                        <img src="/images/{{ rubrics.image }}" class="img-fluid  img-rubric">
-                        <div class="text-center rubric-texte">
-                            {{ rubrics.label }}
-                        </div>
-                             {% endfor %}
-                </div>
-            </div>
-        {% endfor %}
-    </div>
- {# <div class="pagination">
-    {{ knp_pagination_render(pagination) }}
-</div> #}
-    {% for rubric in rubrics %}
-        <img src="{{ asset('images/rubrics/') }}">
-        <div class="prod-content">
-            {% for product in rubrics %}
-                <span class="badge badge-primary badge-lg">{{ rubric.label }}</span>
-            {% endfor %}
-            <h2>{{ rubric.label }}</h2>
-            <div class="rub-content">{{ rubric.description }}</div>
-            {# <p>{{ lastRubric.user.firstname }}</p> #}
-        </div>
-         {% endfor %}
+					<div class="overflow-hidden rounded-t-2xl">
+						{% if product.image|length > 0 %}
+							<img src="{{ product.image[0].img }}" alt="{{ product.label }}" class="w-full h-56 object-cover transition-transform duration-300 transform group-hover:scale-110">
+						{% endif %}
+					</div>
 
-    {# <div class="clear"></div>
-    <main class="container">
-        <section>
-            <h2 class="text-center my-5">Derniers arrivages!</h2>
-            <div class="grid">
-                {% for rubric in rubrics %}
-                    <article class="card">
-                        <img src= "{{ asset('images/rubric') }}">
-                        <div class="card-body">
-                            {% for product in products %}
-                                <span class="badge badge-primary">{{ rubric.label }}</span>
-                            {% endfor %}
-                            <h3>{{ rubric.label }}</h3>
-                            <p>{{ rubric.user.firstname }}</p>
-                        </div>
-                    </article>
-                {% endfor %}                
-            </div>
+					<div class="p-6">
+						<p class="text-sm font-medium text-gray-500 uppercase tracking-wider">{{ product.rubric.label }}</p>
+						<h2 class="mt-2 text-2xl font-bold text-gray-800">{{ product.label }}</h2>
+						<p class="mt-4 text-gray-600 line-clamp-3">{{ product.description }}</p>
 
-        </section> #}
-        <section>
-            <h2>Stocks</h2>
-            {% for order in orders %}
-                <h3>{{ order[0].name }} {{order.total}}</h3>
-            {% endfor %}
-        </section>
-    </main>
+						<p class="mt-6 text-xl font-semibold text-indigo-600">{{ product.price }}
+							€ HT</p>
+
+						<div class="mt-6 flex space-x-4">
+							<a href="{{ path('product_details', {'slug': product.slug}) }}" class="flex-1 px-4 py-2 text-center bg-yellow-500 text-white font-medium rounded-lg shadow-md hover:bg-yellow-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-300">
+								Détails
+							</a>
+							<a href="{{ path('cart_add', {'id': product.id}) }}" class="flex-1 px-4 py-2 text-center bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400">
+								Ajouter
+							</a>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</main>
 {% endblock %}

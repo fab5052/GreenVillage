@@ -174,7 +174,7 @@ class Rubric
     public function removeProduct(Product $product): self
     {
         if ($this->products->removeElement($product)) {
-            if ($product->getRubric() === $this) {
+            if ($product->getRubrics() === $this) {
                 $product->setRubric(null);
             }
         }

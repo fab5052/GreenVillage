@@ -56,7 +56,7 @@ app_changePassword:
 
 app_home:
   path: /
-  controller: App\Controller\RubricController::index
+  controller: App\Controller\MainController::index
   # defaults:
   #    role: ROLE_USER
 

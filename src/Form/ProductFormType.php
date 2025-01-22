@@ -50,8 +50,8 @@ class ProductFormType extends AbstractType
                 'choice_label' => 'label',
                 'label' => 'Rubriques',
                 'group_by' => 'parent.label',
-                'query_builder' => function(RubricRepository $rR){
-                    return $rR->createQueryBuilder('r')
+                'query_builder' => function(RubricRepository $rubricRepository){
+                    return $rubricRepository->createQueryBuilder('r')
                         ->where('r.parent IS NOT NULL')
                         ->orderBy('r.label', 'ASC');
                 }

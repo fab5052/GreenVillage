@@ -1,25 +1,80 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProductsController!{% endblock %}
+{% block title %}Produits{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <nav aria-label="breadcrumb" class="mt-2">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path("app_home") }}">Accueil</a></li>
+         {% for rubric in rubrics %}
+        <li class="breadcrumb-item"><a href="{{ path("app_products", { rubrics: rubric.slug }) }}">{{ rubric.label }}</a></li>
 
-<div class="example-wrapper">
-    <h1> {{ Products }}</h1>
+    </ol>
+    </nav>
 
-#[ORM\Column(type: 'boolean')]
-private bool $isAvailable = true;
+    <div class="row">  
+    
+        {% for rubrics in rubric.rubrics %}
+            <div class="col-12 col-sm-6 col-md-4 col-xl-3 mt-2 ">
+                <div class="rubric text-center">
+                  
+                        {# <div class="card" style="">
+                            <img src="/images/{{ rubric.image }}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ rubric.nom }}</h5>
+                                
+                            </div>
+                        </div> #}
+                        <img src="/images/{{ rubrics.image }}" class="img-fluid  img-rubric">
+                        <div class="text-center rubric-texte">
+                            {{ rubrics.label }}
+                        </div>
+                             {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+ {# <div class="pagination">
+    {{ knp_pagination_render(pagination) }}
+</div> #}
+    {% for rubric in rubrics %}
+        <img src="{{ asset('images/rubrics/') }}">
+        <div class="prod-content">
+            {% for product in rubrics %}
+                <span class="badge badge-primary badge-lg">{{ rubric.label }}</span>
+            {% endfor %}
+            <h2>{{ rubric.label }}</h2>
+            <div class="rub-content">{{ rubric.description }}</div>
+            {# <p>{{ lastRubric.user.firstname }}</p> #}
+        </div>
+         {% endfor %}
 
-public function setStock(int $stock): self
-{
-    $this->stock = $stock;
-    $this->isAvailable = $stock > 0;
+    {# <div class="clear"></div>
+    <main class="container">
+        <section>
+            <h2 class="text-center my-5">Derniers arrivages!</h2>
+            <div class="grid">
+                {% for rubric in rubrics %}
+                    <article class="card">
+                        <img src= "{{ asset('images/rubric') }}">
+                        <div class="card-body">
+                            {% for product in products %}
+                                <span class="badge badge-primary">{{ rubric.label }}</span>
+                            {% endfor %}
+                            <h3>{{ rubric.label }}</h3>
+                            <p>{{ rubric.user.firstname }}</p>
+                        </div>
+                    </article>
+                {% endfor %}                
+            </div>
 
-    return $this;
-}
-</div>
+        </section> #}
+        <section>
+            <h2>Stocks</h2>
+            {% for order in orders %}
+                <h3>{{ order[0].name }} {{order.total}}</h3>
+            {% endfor %}
+        </section>
+    </main>
 {% endblock %}
+

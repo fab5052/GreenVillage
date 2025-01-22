@@ -45,16 +45,16 @@ class CartController extends AbstractController
             $totalTaxes = 0;
 
             foreach ($panier as $id => $quantity) {
-                $product = $productRepository->find($id);
-                if ($product) {
-                    $productDetails = $this->calculateProductDetails($product, $quantity);
-                    $total += $productDetails['total'];
-                    $totalTaxes += $productDetails['totalTaxes'];
+                $dataProduct = $productRepository->findBy($id);
+                if ($dataProduct) {
+                    $dataProduct = $this->calculateProductDetails($id, $quantity);
+                    $total += $dataProduct['total'];
+                    $totalTaxes += $dataProduct['totalTaxes'];
 
                     $dataProduct[] = [
-                        'product' => $product,
+                        'product' => $dataProduct,
                         'quantity' => $quantity,
-                        'priceWithTax' => $productDetails['priceWithTax'],
+                        'priceWithTax' => $dataProduct['priceWithTax'],
                     ];
                 }
             }
@@ -171,8 +171,8 @@ class CartController extends AbstractController
                         ->setQuantity($quantity)
                         ->setPrice($productDetails['priceWithTax']);
             
-                    $orderDetails[] = $orderDetail; // Add the object to the array
-                    $entityManager->persist($orderDetail); // Persist each order detail
+                    $orderDetails[] = $orderDetail; 
+                    $entityManager->persist($orderDetail); 
                 } else {
                     $this->addFlash('warning', "Le produit avec l'ID ($id) n'existe pas et a été ignoré.");
                 }
@@ -185,8 +185,7 @@ class CartController extends AbstractController
             
             $order->setTotal($totalAmount);
             $entityManager->persist($order);
-            $entityManager->flush(); // Don't forget to flush all changes
-            
+            $entityManager->flush(); 
 
             $mail->send(
                 'no-reply@village-green.fr',
@@ -248,11 +247,11 @@ class CartController extends AbstractController
             $address = $session->get('address');
 
             $dataProduct = array_filter(array_map(function ($id) use ($productRepository, $panier) {
-                $product = $productRepository->find($id);
+                $product = $productRepository->findBy($id);
                 return $product ? [
                     'product' => $product,
                     'quantity' => $panier[$id],
-                    'label' => $product->getLabel(),
+                    'label' => $productRepository->getLabel(),
                 ] : null;
             }, array_keys($panier)));
         } catch (\Exception $e) {
