@@ -258,7 +258,7 @@ public function removeImage(Image $image): static
     return $this;
 }
 
-public function getRubric(): ?Rubric
+public function getRubrics(): ?Rubric
 {
     return $this->rubric;
 }
