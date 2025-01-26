@@ -17,13 +17,16 @@ rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awes
 
 {% endblock %}
 <header>
-	<section class="container-xxl d-flex">
+	
+	{# <div class="settings"></div> #}
+	{# <div class="scrollbar" id="style-1"> #}
+	<section class="container-fluid d-lg-flex">
 		
 
-		<div class="row-cols-5 ">
+		<div class="row-cols-2 d-lg-flex">
 
 			
-			<div class="top-left">
+			<div class="top-left d-flex">
 								
 					<div class="stylus_bfitem6 d-flex">
 						<div class="stylus_bfitem_ico d-flex"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
@@ -121,20 +124,20 @@ rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awes
 			</div>
 		</div>
 	</div>
-</div>
+
 	</section>
 
 	<nav class="nav top-0">
-		<section class="container m-0 p-0 d-flex">
 
-			<div class="row-cols-2 d-flex">
-	
-			<div class="container-nav ">
-					<div class="logo ">
+<div class="container-fluid mx-auto w-100 m-1 p-0 d-flex "> 
+			<div class="row-cols-2 offset-2">
+			<section class="container-nav ">
+			<div class="logo">
 				<a href="{{ path('app_home') }}">
 					<img class="logo" src="image/logo2.png">
 				</a>
-			</div>
+			</div>	
+			
 
 			<span class="navTrigger ">
 				<i></i>
@@ -142,8 +145,6 @@ rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awes
 				<i></i>
 			</span>
 
-			{# <div class="settings"></div>
-			<div class="scrollbar" id="style-1"> #}
 
 			<div id="mainListDiv" class="main_list">
 				<ul class="navlinks ">
@@ -196,12 +197,13 @@ rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awes
 					</li>
 				</ul>
 			</div>
-		 
+
+	<div class="nav-authentification p-0  mr-1">		
+{# <div class="container w-20">
 		
-<div class="nav-authentification">
-		
+			<div class="col-sm-2 offset-sm-2"> #}
 			
-				<ul>
+				<ul >
 					<li>
 					
 						<div id="search">
@@ -231,17 +233,18 @@ rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awes
 					</li>
       			</ul>
 			</div>
+		{# </div>
+	</div> #}
+		</section>
 		</div>
-	</section>
+	</div>
 </nav>
 
 	<div class="slider-container home " >
 
-
-		
 		 <div id="slider" class="images " >
-			<img  src="image/caption(1).jpg" alt="Image 1" />
-			<img src="image/caption(2).jpg" alt="Image 2" />
+			<img src="image/caption(2).jpg" alt="Image 1" />
+			<img src="image/caption(1).jpg" alt="Image 2" />
 			<img src="image/caption(3).jpg" alt="Image 3" />
 			<img src="image/caption(4).jpg" alt="Image 4" />
 			<img src="image/caption(5).jpg" alt="Image 5" />
@@ -286,7 +289,6 @@ rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awes
 		});
 	</script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	{# <script src="{{ asset('js/script.js')}}"></script> #}
 	<script>
 		$('.navTrigger').click(function () {
 			$(this).toggleClass('active');
@@ -307,7 +309,7 @@ rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awes
 		});
 	</script>
 	<script src="{{ asset('js/accordions.js')}}"></script> 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	{# <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> #}
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
 

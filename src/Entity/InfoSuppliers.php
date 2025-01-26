@@ -30,7 +30,7 @@ class InfoSuppliers
     /**
      * @var Collection<int, Product>
      */
-    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'suppliers', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'infoSuppliers', orphanRemoval: true)]
     private Collection $products;
 
     public function __construct()
@@ -103,7 +103,7 @@ class InfoSuppliers
     {
         if (!$this->products->contains($product)) {
             $this->products->add($product);
-            $product->setInfoSupplier($this);
+            $product->setInfoSuppliers($this);
         }
 
         return $this;
@@ -113,7 +113,7 @@ class InfoSuppliers
     {
         if ($this->products->removeElement($product)) {
             if ($product->getInfoSuppliers() === $this) {
-                $product->setInfoSupplier(null);
+                $product->setInfoSuppliers(null);
             }
         }
 

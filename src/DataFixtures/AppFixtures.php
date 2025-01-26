@@ -6,11 +6,11 @@ use App\Entity\Rubric;
 use App\Entity\Product;
 use App\Entity\InfoSuppliers;
 use App\Entity\OrdersDetails;
-use App\Entity\Orders;
+use App\Entity\Order;
 use App\Entity\User;
 use App\Entity\Image;
 use App\Entity\Tva;
-use App\Entity\Enum\UserRole;
+use Doctrine\DBAL\Types\DateTime;
 use Doctrine\DBAL\Types\DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -35,18 +35,18 @@ class AppFixtures extends Fixture
 public function load(ObjectManager $manager): void
 {
     
-    $admin = new User();
-    $admin->setEmail('admin@greenvillage.net')
-          ->setFirstname('Fabrice')
-          ->setLastname('Beaujois')
-          ->setIsVerified(true)
-          ->setAddress('12 rue du port')
-          ->setZipcode('80850')
-          ->setCity('Berto')
-          ->setPassword($this->passwordEncoder->hashPassword($admin, 'fb975052'))
-          ->setRoles(['ROLE_ADMIN']);
+    // $admin = new User();
+    // $admin->setEmail('admin@greenvillage.net')
+    //       ->setFirstname('Fabrice')
+    //       ->setLastname('Beaujois')
+    //       ->setIsVerified(true)
+    //       ->setAddress('12 rue du port')
+    //       ->setZipcode('80850')
+    //       ->setCity('Berto')
+    //       ->setPassword($this->passwordEncoder->hashPassword($admin, 'fb975052'))
+    //       ->setRoles(['ROLE_ADMIN']);
 
-    $manager->persist($admin);
+    // $manager->persist($admin);
     
     $faker = \Faker\Factory::create('fr_FR');
 
@@ -60,6 +60,7 @@ public function load(ObjectManager $manager): void
              ->setLastname($faker->lastName)
              ->setFirstname($faker->firstName)
              ->setRoles(['ROLE_USER'])
+             ->setIsVerified(true)
              ->setAddress($faker->address)
              ->setZipcode($faker->postcode)
              ->setCity($faker->city)
@@ -97,25 +98,26 @@ public function load(ObjectManager $manager): void
                    ->setLabel($label)
                    ->setImage($faker->imageUrl)
                    ->setDescription($faker->paragraph)
-                   ->setParent($faker->randomElement($rubrics));
+                   ->setParent($rubrics('parent'));
         $manager->persist($subRubric);
+        $rubrics[] = $subRubric;
+
     }
     $manager->flush();
 
    
     // Fournisseurs
-    $supplierTypes = ['constructeur', 'importateur'];
-    $suppliers = [];
-    for ($i = 0; $i < 5; $i++) { 
-        $supplier = new InfoSuppliers();
-        $supplier->setType($faker->randomElement($supplierTypes))
-                 ->setStatus('Active')
-                 ->setReference("Suppliers:" . mt_rand(10000, 99999))
-                 ->setUser($faker->randomElement($users));
-        $manager->persist($supplier);
-        $suppliers[] = $supplier;
+    $infoSuppliersType = ['constructeur', 'importateur'];
+    foreach ($infoSuppliersType as $type) { 
+        $infoSuppliers = new InfoSuppliers(); 
+        $infoSuppliers->setType($type)
+                     ->setStatus('Active')
+                     ->setReference("infoSuppliers:" . mt_rand(10000, 99999))
+                     ->setUser($faker->randomElement($users));
+        $manager->persist($infoSuppliers);
+        //$infoSuppliers[] = $infoSupplier; 
     }
-    $manager->flush(); 
+    $manager->flush();
 
      
     // Produits
@@ -132,8 +134,8 @@ public function load(ObjectManager $manager): void
                 ->setReference("GrVi:" . mt_rand(10000, 99999))
                 ->setDescription($faker->paragraph)
                 ->setWeight($faker->randomFloat(2, 0, 100))
-                ->setInfoSupplier($faker->randomElement($suppliers))
-                ->setRubric($faker->randomElement($rubrics)) // Associe une rubrique existante
+                ->setInfoSuppliers($infoSuppliersType())
+                ->setRubric($faker->randomElement($rubrics)) 
                 ->setTva($tva)
                 ->setCreatedAt(new \DateTimeImmutable())
                 ->setUpdatedAt(new \DateTimeImmutable());

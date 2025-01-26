@@ -40,16 +40,18 @@ class ProductController extends AbstractController
         try {
             
             $rubrics = $this->rubricRepository->findAll();
-            $productsQuery = $this->productRepository->findAll();
+           // $productsQuery = $this->productRepository->findAll();
+            $query = $this->productRepository->createQueryBuilder('p')->getQuery();
             $paginatedProducts = $this->paginator->paginate(
-                $productsQuery,
-                $request->query->getInt('page', 1),
-                12);
+                $query,
+                $request->query->getInt('page', 1), // Page actuelle (par défaut : 1)
+                12 // Nombre d'éléments par page
+            );
             $orders = $this->orderRepository->findAll(); 
-            if (!$orders || !$rubrics || !$paginatedProducts) {
-                $this->addFlash('error', 'Certaines données sont manquantes.');
-                return $this->redirectToRoute('app_home');
-            }          
+            // if (!$orders || !$rubrics || !$paginatedProducts) {
+            //     $this->addFlash('error', 'Certaines données sont manquantes.');
+            //     return $this->redirectToRoute('app_home');
+            // }          
 
         } catch (\Exception $exception) {
             $this->addFlash('error', 'Impossible de charger les produits. Veuillez réessayer plus tard.');
@@ -92,14 +94,14 @@ class ProductController extends AbstractController
                 throw $this->createNotFoundException('Rubrique introuvable.');
             }
 
-            $productsByRubric = $this->productRepository->findBy(['rubrics' => $rubric]);
+            $productsByRubric = $this->productRepository->findBy(['rubric' => $rubric]);
         } catch (\Exception $exception) {
             $this->addFlash('error', 'Impossible de charger les produits par rubrique.');
             return $this->redirectToRoute('app_home');
         }
 
         return $this->render('product/products_by_rubric.html.twig', [
-            'rubrics' => $rubric,
+            'rubric' => $rubric,
             'products' => $productsByRubric,
         ]);
     }

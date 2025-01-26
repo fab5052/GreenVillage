@@ -60,7 +60,7 @@ public function register(
     UserAuthenticatorInterface $userAuthenticator,
     UserAuthenticator $authenticator,
     EntityManagerInterface $entityManager,
-    UserRepository $userRepository, // Pour rechercher les utilisateurs existants
+    UserRepository $userRepository, 
     SendMailService $mail,
     JWTService $jwt
 ): Response {
@@ -70,7 +70,6 @@ public function register(
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-        // Vérifier si l'email existe déjà
         $existingUser = $userRepository->findOneBy(['email' => $user->getEmail()]);
         if ($existingUser) {
             $this->addFlash('error', 'Cette adresse e-mail est déjà utilisée.');
@@ -88,11 +87,9 @@ public function register(
         $user->setIsVerified(false);
         $user->setCreatedAt(new \DateTimeImmutable());
 
-        // Sauvegarde de l'utilisateur
         $entityManager->persist($user);
         $entityManager->flush();
 
-        // Génération du JWT et envoi de l'email
         $header = ['typ' => 'JWT', 'alg' => 'HS256'];
         $payload = ['user_id' => $user->getId()];
         $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
@@ -107,7 +104,6 @@ public function register(
 
         $this->addFlash('success', 'Utilisateur inscrit, veuillez cliquer sur le lien reçu pour confirmer votre adresse e-mail.');
 
-        // Authentification de l'utilisateur
         return $userAuthenticator->authenticateUser(
             $user,
             $authenticator,
@@ -124,23 +120,21 @@ public function register(
     #[Route('/verif/{token}', name: 'verif_user')]
     public function verifyUser($token, JWTService $jwt, UserRepository $userRepository, EntityManagerInterface $em): Response
     {
-        //On vérifie si le token est valide, n'a pas expiré et n'a pas été modifié
+        //vérif si le token est valide, pas expiré et pas modifié
         if($jwt->isValid($token) && !$jwt->isExpired($token) && $jwt->check($token, $this->getParameter('app.jwtsecret'))){
-            // On récupère le payload
+
             $payload = $jwt->getPayload($token);
 
-            // On récupère le user du token
             $user = $userRepository->find($payload['user_id']);
 
-            //On vérifie que l'utilisateur existe et n'a pas encore activé son compte
             if($user && !$user->isVerified()){
                 $user->isVerified(true);
+                $em->persist($user);
                 $em->flush();
                 $this->addFlash('success', 'Utilisateur activé');
-                return $this->redirectToRoute('app_profile');
+                return $this->redirectToRoute('app_home');
             }
         }
-        // Ici un problème se pose dans le token
         $this->addFlash('danger', 'Le token est invalide ou a expiré');
         return $this->redirectToRoute('app_register');
     }

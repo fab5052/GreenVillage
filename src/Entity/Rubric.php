@@ -15,7 +15,7 @@ use App\EventListener\SlugListener;
 
 #[ORM\Entity(repositoryClass: RubricRepository::class)]
 #[ORM\UniqueConstraint(name: 'slug', columns: ['slug'])]
-//#[ORM\UniqueConstraint(name: 'parent_id', columns: ['parent_id'])]
+#[ORM\UniqueConstraint(name: 'parent', columns: ['parent_id'])]
 
 class Rubric 
 {
@@ -24,14 +24,14 @@ class Rubric
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(["product:read", "parent:read"])]
+    #[Groups(["products:read", "parent:read"])]
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
     private ?string $label = null;
 
     #[ORM\Column(length: 100)]
-    //#[Assert\NotBlank(message: 'Le slug ne peut pas être vide.')]
+    #[Assert\NotBlank(message: 'Le slug ne peut pas être vide.')]
     private ?string $slug = null; 
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -47,7 +47,7 @@ class Rubric
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'rubrics', cascade: ['remove'])]    
     private ?self $parent = null;
 
-    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['remove'])]
     private Collection $rubrics;
 
     #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'rubric')]
@@ -161,7 +161,7 @@ class Rubric
         return $this->products;
     }
 
-    public function addProduct(Product $product): static
+    public function addProduct(Product $product): self
     {
         if (!$this->products->contains($product)) {
             $this->products->add($product);
@@ -174,7 +174,7 @@ class Rubric
     public function removeProduct(Product $product): self
     {
         if ($this->products->removeElement($product)) {
-            if ($product->getRubrics() === $this) {
+            if ($product->getRubric() === $this) {
                 $product->setRubric(null);
             }
         }
@@ -187,7 +187,7 @@ class Rubric
     return $this->createdAt;
 }
 
-public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
 {
     $this->createdAt = $createdAt;
 

@@ -3,22 +3,23 @@
 {% block title %}Produits{% endblock %}
 
 {% block body %}
-    <nav aria-label="breadcrumb" class="mt-2">
+    {# <nav aria-label="breadcrumb" class="mt-2">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ path("app_home") }}">Accueil</a></li>
-         {% for rubric in rubrics %}
-        <li class="breadcrumb-item"><a href="{{ path("app_products", { rubrics: rubric.slug }) }}">{{ rubric.label }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
+
+        <li class="breadcrumb-item"><a href="{{ path('app_products', { rubrics: rubric.slug }) }}">{{ rubric.label }}</a></li>
 
     </ol>
-    </nav>
-
+    </nav> #}
+    <main class="container">    
+    {% for rubric in rubrics %}
     <div class="row">  
     
         {% for rubrics in rubric.rubrics %}
             <div class="col-12 col-sm-6 col-md-4 col-xl-3 mt-2 ">
                 <div class="rubric text-center">
                   
-                        {# <div class="card" style="">
+                        {# <div class="card">
                             <img src="/images/{{ rubric.image }}" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">{{ rubric.nom }}</h5>
@@ -34,9 +35,9 @@
             </div>
         {% endfor %}
     </div>
- {# <div class="pagination">
+ <div class="pagination">
     {{ knp_pagination_render(pagination) }}
-</div> #}
+</div>
     {% for rubric in rubrics %}
         <img src="{{ asset('images/rubrics/') }}">
         <div class="prod-content">

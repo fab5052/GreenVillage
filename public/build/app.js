@@ -8,10 +8,10 @@
   
   "use strict";
   __webpack_require__.r(__webpack_exports__);
-  /* harmony import */ var _bootstrap_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap.js */ "./assets/bootstrap.js");
+  /* harmony import */ var _bootstrap_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap.js  "./assets/bootstrap.js"*/);
   /* harmony import */ var _bootstrap_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_bootstrap_js__WEBPACK_IMPORTED_MODULE_0__);
   /* harmony import */ var _styles_app_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styles/app.css */ "./assets/styles/app.css");
-  /* harmony import */ var _controllers_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./controllers.json */ "./assets/controllers.json");
+  /* harmony import */ var _controllers_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./controllers.json  "./assets/controllers.json"*/);
   
   /*
    * Welcome to your app's main JavaScript file!
@@ -59,7 +59,7 @@
   /***/ ((module) => {
   
   "use strict";
-  module.exports = /*#__PURE__*/JSON.parse('{"controllers":{"@symfony/ux-turbo":{"turbo-core":{"enabled":true,"fetch":"eager"},"mercure-turbo-stream":{"enabled":false,"fetch":"eager"}}},"entrypoints":[]}');
+  module.exports = /*#__PURE__*/JSON.parse('{"controllers":{"@symfony/ux-turbo":{"turbo-core":{"enabled":false,"fetch":"eager"},"mercure-turbo-stream":{"enabled":false,"fetch":"eager"}}},"entrypoints":[]}');
   
   /***/ })
   

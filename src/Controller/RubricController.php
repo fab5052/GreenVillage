@@ -36,12 +36,12 @@ class RubricController extends AbstractController
         $this->paginator = $paginator;
     }
 
-    #[Route('/', name: 'index')]
+    #[Route('/', name: 'app_home')]
     public function index(EntityManagerInterface $entityManager): Response
     {
         try {
             $viewRubrics = $entityManager->getRepository(Rubric::class)->findBy(['parent' => null]);
-            $viewLastCreatedAt = $entityManager->getRepository(Rubric::class)->findOneBy([], ['createdAt' => 'DESC']);
+          //  $viewLastCreatedAt = $entityManager->getRepository(Rubric::class)->findOneBy([], ['createdAt' => 'DESC']);
 
         } catch (Exception $e) {
             $this->addFlash('error', 'Impossible de charger les rubriques. Veuillez réessayer plus tard.');

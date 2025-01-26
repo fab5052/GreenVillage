@@ -45,9 +45,6 @@ class User
     // #[ORM\Column(type: 'string', enumType: UserRole::class)]
     // private ?UserRole $role = null;
 
-    // #[ORM\Column(length: 50)]
-    // private ?string $UserName = null;
-
     #[ORM\Column(type: 'string', length: 100)]
     private ?string $lastname;
     
