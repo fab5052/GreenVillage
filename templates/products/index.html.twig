@@ -12,7 +12,7 @@
     </ol>
     </nav> #}
     <main class="container">    
-    {% for rubric in rubrics %}
+    {% for rubrics in rubric %}
     <div class="row">  
     
         {% for rubrics in rubric.rubrics %}
@@ -50,8 +50,8 @@
         </div>
          {% endfor %}
 
-    {# <div class="clear"></div>
-    <main class="container">
+    <div class="clear"></div>
+    <div class="container">
         <section>
             <h2 class="text-center my-5">Derniers arrivages!</h2>
             <div class="grid">
@@ -63,19 +63,19 @@
                                 <span class="badge badge-primary">{{ rubric.label }}</span>
                             {% endfor %}
                             <h3>{{ rubric.label }}</h3>
-                            <p>{{ rubric.user.firstname }}</p>
+                            {# <p>{{ rubric.user.firstname }}</p> #}
                         </div>
                     </article>
                 {% endfor %}                
             </div>
 
-        </section> #}
-        <section>
+        </section> 
+        {# <section>
             <h2>Stocks</h2>
             {% for order in orders %}
                 <h3>{{ order[0].name }} {{order.total}}</h3>
             {% endfor %}
-        </section>
+        </section> #}
     </main>
 {% endblock %}
 

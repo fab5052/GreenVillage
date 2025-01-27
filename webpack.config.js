@@ -27,7 +27,7 @@ Encore
 
     // will require an extra script tag for runtime.js
     // but, you probably want this, unless you're building a single-page app
-    .enableSingleRuntimeChunk()
+    //.enableSingleRuntimeChunk()
 
     /*
      * FEATURE CONFIG
@@ -54,7 +54,7 @@ Encore
     })
 
     // enables Sass/SCSS support
-    //.enablePostCssLoader()
+    .enablePostCssLoader()
     .enableSassLoader()
 
     // uncomment if you use TypeScript

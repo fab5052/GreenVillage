@@ -16,7 +16,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use DateTimeImmutable;
-use Proxies\__CG__\App\Entity\InfoSuppliers as EntityInfoSuppliers;
+// use Proxies\__CG__\App\Entity\InfoSuppliers as EntityInfoSuppliers;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 //#[ORM\UniqueConstraint(name: 'slug', columns: ['slug'])]

@@ -48,11 +48,7 @@ class ProductController extends AbstractController
                 12 // Nombre d'éléments par page
             );
             $orders = $this->orderRepository->findAll(); 
-            // if (!$orders || !$rubrics || !$paginatedProducts) {
-            //     $this->addFlash('error', 'Certaines données sont manquantes.');
-            //     return $this->redirectToRoute('app_home');
-            // }          
-
+     
         } catch (\Exception $exception) {
             $this->addFlash('error', 'Impossible de charger les produits. Veuillez réessayer plus tard.');
             return $this->redirectToRoute('app_home');
