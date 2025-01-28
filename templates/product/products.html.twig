@@ -12,10 +12,9 @@
     </ol>
     </nav> #}
     <main class="container">    
-        {% for rubric in rubrics %}
+        {# {% for rubric in rubrics %} #}
         <div class="row">  
         
-            {% for rubrics in rubric.rubrics %}
                 <div class="col-12 col-sm-6 col-md-4 col-xl-3 mt-2 ">
                     {# <div class="rubric text-center">
                       
@@ -36,37 +35,40 @@
             {% endfor %}
         </div> #}
 
-        {# {% for rubric in rubrics %} #}
-            <img src="{{ asset('images/rubrics/') }}">
+         {% for rubric in rubrics %} 
+            {% for rubric in rubric.rubrics %}
+
+        
             <div class="prod-content">
                 {% for product in rubrics %}
                     <span class="badge badge-primary badge-lg">{{ rubric.label }}</span>
                 {% endfor %}
-                <h2>{{ rubric.label }}</h2>
-                <div class="rub-content">{{ rubric.description }}</div>
+           
+                <div class="rub-content">    <img src="{{ asset('image/{{ subrubric.image }}/') }}"></div>
             </div>
              {% endfor %}
              {% endfor %}
-             <div class="pagination">
-                {{ knp_pagination_render(products) }}
-            </div>
+
         <div class="clear"></div>
         <div class="container">
             <section>
                 <h2 class="text-center my-5">Derniers arrivages!</h2>
                 <div class="grid">
-                    {% for rubric in rubrics %}
+                    {% for subrubric in rubrics %}
                         <article class="card">
-                            {# <img src= "{{ asset('images/rubrics/') }}"> #}
+                            <img src= "{{ asset('image/subrubric/') }}">
                             <div class="card-body">
                                 {% for product in products %}
-                                    <span class="badge badge-primary">{{ rubric.label }}</span>
+                                    <span class="badge badge-primary">{{ subrubric.label }}</span>
                                 {% endfor %}
-                                <h3>{{ rubric.label }}</h3>
+                                <h3>{{ subrubric.label }}</h3>
                                 {# <p>{{ rubric.user.firstname }}</p> #}
                             </div>
                         </article>
-                    {% endfor %}                
+                    {% endfor %}   
+                    <div class="pagination">
+                        {{ knp_pagination_render(products) }}
+                    </div>             
                 </div>
     
             </section> 

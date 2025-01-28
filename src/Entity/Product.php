@@ -15,16 +15,18 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
-use DateTimeImmutable;
-use Proxies\__CG__\App\Entity\InfoSuppliers as EntityInfoSuppliers;
+use Doctrine\DBAL\Types\DateTime;
+use Doctrine\DBAL\Types\DateTimeImmutable;
+
+
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
-//#[ORM\UniqueConstraint(name: 'slug', columns: ['slug'])]
+#[ORM\UniqueConstraint(name: 'slug', columns: ['slug'])]
 #[ORM\UniqueConstraint(name: 'reference', columns: ['reference'])]
 class Product
 {
    // use CreatedAtTrait;
-    use SlugTrait;
+    //use SlugTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -46,10 +48,10 @@ class Product
     #[ORM\Column(length: 50)]
     private ?string $reference = null;
 
-    // #[ORM\Column(type: 'string', length: '100')]
-    // //#[Assert\NotBlank(message: 'Le slug ne peut pas être vide.')]
+    #[ORM\Column(type: 'string', length: '100')]
+    #[Assert\NotBlank(message: 'Le slug ne peut pas être vide.')]
     // //#[Assert\Unique]
-    // private ?string $slug = null;
+    private ?string $slug = null;
 
     #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeImmutable $createdAt;
@@ -63,7 +65,7 @@ class Product
 
     #[ORM\ManyToOne(targetEntity: Rubric::class, inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Rubric $rubric = null;
+    private ?Rubric $subrubric = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $weight = null;
@@ -83,12 +85,13 @@ class Product
 
      /**
      * @var Collection<int, OrderDetails>
-     * @ORM\OneToMany(targetEntity="App\Entity\OrderDetails", mappedBy="product")
      */
+    #[ORM\OneToMany(targetEntity: OrderDetails::class, mappedBy: 'product')]
     private Collection $orderDetails;
 
     public function __construct()
     {
+        // $this->rubric = new ArrayCollection();
         $this->image = new ArrayCollection();
         $this->deliveryDetails = new ArrayCollection();
         $this->orderDetails = new ArrayCollection();
@@ -149,24 +152,24 @@ class Product
         return $this->price;
     }
 
-    public function setPrice(int $price): static
+    public function setPrice(int $price): self
     {
         $this->price = $price;
 
         return $this;
     }
 
-    // public function getSlug(): ?string
-    // {
-    //     return $this->slug;
-    // }
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
 
-    // public function setSlug(string $slug): static
-    // {
-    //     $this->slug = $slug;
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
     // public function getViewRubrics(): ?string
     // {
@@ -260,14 +263,14 @@ public function removeImage(Image $image): static
     return $this;
 }
 
-public function getRubric(): ?Rubric
+public function getRubrics(): ?Rubric
 {
-    return $this->rubric;
+    return $this->subrubric;
 }
 
-public function setRubric( ?Rubric $rubric): self
+public function setRubric( ?Rubric $rubrics): self
 {
-    $this->rubric = $rubric;
+    $this->subrubric = $rubrics;
 
     return $this;
 }

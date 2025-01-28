@@ -72,7 +72,7 @@ public function load(ObjectManager $manager): void
 
     
     // Rubriques
-    $rubrics = [];
+    $rubric = [];
     $rubricLabels = ['vent', 'percussions', 'cordes', 'electronique'];
 
     foreach ($rubricLabels as $label) {
@@ -82,7 +82,7 @@ public function load(ObjectManager $manager): void
                 ->setSlug($this->slugger->slug($label)->lower())
                 ->setImage($faker->imageUrl);           
         $manager->persist($rubric);
-        $rubrics[] = $rubric;
+        // $rubric[] = $rubric;
     }
     $manager->flush(); 
 
@@ -91,6 +91,11 @@ public function load(ObjectManager $manager): void
     $subRubricLabels = ['saxo', 'trompette', 'batterie', 'tamtam', 'guitare', 'piano', 'synthétiseur', 'amplificateur'];
 
     foreach ($subRubricLabels as $label) {
+        $parent = $rubric;
+        if (!$parent instanceof Rubric) {
+            throw new \Exception('Invalid parent rubric: ' . gettype($rubric));
+        }
+
         $subRubric = new Rubric();
         $subRubric->setCreatedAt(new \DateTimeImmutable());
         $uniqueSlug = $this->slugger->slug($label)->lower() . '-' . uniqid();
@@ -98,11 +103,12 @@ public function load(ObjectManager $manager): void
                    ->setLabel($label)
                    ->setImage($faker->imageUrl)
                    ->setDescription($faker->paragraph)
-                   ->setParent($rubrics('parent'));
+                   ->setParent($rubric); 
         $manager->persist($subRubric);
-        $rubrics[] = $subRubric;
-
+        // $rubrics[] = $subRubric;
     }
+    
+    
     $manager->flush();
 
    
@@ -134,8 +140,8 @@ public function load(ObjectManager $manager): void
                 ->setReference("GrVi:" . mt_rand(10000, 99999))
                 ->setDescription($faker->paragraph)
                 ->setWeight($faker->randomFloat(2, 0, 100))
-                ->setInfoSuppliers($infoSuppliersType())
-                ->setRubric($faker->randomElement($rubrics)) 
+                ->setInfoSuppliers($infoSuppliers)
+                ->setRubric($subRubric) 
                 ->setTva($tva)
                 ->setCreatedAt(new \DateTimeImmutable())
                 ->setUpdatedAt(new \DateTimeImmutable());

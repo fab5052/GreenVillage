@@ -35,9 +35,9 @@ window.flux = {
 		this.options = $.extend({
 			autoplay: true,
 			transitions: this.transitions,
-			delay: 6000,
+			delay: 4000,
 			pagination: false,
-			controls: false,
+			controls: true,
 			captions: false,
 			width: null,
 			height: null,
@@ -87,7 +87,7 @@ window.flux = {
 			// 'position': 'relative',
 			// 'overflow-y': 'hidden',
 			'max-height': '200px',
-			'min-width': '3000px',
+			'width': '2500px',
 			'opacity': '80%',
 			
 		}).appendTo(this.surface);
@@ -102,8 +102,8 @@ window.flux = {
 		}
 
 		// Create the placeholders for the current and next image
-		this.image1 = $('<div class="image1" style="height: 200px; width: 50%"></div>').appendTo(this.imageContainer);
-		this.image2 = $('<div class="image2" style="height: 200px; width: 50%"></div>').appendTo(this.imageContainer);
+		this.image1 = $('<div class="image1" style="height: 200px; width: 100%"></div>').appendTo(this.imageContainer);
+		this.image2 = $('<div class="image2" style="height: 200px; width: 100%"></div>').appendTo(this.imageContainer);
 
 		$(this.image1).add(this.image2).css({
 			'position': 'absolute',
@@ -645,7 +645,7 @@ window.flux = {
 			setTimeout(function(){
 				if(_this.options.execute !== undefined)
 					_this.options.execute.call(_this);
-			}, 5);
+			}, 2);
 		},
 		finished: function() {
 			if(this.hasFinished)

@@ -14,8 +14,8 @@ use App\EventListener\SlugListener;
 
 
 #[ORM\Entity(repositoryClass: RubricRepository::class)]
-#[ORM\UniqueConstraint(name: 'slug', columns: ['slug'])]
-#[ORM\UniqueConstraint(name: 'parent', columns: ['parent_id'])]
+//#[ORM\UniqueConstraint(name: 'slug', columns: ['slug'])]
+//#[ORM\UniqueConstraint(name: 'parent', columns: ['parent_id'])]
 
 class Rubric 
 {
@@ -44,7 +44,7 @@ class Rubric
     #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeImmutable $createdAt;
 
-    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'rubrics', cascade: ['remove'])]    
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'rubrics', cascade: ['persist'])]    
     private ?self $parent = null;
 
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['remove'])]
@@ -106,7 +106,7 @@ class Rubric
         return $this->slug;
     }
 
-    public function setSlug(string $slug): static
+    public function setSlug(string $slug): self
     {
         $this->slug = $slug;
 
@@ -139,9 +139,10 @@ class Rubric
             $this->rubrics->add($rubric);
             $rubric->setParent($this);
         }
-
+    
         return $this;
     }
+    
 
     public function removeRubric(Rubric $rubric): self
     {
@@ -174,7 +175,7 @@ class Rubric
     public function removeProduct(Product $product): self
     {
         if ($this->products->removeElement($product)) {
-            if ($product->getRubric() === $this) {
+            if ($product->getRubrics() === $this) {
                 $product->setRubric(null);
             }
         }
