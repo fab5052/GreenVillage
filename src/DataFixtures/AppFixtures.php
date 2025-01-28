@@ -60,7 +60,7 @@ public function load(ObjectManager $manager): void
              ->setLastname($faker->lastName)
              ->setFirstname($faker->firstName)
              ->setRoles(['ROLE_USER'])
-             ->setIsVerified(true)
+             ->setIsVerified(1)
              ->setAddress($faker->address)
              ->setZipcode($faker->postcode)
              ->setCity($faker->city)
@@ -98,7 +98,7 @@ public function load(ObjectManager $manager): void
                    ->setLabel($label)
                    ->setImage($faker->imageUrl)
                    ->setDescription($faker->paragraph)
-                   ->setParent($rubrics('parent'));
+                   ->setParent($rubric);
         $manager->persist($subRubric);
         $rubrics[] = $subRubric;
 
