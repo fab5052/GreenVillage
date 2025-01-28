@@ -3,7 +3,6 @@
   \*************************************************************************************************/
 
   @import url('https://fonts.googleapis.com/css?family=Quicksand:400,500,700');
-  @import url('https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
   
   @import url('https://fonts.googleapis.com/css?family=Titillium+Web:300');
   
@@ -2056,7 +2055,7 @@
   } */
   
   
-  .card {
+  .cards {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -2158,7 +2157,7 @@
     margin-top: 2vh;
     margin-bottom: 2vh;
     height: auto;
-    width: 80%;
+    max-width: 70vw;
     /* border-image: linear-gradient(#e1a85d, #edefec) 30; */
     border-radius: 15px;
     transition: transform 0.5s ease;

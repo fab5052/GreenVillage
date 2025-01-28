@@ -12,17 +12,7 @@
 
 
 
-	.item {
-		display: block;
-		position: absolute;
-		width: 250px;
-		height: 300px;
-		opacity: 0.95;
-		border-radius: 10px;
-		overflow: hidden;
 
-
-	}
 
 	/*.item .cards {
 		justify-content: center;
@@ -365,7 +355,7 @@
 		}
 	}
 
-		#plats-container {
+	/*	#plats-container {
 			transition: opacity 0.5s 	tease-in-out;		
 			opacity: 0;			
 			max-height: 0;
@@ -408,7 +398,7 @@
 		  height: 20vh;
 		  width: 25vw;
 		
-		}
+		} #}
 		
 		
 		/* .button {
@@ -441,7 +431,7 @@
 		  border-radius: 4px;
 		}  */
 		</style>
-		
+		{% endblock %}
 		{# <div>
 			<div class="bg"></div>
 			<div class="bg bg2"></div>
@@ -451,39 +441,66 @@
 		
 		</div> #}
 		
-		<main class="main">
-			<section class="myP">
-				<div class="myH2">
-			<h1>
+		<main class="main ">
+			{# <section class="myP">
+				<div class="myH2"></div> #}
+			{# <h1>
 		
 				<script src='js/slogan.js'></script>
-			</h1>
+			</h1> #}
+			{# </section> #}
 		
-		
-			<div class="container-fluid">
+			<div class="container-xxl">
 				<div class="row">
-					<ul class="accordion-group" id="accordion">
-						{% for rubric in rubrics %}							<li>
-								<a href="#" class="categorie-link" data-categorie-id="{{ rubric.id }}">
-									{# <img src="{{ asset(categorie.image) }}" class="categorie-image"> #}
-									<div class="accordion-overlay cards">
-										<h2>{{ rubric.label}}</h2>
+				   {% for rubric in rubrics %}
+				   <ul class="accordion-group" class="accordion">
+					  <li class="rubric-nav cards">
+						 {% if rubric.rubrics %}  
+						 <a><h2>
+							{{ rubric.label}}
+						 </h2>
+						 {% if rubric.image %} 
+							<img src="{{ rubric.image }}" alt="{{ rubric.label }}" class="rubric-nav">
+						 </a>
+						 {% endif %}  
+					  </li>
+					  {% endif %}
+				   </ul>
+				   {% endfor %}
+				</div>
+			 </div>
+					
+	
+					{# <div class="accordion-overlay cards" >
+						<li>
+						{% for rubric in rubrics %}	
+						
+								<a >
+								<h2>{{ rubric.label}}</h2>	
+								<img src="{{ asset('image/rubric/') }}" >
 		
-									</div>
+		
+									
 									
 								</a>
-							</li>
-						{% endfor %}
-					</ul>
-		<button class="btn-primary p-1">Plats</button>
+							
+							
+						</li>#}
+					
+					
+					
+		{# <button class="btn-primary p-1">Plats</button> #}
 		
 		
-				</div>
-			</div>
+			
+	
+		
+	
 		
 		
 		
-		
+			{# <section>
+				<h2>Nos rubriques</h2>
 		
 		<div id="plats-container"
 		class="container-plats position-relative">
@@ -492,6 +509,18 @@
 		<div class="col-12 col-md-6 p-3 mb-4 d-flex justify-content-center">
 		
 		
+				<ul>
+					{% for rubric in rubrics %}
+						<li>
+							<a href="#">
+								{{ rubric.label}}
+							</a>
+						</li>
+					{% else %}
+						<li>Aucune rubrique trouvée.</li>
+					{% endfor %}
+				</ul>
+			</section>  #}
 		
 		
 		
@@ -502,27 +531,17 @@
 								{# <h5 class="card-title">{{ plat.libelle }}</h5>
 								<p class="card-text">{{ plat.description }}</p> #}
 							
-		</div>	
+		{# </div>	
 		</div>
-		</div>
-	
-		
-				
-		
-		
+		</div> #}
 
-		{% endblock %}
-		
-	
-
-
-				<div class="container-fluid mx-auto mt-12 p-6 bg-gray-100 shadow-lg rounded-xl">
+				{# <div class="container-fluid mx-auto mt-12 p-6 bg-gray-100 shadow-lg rounded-xl">
 					<h1 class="text-4xl font-bold text-gray-800 text-center mb-8">Rubriques</h1>
 					<div class="card-wrapper justify-content-center  d-flex text-center mb-2">
 						<div class="card-container">
 						{% for rubric in rubrics %}
 						<div class="cards rubric-nav justify-content-center bg-blue-200 text-white font-bold py-2 d m-4('{{ rubric.id }}')"></div>
-								 {# onclick="showSubrubrics #}
+								 {# onclick="showSubrubrics 
 						<li>
 							<a >
 								<h2>{{ rubric.label}}</h2>
@@ -536,17 +555,17 @@
 								<p class="card-text">Text</p>
 							  </div>
 							
-							</div>	#}
+							</div>	
 							{% if rubric.image %} 
 								<img src="{{ rubric.image }}" alt="{{ rubric.label }}" class=" mx-auto justify-content-center h-32  mt-3">
 							{% endif %}
 							</div>
 							{% endfor %}
 							</div>
-						</div>
+						</div> #}
 			
 
-						<aside class="social-sidebar">
+						{# <aside class="social-sidebar">
 							<a href="https://www.facebook.com" target="_blank" class="social-btn facebook" aria-label="Facebook">
 							  <i class="fab fa-facebook-f"></i>
 							</a>
@@ -560,7 +579,7 @@
 							  <i class="fab fa-linkedin-in"></i>
 							</a>
 						  </aside>
-						  
+						   #}
 
 			
                             <div id="contentContainer" class="trans3d">
@@ -586,62 +605,45 @@
 													{% endif %}
 													<p class="text-gray-600 mt-3">{{ subrubric.description }}</p>
 												</a>
-											</div>
+										    </div>
 										
 										{% endif %}
+									    </div>
+										{% endfor %}
+										{% endfor %}
 									</div>
-										{% endfor %}
-										{% endfor %}
-
                                         
                                  
-								  <div class="next">
+							{# <div class="next">
 								<h5>Suivant</h5>
 							</div>
 							<div class="prev">
 								<h5>Précédent</h5>
-							</div>	
+							</div>	 #}
 								 </div>	
                                 </section>
-                            </div>
+                            {# </div>
 	</div>
-	 </section>
+	 </section> #}
 		
 </main>
 
 
+}
 
 {% block javascripts %}
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="{{ asset('js/accordion.js') }}"></script>
-<script>
-	document.addEventListener('DOMContentLoaded', function () {
-const links = document.querySelectorAll('.categorie-link');
-const platsContainer = document.getElementById('plats-container');
+{# <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> #}
+<script src="js/accordion.js" type="text/javascript"></script>
+{# <script>
+	$(document).ready(function() {
+		$('.accordion-group').each(function() {
+		   $(this).on('click', function() {
+			  $(this).find('.accordion-overlay').slider(); // ou ton action spécifique
+		   });
+		});
+	 });
+</script>	  #}
 
-links.forEach(link => {
-link.addEventListener('click', function (event) {
-event.preventDefault();
-const categorieId = this.getAttribute('data-categorie-id');
-fetchPlats(categorieId);
-});
-});
-
-function fetchPlats(categorieId) {
-fetch (`/get-plats-by-categorie/${categorieId}`).then(response => response.json()).then(data => {
-platsContainer.innerHTML = '';
-data.plats.forEach(plat => {
-const platElement = document.createElement('div');
-platElement.innerHTML = `
-`;
-
-platsContainer.appendChild(platElement);
-});
-platsContainer.classList.add('show');
-}).catch(error => console.error('Error fetching plats:', error));
-}
-});
-</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
@@ -748,7 +750,6 @@ platsContainer.classList.add('show');
 </script>
 {% endblock %}
 {% endblock %}
-
 {# {% block body %}
 <main class="main"> #}
 
