@@ -457,15 +457,15 @@
 					<ul class="accordion-group" id="accordion" >
 						{% for rubric in rubrics %}
 						<li >
-							{% if rubric.rubrics %}  
+							{# {% if rubric.rubrics %}   #}
 
-							<a class="category-link"><h3 class="accordion-group"><i>
+							<a class="category-link"><h2 class="accordion-group"><i>
 								{{ rubric.label}}
-							</i></h3>
+							</i></h2>
 							 {% if rubric.image %} 
 								<img src="{{ rubric.image }}" alt="{{ rubric.label }}">
 							</a>
-							{% endif %}	 
+							{# {% endif %}	  #}
 							{% endif %}	 
 						</li>
 						{% endfor %}

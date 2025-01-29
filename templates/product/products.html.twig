@@ -12,10 +12,10 @@
     </ol>
     </nav> #}
     <main class="container">    
-        {% for rubrics in rubric %}
+        {% for rubric in rubrics %}
         <div class="row">  
         
-            {% for rubrics in rubric.rubrics %}
+            {# {% for rubric in rubrics.rubric %} #}
                 <div class="col-12 col-sm-6 col-md-4 col-xl-3 mt-2 ">
                     {# <div class="rubric text-center">
                       
@@ -46,7 +46,7 @@
                 <div class="rub-content">{{ rubric.description }}</div>
             </div>
              {% endfor %}
-             {% endfor %}
+             {# {% endfor %} #}
              <div class="pagination">
                 {{ knp_pagination_render(products) }}
             </div>
@@ -55,7 +55,7 @@
             <section>
                 <h2 class="text-center my-5">Derniers arrivages!</h2>
                 <div class="grid">
-                    {% for rubrics in rubric %}
+                    {% for rubric in rubrics %}
                         <article class="card">
                             {# <img src= "{{ asset('images/rubrics/') }}"> #}
                             <div class="card-body">

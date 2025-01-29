@@ -5,17 +5,17 @@ namespace App\DataFixtures;
 use App\Entity\Rubric;
 use App\Entity\Product;
 use App\Entity\InfoSuppliers;
-use App\Entity\OrdersDetails;
-use App\Entity\Order;
+// use App\Entity\OrdersDetails;
+// use App\Entity\Order;
 use App\Entity\User;
 use App\Entity\Image;
 use App\Entity\Tva;
-use Doctrine\DBAL\Types\DateTime;
-use Doctrine\DBAL\Types\DateTimeImmutable;
+use DateTime;
+use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\Slugger;
-use App\Entity\Trait\SlugTrait;
+// use Symfony\Component\Slugger;
+// use App\Entity\Trait\SlugTrait;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
@@ -55,7 +55,7 @@ public function load(ObjectManager $manager): void
     $users = [];
     for ($i = 0; $i < 5; $i++) {
         $user = new User();
-        $user->setCreatedAt(new \DateTimeImmutable())
+        $user->setCreatedAt(new DateTimeImmutable())
              ->setEmail($faker->email)
              ->setLastname($faker->lastName)
              ->setFirstname($faker->firstName)
@@ -74,58 +74,60 @@ public function load(ObjectManager $manager): void
     // Rubriques
     $rubrics = [];
     $rubricLabels = ['vent', 'percussions', 'cordes', 'electronique'];
-
+    
     foreach ($rubricLabels as $label) {
         $rubric = new Rubric();
-        $rubric->setCreatedAt(new \DateTimeImmutable())
-                ->setLabel($label)
-                ->setSlug($this->slugger->slug($label)->lower())
-                ->setImage($faker->imageUrl);           
+        $rubric->setCreatedAt(new DateTimeImmutable())
+               ->setLabel($label)
+               ->setSlug($this->slugger->slug($label)->lower())
+               ->setImage($faker->imageUrl);           
+    
         $manager->persist($rubric);
-        $rubrics[] = $rubric;
+        $rubrics[] = $rubric; // Ajout de l'objet Rubric au tableau
     }
-    $manager->flush(); 
-
-
-    // Sous-rubriques
-    $subRubricLabels = ['saxo', 'trompette', 'batterie', 'tamtam', 'guitare', 'piano', 'synthétiseur', 'amplificateur'];
-
-    foreach ($subRubricLabels as $label) {
+    $manager->flush();
+    
+    // Sous-rubriques (avec lien vers une rubrique parente)
+    $subRubricsLabels = ['saxo', 'trompette', 'batterie', 'tamtam', 'guitare', 'piano', 'synthétiseur', 'amplificateur'];
+    foreach ($subRubricsLabels as $label) {
+        // Choisir une rubrique parente existante pour la sous-rubrique
+        $parentRubric = $faker->randomElement($rubrics); // Choisir une rubrique parente aléatoire
+    
         $subRubric = new Rubric();
-        $subRubric->setCreatedAt(new \DateTimeImmutable());
-        $uniqueSlug = $this->slugger->slug($label)->lower() . '-' . uniqid();
-        $subRubric->setSlug($uniqueSlug)
-                   ->setLabel($label)
-                   ->setImage($faker->imageUrl)
-                   ->setDescription($faker->paragraph)
-                   ->setParent($rubric);
+        $subRubric->setCreatedAt(new DateTimeImmutable())
+                  ->setLabel($label)
+                  ->setSlug($this->slugger->slug($label)->lower() . '-' . uniqid())
+                  ->setParent($parentRubric) // Assigner le parent
+                  ->setImage($faker->imageUrl);
+    
         $manager->persist($subRubric);
-        $rubrics[] = $subRubric;
-
     }
     $manager->flush();
 
    
     // Fournisseurs
     $infoSuppliersType = ['constructeur', 'importateur'];
-    foreach ($infoSuppliersType as $type) { 
-        $infoSuppliers = new InfoSuppliers(); 
-        $infoSuppliers->setType($type)
+    $infoSuppliers = []; // Tableau pour stocker les objets InfoSuppliers
+    
+    // Création des fournisseurs
+    foreach ($infoSuppliersType as $type) {
+        $infoSupplier = new InfoSuppliers();
+        $infoSupplier->setType($type)
                      ->setStatus('Active')
                      ->setReference("infoSuppliers:" . mt_rand(10000, 99999))
                      ->setUser($faker->randomElement($users));
-        $manager->persist($infoSuppliers);
-        //$infoSuppliers[] = $infoSupplier; 
+    
+        $manager->persist($infoSupplier);
+        $infoSuppliers[] = $infoSupplier; // Ajout de l'objet à notre tableau
     }
     $manager->flush();
-
-     
+    
     // Produits
     for ($i = 0; $i < 50; $i++) {
         $tva = new Tva();
         $tva->setRate('18.60');
         $manager->persist($tva);
-
+    
         $product = new Product();
         $product->setLabel($faker->sentence)
                 ->setSlug($this->slugger->slug($faker->sentence)->lower() . '-' . uniqid())
@@ -134,13 +136,15 @@ public function load(ObjectManager $manager): void
                 ->setReference("GrVi:" . mt_rand(10000, 99999))
                 ->setDescription($faker->paragraph)
                 ->setWeight($faker->randomFloat(2, 0, 100))
-                ->setInfoSuppliers($infoSuppliersType())
-                ->setRubric($faker->randomElement($rubrics)) 
+                ->setInfoSuppliers($faker->randomElement($infoSuppliers)) // Choix aléatoire d'un fournisseur
+                ->setRubric($faker->randomElement($rubrics)) // Assigner un produit à une rubrique existante
                 ->setTva($tva)
-                ->setCreatedAt(new \DateTimeImmutable())
-                ->setUpdatedAt(new \DateTimeImmutable());
+                ->setCreatedAt(new DateTimeImmutable())
+                ->setUpdatedAt(new DateTimeImmutable());
+    
         $manager->persist($product);
     }
+    
     $manager->flush();
 
     // Images

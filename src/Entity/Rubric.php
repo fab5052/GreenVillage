@@ -15,7 +15,7 @@ use App\EventListener\SlugListener;
 
 #[ORM\Entity(repositoryClass: RubricRepository::class)]
 #[ORM\UniqueConstraint(name: 'slug', columns: ['slug'])]
-#[ORM\UniqueConstraint(name: 'parent', columns: ['parent_id'])]
+//#[ORM\UniqueConstraint(name: 'parent', columns: ['parent_id'])]
 
 class Rubric 
 {
@@ -24,7 +24,7 @@ class Rubric
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(["products:read", "parent:read"])]
+    //#[Groups(["products:read", "parent:read"])]
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
@@ -50,7 +50,7 @@ class Rubric
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['remove'])]
     private Collection $rubrics;
 
-    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'rubric')]
+    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'parent')]
     private Collection $products;
 
     public function __construct()
@@ -125,33 +125,33 @@ class Rubric
         return $this;
     }
     
-     /**
-     * @return Collection<int, Rubric>
-     */
-    public function getRubrics(): Collection
-    {
-        return $this->rubrics;
-    }
+    //  /**
+    //  * @return Collection<int, Rubric>
+    //  */
+    // public function getParent(): Collection
+    // {
+    //     return $this->parents;
+    // }
 
-    public function addRubric(Rubric $rubric): self
-    {
-        if (!$this->rubrics->contains($rubric)) {
-            $this->rubrics->add($rubric);
-            $rubric->setParent($this);
-        }
+    // public function addParent(Rubric $rubric): self
+    // {
+    //     if (!$this->rubrics->contains($rubric)) {
+    //         $this->rubrics->add($rubric);
+    //         $rubric->setParent($this);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function removeRubric(Rubric $rubric): self
-    {
-        if ($this->rubrics->removeElement($rubric)) {
-            if ($rubric->getParent() === $this) {
-                $rubric->setParent(null);
-            }
-        }
-        return $this;
-    }
+    // public function removeParent(Rubric $rubrics): self
+    // {
+    //     if ($this->rubric->removeElement($rubrics)) {
+    //         if ($rubrics->getParent() === $this) {
+    //             $rubrics->setParent(null);
+    //         }
+    //     }
+    //     return $this;
+    // }
 
     /**
      * @return Collection<int, Product>
