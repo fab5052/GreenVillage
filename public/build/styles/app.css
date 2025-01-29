@@ -3,7 +3,7 @@
   \*************************************************************************************************/
 
   @import url('https://fonts.googleapis.com/css?family=Quicksand:400,500,700');
-  @import url('https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
+  /* @import url('https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css'); */
   
   @import url('https://fonts.googleapis.com/css?family=Titillium+Web:300');
   
@@ -74,8 +74,8 @@
     width: 100%;
    min-height: 15vh;
   overflow: hidden;
-    color: #3391b3;
-    background-color: #6b6666f6;
+    color: #666c61;
+    background-color: #5ac608;
   justify-items: center;
     z-index: 0;
     padding: 0;

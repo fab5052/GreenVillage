@@ -1,8 +1,8 @@
-var message = "The District" //
+var message = "Village Green" //
 var neonbasecolor = "#8fe9e57c;" // couleur de base du texte
-var neontextcolor = "#9ac74762"
+var neontextcolor = "#5ac608"
 var neontextcolor2 = "#610606"
-var flashspeed = 200 // vitesse du flashing en millisecondes
+var flashspeed = 175 // vitesse du flashing en millisecondes
 var flashingletters = 3 // nombre de lettres qui flashent en neontextcolor
 var flashingletters2 = 1 // nombre de lettres qui flashent en neontextcolor2 (0 pour désactiver)
 var flashpause = 0

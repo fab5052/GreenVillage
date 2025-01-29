@@ -441,6 +441,7 @@
 		  border-radius: 4px;
 		}  */
 		</style>
+		{% endblock %}
 		
 		{# <div>
 			<div class="bg"></div>
@@ -462,21 +463,29 @@
 		
 			<div class="container-fluid">
 				<div class="row">
+					{% for rubric in rubrics %}							
 					<ul class="accordion-group" id="accordion">
-						{% for rubric in rubrics %}							<li>
-								<a href="#" class="categorie-link" data-categorie-id="{{ rubric.id }}">
+						{% if rubric.rubrics %} 
+						<li>
+							<a href="#" class="categorie-link" data-categorie-id="{{ rubric.label }}">
 									{# <img src="{{ asset(categorie.image) }}" class="categorie-image"> #}
 									<div class="accordion-overlay cards">
 										<h2>{{ rubric.label}}</h2>
-		
-									</div>
-									
-								</a>
-							</li>
-						{% endfor %}
+									{% if rubric.image %} 
+								<img src="{{ rubric.image }}" alt="{{ rubric.label }}" class="categorie-image" >
+								{% endif %}
+									{# <img src="{{ asset(categorie.image) }}" class="categorie-image"> #}
+							</div>		
+										
+							</a>
+						</li>
+						{% endif %}
 					</ul>
-		<button class="btn-primary p-1">Plats</button>
-		
+					{% endfor %}
+						
+		{# <button class="btn-primary p-1">Instruments >></button> #}
+								
+
 		
 				</div>
 			</div>
@@ -485,11 +494,12 @@
 		
 		
 		
+{# 		
 		<div id="plats-container"
 		class="container-plats position-relative">
 		<div class="mb-3 d-block">
 		
-		<div class="col-12 col-md-6 p-3 mb-4 d-flex justify-content-center">
+		<div class="col-12 col-md-6 p-3 mb-4 d-flex justify-content-center"> #}
 		
 		
 		
@@ -502,33 +512,28 @@
 								{# <h5 class="card-title">{{ plat.libelle }}</h5>
 								<p class="card-text">{{ plat.description }}</p> #}
 							
-		</div>	
+		{# </div>	
 		</div>
-		</div>
+		</div> #}
 	
 		
 				
-		
-		
-
-		{% endblock %}
-		
-	
 
 
-				<div class="container-fluid mx-auto mt-12 p-6 bg-gray-100 shadow-lg rounded-xl">
+
+				{# <div class="container-fluid mx-auto mt-12 p-6 bg-gray-100 shadow-lg rounded-xl">
 					<h1 class="text-4xl font-bold text-gray-800 text-center mb-8">Rubriques</h1>
 					<div class="card-wrapper justify-content-center  d-flex text-center mb-2">
 						<div class="card-container">
 						{% for rubric in rubrics %}
-						<div class="cards rubric-nav justify-content-center bg-blue-200 text-white font-bold py-2 d m-4('{{ rubric.id }}')"></div>
-								 {# onclick="showSubrubrics #}
+						<div class="cards rubric-nav justify-content-center bg-blue-200 text-white font-bold py-2 d m-4"></div>
+								 {# onclick="showSubrubrics #
 						<li>
 							<a >
 								<h2>{{ rubric.label}}</h2>
 							</a>
 						</li>
-						
+						 #}
 						
 							  {# <img class="card-img-top" src="holder.js/100px180/" alt="">
 							  <div class="card-body">
@@ -537,16 +542,16 @@
 							  </div>
 							
 							</div>	#}
-							{% if rubric.image %} 
+							{# {% if rubric.image %} 
 								<img src="{{ rubric.image }}" alt="{{ rubric.label }}" class=" mx-auto justify-content-center h-32  mt-3">
 							{% endif %}
 							</div>
 							{% endfor %}
 							</div>
-						</div>
+						</div> #}
 			
 
-						<aside class="social-sidebar">
+						{# <aside class="social-sidebar">
 							<a href="https://www.facebook.com" target="_blank" class="social-btn facebook" aria-label="Facebook">
 							  <i class="fab fa-facebook-f"></i>
 							</a>
@@ -559,7 +564,7 @@
 							<a href="https://www.linkedin.com" target="_blank" class="social-btn linkedin" aria-label="LinkedIn">
 							  <i class="fab fa-linkedin-in"></i>
 							</a>
-						  </aside>
+						  </aside> #}
 						  
 
 			
@@ -612,8 +617,7 @@
 
 
 {% block javascripts %}
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="{{ asset('js/accordion.js') }}"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script><script src='js/accordions.js'></script> 
 <script>
 	document.addEventListener('DOMContentLoaded', function () {
 const links = document.querySelectorAll('.categorie-link');
@@ -622,7 +626,7 @@ const platsContainer = document.getElementById('plats-container');
 links.forEach(link => {
 link.addEventListener('click', function (event) {
 event.preventDefault();
-const categorieId = this.getAttribute('data-categorie-id');
+const categorieId = this.getAttribute('data-rubric.label');
 fetchPlats(categorieId);
 });
 });
@@ -642,6 +646,7 @@ platsContainer.classList.add('show');
 }
 });
 </script>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
@@ -745,40 +750,8 @@ platsContainer.classList.add('show');
 			ease: "expo.inOut"
 		});
 	}
+
 </script>
 {% endblock %}
 {% endblock %}
 
-{# {% block body %}
-<main class="main"> #}
-
-    {# <section>
-        <h2>Nos rubriques</h2>
-        <ul>
-            {% for rubric in rubrics %}
-                <li>
-                    <a href="{{ path('rubric_rubrics', { id: rubric.id }) }}">
-                        {{ rubric.label}}
-                    </a>
-                </li>
-            {% else %}
-                <li>Aucune rubrique trouvée.</li>
-            {% endfor %}
-        </ul>
-    </section> #}
-
-	{# <div>
-		<div class="h-64 m-2 rounded-xl shadow-xl ">
-			<img class="hidden lg:flex w-full h-full object-cover rounded-xl" src="{{ asset('images/hands-1851426_1920.webp') }}" alt="Mains jouant d'un instrument de musique"/>
-			<h1 class="text-4xl  font-serif text-black flex justify-center mb-4">
-				Bienvenue sur notre site E-commerce
-			</h1>
-		</div>
-		<div id="root"></div>
-	</div>
-</main>	
-{% endblock %}
-
-{% block javascripts %}
-	{{ encore_entry_script_tags('searchbar') }}
-{% endblock %} #}
