@@ -259,21 +259,21 @@
    }
     
   nav .container-nav .logo {
-   display: block;
+   display: flex;
     float: left;
     /* transform: translateY(0); */
-    max-width: 8vw;
-     max-height:8vw;
+    max-width: 10vw;
+     max-height:200px;
      z-index: 10;
-     align-content: center;
+     /* align-content: center; */
     margin-left: 5px;
     padding: none; 
     /* margin: 5px; */
-    margin-top: 10%; 
+    /* margin-top: 10%;  */
     height: inherit;
-    background-position: center center;
+    background-position: center;
     align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   
   }
   
@@ -297,11 +297,11 @@
       vertical-align: middle;
    margin-left: 1vw;
    margin-right: 5vw ;
-      justify-items: center;
+      /* justify-items: center; */
         z-index: 10;
         padding: 0 ; 
 /* margin-right: 5px; */
-    justify-content: center; 
+    /* justify-content: center;  */
     align-items: center;
      text-decoration: none;
         order: 2;
@@ -2559,17 +2559,10 @@
   
   .accordion-group li h2 {
     position: relative;
-<<<<<<< HEAD
-    color: #41513c;
-    text-transform: uppercase;
-    writing-mode: vertical-rl;
-    letter-spacing: 0.15rem;
-=======
     color: #a89110ee;
     /* text-transform: uppercase; */
     writing-mode: vertical-lr;
     letter-spacing: 0.18rem;
->>>>>>> e93cbcef2a0b63cca3b0b91e01280ac652f8280f
     padding: 0;
     font-weight: 500;
     margin: 6.5rem 0 0;
