@@ -15,7 +15,7 @@ use App\EventListener\SlugListener;
 
 #[ORM\Entity(repositoryClass: RubricRepository::class)]
 #[ORM\UniqueConstraint(name: 'slug', columns: ['slug'])]
-#[ORM\UniqueConstraint(name: 'parent', columns: ['parent_id'])]
+//#[ORM\UniqueConstraint(name: 'parent', columns: ['parent_id'])]
 
 class Rubric 
 {
@@ -24,7 +24,7 @@ class Rubric
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(["products:read", "parent:read"])]
+    //#[Groups(["products:read", "parent:read"])]
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
@@ -44,18 +44,18 @@ class Rubric
     #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeImmutable $createdAt;
 
-    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'rubrics', cascade: ['persist'])]    
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'rubrics', cascade: ['remove'])]    
     private ?self $parent = null;
 
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['remove'])]
     private Collection $rubrics;
 
-    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'rubrics')]
+    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'parent')]
     private Collection $products;
 
     public function __construct()
     {
-       // $this->rubrics = new ArrayCollection();
+        $this->rubrics = new ArrayCollection();
         $this->products = new ArrayCollection();
      }
 
@@ -125,29 +125,29 @@ class Rubric
         return $this;
     }
     
-     /**
-     * @return Collection<int, Rubric>
-     */
-    public function getRubrics(): Collection
-    {
-        return $this->rubrics;
-    }
-
-    // public function addRubric(Rubric $parent): self
+    //  /**
+    //  * @return Collection<int, Rubric>
+    //  */
+    // public function getParent(): Collection
     // {
-    //     if (!$this->rubrics->contains($parent)) {
-    //         $this->rubrics->add($parent);
-    //         $parent->setRubric($this);
+    //     return $this->parents;
+    // }
+
+    // public function addParent(Rubric $rubric): self
+    // {
+    //     if (!$this->rubrics->contains($rubric)) {
+    //         $this->rubrics->add($rubric);
+    //         $rubric->setParent($this);
     //     }
 
     //     return $this;
     // }
 
-    // public function removeRubric(Rubric $parent): self
+    // public function removeParent(Rubric $rubrics): self
     // {
-    //     if ($this->rubrics->removeElement($parent)) {
-    //         if ($parent->getRubrics() === $this) {
-    //             $parent->setRubric(null);
+    //     if ($this->rubric->removeElement($rubrics)) {
+    //         if ($rubrics->getParent() === $this) {
+    //             $rubrics->setParent(null);
     //         }
     //     }
     //     return $this;
@@ -195,5 +195,3 @@ class Rubric
 }
 
 }
-
-

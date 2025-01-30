@@ -19,7 +19,7 @@ use DateTimeImmutable;
 // use Proxies\__CG__\App\Entity\InfoSuppliers as EntityInfoSuppliers;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
-#[ORM\UniqueConstraint(name: 'slug', columns: ['slug'])]
+//#[ORM\UniqueConstraint(name: 'slug', columns: ['slug'])]
 #[ORM\UniqueConstraint(name: 'reference', columns: ['reference'])]
 class Product
 {

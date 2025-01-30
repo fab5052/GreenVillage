@@ -459,16 +459,22 @@
 						{% for rubric in rubrics %}
 						<div class="accordion-overlay cards" >
 						<li >
+							{# {% if rubric.rubrics %}   #}
+
+							<a class="category-link"><h2 class="accordion-group"><i>
 							
 							{# {% if rubric.rubrics %}   #}
 
 							<a class="category-link"><h2>
 								{{ rubric.label}}
+							</i></h2>
 							</h2>
 							 {% if rubric.image %} 
 								<img src="{{ rubric.image }}" alt="{{ rubric.label }}">
 								{% endif %}	
 							</a>
+							{# {% endif %}	  #}
+							{% endif %}	 
 							{# {% endif %}	  #}
 							
 						</li>
