@@ -19,12 +19,12 @@ use DateTimeImmutable;
 // use Proxies\__CG__\App\Entity\InfoSuppliers as EntityInfoSuppliers;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
-//#[ORM\UniqueConstraint(name: 'slug', columns: ['slug'])]
+#[ORM\UniqueConstraint(name: 'slug', columns: ['slug'])]
 #[ORM\UniqueConstraint(name: 'reference', columns: ['reference'])]
 class Product
 {
    // use CreatedAtTrait;
-    use SlugTrait;
+   //use SlugTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -46,16 +46,16 @@ class Product
     #[ORM\Column(length: 50)]
     private ?string $reference = null;
 
-    // #[ORM\Column(type: 'string', length: '100')]
-    // //#[Assert\NotBlank(message: 'Le slug ne peut pas être vide.')]
+    #[ORM\Column(type: 'string', length: '100')]
+    #[Assert\NotBlank(message: 'Le slug ne peut pas être vide.')]
     // //#[Assert\Unique]
-    // private ?string $slug = null;
+    private ?string $slug = null;
 
     #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
-    private ?\DateTimeImmutable $createdAt;
+    private ?DateTimeImmutable $createdAt;
 
     #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
-    private ?\DateTimeImmutable $updatedAt = null;
+    private ?DateTimeImmutable $updatedAt = null;
 
     #[ORM\ManyToOne(targetEntity: InfoSuppliers::class, inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
@@ -63,7 +63,7 @@ class Product
 
     #[ORM\ManyToOne(targetEntity: Rubric::class, inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Rubric $rubric = null;
+    private ?Rubric $rubrics = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $weight = null;
@@ -156,17 +156,17 @@ class Product
         return $this;
     }
 
-    // public function getSlug(): ?string
-    // {
-    //     return $this->slug;
-    // }
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
 
-    // public function setSlug(string $slug): static
-    // {
-    //     $this->slug = $slug;
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
     // public function getViewRubrics(): ?string
     // {
@@ -193,24 +193,24 @@ class Product
     }
 
 
-public function getCreatedAt(): ?\DateTimeImmutable
+public function getCreatedAt(): ?DateTimeImmutable
 {
     return $this->createdAt;
 }
 
-public function setCreatedAt(\DateTimeImmutable $createdAt): self
+public function setCreatedAt(DateTimeImmutable $createdAt): self
 {
     $this->createdAt = $createdAt;
 
     return $this;
 }
 
-public function getUpdatedAt(): ?\DateTimeImmutable
+public function getUpdatedAt(): ?DateTimeImmutable
 {
     return $this->updatedAt;
 }
 
-public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
+public function setUpdatedAt(DateTimeImmutable $updatedAt): self
 {
     $this->updatedAt = $updatedAt;
 
@@ -262,12 +262,12 @@ public function removeImage(Image $image): static
 
 public function getRubric(): ?Rubric
 {
-    return $this->rubric;
+    return $this->rubrics;
 }
 
 public function setRubric( ?Rubric $rubric): self
 {
-    $this->rubric = $rubric;
+    $this->rubrics = $rubric;
 
     return $this;
 }

@@ -426,7 +426,12 @@
 	<div class="myH2">
 		<section class="myP ">
 
-
+			<div id="content-wrapper" class="myH2">
+                <div class="page-content">
+                    <div class="page-wrapper" ng-if="applicationState.loading">
+                        <div class="simple-box container">
+                            <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
+                                <div class="row">
 	<aside class="social-sidebar">
   <a href="https://www.facebook.com" target="_blank" class="social-btn facebook" aria-label="Facebook">
     <i class="fab fa-facebook-f"></i>
@@ -593,14 +598,14 @@
 		radius = Math.round((170) / Math.tan(Math.PI / itemLength));
 
 		// set container 3d props
-		/*itemLength = item.length;
+		itemLength = item.length;
 		 rY = 360 / itemLength;
 		 radius = Math.round((container.width() / 2) / Math.tan(Math.PI / itemLength));
 	
 		 // set container 3d props
 	    
 		 gsap.set(container, {perspective: 1000});
-		 gsap.set(carousel, {z: -(radius), transformOrigin: "center center " + -radius + "px"});*/
+		 gsap.set(carousel, {z: -(radius), transformOrigin: "center center " + -radius + "px"});
 
 
 

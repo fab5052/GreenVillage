@@ -12,17 +12,7 @@
 
 
 
-	.item {
-		display: block;
-		position: absolute;
-		width: 250px;
-		height: 300px;
-		opacity: 0.95;
-		border-radius: 10px;
-		overflow: hidden;
 
-
-	}
 
 	/*.item .cards {
 		justify-content: center;
@@ -365,7 +355,7 @@
 		}
 	}
 
-		#plats-container {
+	/*	#plats-container {
 			transition: opacity 0.5s 	tease-in-out;		
 			opacity: 0;			
 			max-height: 0;
@@ -408,7 +398,7 @@
 		  height: 20vh;
 		  width: 25vw;
 		
-		}
+		} #}
 		
 		
 		/* .button {
@@ -452,47 +442,76 @@
 		
 		</div> #}
 		
-		<main class="main">
+		<main class="main ">
 			<section class="myP">
-				<div class="myH2">
+				<div class="myH2"></div>
 			<h1>
 		
 				<script src='js/slogan.js'></script>
-			</h1>
+			</h1> 
+			</section>
 		
-		
-			<div class="container-fluid">
-				<div class="row">
-					{% for rubric in rubrics %}							
-					<ul class="accordion-group" id="accordion">
-						{% if rubric.rubrics %} 
-						<li>
-							<a href="#" class="categorie-link" data-categorie-id="{{ rubric.label }}">
-									{# <img src="{{ asset(categorie.image) }}" class="categorie-image"> #}
-									<div class="accordion-overlay cards">
-										<h2>{{ rubric.label}}</h2>
-									{% if rubric.image %} 
-								<img src="{{ rubric.image }}" alt="{{ rubric.label }}" class="categorie-image" >
-								{% endif %}
-									{# <img src="{{ asset(categorie.image) }}" class="categorie-image"> #}
-							</div>		
-										
-							</a>
-						</li>
-						{% endif %}
-					</ul>
-					{% endfor %}
-						
-		{# <button class="btn-primary p-1">Instruments >></button> #}
-								
+			<div class="container w-100 position-relative d-flex">
+				<div class="row d-flex ">
+					
+					
+					<ul class="accordion-group" id="accordion" >
+						{% for rubric in rubrics %}
+						<div class="accordion-overlay cards" >
+						<li >
+							
+							{# {% if rubric.rubrics %}   #}
 
-		
+							<a class="category-link"><h2>
+								{{ rubric.label}}
+							</h2>
+							 {% if rubric.image %} 
+								<img src="{{ rubric.image }}" alt="{{ rubric.label }}">
+								{% endif %}	
+							</a>
+							{# {% endif %}	  #}
+							
+						</li>
+					</div>
+						 {% endfor %}
+					 </ul>
+					
+					<
 				</div>
 			</div>
+					
+			
+	
+					{# <div class="accordion-overlay cards" >
+						<li>
+						{% for rubric in rubrics %}	
+						
+								<a >
+								<h2>{{ rubric.label}}</h2>	
+								<img src="{{ asset('image/rubric/') }}" >
+		
+		
+									
+									
+								</a>
+							
+							
+						</li>#}
+					
+					
+					
+		{# <button class="btn-primary p-1">Plats</button> #}
+		
+		
+			
+	
+		
+	
 		
 		
 		
-		
+			{# <section>
+				<h2>Nos rubriques</h2>
 		
 {# 		
 		<div id="plats-container"
@@ -502,6 +521,7 @@
 		<div class="col-12 col-md-6 p-3 mb-4 d-flex justify-content-center"> #}
 		
 		
+			
 		
 		
 		
@@ -568,7 +588,7 @@
 						  
 
 			
-                            <div id="contentContainer" class="trans3d">
+                            {# <div id="contentContainer" class="trans3d">
                                 <section id="carouselContainer" class="trans3d">
 											
 
@@ -591,33 +611,31 @@
 													{% endif %}
 													<p class="text-gray-600 mt-3">{{ subrubric.description }}</p>
 												</a>
-											</div>
+										    </div>
 										
 										{% endif %}
+									    </div>
+										{% endfor %}
+										{% endfor %}
 									</div>
-										{% endfor %}
-										{% endfor %}
-
                                         
                                  
-								  <div class="next">
+							 <div class="next">
 								<h5>Suivant</h5>
 							</div>
 							<div class="prev">
 								<h5>Précédent</h5>
-							</div>	
+							</div>	 
 								 </div>	
                                 </section>
-                            </div>
-	</div>
-	 </section>
+                             </div> #}
+	{# </div>
+	 </section>  #}
 		
 </main>
 
-
-
 {% block javascripts %}
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script><script src='js/accordions.js'></script> 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script><script src='js/accordion.js'></script> 
 <script>
 	document.addEventListener('DOMContentLoaded', function () {
 const links = document.querySelectorAll('.categorie-link');
@@ -691,14 +709,14 @@ platsContainer.classList.add('show');
 		radius = Math.round((170) / Math.tan(Math.PI / itemLength));
 
 		// set container 3d props
-		/*itemLength = item.length;
+		itemLength = item.length;
 		 rY = 360 / itemLength;
 		 radius = Math.round((container.width() / 2) / Math.tan(Math.PI / itemLength));
 	
 		 // set container 3d props
 	    
 		 gsap.set(container, {perspective: 1000});
-		 gsap.set(carousel, {z: -(radius), transformOrigin: "center center " + -radius + "px"});*/
+		 gsap.set(carousel, {z: -(radius), transformOrigin: "center center " + -radius + "px"});
 
 
 

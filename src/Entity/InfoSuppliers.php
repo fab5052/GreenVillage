@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\InfoSuppliersRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: InfoSuppliersRepository::class)]
@@ -99,7 +100,7 @@ class InfoSuppliers
         return $this->products;
     }
 
-    public function addProduct(Product $product): static
+    public function addProduct(Product $product): self
     {
         if (!$this->products->contains($product)) {
             $this->products->add($product);
@@ -109,7 +110,7 @@ class InfoSuppliers
         return $this;
     }
 
-    public function removeProduct(Product $product): static
+    public function removeProduct(Product $product): self
     {
         if ($this->products->removeElement($product)) {
             if ($product->getInfoSuppliers() === $this) {

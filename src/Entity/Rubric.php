@@ -44,18 +44,18 @@ class Rubric
     #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeImmutable $createdAt;
 
-    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'rubrics', cascade: ['remove'])]    
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'rubrics', cascade: ['persist'])]    
     private ?self $parent = null;
 
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['remove'])]
     private Collection $rubrics;
 
-    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'rubric')]
+    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'rubrics')]
     private Collection $products;
 
     public function __construct()
     {
-        $this->rubrics = new ArrayCollection();
+       // $this->rubrics = new ArrayCollection();
         $this->products = new ArrayCollection();
      }
 
@@ -133,25 +133,25 @@ class Rubric
         return $this->rubrics;
     }
 
-    public function addRubric(Rubric $rubric): self
-    {
-        if (!$this->rubrics->contains($rubric)) {
-            $this->rubrics->add($rubric);
-            $rubric->setParent($this);
-        }
+    // public function addRubric(Rubric $parent): self
+    // {
+    //     if (!$this->rubrics->contains($parent)) {
+    //         $this->rubrics->add($parent);
+    //         $parent->setRubric($this);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function removeRubric(Rubric $rubric): self
-    {
-        if ($this->rubrics->removeElement($rubric)) {
-            if ($rubric->getParent() === $this) {
-                $rubric->setParent(null);
-            }
-        }
-        return $this;
-    }
+    // public function removeRubric(Rubric $parent): self
+    // {
+    //     if ($this->rubrics->removeElement($parent)) {
+    //         if ($parent->getRubrics() === $this) {
+    //             $parent->setRubric(null);
+    //         }
+    //     }
+    //     return $this;
+    // }
 
     /**
      * @return Collection<int, Product>

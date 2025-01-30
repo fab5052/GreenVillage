@@ -60,7 +60,7 @@ public function load(ObjectManager $manager): void
              ->setLastname($faker->lastName)
              ->setFirstname($faker->firstName)
              ->setRoles(['ROLE_USER'])
-             ->setIsVerified(true)
+             ->setIsVerified(1)
              ->setAddress($faker->address)
              ->setZipcode($faker->postcode)
              ->setCity($faker->city)
@@ -97,51 +97,54 @@ public function load(ObjectManager $manager): void
         $subRubric->setSlug($uniqueSlug)
                    ->setLabel($label)
                    ->setImage($faker->imageUrl)
-                   ->setDescription($faker->paragraph)
-                   ->setParent($rubrics('parent'));
-        $manager->persist($subRubric);
-        $rubrics[] = $subRubric;
+                   ->setDescription($faker->paragraph);
+                //    ->setRubric($rubric);
+        $manager->persist($rubric);
+        // $rubrics[] = $subRubric;
 
     }
     $manager->flush();
 
-   
-    // Fournisseurs
-    $infoSuppliersType = ['constructeur', 'importateur'];
-    foreach ($infoSuppliersType as $type) { 
-        $infoSuppliers = new InfoSuppliers(); 
-        $infoSuppliers->setType($type)
-                     ->setStatus('Active')
-                     ->setReference("infoSuppliers:" . mt_rand(10000, 99999))
-                     ->setUser($faker->randomElement($users));
-        $manager->persist($infoSuppliers);
-        //$infoSuppliers[] = $infoSupplier; 
-    }
-    $manager->flush();
 
-     
-    // Produits
-    for ($i = 0; $i < 50; $i++) {
-        $tva = new Tva();
-        $tva->setRate('18.60');
-        $manager->persist($tva);
+// Fournisseurs
+$infoSuppliersList = [];
+$infoSuppliersType = ['constructeur', 'importateur'];
 
-        $product = new Product();
-        $product->setLabel($faker->sentence)
-                ->setSlug($this->slugger->slug($faker->sentence)->lower() . '-' . uniqid())
-                ->setStock(mt_rand(1, 100))
-                ->setPrice(mt_rand(1, 100))
-                ->setReference("GrVi:" . mt_rand(10000, 99999))
-                ->setDescription($faker->paragraph)
-                ->setWeight($faker->randomFloat(2, 0, 100))
-                ->setInfoSuppliers($infoSuppliersType())
-                ->setRubric($faker->randomElement($rubrics)) 
-                ->setTva($tva)
-                ->setCreatedAt(new \DateTimeImmutable())
-                ->setUpdatedAt(new \DateTimeImmutable());
-        $manager->persist($product);
-    }
-    $manager->flush();
+foreach ($infoSuppliersType as $type) { 
+    $supplier = new InfoSuppliers(); 
+    $supplier->setType($type)
+             ->setStatus('Active')
+             ->setReference("infoSuppliers:" . mt_rand(10000, 99999))
+             ->setUser($faker->randomElement($users));
+    $manager->persist($supplier);
+    $infoSuppliersList[] = $supplier; // Stocker dans un tableau
+}
+$manager->flush();
+
+// Produits
+for ($i = 0; $i < 50; $i++) {
+    $tva = new Tva();
+    $tva->setRate('18.60');
+    $manager->persist($tva);
+
+    $product = new Product();
+    $product->setLabel($faker->sentence)
+            ->setSlug($this->slugger->slug($faker->sentence)->lower() . '-' . uniqid())
+            ->setStock(mt_rand(1, 100))
+            ->setPrice(mt_rand(1, 100))
+            ->setReference("GrVi:" . mt_rand(10000, 99999))
+            ->setDescription($faker->paragraph)
+            ->setWeight($faker->randomFloat(2, 0, 100))
+            ->setInfoSuppliers($faker->randomElement($infoSuppliersList)) // Assigner UN fournisseur
+            ->setRubric($faker->randomElement($rubrics)) 
+            ->setTva($tva)
+            ->setCreatedAt(new \DateTimeImmutable())
+            ->setUpdatedAt(new \DateTimeImmutable());
+    
+    $manager->persist($product);
+}
+$manager->flush();
+
 
     // Images
     for ($i = 0; $i < 10; $i++) {
