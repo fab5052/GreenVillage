@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Instrument |
-	{{ rubric.label }}
+	{{ subrubric.slug }}
 {% endblock %}
 
 {% block body %}
 <main class="main">
 	<div class="container mx-auto mt-16 p-8 bg-gray-50 rounded-xl shadow-xl">
 		<h1 class="text-5xl font-bold text-center text-gray-800 mb-12">Tous nos Instruments concernant :
-			{{ rubric.label }}</h1>
+			{{ subrubric.slug }}</h1>
 
 		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
 			{% for product in products %}
@@ -20,14 +20,18 @@
 								{{ product.reference }}</p>
 							<p>
 								<strong>Fournisseur :</strong>
-								{{ product.suppliers.reference }}</p>
+								{{ product.infoSuppliers.reference }}</p>
 						</div>
 					{# {% endif %} #}
 
 					<div class="overflow-hidden rounded-t-2xl">
-						{% if product.image|length > 0 %}
-							<img src="{{ product.image[0].img }}" alt="{{ product.label }}" class="w-full h-56 object-cover transition-transform duration-300 transform group-hover:scale-110">
-						{% endif %}
+						<div class="product-images">
+							{% for image in product.images %}
+								<img src="{{ image.image }}" alt="Image de {{ product.label }}" width="200">
+							{% else %}
+								<p>Aucune image disponible.</p>
+							{% endfor %}
+						</div>
 					</div>
 
 					<div class="p-6">
@@ -39,10 +43,10 @@
 							€ HT</p>
 
 						<div class="mt-6 flex space-x-4">
-							<a href="{{ path('product_details', {'slug': product.slug}) }}" class="flex-1 px-4 py-2 text-center bg-yellow-500 text-white font-medium rounded-lg shadow-md hover:bg-yellow-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-300">
+							<a href="{{ path('app_product_details', {'slug': product.slug}) }}" class="flex-1 px-4 py-2 text-center bg-yellow-500 text-white font-medium rounded-lg shadow-md hover:bg-yellow-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-300">
 								Détails
 							</a>
-							<a href="{{ path('cart_add', {'id': product.id}) }}" class="flex-1 px-4 py-2 text-center bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400">
+							<a href="{{ path('app_cart', {'id': product.id}) }}" class="flex-1 px-4 py-2 text-center bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400">
 								Ajouter
 							</a>
 						</div>

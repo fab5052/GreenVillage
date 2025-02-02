@@ -34,11 +34,13 @@
 
 			<!-- Images du produit -->
 			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-				{% for image in product.image %}
-					<div class="mb-4">
-						<img src="{{ image.img }}" alt="{{ product.label }}" class="w-full h-72 object-cover rounded-xl shadow-lg transition transform hover:scale-105 duration-300 ease-in-out"/>
-					</div>
-				{% endfor %}
+				<div class="product-images">
+					{% for image in product.images %}
+						<img src="{{ image.image }}" alt="Image de {{ product.label }}" width="200">
+					{% else %}
+						<p>Aucune image disponible.</p>
+					{% endfor %}
+				</div>
 			</div>
 
 			<!-- Description du produit -->
@@ -67,7 +69,7 @@
 
 			<!-- Ajouter au panier -->
 			<div class="mt-8 flex justify-center">
-				<a href="{{ path('cart_add', {'id': product.id}) }}" class="px-8 py-3 bg-yellow-500 text-white rounded-full shadow-lg hover:bg-yellow-600 focus:outline-none focus:ring-4 focus:ring-yellow-300 transition duration-200 transform hover:scale-105">
+				<a href="{{ path('app_cart', {'slug': product.slug}) }}" class="px-8 py-3 bg-yellow-500 text-white rounded-full shadow-lg hover:bg-yellow-600 focus:outline-none focus:ring-4 focus:ring-yellow-300 transition duration-200 transform hover:scale-105">
 					Ajouter au panier
 				</a>
 			</div>

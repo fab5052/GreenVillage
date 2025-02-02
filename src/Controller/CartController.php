@@ -6,6 +6,7 @@ use App\Entity\Order;
 use App\Entity\Product;
 use App\Entity\OrderDetails;
 use App\Repository\ProductRepository;
+use App\Repository\ImageRepository;
 use App\Service\SendMailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,6 +17,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/cart', name: 'cart_')]
 class CartController extends AbstractController
 {
+    private ProductRepository $productRepository;
+
+    private ImageRepository $imageRepository;
+
+    public function __construct(
+        ProductRepository $productRepository,
+        ImageRepository $imageRepository,
+    ) {
+    
+        $this->productRepository = $productRepository;
+        $this->imageRepository = $imageRepository;
+
+    }
     private function calculateProductDetails(Product $product, int $quantity): array
     {
         $tvaRate = $product->getTva()?->getRate() ?? 0;
@@ -31,7 +45,7 @@ class CartController extends AbstractController
     }
 
     #[Route('/', name: 'index')]
-    public function viewCart(ProductRepository $productRepository, SessionInterface $session): Response
+    public function viewCart(SessionInterface $session): Response
     {
         try {
             if (!$this->getUser()) {
@@ -43,20 +57,24 @@ class CartController extends AbstractController
             $dataProduct = [];
             $total = 0;
             $totalTaxes = 0;
-
+        
             foreach ($panier as $id => $quantity) {
-                $dataProduct = $productRepository->findBy($id);
-                if ($dataProduct) {
-                    $dataProduct = $this->calculateProductDetails($id, $quantity);
-                    $total += $dataProduct['total'];
-                    $totalTaxes += $dataProduct['totalTaxes'];
+               // $id = $request->get('id');
+               $product = $this->productRepository->findOneBy(['id' => $id]);
+               $images = $this->imageRepository->findAll();
 
-                    $dataProduct[] = [
-                        'product' => $dataProduct,
-                        'quantity' => $quantity,
-                        'priceWithTax' => $dataProduct['priceWithTax'],
-                    ];
-                }
+               if ($product) {
+                   $productDetails = $this->calculateProductDetails($product, $quantity);
+                   $total += $productDetails['total'];
+                   $totalTaxes += $productDetails['totalTaxes'];
+               
+                   $dataProduct[] = [
+                       'product' => $product,
+                       'quantity' => $quantity,
+                       'priceWithTax' => $productDetails['priceWithTva'],
+                       'images' => $images,
+                   ];
+               }
             }
 
             $session->set('ttc', $total);
@@ -68,10 +86,11 @@ class CartController extends AbstractController
             'products' => $dataProduct,
             'total' => $total,
             'totalTaxes' => $totalTaxes,
+            'images' => $images,
         ]);
     }
 
-    #[Route('/add/{id}', name: 'add')]
+    #[Route('/add/{id}', name: 'app_add')]
     public function add(Product $product = null, SessionInterface $session): Response
     {
         try {
@@ -92,7 +111,7 @@ class CartController extends AbstractController
         }
     }
 
-    #[Route('/allRemove/{id}', name: 'allRemove')]
+    #[Route('/allRemove/{id}', name: 'app_allRemove')]
     public function allRemove(Product $product, SessionInterface $session): Response
     {
         $panier = $session->get('panier', []);
@@ -102,7 +121,7 @@ class CartController extends AbstractController
         return $this->redirectToRoute('cart_index');
     }
 
-    #[Route('/remove/{id}', name: 'remove')]
+    #[Route('/remove/{id}', name: 'app_remove')]
     public function remove(Product $product, SessionInterface $session): Response
     {
         try {

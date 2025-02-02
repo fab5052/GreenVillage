@@ -102,7 +102,7 @@ app_products:
 ## Details d'un produit
 app_product_details:
   path: /{slug}
-  controller: App\Controller\ProductController::details
+  controller: App\Controller\ProductController::productDetails
   # defaults:
   #   role: ROLE_USER
 

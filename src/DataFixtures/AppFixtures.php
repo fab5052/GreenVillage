@@ -52,103 +52,102 @@ public function load(ObjectManager $manager): void
 
     // Utilisateurs
 
-    $users = [];
-    for ($i = 0; $i < 5; $i++) {
-        $user = new User();
-        $user->setCreatedAt(new DateTimeImmutable())
-             ->setEmail($faker->email)
-             ->setLastname($faker->lastName)
-             ->setFirstname($faker->firstName)
-             ->setRoles(['ROLE_USER'])
-             ->setIsVerified(1)
-             ->setAddress($faker->address)
-             ->setZipcode($faker->postcode)
-             ->setCity($faker->city)
-             ->setPassword($this->passwordEncoder->hashPassword($user, 'secret'));
-        $manager->persist($user);
-        $users[] = $user;
-    }
-    $manager->flush(); 
+//     $users = [];
+//     for ($i = 0; $i < 5; $i++) {
+//         $user = new User();
+//         $user->setCreatedAt(new DateTimeImmutable())
+//              ->setEmail($faker->email)
+//              ->setLastname($faker->lastName)
+//              ->setFirstname($faker->firstName)
+//              ->setRoles(['ROLE_USER'])
+//              ->setIsVerified(1)
+//              ->setAddress($faker->address)
+//              ->setZipcode($faker->postcode)
+//              ->setCity($faker->city)
+//              ->setPassword($this->passwordEncoder->hashPassword($user, 'secret'));
+//         $manager->persist($user);
+//         $users[] = $user;
+//     }
+//     $manager->flush(); 
 
     
-    // Rubriques
-    $rubrics = [];
-    $rubricLabels = ['vent', 'percussions', 'cordes', 'electronique'];
-    
-    foreach ($rubricLabels as $label) {
-        $rubric = new Rubric();
-        $rubric->setCreatedAt(new DateTimeImmutable())
-               ->setLabel($label)
-               ->setSlug($this->slugger->slug($label)->lower())
-               ->setImage($faker->imageUrl);           
-    
-        $manager->persist($rubric);
-        $rubrics[] = $rubric; // Ajout de l'objet Rubric au tableau
-    }
-    $manager->flush();
-    
-    // Sous-rubriques (avec lien vers une rubrique parente)
-    $subRubricsLabels = ['saxo', 'trompette', 'batterie', 'tamtam', 'guitare', 'piano', 'synthétiseur', 'amplificateur'];
-    foreach ($subRubricsLabels as $label) {
-        // Choisir une rubrique parente existante pour la sous-rubrique
-        $parentRubric = $faker->randomElement($rubrics); // Choisir une rubrique parente aléatoire
-    
-        $subRubric = new Rubric();
-        $subRubric->setCreatedAt(new DateTimeImmutable())
-                  ->setLabel($label)
-                  ->setSlug($this->slugger->slug($label)->lower() . '-' . uniqid())
-                  ->setParent($parentRubric) // Assigner le parent
-                  ->setImage($faker->imageUrl);
-    
-        $manager->persist($subRubric);
-    }
-    $manager->flush();
+// // Rubriques principales
+// $rubrics = []; 
+// $rubricLabels = ['vent', 'percus', 'cordes', 'electro'];
 
-   
-    // Fournisseurs
-    $infoSuppliersType = ['constructeur', 'importateur'];
-    $infoSuppliers = []; // Tableau pour stocker les objets InfoSuppliers
-    
-    // Création des fournisseurs
-    foreach ($infoSuppliersType as $type) {
-        $infoSupplier = new InfoSuppliers();
-        $infoSupplier->setType($type)
-                     ->setStatus('Active')
-                     ->setReference("infoSuppliers:" . mt_rand(10000, 99999))
-                     ->setUser($faker->randomElement($users));
-    
-        $manager->persist($infoSupplier);
-        $infoSuppliers[] = $infoSupplier; // Ajout de l'objet à notre tableau
-    }
-    $manager->flush();
-    
-    // Produits
-    for ($i = 0; $i < 50; $i++) {
-        $tva = new Tva();
-        $tva->setRate('18.60');
-        $manager->persist($tva);
-    
-        $product = new Product();
-        $product->setLabel($faker->sentence)
-                ->setSlug($this->slugger->slug($faker->sentence)->lower() . '-' . uniqid())
-                ->setStock(mt_rand(1, 100))
-                ->setPrice(mt_rand(1, 100))
-                ->setReference("GrVi:" . mt_rand(10000, 99999))
-                ->setDescription($faker->paragraph)
-                ->setWeight($faker->randomFloat(2, 0, 100))
-                ->setInfoSuppliers($faker->randomElement($infoSuppliers)) // Choix aléatoire d'un fournisseur
-                ->setRubric($faker->randomElement($rubrics)) // Assigner un produit à une rubrique existante
-                ->setTva($tva)
-                ->setCreatedAt(new DateTimeImmutable())
-                ->setUpdatedAt(new DateTimeImmutable());
-    
-        $manager->persist($product);
-    }
-    
-    $manager->flush();
+// foreach ($rubricLabels as $label) {
+//     $rubric = new Rubric();
+//     $rubric->setCreatedAt(new DateTimeImmutable())
+//            ->setLabel($label)
+//            ->setSlug($this->slugger->slug($label));
+
+//     $manager->persist($rubric);
+//     $rubrics[] = $rubric; 
+// }
+
+// $manager->flush(); 
+
+// // Sous-rubriques
+// $subRubrics = []; 
+// $subRubricsLabels = ['saxo', 'trompette', 'batterie', 'tamtam', 'guitare', 'piano', 'synthétiseur', 'amplificateur'];
+
+// foreach ($subRubricsLabels as $label) {
+//     $subRubric = new Rubric();
+//     $subRubric->setCreatedAt(new DateTimeImmutable())
+//               ->setLabel($label)
+//               ->setSlug($this->slugger->slug($label))
+//               ->setParent($faker->randomElement($rubrics)) 
+//               ->setDescription($faker->paragraph());
+
+//     $manager->persist($subRubric);
+//     $subRubrics[] = $subRubric; 
+
+// $manager->flush(); 
+
+// // Fournisseurs
+// $infoSuppliersType = ['constructeur', 'importateur'];
+// $infoSuppliers = [];
+
+// foreach ($infoSuppliersType as $type) {
+//     $infoSupplier = new InfoSuppliers();
+//     $infoSupplier->setType($type)
+//                  ->setStatus('Active')
+//                  ->setReference("infoSuppliers:" . mt_rand(10000, 99999))
+//                  ->setUser($faker->randomElement($users));
+
+//     $manager->persist($infoSupplier);
+//     $infoSuppliers[] = $infoSupplier;
+// }
+
+// $manager->flush(); 
+
+// Produits
+// for ($i = 0; $i < 50; $i++) {
+//     $tva = new Tva();
+//     $tva->setRate('18.60');
+//     $manager->persist($tva);
+
+//     $product = new Product();
+//     $product->setLabel($faker->sentence)
+//             ->setSlug($this->slugger->slug($faker->sentence)->lower() . '-' . uniqid())
+//             ->setStock(mt_rand(1, 100))
+//             ->setPrice(mt_rand(1, 100))
+//             ->setReference("RefProd:" . mt_rand(10000, 99999))
+//             ->setDescription($faker->paragraph)
+//             ->setWeight($faker->randomFloat(2, 0, 100))
+//           //  ->setInfoSuppliers($faker->randomElement($infoSuppliers))
+//           //  ->setRubric($faker->randomElement($subRubrics)) 
+//             ->setTva($tva)
+//             ->setCreatedAt(new DateTimeImmutable())
+//             ->setUpdatedAt(new DateTimeImmutable());
+
+//     $manager->persist($product);
+// }
+
+// $manager->flush();
 
     // Images
-    for ($i = 0; $i < 10; $i++) {
+    for ($i = 0; $i < 50; $i++) {
         $image = new Image();
         $image->setImage($faker->imageUrl);
         $image->setProduct($faker->randomElement($manager->getRepository(Product::class)->findAll()));
@@ -182,3 +181,4 @@ public function load(ObjectManager $manager): void
     // } catch (\Exception $e) {
     //     throw new \RuntimeException('Erreur lors de la sauvegarde des services', 0, $e);
     // }
+//}

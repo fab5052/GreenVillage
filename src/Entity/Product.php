@@ -57,13 +57,24 @@ class Product
     #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
     private ?DateTimeImmutable $updatedAt = null;
 
+    #[Assert\GreaterThan(
+        value: 0,
+        message: "Le produit est indisponible."
+    )]
+
+    #[ORM\Column(type: 'boolean')]
+    private bool $isAvailable = true;
+
+    #[ORM\Column(type: 'integer')]
+    private int $stock;
+
     #[ORM\ManyToOne(targetEntity: InfoSuppliers::class, inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
     private ?InfoSuppliers $infoSuppliers = null;
 
     #[ORM\ManyToOne(targetEntity: Rubric::class, inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Rubric $rubrics = null;
+    private ?Rubric $rubric = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $weight = null;
@@ -72,47 +83,20 @@ class Product
     #[ORM\JoinColumn(nullable: false)]
     private ?Tva $tva = null;
 
-        /**
-     * @var Collection<int, Image>
-     */
-    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'product')]
-    private Collection $image;
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Image::class, cascade: ['persist', 'remove'])]
+    private Collection $images;
 
     #[ORM\OneToMany(mappedBy: "product", targetEntity: DeliveryDetails::class)]
     private Collection $deliveryDetails;
 
-     /**
-     * @var Collection<int, OrderDetails>
-     * @ORM\OneToMany(targetEntity="App\Entity\OrderDetails", mappedBy="product")
-     */
+    #[ORM\OneToMany(targetEntity: OrderDetails::class, mappedBy: 'product')]
     private Collection $orderDetails;
 
     public function __construct()
     {
-        $this->image = new ArrayCollection();
+        $this->images = new ArrayCollection();
         $this->deliveryDetails = new ArrayCollection();
         $this->orderDetails = new ArrayCollection();
-
-
-    }
-
-    #[Assert\GreaterThan(
-        value: 0,
-        message: "Le produit est indisponible."
-    )]
-
-    #[ORM\Column(type: 'integer')]
-    private int $stock;
-
-    #[ORM\Column(type: 'boolean')]
-    private bool $isAvailable = true;
-
-    public function setStock(int $stock): self
-    {
-    $this->stock = $stock;
-    $this->isAvailable = $stock > 0;
-
-    return $this;
     }
 
     public function getId(): ?int
@@ -166,6 +150,14 @@ class Product
         $this->slug = $slug;
 
         return $this;
+    }
+
+    public function setStock(int $stock): self
+    {
+    $this->stock = $stock;
+    $this->isAvailable = $stock > 0;
+
+    return $this;
     }
 
     // public function getViewRubrics(): ?string
@@ -232,42 +224,19 @@ public function setInfoSuppliers(?InfoSuppliers $infoSuppliers): static
     return $this;
 }
 
-/**
- * @return Collection<int, Image>
- */
-public function getImage(): Collection
+public function getImages(): Collection
 {
-    return $this->image;
-}
-public function addImage(Image $image): static
-{
-    if (!$this->image->contains($image)) {
-        $this->image->add($image);
-        $image->setProduct($this);
-    }
-
-    return $this;
-}
-
-public function removeImage(Image $image): static
-{
-    if ($this->image->removeElement($image)) {
-        if ($image->getProduct() === $this) {
-            $image->setProduct($this);
-        }
-    }
-
-    return $this;
+    return $this->images;
 }
 
 public function getRubric(): ?Rubric
 {
-    return $this->rubrics;
+    return $this->rubric;
 }
 
 public function setRubric( ?Rubric $rubric): self
 {
-    $this->rubrics = $rubric;
+    $this->rubric = $rubric;
 
     return $this;
 }
@@ -277,7 +246,7 @@ public function getWeight(): ?string
     return $this->weight;
 }
 
-public function setWeight(string $weight): static
+public function setWeight(string $weight): self
 {
     $this->weight = $weight;
 
@@ -330,11 +299,11 @@ public function getOrderDetails(): Collection
     return $this->orderDetails;
 }
 
-public function setOrderDetails(?OrderDetails $orderDetails): static
-{
-    $this->orderDetails = $orderDetails;
+// public function setOrderDetails(?OrderDetails $orderDetails): static
+// {
+//     $this->orderDetails = $orderDetails;
 
-    return $this;
-}
+//     return $this;
+// }
 
 }

@@ -56,9 +56,19 @@ class Order
     #[ORM\OneToMany(targetEntity: Delivery::class, mappedBy: 'order')]
     private Collection $deliveries;
 
+    #[ORM\OneToMany(targetEntity: OrderDetails::class, mappedBy: 'order', cascade: ['persist', 'remove'])]
+    private Collection $orderDetails;
+
+
+    // #[ORM\Id]
+    // #[ORM\ManyToOne(targetEntity: Order::class, inversedBy: "orders")]
+    // #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
+    // private ?Product $product = null;
+
     public function __construct()
     {
         $this->deliveries = new ArrayCollection();
+        $this->orderDetails = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -214,6 +224,11 @@ class Order
         }
 
         return $this;
+    }
+
+    public function getOrderDetails(): Collection
+    {
+        return $this->orderDetails;
     }
 }
 

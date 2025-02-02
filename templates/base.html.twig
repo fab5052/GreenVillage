@@ -4,11 +4,11 @@
 		<meta charset="UTF-8">
 		<title>{% block title %}Green Village{% endblock %}</title>
 		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="cache-control" content="no-cache">
-<link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">   
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">   
+{# <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">#}
 <link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@25..48,100..700,0..1,-50..200"/>
@@ -22,6 +22,7 @@
 
 {% block stylesheet %}
 {{ encore_entry_link_tags('app') }} 
+
 {# <link rel="stylesheet" href="{{ asset('css.bootstrap.min.css')}}"> #}
 {% endblock %}
 </head>
@@ -40,20 +41,19 @@
 
 
 
-{% for messages in app.flashes %}
-			{% for message in messages %}
-				<div class="text-center py-2">
-					<div class="p-2 bg-gray-800 text-gray-100 rounded-lg flex items-center justify-center" role="alert">
-						<span class="font-semibold text-sm">
-							{{ message | raw }}
-						</span>
-					</div>
-				</div>
-			{% endfor %}
-            {% endfor %} 
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label }} alert-dismissible" role="alert">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <div class="alert-message">
+                {{ message|raw }}
+            </div>
+        </div>
+    {% endfor %}
+{% endfor %}
 
 
-{{ include ('_partials/_flash.html.twig')}}
+{# {{ include ('_partials/_flash.html.twig')}} #}
 
 {# {{ include ('_partials/_pagination.html.twig')}} #}
 {% block body %}{% endblock %}
@@ -77,5 +77,9 @@
   {# {{ encore_entry_script_tags('app') }} #}
  {% endblock %}
 	{# </div> #}
+	<script>
+		console.log("jQuery version:", jQuery.fn.jquery);
+	</script>
+	
        </body>
 </html>

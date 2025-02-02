@@ -15,14 +15,17 @@ use App\Entity\Order;
 class OrderDetails
 {
     #[ORM\Id]
-    #[ORM\ManyToOne(targetEntity: Product::class, inversedBy: "orderDetails")]
-    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
-    private ?Product $product = null;
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private int $id;
 
-    #[ORM\Id]
-    #[ORM\ManyToOne(targetEntity: Order::class, inversedBy: "orderDetails")]
-    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
-    private ?Order $order = null;
+    #[ORM\ManyToOne(targetEntity: Product::class, inversedBy: 'orderDetails')]
+    #[ORM\JoinColumn(nullable: false)]
+    private Product $product;
+
+    #[ORM\ManyToOne(targetEntity: Order::class, inversedBy: 'orderDetails')]
+    #[ORM\JoinColumn(nullable: false)]
+    private Order $order;
 
     // #[ORM\ManyToOne(inversedBy: 'orders')]
     // #[ORM\JoinColumn(nullable: false)]

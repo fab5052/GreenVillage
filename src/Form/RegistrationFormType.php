@@ -14,7 +14,7 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Number;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
@@ -54,6 +54,21 @@ class RegistrationFormType extends AbstractType
         ->add('zipcode', TextType::class, [
             'attr' => [
                 'class' => 'form-control'
+            ],
+            'constraints' => [
+                new NotBlank([
+                    'message' => 'Veuillez saisir un code postal valide',
+                ]),
+                new Length([
+                    'min' => 5,
+                    'minMessage' => 'Le code postal doit contenir {{ limit }} caractères.',
+                    'max' => 5,
+                    'maxMessage' => 'Le code postal doit contenir {{ limit }} caractères.'
+                ]),      
+                new Regex([
+                    'pattern' => '/^\d{5}$/',
+                    'message' => 'Le code postal doit contenir exactement 5 chiffres.'
+                ])
             ],
             'label' => 'Code postal'
         ])

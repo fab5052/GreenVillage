@@ -23,14 +23,14 @@ class ProductRepository extends ServiceEntityRepository
     }
 
 
-    public function searchByLabel(string $query): array
-    {
-        return $this->createQueryBuilder('p')
-            ->where('p.label LIKE :query')
-            ->setParameter('query', '%' . $query . '%')
-            ->getQuery()
-            ->getResult();
-    }
+    // public function searchByLabel(string $query): array
+    // {
+    //     return $this->createQueryBuilder('p')
+    //         ->where('p.label LIKE :query')
+    //         ->setParameter('query', '%' . $query . '%')
+    //         ->getQuery()
+    //         ->getResult();
+    // }
 
 //     public function getAllPaginated(int $page = 1, int $limit = 10): array
 // {
@@ -48,21 +48,6 @@ class ProductRepository extends ServiceEntityRepository
 //     return $result;
 // }
 
-// public function getAllPaginated(int $page = 1, int $limit = 10): array
-// {
-//     $offset = ($page - 1) * $limit;
-//     $query = $this->createQueryBuilder('p')
-//         ->orderBy('p.id', 'DESC')
-//         ->setFirstResult($offset)
-//         ->setMaxResults($limit);
-            
-//     $paginator = new Pager($query);
-//     $data = $paginator->getQuery()->getResult();
-//     $result['posts'] = $data;
-//     $result['pages'] = ceil($paginator->count() / $limit);
-//     $result['current'] = $page;
-//     return $result;
-// }
 
 //    /**
 //     * @return Produit[] Returns an array of Produit objects

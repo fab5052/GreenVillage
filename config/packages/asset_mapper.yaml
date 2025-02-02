@@ -4,6 +4,9 @@ framework:
         paths:
             - assets/
         missing_import_mode: strict
+    # assets:
+    #     base_path: '/public'
+
 
 when@prod:
     framework:

@@ -21,7 +21,7 @@
 			<section class="text-center">
 				<p class="text-lg text-gray-600 mb-4">Votre panier est vide.</p>
 				<a href="{{ path('app_products') }}" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition transform hover:scale-105">
-					Découvrez nos produits
+					Revenir à la page tous nos produits
 				</a>
 			</section>
 		{% else %}
@@ -31,12 +31,13 @@
 					<article class="flex items-center justify-between bg-gray-50 p-6 rounded-lg shadow-md">
 						<div
 							class="flex items-center space-x-6">
-							<!-- Image produit -->
-							{% if product.product.image|length > 0 %}
-								<img src="{{ product.product.image[0].img }}" alt="{{ product.product.label }}" class="w-32 h-32 object-cover rounded-lg"/>
-							{% else %}
-								<div class="w-32 h-32 bg-gray-300 rounded-lg"></div>
-							{% endif %}
+							<div class="product-images">
+								{% for image in product.images %}
+									<img src="{{ image.image }}" alt="Image de {{ product.label }}" width="200">
+								{% else %}
+									<p>Aucune image disponible.</p>
+								{% endfor %}
+							</div>
 							<div>
 								<h2 class="text-xl font-semibold text-gray-800">{{ product.product.label }}</h2>
 								<p class="text-lg text-gray-600 mt-2">Prix :
@@ -71,9 +72,9 @@
 					<span class="text-blue-600">{{ total }}
 						€</span>
 				</p>
-				<a href="{{ path('validation_cart_address') }}" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition transform hover:scale-105">
+				{# <a href="{{ path('validation_cart_address') }}" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition transform hover:scale-105">
 					Choisir une adresse
-				</a>
+				</a> #}
 			</section>
 		{% endif %}
 	</main>

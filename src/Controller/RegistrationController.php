@@ -84,9 +84,8 @@ public function register(
             )
         );
         $user->setRoles(['ROLE_USER']);
-        $user->setIsVerified(false);
+        $user->isVerified();
         $user->setCreatedAt(new \DateTimeImmutable());
-
         $entityManager->persist($user);
         $entityManager->flush();
 
@@ -128,7 +127,7 @@ public function register(
             $user = $userRepository->find($payload['user_id']);
 
             if($user && !$user->isVerified()){
-                $user->isVerified(true);
+                $user->setIsVerified(true);
                 $em->persist($user);
                 $em->flush();
                 $this->addFlash('success', 'Utilisateur activé');
@@ -150,8 +149,8 @@ public function register(
         }
     
         if ($user->isVerified()) {
-            $this->addFlash('info', "Votre compte est déjà activé.");
-            return $this->redirectToRoute('app_profile');
+            $this->addFlash('info', "Votre compte est déjà activé vous pouvez .");
+            return $this->redirectToRoute('app_home');
         }
 
         // On génère le JWT de l'utilisateur

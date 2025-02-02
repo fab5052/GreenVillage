@@ -7,6 +7,7 @@ use App\Entity\Rubric;
 use App\Repository\ProductRepository;
 use App\Repository\RubricRepository;
 use App\Repository\OrderRepository;
+use App\Repository\ImageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,17 +21,20 @@ class ProductController extends AbstractController
     private OrderRepository $orderRepository;
     private ProductRepository $productRepository;
     private RubricRepository $rubricRepository;
+    private ImageRepository $imageRepository;
     private PaginatorInterface $paginator;
 
     public function __construct(
         OrderRepository $orderRepository,
         ProductRepository $productRepository,
         RubricRepository $rubricRepository,
+        ImageRepository $imageRepository,
         PaginatorInterface $paginator
     ) {
         $this->orderRepository = $orderRepository;
         $this->productRepository = $productRepository;
         $this->rubricRepository = $rubricRepository;
+        $this->imageRepository = $imageRepository;
         $this->paginator = $paginator;
     }
 
@@ -40,7 +44,7 @@ class ProductController extends AbstractController
         try {
             
             $rubrics = $this->rubricRepository->findAll();
-           // $productsQuery = $this->productRepository->findAll();
+            $productsQuery = $this->productRepository->findAll();
             $query = $this->productRepository->createQueryBuilder('p')->getQuery();
             $paginatedProducts = $this->paginator->paginate(
                 $query,
@@ -48,6 +52,7 @@ class ProductController extends AbstractController
                 12 // Nombre d'éléments par page
             );
             $orders = $this->orderRepository->findAll(); 
+            $images = $this->imageRepository->findAll();
      
         } catch (\Exception $exception) {
             $this->addFlash('error', 'Impossible de charger les produits. Veuillez réessayer plus tard.');
@@ -57,6 +62,7 @@ class ProductController extends AbstractController
         return $this->render('product/products.html.twig', [
             'orders' => $orders,
             'rubrics' => $rubrics,
+            'images' => $images,
             'products' => $paginatedProducts,
         ]);
     }
@@ -67,6 +73,7 @@ class ProductController extends AbstractController
         try {
             $productDetails = $this->productRepository->findOneBy(['slug' => $slug]);
             $orders = $this->orderRepository->findAll();
+            $images = $this->imageRepository->findAll();
             if (!$productDetails) {
                 throw $this->createNotFoundException('Produit introuvable.');
             }
@@ -77,6 +84,8 @@ class ProductController extends AbstractController
 
         return $this->render('product/productDetails.html.twig', [
             'product' => $productDetails,
+            'orders' => $orders,
+            'images' => $images,
         ]);
     }
 
@@ -84,20 +93,22 @@ class ProductController extends AbstractController
     public function ByRubric(string $slug): Response
     {
         try {
-            $rubric = $this->rubricRepository->findOneBy(['slug' => $slug]);
+            $rubrics = $this->rubricRepository->findOneBy(['slug' => $slug]);
 
-            if (!$rubric) {
+            if (!$rubrics) {
                 throw $this->createNotFoundException('Rubrique introuvable.');
             }
 
-            $productsByRubric = $this->productRepository->findBy(['rubric' => $rubric]);
+            $productsByRubric = $this->productRepository->findBy(['rubric' => $rubrics]);
+            $images = $this->imageRepository->findAll();
         } catch (\Exception $exception) {
             $this->addFlash('error', 'Impossible de charger les produits par rubrique.');
             return $this->redirectToRoute('app_home');
         }
 
         return $this->render('product/products_by_rubric.html.twig', [
-            'rubric' => $rubric,
+            'subrubric' => $rubrics,
+            'images' => $images,
             'products' => $productsByRubric,
         ]);
     }

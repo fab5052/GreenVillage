@@ -56,21 +56,19 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            //On va chercher l'utilisateur par son email
+            //chercher l'utilisateur par son email
             $user = $userRepository->findOneByEmail($form->get('email')->getData());
 
-            // On vérifie si on a un utilisateur
+            //vérifie si on a un utilisateur
             if($user){
-                // On génère un token de réinitialisation
                 $token = $tokenGenerator->generateToken();
                 $user->setResetToken($token);
                 $entityManager->persist($user);
                 $entityManager->flush();
 
-                // On génère un lien de réinitialisation du mot de passe
                 $url = $this->generateUrl('reset_pass', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
                 
-                // On crée les données du mail
+                // données du mail
                 $context = compact('url', 'user');
 
                 // Envoi du mail

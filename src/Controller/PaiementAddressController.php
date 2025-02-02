@@ -37,7 +37,7 @@ class PaiementAddressController extends AbstractController
             }
 
             // $addresses = $entityManager->getRepository(Address::class)->findBy(['user' => $user]);
-            // $session->set('user', $user);
+            $session->set('user', $user);
             // $session->set('address', $addresses);
         } catch (\Exception $e) {
             $this->addFlash('error', 'Une erreur est survenue , reessayer plus tard.');

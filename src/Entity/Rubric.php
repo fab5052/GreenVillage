@@ -14,7 +14,7 @@ use App\EventListener\SlugListener;
 
 
 #[ORM\Entity(repositoryClass: RubricRepository::class)]
-#[ORM\UniqueConstraint(name: 'slug', columns: ['slug'])]
+//#[ORM\UniqueConstraint(name: 'slug', columns: ['slug'])]
 //#[ORM\UniqueConstraint(name: 'parent', columns: ['parent_id'])]
 
 class Rubric 
@@ -38,8 +38,8 @@ class Rubric
     private ?string $description = null;
 
 
-    #[ORM\Column(length: 255)]
-    private ?string $image = null;
+    // #[ORM\Column(length: 255)]
+    // private ?string $image = null;
 
     #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeImmutable $createdAt;
@@ -47,11 +47,12 @@ class Rubric
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'rubrics', cascade: ['remove'])]    
     private ?self $parent = null;
 
-    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['remove'])]
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist', 'remove'])]
     private Collection $rubrics;
 
-    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'parent')]
+    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'rubric', cascade: ['remove'])]
     private Collection $products;
+    
 
     public function __construct()
     {
@@ -106,31 +107,46 @@ class Rubric
         return $this->slug;
     }
 
-    public function setSlug(string $slug): static
+    public function setSlug(string $slug): self
     {
         $this->slug = $slug;
 
         return $this;
     }
 
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
+/**
+ * @return Collection<int, Rubric>
+ */
+public function getRubrics(): Collection
+{
+    return $this->rubrics;
+}
 
-    public function setImage(string $image): static
-    {
-        $this->image = $image;
+// public function setRubric( $rubric): self
+//     {
+//         $this->rubrics = $rubric;
 
-        return $this;
-    }
+//         return $this;
+//     }
+
+    // public function getImage(): ?string
+    // {
+    //     return $this->image;
+    // }
+
+    // public function setImage(string $image): static
+    // {
+    //     $this->image = $image;
+
+    //     return $this;
+    // }
     
     //  /**
     //  * @return Collection<int, Rubric>
     //  */
     // public function getParent(): Collection
     // {
-    //     return $this->parents;
+    //     return $this->parent;
     // }
 
     // public function addParent(Rubric $rubric): self
