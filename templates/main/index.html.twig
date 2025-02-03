@@ -609,7 +609,7 @@ Village Green | Accueil
 		flex-direction: row;
 		justify-content: space-evenly;
 		flex-wrap: wrap;
-	}*/
+	}
 
    div {
 		display: flex;
@@ -683,7 +683,7 @@ Village Green | Accueil
 		flex-direction: row; /* Active le mode flexbox */
 	 /* 	gap: 1px;Espace entre les images */
 	/*	justify-content: center; 
-		align-items: center; */
+		align-items: center; *
 	}
 		/*.item .cards {
 		justify-content: center;
@@ -714,46 +714,52 @@ Village Green | Accueil
 		position: absolute;
 		transform-style: preserve-3d;
 		transition: transform 1s ease-in-out;
-	}*/
+	}
+
+
 
 	#contentContainer {
 		display: flex;
-		justify-content: center; /* Centre horizontalement */
-		align-items: center; /* Centre verticalement */
-		height: 50vh; /* Ajuste à la hauteur de l'écran */
+		justify-content: center; /* Centre horizontalement *
+		align-items: center; /* Centre verticalement *
+		height: 100vh; /* Ajuste à la hauteur de l'écran *
 		overflow: hidden;
 		width: 100vw;
 		transform-style: preserve-3d;
-		perspective: 600px;
+		perspective: 200px;
 
 		
 	}
 	
-	#carouselContainer {
+	#carouselContainer  {
 		position: relative;
 		width: 80%;
-		/*max-width: 800px;  Ajuste selon la taille souhaitée */
-		height: 400px; /* Ajuste selon le besoin */
+		/*max-width: 800px;  Ajuste selon la taille souhaitée *
+		height: 100%; /* Ajuste selon le besoin *
 		display: flex;
-		justify-content: center; /* Centre horizontalement */
-		align-items: center; /* Centre verticalement */
+		justify-content: center; /* Centre horizontalement *
+		align-items: center; /* Centre verticalement *
 		transform-style: preserve-3d;
 	}
 	
 	.container-carousel {
 		position: relative;
-		width: 80vw;
+		width: 90vw;
+		height: 100vh;
+		min-height: 800px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		perspective: 1200px;
 		transform-style: preserve-3d;
-		perspective: 900px;
+		vertical-align: middle;
 
 	}
 	
 	#carouselItem {
 		position: absolute;
-		width: 20px;
+		width: auto;
+		height: auto;
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -761,29 +767,96 @@ Village Green | Accueil
 
 	}
 
-	.container-carousel .item {
-		width: 100px;
-		height: 200px;
-		justify-content: center;
-		align-items: center bottom;
-	}
+.container-carousel {
+	top: auto;
+	width: 220px;
+	height: 350px;
+	padding: auto center;
+	margin-top: 5px;
+	margin-bottom: 5vh;
+	position: relative;
+	perspective: 1000;
+	transform-style: preserve-3d;
+	transition: transform 1.5s;
+	justify-content: center;
+	justify-items: center;
+	align-items: center;
+}
+
+.item {
+	display: block;
+	position: absolute;
+	width: 200px;
+	height: 250px;
+	justify-content: center;
+	align-items: center;
+	opacity: 0.95;
+	border-radius: 10px;
+	border-color: #000;
+	justify-items: center;
+	transform-style: preserve-3d;
+
+}
+
+
+.item {
+	display: block;
+	position: absolute;
+	width: 200px;
+	height: 250px;
+	justify-content: center;
+	align-items: center;
+	opacity: 0.95;
+	border-radius: 10px;
+	justify-items: center;
+
+}
+
+.item .cards {
+	justify-content: center;
+	align-items: center;
+
+	border-radius: 15px;
+	cursor: pointer;
+	background-color: transparent;
+
+
+padding: 0.5em 2em;
+cursor: pointer;
+background: #a5969662;
+max-height: 40px;
+border-radius: 5px;
+border-top: 1px solid #FFF;
+box-shadow: -1px 3px 0 #999;
+transition: box-shadow 0.1s, top 0.1s;
+}
+.item .cards {
+	justify-content: center;
+	align-items: center;
+
+	border-radius: 15px;
+	border-color: #000;
+	cursor: pointer;
+	background-color: transparent;
+	transform-style: preserve-3d;
+
+}
 	
 	.carouselItem {
 		position: absolute;
-		width: 100px; /* Ajuste selon la taille des items */
-		height: 200px; /* Ajuste selon la taille des items */
+		width: 100px; 
+		height: 250px; 
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		background: rgba(255, 255, 255, 0.1);
 		border-radius: 10px;
-		transition: transform 0.5s ease-in-out;
 		transform-style: preserve-3d;
 		
 	}
 
 	.carouselItem img {
-		width: 80%;
+		width: 100%;
 		height: 100%;
 		object-fit: cover;
 		border-radius: 10px;
@@ -809,9 +882,10 @@ Village Green | Accueil
 		right: -350px;
 	}
 
-	#carouselItem h2 {
+	#carouselItem .item h2 {
 		z-index: 9;
-		position: absolute;
+		height: auto;
+		position: relative;
 		justify-content: center;
 		color: rgb(161, 152, 64);
 		font-size: 2vw;
@@ -819,13 +893,17 @@ Village Green | Accueil
 		font-weight: 400;
 		overflow: hidden;
 		text-transform: uppercase;
-		writing-mode: vertical-rl;
+		writing-mode: vertical-lr;
+		display: flex-start;
+		align-items: center;
+		transform-style: preserve-3d;
 	}
 
-	#carouselItem p {
+	#carouselItem .item p {
 		font-size: 0.3vw;
 		color: rgba(21, 22, 22, 0.89);
 		align-content: center;
+		transform-style: preserve-3d;
 		
 	}
 
@@ -844,16 +922,9 @@ Village Green | Accueil
 		position: absolute;
 		top: 1300px;
 		padding-bottom: 15px;
-
-		padding: 0.5em 2em;
-		cursor: pointer;
-		background: #a5969662;
-		max-height: 40px;
-		border-radius: 5px;
-		border-top: 1px solid #FFF;
-		box-shadow: -1px 3px 0 #999;
-		transition: box-shadow 0.1s, top 0.1s;
 	}
+
+
 
 	.next:hover,
 	.prev:hover {
@@ -875,9 +946,144 @@ Village Green | Accueil
 	.prev {
 		left: 5em;
 	}
+*/
+@import url('https://fonts.cdnfonts.com/css/ica-rubrik-black');
+@import url('https://fonts.cdnfonts.com/css/poppins');
+
+.banner{
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+	display: flex;
+}
+.banner .slider{
+    position: absolute;
+    width: 200px;
+    height: 250px;
+    top: 10%;
+    left: calc(50% - 100px);
+    transform-style: preserve-3d;
+    transform: perspective(1000px);
+    animation: autoRun 20s linear infinite;
+    z-index: 2;
+}
+@keyframes autoRun{
+    from{
+        transform: perspective(1000px) rotateX(-16deg) rotateY(0deg);
+    }to{
+        transform: perspective(1000px) rotateX(-16deg) rotateY(360deg);
+    }
+}
+
+.banner .slider .item{
+    position: absolute;
+    inset: 0 0 0 0;
+    transform: 
+        rotateY(calc( (var(--position) - 1) * (360 / var(--quantity)) * 1deg))
+        translateZ(550px);
+}
+.banner .slider .item img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.banner .content{
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(1400px, 100vw);
+    height: max-content;
+    padding-bottom: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1;
+}
+.banner .content h1{
+    font-family: 'ICA Rubrik';
+    font-size: 16em;
+    line-height: 1em;
+    color: #25283B;
+    position: relative;
+}
+.banner .content h1::after{
+    position: absolute;
+    inset: 0 0 0 0;
+    content: attr(data-content);
+    z-index: 2;
+    -webkit-text-stroke: 2px #d2d2d2;
+    color: transparent;
+}
+.banner .content .author{
+    font-family: Poppins;
+    text-align: right;
+    max-width: 200px;
+}
+.banner .content h2{
+    font-size: 3em;
+}
+.banner .content .model{
+    background-image: url(images/model.png);
+    width: 100%;
+    height: 75vh;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-size: auto 130%;
+    background-repeat: no-repeat;
+    background-position: top center;
+    z-index: 1;
+}
+@media screen and (max-width: 1023px) {
+    .banner .slider{
+        width: 160px;
+        height: 200px;
+        left: calc(50% - 80px);
+    }
+    .banner .slider .item{
+        transform: 
+            rotateY(calc( (var(--position) - 1) * (360 / var(--quantity)) * 1deg))
+            translateZ(300px);
+    }
+    .banner .content h1{
+        text-align: center;
+        width: 100%;
+        text-shadow: 0 10px 20px #000;
+        font-size: 7em;
+    }
+    .banner .content .author{
+        color: #fff;
+        padding: 20px;
+        text-shadow: 0 10px 20px #000;
+        z-index: 2;
+        max-width: unset;
+        width: 100%;
+        text-align: center;
+        padding: 0 30px;
+    }
+}
+@media screen and (max-width: 767px) {
+    .banner .slider{
+        width: 100px;
+        height: 150px;
+        left: calc(50% - 50px);
+    }
+    .banner .slider .item{
+        transform: 
+            rotateY(calc( (var(--position) - 1) * (360 / var(--quantity)) * 1deg))
+            translateZ(180px);
+    }
+    .banner .content h1{
+        font-size: 5em;
+    }
+}
 
 
-	@media (max-width: 768px) {
+	/*@media (max-width: 768px) {
 		.container-carousel {
 			width: 220px;
 			height: 250px;
@@ -1072,13 +1278,14 @@ Village Green | Accueil
 			margin-bottom: 50px;
 
 		}
-	}
+	}*/
 </style>
 {% endblock %}
 
 
 <main class="main">
-	<section>
+
+	{# <section>
 		<h1>
 
 			<script src='js/slogan.js'></script>
@@ -1100,9 +1307,9 @@ Village Green | Accueil
 				{% for rubric in rubrics %}
 				
 				<div class="shutter-column on-hover divi-transform-none">
-					{# <div class="image-container img-back position-relative  d-flex"> #}
+					{# <div class="image-container img-back position-relative  d-flex"> #
 					<img src="{{ rubric_images[rubric.slug] }}" alt="" class="back-img ">
-				{# </div> #}
+				{# </div> #
 				<div class="top-shutter">
 						{{ rubric.slug }}
 					</div>
@@ -1114,7 +1321,7 @@ Village Green | Accueil
 				{% endfor %}
 			</div>
 		</div>
-{# 
+
 			<aside class="social-sidebar">
 		<a href="https://www.facebook.com" target="_blank" class="social-btn facebook" aria-label="Facebook">
 			<i class="fab fa-facebook-f"></i>
@@ -1130,40 +1337,47 @@ Village Green | Accueil
 		</a>
 	</aside> #}
 	
-
+{# 
 <div id="contentContainer" class="trans3d">
  <section id="carouselContainer " class="trans3d">
+
    <div class="container container-carousel">
+	<div class="row-cols-1 offset-0">
 	{% for rubric in rubrics %}
 	
     {% set subrubrics = rubric.getRubrics() %}
+ 
+	
+   	<div id="carouselItem" class="carousel"> #}
 
-   	<div id="carouselItem" class="carousel">
-  
-		{% for subrubric in subrubrics %}
-   
+
+ 
+         
+		{% for rubric in rubrics %}
+    <div class="banner">
+        {% set subrubrics = rubric.getRubrics() %}
 
         {% if subrubrics is not empty %}
-		{% set total_subrubrics = subrubrics|length %}
-		{% set angle = loop.index0 * (360 / total_subrubrics) %}
-               <div class="item cards carouselItem" data-parent-id="{{ rubric.id }}"
-				style= "transform: rotateY('{{ angle }}deg) translateZ(100px);')">                    
-				<a href="{{ path('app_products_by_rubric', {'slug': subrubric.slug}) }}">
-                        <h2 class="item">{{ subrubric.slug }}</h2>
-                        {# {% if subrubric.image %}
-                            <img src="{{ subrubric.image }}" alt="{{ subrubric.label }}" style="object-fit: cover;">
-                        {% endif %} #}
-                        <p class="top-100">{{ subrubric.description }}</p>
-                    </a>
-                </div>
-			     {% endif %}
-		
-				  
-     	{% endfor %}
-     </div>
-
-		 	
+            <div class="slider" style="--quantity: {{ subrubrics|length }};">
+                {% for subrubric in subrubrics %}
+                    <div class="item " style="--position: {{ loop.index }};">
+                        <a href="{{ path('app_products_by_rubric', {'slug': subrubric.slug}) }}">
+                            <h2 class="item cards banner">{{ subrubric.label }}</h2>
+                            <img src="{{ subrubric.image|default('image/default.jpg') }}" 
+                                 alt="{{ subrubric.label }}" 
+                                 style="object-fit: cover;">
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
 {% endfor %}
+			
+
+	
+		 	
+{#} {% endfor %}
  </div>
 <div class="next">
 	<h5>Suivant</h5>
@@ -1172,10 +1386,15 @@ Village Green | Accueil
 	<h5>Précédent</h5>
   </div>
 
-</section>
+
+
+
 </div>
+</section>
+</div> #}
 </main>	
-{% block javascripts %}
+{% endblock %}
+{# {% block javascripts %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 	<script>
@@ -1191,10 +1410,10 @@ Village Green | Accueil
 				});
 			});
 		})(jQuery);
-	</script>
+	</script> #}
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+{# <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
 function showSubrubrics(rubricId) {
 const allItems = document.querySelectorAll('.carouselItem');
@@ -1243,7 +1462,7 @@ radius = Math.round((container.width() / 8) / Math.tan(Math.PI / itemLength));
 
 // set container 3d props
 
-gsap.set(container, {perspective: 2000});
+gsap.set(container, {perspective: 1000});
 gsap.set(carousel, {z: -(radius), transformOrigin: "center center " + -radius + "px"});
 
 
@@ -1296,9 +1515,9 @@ rotationY: currdeg,
 ease: "expo.inOut"
 });
 }
-</script> 
- {% endblock %}
- {% endblock %} 
+</script>  #}
+
+ {# {% endblock %}  #}
 {# /*{ block body %}
 <main class="main">
 
