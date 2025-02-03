@@ -66,7 +66,7 @@ function App() {
           <div className="text-center text-gray-500">
             <p>Aucun produit trouvé</p>
             <a
-              href={`http://localhost/product`}
+              href={`http://localhost/product/products`}
               className="text-indigo-500 hover:text-indigo-700 transition-colors duration-200"
             >
               Voir tout les instruments

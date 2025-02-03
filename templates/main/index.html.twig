@@ -464,31 +464,31 @@ z-index: 9;
 						<h2>
 							{{ rubric.label }}
 							<img src="{{ rubric_images[rubric.slug] }}" alt="Instruments {{ rubric.label }}"
-								class="cards">	
-			{% set rubric_images = {
-			'vent': '/image/rubric/rubric(2).jpg',
-			'percussions': '/image/rubric/rubric(3).jpg',
-			'cordes': '/image/rubric/rubric(1).jpg',
-			'electronique': '/image/rubric/rubric(4).jpg'
-			} %}
-
-			<ul class="accordion-group" id="accordion">
-				{% for rubric in rubrics %}
-				{{ rubric.slug }}
-				<li>
-
-					<a href="#" class="" data-parent-id="{{ rubric.slug }}">
-						<h2>
-							{{ rubric.label }}
-							<img src="{{ rubric_images[rubric.slug] }}" alt="Instruments {{ rubric.label }}"
 								class="cards">
-						</h2>
+							{% set rubric_images = {
+							'vent': '/image/rubric/rubric(2).jpg',
+							'percussions': '/image/rubric/rubric(3).jpg',
+							'cordes': '/image/rubric/rubric(1).jpg',
+							'electronique': '/image/rubric/rubric(4).jpg'
+							} %}
 
-					</a>
+							<ul class="accordion-group" id="accordion">
+								{% for rubric in rubrics %}
+								{{ rubric.slug }}
+								<li>
 
-				</li>
-				{% endfor %}
-			</ul>
+									<a href="#" class="" data-parent-id="{{ rubric.slug }}">
+										<h2>
+											{{ rubric.label }}
+											<img src="{{ rubric_images[rubric.slug] }}"
+												alt="Instruments {{ rubric.label }}" class="cards">
+										</h2>
+
+									</a>
+
+								</li>
+								{% endfor %}
+							</ul>
 
 		</div>
 	</div>
@@ -512,7 +512,7 @@ z-index: 9;
 
 
 
-		{# <button class="btn-primary p-1">Plats</button> #}
+{# <button class="btn-primary p-1">Plats</button> #}
 
 
 
@@ -522,7 +522,7 @@ z-index: 9;
 
 
 
-		{# <section>
+{# <section>
 			<h2>Nos rubriques</h2>
 
 			<div id="plats-container" class="container-plats position-relative">
@@ -547,18 +547,18 @@ z-index: 9;
 
 
 
-		{# <img src="{{ asset(plat.image) }}" style=" object-fit: cover;"> #}
+{# <img src="{{ asset(plat.image) }}" style=" object-fit: cover;"> #}
 
 
-		{# <h5 class="card-title">{{ plat.libelle }}</h5>
+{# <h5 class="card-title">{{ plat.libelle }}</h5>
 		<p class="card-text">{{ plat.description }}</p> #}
 
-		{#
+{#
 	</div>
 	</div>
 	</div> #}
 
-	{# <div class="container-fluid mx-auto mt-12 p-6 bg-gray-100 shadow-lg rounded-xl">
+{# <div class="container-fluid mx-auto mt-12 p-6 bg-gray-100 shadow-lg rounded-xl">
 		<h1 class="text-4xl font-bold text-gray-800 text-center mb-8">Rubriques</h1>
 		<div class="card-wrapper justify-content-center  d-flex text-center mb-2">
 			<div class="card-container">
@@ -611,9 +611,9 @@ Village Green | Accueil
 		flex-wrap: wrap;
 	}*/
 
-   div {
+	div {
 		display: flex;
-  }
+	}
 
 	.shutter-column {
 		height: auto;
@@ -653,7 +653,7 @@ Village Green | Accueil
 		font-weight: 700;
 		line-height: 0em;
 		color: #000;
-		
+
 	}
 
 	.top-shutter {
@@ -671,7 +671,7 @@ Village Green | Accueil
 
 	.shutter-column.two:hover {
 		transform: scale(1.03);
-		}
+	}
 
 	.divi-transform-none .top-shutter,
 	.divi-transform-none .bottom-shutter {
@@ -680,12 +680,14 @@ Village Green | Accueil
 
 	.image-container {
 		display: flex;
-		flex-direction: row; /* Active le mode flexbox */
-	 /* 	gap: 1px;Espace entre les images */
-	/*	justify-content: center; 
+		flex-direction: row;
+		/* Active le mode flexbox */
+		/* 	gap: 1px;Espace entre les images */
+		/*	justify-content: center; 
 		align-items: center; */
 	}
-		/*.item .cards {
+
+	/*.item .cards {
 		justify-content: center;
 		align-items: center;
 		
@@ -718,28 +720,34 @@ Village Green | Accueil
 
 	#contentContainer {
 		display: flex;
-		justify-content: center; /* Centre horizontalement */
-		align-items: center; /* Centre verticalement */
-		height: 50vh; /* Ajuste à la hauteur de l'écran */
+		justify-content: center;
+		/* Centre horizontalement */
+		align-items: center;
+		/* Centre verticalement */
+		height: 50vh;
+		/* Ajuste à la hauteur de l'écran */
 		overflow: hidden;
 		width: 100vw;
 		transform-style: preserve-3d;
 		perspective: 600px;
 
-		
+
 	}
-	
+
 	#carouselContainer {
 		position: relative;
 		width: 80%;
 		/*max-width: 800px;  Ajuste selon la taille souhaitée */
-		height: 400px; /* Ajuste selon le besoin */
+		height: 400px;
+		/* Ajuste selon le besoin */
 		display: flex;
-		justify-content: center; /* Centre horizontalement */
-		align-items: center; /* Centre verticalement */
+		justify-content: center;
+		/* Centre horizontalement */
+		align-items: center;
+		/* Centre verticalement */
 		transform-style: preserve-3d;
 	}
-	
+
 	.container-carousel {
 		position: relative;
 		width: 80vw;
@@ -750,7 +758,7 @@ Village Green | Accueil
 		perspective: 900px;
 
 	}
-	
+
 	#carouselItem {
 		position: absolute;
 		width: 20px;
@@ -767,11 +775,13 @@ Village Green | Accueil
 		justify-content: center;
 		align-items: center bottom;
 	}
-	
+
 	.carouselItem {
 		position: absolute;
-		width: 100px; /* Ajuste selon la taille des items */
-		height: 200px; /* Ajuste selon la taille des items */
+		width: 100px;
+		/* Ajuste selon la taille des items */
+		height: 200px;
+		/* Ajuste selon la taille des items */
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -779,7 +789,7 @@ Village Green | Accueil
 		border-radius: 10px;
 		transition: transform 0.5s ease-in-out;
 		transform-style: preserve-3d;
-		
+
 	}
 
 	.carouselItem img {
@@ -814,7 +824,7 @@ Village Green | Accueil
 		position: absolute;
 		justify-content: center;
 		color: rgb(161, 152, 64);
-		font-size: 2vw;
+		font-size: 1vw;
 		text-shadow: -1px -1px 7px rgba(0, 0, 0, 0.644);
 		font-weight: 400;
 		overflow: hidden;
@@ -826,7 +836,7 @@ Village Green | Accueil
 		font-size: 0.3vw;
 		color: rgba(21, 22, 22, 0.89);
 		align-content: center;
-		
+
 	}
 
 	h5 {
@@ -1073,6 +1083,8 @@ Village Green | Accueil
 
 		}
 	}
+
+		
 </style>
 {% endblock %}
 
@@ -1084,38 +1096,74 @@ Village Green | Accueil
 			<script src='js/slogan.js'></script>
 		</h1>
 	</section>
-	
-
-
-				{% set rubric_images = {
-					'vent': '/image/rubric/rubric(2).jpg',
-					'percus': '/image/rubric/rubric(3).jpg',
-					'cordes': '/image/rubric/rubric(1).jpg',
-					'electro': '/image/rubric/rubric(4).jpg'
-					} %}
-					<div class="container-xxl d-flex w-100 mx-auto p-0 ml--1">
-						<div class="row-cols-sm-2 d-flex offset-0 p-0 ml-0"> 
-				
-							
-				{% for rubric in rubrics %}
-				
-				<div class="shutter-column on-hover divi-transform-none">
-					{# <div class="image-container img-back position-relative  d-flex"> #}
-					<img src="{{ rubric_images[rubric.slug] }}" alt="" class="back-img ">
-				{# </div> #}
-				<div class="top-shutter">
-						{{ rubric.slug }}
-					</div>
-					<div class="bottom-shutter">
-						{{ rubric.slug }}
-					</div>
-				</div>
-				
-				{% endfor %}
-			</div>
+	<div data-state="open"
+		class="fixed inset-0 z-3000 flex justify-content-center max-h-screen flex-col items-center overflow-y-auto bg-foreground/25 px-0 py-0 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0 sm:px-6 sm:py-20"
+		style="pointer-events: auto;">
+		<div role="dialog" id="radix-:r1p:" aria-describedby="radix-:r1r:" aria-labelledby="radix-:r1q:"
+			data-state="open"
+			class="relative z-50 flex w-full grow flex-col gap-4 bg-background p-6 shadow-lg duration-200 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 sm:max-w-lg sm:grow-0 overflow-hidden px-0 py-12 sm:rounded-full sm:py-0 sm:pr-8"
+			tabindex="-1" style="pointer-events: auto;">
+			<form action="/search" method="GET">
+				<div class="sc-4af23993-0 sc-4af23993-1 sc-c5f855da-0 cNxEkG eAoFxa lgPbcs"><button
+						class="sc-4af23993-0 sc-4af23993-1 sc-c5f855da-2 lbrgwo gsBGsZ cqmBDy"><svg
+							xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 26 18" fill="none"
+							stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"
+							class="lucide lucide-search text-slate-500">
+							<circle cx="11" cy="9" r="9"></circle>
+							<path d="m21 21-4.3-4.3"></path>
+							<title>Search</title>
+						</svg></button><input type="search" name="q"
+						placeholder="Recherche d'instruments..." font-size="16px"
+						font-style="" letter-spacing="0" aria-label="Open Collective search input" autocomplete="on"
+						class="sc-4eabeb44-0 ikLYYW sc-4af23993-0 sc-c5f855da-1 fSBIaS hffIOQ" value=""><button
+						display="flex" size="42" class="sc-5f7ca055-0 dZKcLE sc-4c461090-0 cqmFuY"
+						style="background-color: rgb(68, 90, 84); color: rgb(50, 51, 52); width: 24px; height: 46px;"><span
+							class="sc-851a3ed2-0 sc-851a3ed2-1 kCvFFs">→</span></button></div>
+			</form><button type="button"
+				class="absolute top-4 right-4 rounded-sm opacity-80 ring-offset-background transition-opacity hover:opacity-100 focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"><svg
+					xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 24 24" fill="none"
+					stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"
+					class="lucide lucide-x h-4 w-4">
+					<path d="M18 6 6 18"></path>
+					<path d="m6 6 12 12"></path>
+				</svg><span class="sr-only">Fermer</span></button>
 		</div>
+	</div>
+	{# document.querySelector("body >
+		div.fixed.inset - 0.z - 3000.flex.max - h - screen.flex - col.items - center.overflow - y - auto.bg -
+		foreground\\/25.px-0.py-0.data-\\[state\\=closed\\]\\:animate-out.data-\\[state\\=closed\\]\\:fade-out-0.data-\\[state\\=open\\]\\:animate-in.data-\\[state\\=open\\]\\:fade-in-0.sm\\:px-6.sm\\:py-20")
+		#}
 
-			<aside class="social-sidebar">
+	{% set rubric_images = {
+		'vent': '/image/rubric/rubric(2).jpg',
+		'percus': '/image/rubric/rubric(3).jpg',
+		'cordes': '/image/rubric/rubric(1).jpg',
+		'electro': '/image/rubric/rubric(4).jpg'
+		} %}
+	<div class="container-xxl d-flex w-100 mx-auto p-0 ml--1">
+		<div class="row-cols-sm-2 d-flex offset-0 p-0 ml-0">
+
+
+			{% for rubric in rubrics %}
+
+			<div class="shutter-column on-hover divi-transform-none">
+				{# < div class="image-container img-back position-relative  d-flex"> #}
+				<img src="{{ rubric_images[rubric.slug] }}" alt="" class="back-img ">
+				{#
+				</div> #}
+				<div class="top-shutter">
+					{{ rubric.slug }}
+				</div>
+				<div class="bottom-shutter">
+					{{ rubric.slug }}
+				</div>
+			</div>
+
+			{% endfor %}
+		</div>
+	</div>
+
+	<aside class="social-sidebar">
 		<a href="https://www.facebook.com" target="_blank" class="social-btn facebook" aria-label="Facebook">
 			<i class="fab fa-facebook-f"></i>
 		</a>
@@ -1129,205 +1177,211 @@ Village Green | Accueil
 			<i class="fab fa-linkedin-in"></i>
 		</a>
 	</aside>
-	
 
-<div id="contentContainer" class="trans3d">
- <section id="carouselContainer " class="trans3d">
-   <div class="container container-carousel">
-	{% for rubric in rubrics %}
-	
-    {% set subrubrics = rubric.getRubrics() %}
 
-   	<div id="carouselItem" class="carousel">
-  
-		{% for subrubric in subrubrics %}
-   
+	<div id="contentContainer" class="trans3d">
+		<section id="carouselContainer " class="trans3d">
+			<div class="container container-carousel">
+				{% for rubric in rubrics %}
 
-        {% if subrubrics is not empty %}
-		{% set total_subrubrics = subrubrics|length %}
-		{% set angle = loop.index0 * (360 / total_subrubrics) %}
-               <div class="item cards carouselItem" data-parent-id="{{ rubric.id }}"
-				style= "transform: rotateY('{{ angle }}deg) translateZ(100px);')">                    
-				<a href="{{ path('app_products_by_rubric', {'slug': subrubric.slug}) }}">
-                        <h2 class="item">{{ subrubric.slug }}</h2>
-                        {# {% if subrubric.image %}
-                            <img src="{{ subrubric.image }}" alt="{{ subrubric.label }}" style="object-fit: cover;">
-                        {% endif %} #}
-                        <p class="top-100">{{ subrubric.description }}</p>
-                    </a>
-                </div>
-			     {% endif %}
-		
-				  
-     	{% endfor %}
-     </div>
+				{% set subrubrics = rubric.getRubrics() %}
 
-		 	
-{% endfor %}
- </div>
-<div class="next">
-	<h5>Suivant</h5>
-</div>
-<div class="prev">
-	<h5>Précédent</h5>
-  </div>
+				<div id="carouselItem" class="carousel">
 
-</section>
-</div>
-</main>	
+					{% for subrubric in subrubrics %}
+
+
+					{% if subrubrics is not empty %}
+					{% set total_subrubrics = subrubrics|length %}
+					{% set angle = loop.index0 * (360 / total_subrubrics) %}
+					<div class="item cards carouselItem" data-parent-id="{{ rubric.id }}"
+						style="transform: rotateY('{{ angle }}deg) translateZ(100px);')">
+						<a href="{{ path('app_products_by_rubric', {'slug': subrubric.slug}) }}">
+							<h2 class="item">{{ subrubric.slug }}</h2>
+							{# {% if subrubric.image %}
+								<img src="{{ subrubric.image }}" alt="{{ subrubric.label }}" style="object-fit: cover;">
+								{% endif %} #}
+							<p class="item">{{ subrubric.description }}</p>
+						</a>
+					</div>
+					{% endif %}
+
+
+					{% endfor %}
+				</div>
+
+
+				{% endfor %}
+			</div>
+			<div class="next">
+				<h5>Suivant</h5>
+			</div>
+			<div class="prev">
+				<h5>Précédent</h5>
+			</div>
+
+		</section>
+	</div>
+</main>
 {% block javascripts %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-	<script>
-		(function ($) {
-			$(document).ready(function () {
-				$(document).on("mouseenter", ".shutter-column.on-hover", function () {
-					$(this).removeClass("divi-transform-none");
-					console.log("Ajout de la classe");
-					setTimeout(() => {
-						$(this).addClass("divi-transform-none");
-						console.log("Suppression de la classe");
-					}, 5000) // 1 seconde
-				});
-			});
-		})(jQuery);
-	</script>
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-function showSubrubrics(rubricId) {
-const allItems = document.querySelectorAll('.carouselItem');
-const selectedItems = document.querySelectorAll(`.carouselItem[data-parent-id="${rubricId}"]`);
-
-// Cacher tous les éléments
-allItems.forEach(item => item.style.display = 'none');
-
-// Afficher uniquement les sous-rubriques associées
-selectedItems.forEach(item => item.style.display = 'block');
-
-
-currdeg = 0;
-gsap.to(".carousel", {
-duration: 1,
-rotationY: currdeg,
-ease: "expo.inOut"
-});
-}
-
-var w,
-container,
-carousel,
-item,
-itemLength,
-rY,
-radius;
-var rotationY = 0;
-
-$(document).ready(init);
-
-function init() {
-w = $(window);
-container = $('#contentContainer');
-carousel = $('#carouselContainer');
-item = $('.carouselItem');
-
-itemLength = item.length;
-rY = 360 / itemLength;
-radius = Math.round((170) / Math.tan(Math.PI / itemLength));
-
-// set container 3d props
-itemLength = item.length;
-rY = 360 / itemLength;
-radius = Math.round((container.width() / 8) / Math.tan(Math.PI / itemLength));
-
-// set container 3d props
-
-gsap.set(container, {perspective: 2000});
-gsap.set(carousel, {z: -(radius), transformOrigin: "center center " + -radius + "px"});
+	(function ($) {
+		$(document).ready(function () {
+			$(document).on("mouseenter", ".shutter-column.on-hover", function () {
+				$(this).removeClass("divi-transform-none");
+				console.log("Ajout de la classe");
+				setTimeout(() => {
+					$(this).addClass("divi-transform-none");
+					console.log("Suppression de la classe");
+				}, 5000) // 1 seconde
+			});
+		});
+	})(jQuery);
+</script>
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+	function showSubrubrics(rubricId) {
+		const allItems = document.querySelectorAll('.carouselItem');
+		const selectedItems = document.querySelectorAll(`.carouselItem[data-parent-id="${rubricId}"]`);
 
-// create carousel item props
-item.each(function (i) {
-var $item = $(this);
-gsap.set($item, {
-rotationY: rY * i,
-z: radius,
-transformOrigin: "50% 50% " + - radius + "px"
-});
-});
+		// Cacher tous les éléments
+		allItems.forEach(item => item.style.display = 'none');
 
-// Initial animation
-gsap.fromTo(item, {
-autoAlpha: 0,
-scale: 0
-}, {
-duration: 1,
-autoAlpha: 1,
-scale: 1,
-stagger: 0,
-ease: "expo.inOut"
-});
-}
+		// Afficher uniquement les sous-rubriques associées
+		selectedItems.forEach(item => item.style.display = 'block');
+
+
+		currdeg = 0;
+		gsap.to(".carousel", {
+			duration: 1,
+			rotationY: currdeg,
+			ease: "expo.inOut"
+		});
+	}
+
+	var w,
+		container,
+		carousel,
+		item,
+		itemLength,
+		rY,
+		radius;
+	var rotationY = 0;
+
+	$(document).ready(init);
+
+	function init() {
+		w = $(window);
+		container = $('#contentContainer');
+		carousel = $('#carouselContainer');
+		item = $('.carouselItem');
+
+		itemLength = item.length;
+		rY = 360 / itemLength;
+		radius = Math.round((170) / Math.tan(Math.PI / itemLength));
+
+		// set container 3d props
+		itemLength = item.length;
+		rY = 360 / itemLength;
+		radius = Math.round((container.width() / 8) / Math.tan(Math.PI / itemLength));
+
+		// set container 3d props
+
+		gsap.set(container, {
+			perspective: 2000
+		});
+		gsap.set(carousel, {
+			z: -(radius),
+			transformOrigin: "center center " + -radius + "px"
+		});
 
 
 
-// Rotation functions
-var currdeg = 0;
+		// create carousel item props
+		item.each(function (i) {
+			var $item = $(this);
+			gsap.set($item, {
+				rotationY: rY * i,
+				z: radius,
+				transformOrigin: "50% 50% " + -radius + "px"
+			});
+		});
 
-$(".next").on("click", {
-d: "n"
-}, rotate);
-$(".prev").on("click", {
-d: "p"
-}, rotate);
+		// Initial animation
+		gsap.fromTo(item, {
+			autoAlpha: 0,
+			scale: 0
+		}, {
+			duration: 1,
+			autoAlpha: 1,
+			scale: 1,
+			stagger: 0,
+			ease: "expo.inOut"
+		});
+	}
 
-function rotate(e) {
-if (e.data.d == "n") {
-currdeg = currdeg + rY;
-}
-if (e.data.d == "p") {
-currdeg = currdeg - rY;
-}
-gsap.to(".carousel", {
-duration: 1,
-rotationY: currdeg,
-ease: "expo.inOut"
-});
-}
-</script> 
- {% endblock %}
- {% endblock %} 
+
+
+	// Rotation functions
+	var currdeg = 0;
+
+	$(".next").on("click", {
+		d: "n"
+	}, rotate);
+	$(".prev").on("click", {
+		d: "p"
+	}, rotate);
+
+	function rotate(e) {
+		if (e.data.d == "n") {
+			currdeg = currdeg + rY;
+		}
+		if (e.data.d == "p") {
+			currdeg = currdeg - rY;
+		}
+		gsap.to(".carousel", {
+			duration: 1,
+			rotationY: currdeg,
+			ease: "expo.inOut"
+		});
+	}
+</script>
+{% endblock %}
+{% endblock %}
 {# /*{ block body %}
-<main class="main">
+	<main class="main">
 
-	<section>
-		<h2>Nos rubriques</h2>
-		<ul>
-			{% for rubric in rubrics %}
-			<li>
-				<a href="{{ path('rubric_rubrics', { id: rubric.id }) }}">
-					{{ rubric.label}}
-				</a>
-			</li>
-			{% else %}
-			<li>Aucune rubrique trouvée.</li>
-			{% endfor %}
-		</ul>
-	</section>
+		<section>
+			<h2>Nos rubriques</h2>
+			<ul>
+				{% for rubric in rubrics %}
+				<li>
+					<a href="{{ path('rubric_rubrics', { id: rubric.id }) }}">
+						{{ rubric.label}}
+					</a>
+				</li>
+				{% else %}
+				<li>Aucune rubrique trouvée.</li>
+				{% endfor %}
+			</ul>
+		</section>
 
-	<div>
-		<div class="h-64 m-2 rounded-xl shadow-xl ">
-			<img class="hidden lg:flex w-full h-full object-cover rounded-xl"
-				src="{{ asset('images/hands-1851426_1920.webp') }}" alt="Mains jouant d'un instrument de musique" />
-			<h1 class="text-4xl  font-serif text-black flex justify-center mb-4">
-				Bienvenue sur notre site E-commerce
-			</h1>
+		<div>
+			<div class="h-64 m-2 rounded-xl shadow-xl ">
+				<img class="hidden lg:flex w-full h-full object-cover rounded-xl"
+					src="{{ asset('images/hands-1851426_1920.webp') }}" alt="Mains jouant d'un instrument de musique" />
+				<h1 class="text-4xl  font-serif text-black flex justify-center mb-4">
+					Bienvenue sur notre site E-commerce
+				</h1>
+			</div>
+			<div id="root"></div>
 		</div>
-		<div id="root"></div>
-	</div>
-</main>
+	</main>
 
 
-{% endblock %} #}
+	{% endblock %} #}

@@ -15,29 +15,29 @@
         {% for rubric in rubrics %}
         <div class="row">  
         
-            {# {% for rubric in rubrics.rubric %} #}
+            {% for subrubric in rubric.rubrics %}
                 <div class="col-12 col-sm-6 col-md-4 col-xl-3 mt-2 ">
-                    {# <div class="rubric text-center">
+                    <div class="rubric text-center">
                       
                             <div class="card">
-                                <img src="/images/{{ rubric.image }}" class="card-img-top" ">
+                                {# <img src="/images/{{ rubric.image }}" class="card-img-top" "> #}
                                 <div class="card-body">
-                                    <h5 class="card-title">{{ rubric.label }}</h5>
+                                    <h5 class="card-title">{{ subrubric.slug}}</h5>
                                     
                                 </div>
                             </div>
-                            <img src="/images/{{ rubrics.image }}" class="img-fluid ">
+                            {# <img src="/images/{{ rubrics.image }}" class="img-fluid "> #}
                             <div class="text-center rubric-texte">
-                                {{ rubrics.label }}
+                                {{ subrubric.label }}
                             </div>
                                  {% endfor %}
                     </div>
                 </div>
             {% endfor %}
-        </div> #}
+        </div> 
 
-        {# {% for rubric in rubrics %} #}
-            <img src="{{ asset('images/rubrics/') }}">
+         {% for rubric in rubrics %}
+            {# <img src="{{ asset('images/rubrics/') }}"> #}
             <div class="prod-content">
                 {% for product in rubrics %}
                     <span class="badge badge-primary badge-lg">{{ rubric.label }}</span>
