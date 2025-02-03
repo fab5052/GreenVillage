@@ -42,7 +42,8 @@
 {% for label, messages in app.flashes %}
     {% for message in messages %}
         <div class="alert alert-{{ label }} alert-dismissible" role="alert">
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            
+               <button type="button" class="btn" data-bs-dismiss="alert" aria-label="Close"><span class="sr-only">Fermer</span></button>
             <div class="alert-message">
                 {{ message|raw }}
             </div>

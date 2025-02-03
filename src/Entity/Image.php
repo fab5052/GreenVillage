@@ -32,7 +32,7 @@ class Image
         return $this->image;
     }
 
-    public function setImage(string $image): static
+    public function setImage(string $image): self
     {
         $this->image = $image;
 
@@ -44,7 +44,7 @@ class Image
         return $this->product;
     }
 
-    public function setProduct(?Product $product): static
+    public function setProduct(?Product $product): self
     {
         $this->product = $product;
 

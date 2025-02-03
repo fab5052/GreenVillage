@@ -1064,6 +1064,25 @@ width: auto;
         transition: all var(--spring-duration) var(--spring-easing);
     } */
        /* 
+      }  
+      
+      input {
+              color: var(--bg);
+        font-weight: 600;
+        background-image: linear-gradient(90deg, #fcecfe, #fbf6e7, #e6fcf5); 
+        background-image: linear-gradient(315deg,
+            #c4fffce8 -10%,
+            #bcd039ea 50%,
+            #c58e29db 110%);
+        padding: .8em 1.4em;
+        position: relative;
+        isolation: isolate;
+        box-shadow: 0 2px 3px 1px hsl(var(--glow-hue) 50% 20% / 50%), inset 0 -10px 20px -10px hsla(var(--shadow-hue), 10%, 90%, 95%);
+        border-radius: 0.66em;
+        scale: 1;
+        transition: all var(--spring-duration) var(--spring-easing);
+    }
+       /* 
       .shimmer {
         position: absolute;
         inset: -40px;
