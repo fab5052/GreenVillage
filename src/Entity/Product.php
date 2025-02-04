@@ -16,7 +16,6 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use DateTimeImmutable;
-// use Proxies\__CG__\App\Entity\InfoSuppliers as EntityInfoSuppliers;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 //#[ORM\UniqueConstraint(name: 'slug', columns: ['slug'])]
@@ -57,16 +56,11 @@ class Product
     #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
     private ?DateTimeImmutable $updatedAt = null;
 
-    #[Assert\GreaterThan(
-        value: 0,
-        message: "Le produit est indisponible."
-    )]
-
-    #[ORM\Column(type: 'boolean')]
-    private bool $isAvailable = true;
-
     #[ORM\Column(type: 'integer')]
     private int $stock;
+      
+    #[ORM\Column(type: 'boolean')]
+    private bool $isAvailable = true;
 
     #[ORM\ManyToOne(targetEntity: InfoSuppliers::class, inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
@@ -150,6 +144,11 @@ class Product
         $this->slug = $slug;
 
         return $this;
+    }
+
+    public function getStock(): ?int
+    {
+        return $this->stock;
     }
 
     public function setStock(int $stock): self
