@@ -109,7 +109,7 @@ app_product_details:
 ## Panier
 app_cart:
   path: /cart
-  controller: App\Controller\CartController::viewCart
+  controller: App\Controller\CartController::index
   defaults:
     role: ROLE_USER
 

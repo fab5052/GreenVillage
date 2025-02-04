@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
 use Symfony\Component\Uid\Uuid;
 use App\Enum\OrderStatus;
-use App\Entity\Order;
-// use Doctrine\Common\Collections\Order;
+//use App\Entity\Order;
+use Doctrine\Common\Collections\Order;
 
 #[ORM\Entity(repositoryClass: OrderDetailsRepository::class)]
 #[ORM\Table(name: '`order_details`')]
