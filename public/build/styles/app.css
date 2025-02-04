@@ -51,35 +51,6 @@
   overflow-x: hidden;
   }
   
-  body{
-    background-color: #D2D2D2;
-    background-image:
-    repeating-linear-gradient(
-        to right, transparent 0 100px,
-        #25283b22 100px 101px
-    ),
-    repeating-linear-gradient(
-        to bottom, transparent 0 100px,
-        #25283b22 100px 101px
-    );
-}
-
-body::before{
-    position: absolute;
-
-    width: min(1400px, 90vw);
-    top: 10%;
-    left: 50%;
-    height: 90%;
-    transform: translateX(-50%);
-    content: '';
-    /* background-image: url(images/bg.png); */
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: top center;
-    pointer-events: none;
-} 
-
   /* header {
     width: 100vw;
     /* height: 20vh;  
@@ -127,9 +98,9 @@ body::before{
          overflow: hidden;
       }
 
-      /* .slider-container {
+      .slider-container {
         position: relative;
-        /* margin-top: auto; *
+        /* margin-top: auto; */
         width: 100vw;
       max-height: 200px; 
       background-position: center center;
@@ -138,7 +109,7 @@ body::before{
        overflow-y: hidden;
       }
 
-        /* #slider .images {
+        #slider .images {
         top: 0;
       min-width: 100vh;
        max-height: 200px;    
@@ -162,10 +133,10 @@ body::before{
         object-fit: cover;
        z-index: 9;
        overflow-y: hidden;
-      } 
+      }
 
-       .slider-container {
-        width: 100vw; 
+      /* .slider-container {
+        width: 100vw;  /* Largeur de l'écran *
         height: 100vh; 
         position: relative;
         overflow: hidden;
@@ -180,8 +151,8 @@ body::before{
         width: 100%;
         height: 100%;
         object-fit: cover;
-      } 
-       */
+      } */
+      
       /* background-image: url("https://i.etsystatic.com/21916349/r/il/a756da/3962508333/il_794xN.3962508333_jf2j.jpg"); */
    .bg {
           animation: slide 20s ease-in-out infinite alternate;
@@ -785,8 +756,25 @@ body::before{
       button:active {
         scale: 1.1;
         transition-duration: calc(var(--spring-duration)*0.5);
-      }  /*
-    
+      }  
+      
+      input {
+              color: var(--bg);
+        font-weight: 600;
+        background-image: linear-gradient(90deg, #fcecfe, #fbf6e7, #e6fcf5); 
+        background-image: linear-gradient(315deg,
+            #c4fffce8 -10%,
+            #bcd039ea 50%,
+            #c58e29db 110%);
+        padding: .8em 1.4em;
+        position: relative;
+        isolation: isolate;
+        box-shadow: 0 2px 3px 1px hsl(var(--glow-hue) 50% 20% / 50%), inset 0 -10px 20px -10px hsla(var(--shadow-hue), 10%, 90%, 95%);
+        border-radius: 0.66em;
+        scale: 1;
+        transition: all var(--spring-duration) var(--spring-easing);
+    }
+       /* 
       .shimmer {
         position: absolute;
         inset: -40px;
