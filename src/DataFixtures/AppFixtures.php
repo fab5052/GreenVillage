@@ -69,8 +69,28 @@ $faker = \Faker\Factory::create('fr_FR');
         $users[] = $user;
     }
     $manager->flush(); 
+    $users = [];
+    for ($i = 0; $i < 5; $i++) {
+        $user = new User();
+        $user->setCreatedAt(new DateTimeImmutable())
+             ->setEmail($faker->email)
+             ->setLastname($faker->lastName)
+             ->setFirstname($faker->firstName)
+             ->setRoles(['ROLE_USER'])
+             ->setIsVerified(1)
+             ->setAddress($faker->address)
+             ->setZipcode($faker->postcode)
+             ->setCity($faker->city)
+             ->setPassword($this->passwordEncoder->hashPassword($user, 'secret'));
+        $manager->persist($user);
+        $users[] = $user;
+    }
+    $manager->flush(); 
 
     
+// Rubriques principales
+$rubrics = []; 
+$rubricLabels = ['vent', 'percus', 'cordes', 'electro'];
 // Rubriques principales
 $rubrics = []; 
 $rubricLabels = ['vent', 'percus', 'cordes', 'electro'];
@@ -80,31 +100,42 @@ foreach ($rubricLabels as $label) {
     $rubric->setCreatedAt(new DateTimeImmutable())
            ->setLabel($label)
            ->setSlug($this->slugger->slug($label));
+foreach ($rubricLabels as $label) {
+    $rubric = new Rubric();
+    $rubric->setCreatedAt(new DateTimeImmutable())
+           ->setLabel($label)
+           ->setSlug($this->slugger->slug($label));
 
+    $manager->persist($rubric);
+    $rubrics[] = $rubric; 
+}
     $manager->persist($rubric);
     $rubrics[] = $rubric; 
 }
 
 $manager->flush(); 
+$manager->flush(); 
 
 // Sous-rubriques
-$subrubrics = []; 
-$subrubricsLabels = ['saxo', 'trompette', 'batterie', 'tamtam', 'guitare', 'piano', 'synthétiseur', 'amplificateur'];
+$subRubrics = []; 
+$subRubricsLabels = ['saxo', 'trompette', 'batterie', 'tamtam', 'guitare', 'piano', 'synthétiseur', 'amplificateur'];
 
-foreach ($subrubricsLabels as $label) {
-    $subrubric = new Rubric();
-    $subrubric->setCreatedAt(new DateTimeImmutable())
+foreach ($subRubricsLabels as $label) {
+    $subRubric = new Rubric();
+    $subRubric->setCreatedAt(new DateTimeImmutable())
               ->setLabel($label)
               ->setSlug($this->slugger->slug($label))
               ->setParent($faker->randomElement($rubrics)) 
               ->setDescription($faker->paragraph());
 
-    $manager->persist($subrubric);
-    $subrubrics[] = $subrubric; 
-}
+    $manager->persist($subRubric);
+    $subRubrics[] = $subRubric; 
 
 $manager->flush(); 
 
+// Fournisseurs
+$infoSuppliersType = ['constructeur', 'importateur'];
+$infoSuppliers = [];
 // Fournisseurs
 $infoSuppliersType = ['constructeur', 'importateur'];
 $infoSuppliers = [];
@@ -113,18 +144,20 @@ foreach ($infoSuppliersType as $type) {
     $infoSupplier = new InfoSuppliers();
     $infoSupplier->setType($type)
                  ->setStatus('Active')
-                 ->setReference("infoSuppliers:" . mt_rand(1000, 9999))
+                 ->setReference("infoSuppliers:" . mt_rand(10000, 99999))
                  ->setUser($faker->randomElement($users));
 
     $manager->persist($infoSupplier);
     $infoSuppliers[] = $infoSupplier;
 }
+    $manager->persist($infoSupplier);
+    $infoSuppliers[] = $infoSupplier;
+}
 
+$manager->flush(); 
 $manager->flush(); 
 
 //Produits
-$product = [] ;
-
 for ($i = 0; $i < 50; $i++) {
     $tva = new Tva();
     $tva->setRate('18.60');
@@ -139,15 +172,15 @@ for ($i = 0; $i < 50; $i++) {
             ->setDescription($faker->paragraph)
             ->setWeight($faker->randomFloat(2, 0, 100))
             ->setInfoSuppliers($faker->randomElement($infoSuppliers))
-            ->setRubric($faker->randomElement($subrubrics)) 
+            ->setRubric($faker->randomElement($subRubrics)) 
             ->setTva($tva)
             ->setCreatedAt(new DateTimeImmutable())
             ->setUpdatedAt(new DateTimeImmutable());
 
     $manager->persist($product);
-   // $product[] = $product; 
 }
 
+$manager->flush();
 $manager->flush();
 
     // Images
@@ -185,3 +218,4 @@ $manager->flush();
     // } catch (\Exception $e) {
     //     throw new \RuntimeException('Erreur lors de la sauvegarde des services', 0, $e);
     // }
+}
