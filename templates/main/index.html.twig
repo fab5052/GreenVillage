@@ -610,10 +610,10 @@ z-index: 9;
 			justify-content: space-evenly;
 			flex-wrap: wrap;
 		}*/
-	
-		div {
-			display: flex;
-		}
+	div {
+		display: flex;
+	}
+
 	
 		.shutter-column {
 			height: auto;
@@ -724,21 +724,24 @@ z-index: 9;
 			/* Centre horizontalement */
 			align-items: center;
 			/* Centre verticalement */
-			height: 50vh;
+			height: 70vh;
 			/* Ajuste à la hauteur de l'écran */
 			overflow: hidden;
 			width: 100vw;
 			transform-style: preserve-3d;
-			perspective: 600px;
+			perspective: 800px;
+			padding: none;
+			margin-bottom: 5%;
+
 	
 	
 		}
 	
 		#carouselContainer {
-			position: relative;
-			width: 80%;
+			position: absolute;
+			width: 100vw;
 			/*max-width: 800px;  Ajuste selon la taille souhaitée */
-			height: 400px;
+			max-height: 750px;
 			/* Ajuste selon le besoin */
 			display: flex;
 			justify-content: center;
@@ -746,23 +749,26 @@ z-index: 9;
 			align-items: center;
 			/* Centre verticalement */
 			transform-style: preserve-3d;
+			padding: none;
 		}
 	
 		.container-carousel {
 			position: relative;
-			width: 80vw;
+			width: 100vw;
+			height: 100%;
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			transform-style: preserve-3d;
-			perspective: 900px;
+			perspective: 1200px;
+			padding: none;
 	
 		}
 	
 		#carouselItem {
 			position: absolute;
-			width: 20px;
-			display: flex;
+			padding: 0;
+			flex-direction: column;
 			justify-content: center;
 			align-items: center;
 			transform-style: preserve-3d;
@@ -770,14 +776,14 @@ z-index: 9;
 		}
 	
 		.container-carousel .item {
-			width: 100px;
-			height: 200px;
+			width: 150px;
+			height: 215px;
 			justify-content: center;
-			align-items: center bottom;
+			align-items: center;
+			transform-style: preserve-3d;
 		}
 	
 		.carouselItem {
-			position: absolute;
 			width: 100px;
 			/* Ajuste selon la taille des items */
 			height: 200px;
@@ -787,7 +793,6 @@ z-index: 9;
 			align-items: center;
 			background: rgba(255, 255, 255, 0.1);
 			border-radius: 10px;
-			transition: transform 0.5s ease-in-out;
 			transform-style: preserve-3d;
 	
 		}
@@ -799,46 +804,67 @@ z-index: 9;
 			border-radius: 10px;
 		}
 	
-		button.prev,
-		button.next {
+
+		#carouselItem .item h2 {
+			z-index: 9;
+			position: relative;
+			color: rgb(164, 153, 51);
+			font-size: 2.5vh;
+			text-shadow: 0px -1px 3px rgba(71, 70, 70, 0.4);
+			font-weight: 900;
+			writing-mode: vertical-rl; /* Texte écrit de haut en bas */
+			text-orientation: upright; /* Permet de garder le texte droit */
+			margin: 0;
+			text-transform:  uppercase;
+			letter-spacing: 0;
+			overflow: hidden;
+		}
+		
+		#carouselItem .item p {
+			font-size: 8px;
+			color: rgba(38, 52, 52, 0.89);
+			text-shadow: -1px -1px 4px rgba(242, 237, 237, 0.234);
+			position: relative;
+			z-index: 9;
+			text-orientation: mixed; /* Maintient une lisibilité correcte */
+			margin-top: 60%;
+		}
+	
+		.btn {
 			position: absolute;
 			top: 50%;
 			transform: translateY(-50%);
-			background: rgba(0, 0, 0, 0.5);
-			color: #fff;
-			border: none;
-			padding: 10px;
+			font-size: 3rem;
 			cursor: pointer;
+			color: white;
+			background: rgba(0, 0, 0, 0.5);
+			padding: 8px;
+			z-index: 10;
+			user-select: none;
+			transition: 0.3s;
+			width: 5vw;
+
 		}
-	
-		button.prev {
-			left: -250px;
+		
+		.btn:hover {
+			background: rgba(0, 0, 0, 0.8);
 		}
-	
-		button.next {
-			right: -350px;
+		
+		/* Positionnement */
+		.prev {
+			left: 10px;
 		}
-	
-		#carouselItem h2 {
-			z-index: 9;
-			position: absolute;
-			justify-content: center;
-			color: rgb(161, 152, 64);
-			font-size: 1vw;
-			text-shadow: -1px -1px 7px rgba(0, 0, 0, 0.644);
-			font-weight: 400;
-			overflow: hidden;
-			text-transform: uppercase;
-			writing-mode: vertical-rl;
+		
+		.next {
+			right: 10px;
 		}
-	
-		#carouselItem p {
-			font-size: 0.3vw;
-			color: rgba(21, 22, 22, 0.89);
-			align-content: center;
-	
+		
+		/* Ajustement des icônes */
+		.btn i {
+			font-size: 2.5rem;
+			color: white;
 		}
-	
+
 		h5 {
 			color: rgb(154, 146, 77);
 			font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -848,44 +874,7 @@ z-index: 9;
 	
 		}
 	
-		.next,
-		.prev {
-			color: #444;
-			position: absolute;
-			top: 1300px;
-			padding-bottom: 15px;
-	
-			padding: 0.5em 2em;
-			cursor: pointer;
-			background: #a5969662;
-			max-height: 40px;
-			border-radius: 5px;
-			border-top: 1px solid #FFF;
-			box-shadow: -1px 3px 0 #999;
-			transition: box-shadow 0.1s, top 0.1s;
-		}
-	
-		.next:hover,
-		.prev:hover {
-			color: #000;
-			top: 1300px;
-		}
-	
-		.next:active,
-		.prev:active {
-			top: 1300px;
-			box-shadow: 1px 0 3px 1px #88a9b6;
-	
-		}
-	
-		.next {
-			right: 5.1em;
-		}
-	
-		.prev {
-			left: 5em;
-		}
-	
+
 	
 		@media (max-width: 768px) {
 			.container-carousel {
@@ -950,42 +939,49 @@ z-index: 9;
 				margin: 0 auto;
 			}
 	
-			.next,
-			.prev {
-				top: 1250px;
+			.btn {
 				position: absolute;
-				height: 4vh;
-				width: 18vw;
-				margin-bottom: 50px;
-				margin: 0 auto;
-				padding: 0.6em 1.3em;
-	
-	
+				top: 50%;
+				transform: translateY(-50%);
+				font-size: 3rem;
+				cursor: pointer;
+				color: white;
+				background: rgba(0, 0, 0, 0.5);
+				padding: 5px;
+				border-radius: 10px;
+				z-index: 10;
+				user-select: none;
+				transition: 0.3s;
+			}
+			
+			.btn:hover {
+				background: rgba(0, 0, 0, 0.8);
+			}
+			
+			/* Positionnement */
+			.prev {
+				left: 10px;
+			}
+			
+			.next {
+				right: 10px;
+			}
+			
+			/* Ajustement des icônes */
+			.btn i {
+				font-size: 2.5rem;
+				color: white;
 			}
 	
-			.next:hover,
-			.prev:hover {
-				color: #000;
-				top: 1250px;
-				padding: 0.5em 2em;
-	
-				height: 4vh;
-				width: 18vw;
-	
-	
+			h5 {
+				color: rgb(154, 146, 77);
+				font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+				font-size: 18px;
+				text-shadow: 4px solid #FFF;
+				font-weight: 600;
+		
 			}
 	
-			.next:active,
-			.prev:active {
-				top: 1250px;
-				padding: 0.5em 2em;
-	
-				height: 4vh;
-				width: 18vw;
-				box-shadow: 0 0 0 1px #999;
-	
-	
-			}
 		}
 	
 		@media (max-width: 480px),
@@ -1040,47 +1036,15 @@ z-index: 9;
 				font-weight: 750;
 			}
 	
-			.next,
-			.prev h5 {
+
 	
-				font-size: 2vw;
-				text-shadow: -1px -1px 2px rgba(0, 0, 0, 0.5);
-				font-weight: 750;
-			}
-	
-			.next,
-			.prev {
-				margin: auto;
-				top: 65%;
-				height: 4vh;
-				width: 18vw;
-				margin-bottom: 50px;
-				justify-content: center;
-	
-			}
-	
-			.next:hover,
-			.prev:hover {
-				padding: 0 2px;
-	
-				color: #000;
-				top: 65%;
-				height: 4vh;
-				width: 18vw;
-				margin-bottom: 50px;
-	
-			}
-	
-			.next:active,
-			.prev:active {
-				padding: 0 2px;
-	
-				top: 65%;
-				height: 4vh;
-				width: 18vw;
-				box-shadow: 0 0 1px 1px #999;
-				margin-bottom: 50px;
-	
+			h5 {
+				color: rgb(154, 146, 77);
+				font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+				font-size: 18px;
+				text-shadow: 4px solid #FFF;
+				font-weight: 600;
+		
 			}
 		}
 	
@@ -1178,30 +1142,32 @@ z-index: 9;
 			</a>
 		</aside>
 	
+
+		{% set subrubric_images = {
+			'saxo': '/image/subrubric/sub(2).jpg',
+			'trompette': '/image/subrubric/rubric(3).jpg',
+			'guitare': '/image/subrubric/rubric(1).jpg',
+			'electro': '/image/rubric/rubric(4).jpg'
+			} %}
 	
 		<div id="contentContainer" class="trans3d">
-			<section id="carouselContainer " class="trans3d">
+			<section id="carouselContainer" class="trans3d">
 				<div class="container container-carousel">
 					{% for rubric in rubrics %}
-	
-					{% set subrubrics = rubric.getRubrics() %}
-	
-					<div id="carouselItem" class="carousel">
-	
-						{% for subrubric in subrubrics %}
-	
-	
-						{% if subrubrics is not empty %}
-						{% set total_subrubrics = subrubrics|length %}
-						{% set angle = loop.index0 * (360 / total_subrubrics) %}
-						<div class="item cards carouselItem" data-parent-id="{{ rubric.id }}"
-							style="transform: rotateY('{{ angle }}deg) translateZ(100px);')">
-							<a href="{{ path('app_products_by_rubric', {'slug': subrubric.slug}) }}">
-								<h2 class="item">{{ subrubric.slug }}</h2>
+						{% set subrubrics = rubric.getRubrics() %}
+						<div id="carouselItem" class="carousel">
+							{% for subrubric in subrubrics %}
+								{% if subrubrics is not empty %}
+									{% set total_subrubrics = subrubrics|length %}
+									{% set angle = loop.index0 * (360 / total_subrubrics) %}
+									<div class="item cards carouselItem" data-parent-id="{{ rubric.id }}"
+										style="transform: rotateY('{{ angle }}deg') translateZ(400px);">
+										<a href="{{ path('app_products_by_rubric', {'slug': subrubric.slug}) }}">
+											<h2 class="item">{{ subrubric.slug }}</h2>
 								{# {% if subrubric.image %}
 									<img src="{{ subrubric.image }}" alt="{{ subrubric.label }}" style="object-fit: cover;">
 									{% endif %} #}
-								<p class="item">{{ subrubric.description }}</p>
+								<p class="item" style="object-fit: cover;">{{ subrubric.description }}</p>
 							</a>
 						</div>
 						{% endif %}
@@ -1213,11 +1179,13 @@ z-index: 9;
 	
 					{% endfor %}
 				</div>
-				<div class="next">
-					<h5>Suivant</h5>
+			
+				<div class="btn prev" onclick="rotateCarousel(-1)">
+					<i class="bi bi-arrow-left-square-fill"></i>
 				</div>
-				<div class="prev">
-					<h5>Précédent</h5>
+		
+				<div class="btn next" onclick="rotateCarousel(1)">
+					<i class="bi bi-arrow-right-square-fill"></i>
 				</div>
 	
 			</section>
@@ -1325,10 +1293,17 @@ z-index: 9;
 			});
 		}
 	
+		/*var currdeg = 0;
+		const totalItems = document.querySelectorAll(".carouselItem").length;
+		const angleStep = 360 / totalItems;
 	
-	
-		// Rotation functions
-		var currdeg = 0;
+		function rotateCarousel(direction) {
+			currentAngle += direction * angleStep;
+			document.querySelector("#carouselItem").style.transform = `rotateY(${currentAngle}deg)`;
+		}*/
+	    var currdeg = 0;
+		const totalItems = document.querySelectorAll(".carouselItem").length;
+		const angleStep = 360 / totalItems;
 	
 		$(".next").on("click", {
 			d: "n"
@@ -1349,39 +1324,8 @@ z-index: 9;
 				rotationY: currdeg,
 				ease: "expo.inOut"
 			});
-		}
+		}	
 	</script>
+
 	{% endblock %}
 	{% endblock %}
-	{# /*{ block body %}
-		<main class="main">
-	
-			<section>
-				<h2>Nos rubriques</h2>
-				<ul>
-					{% for rubric in rubrics %}
-					<li>
-						<a href="{{ path('rubric_rubrics', { id: rubric.id }) }}">
-							{{ rubric.label}}
-						</a>
-					</li>
-					{% else %}
-					<li>Aucune rubrique trouvée.</li>
-					{% endfor %}
-				</ul>
-			</section>
-	
-			<div>
-				<div class="h-64 m-2 rounded-xl shadow-xl ">
-					<img class="hidden lg:flex w-full h-full object-cover rounded-xl"
-						src="{{ asset('images/hands-1851426_1920.webp') }}" alt="Mains jouant d'un instrument de musique" />
-					<h1 class="text-4xl  font-serif text-black flex justify-center mb-4">
-						Bienvenue sur notre site E-commerce
-					</h1>
-				</div>
-				<div id="root"></div>
-			</div>
-		</main>
-	
-	
-		{% endblock %} #}

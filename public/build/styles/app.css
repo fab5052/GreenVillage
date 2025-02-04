@@ -2170,23 +2170,23 @@
     } */
   
     .cards {
-      display: flex;
-      flex-direction: column;
+      /* display: block; */
+      /* flex-direction: column; */
       justify-content: center;
       align-items: center;
-      margin-top: 2vh;
-      margin-bottom: 2vh;
-      height: auto;
-      max-width: 450px;
-      /* border-image: linear-gradient(#e1a85d, #edefec) 30; */
+      margin-top: 10px;
+      margin-bottom: 4vh;
+      height: 650px;
+      max-width: 400px;
+      /* border-image: linear-gradient(#e1a85d, #edefec) 30;  */
       border-radius: 15px;
-      transition: transform 0.5s ease;
       cursor: pointer;
-      background-color: transparent;
-      /* border: 1px solid #aeab5b80; */
-    
+      /* background-color: #76766da4;; */
+     border: 1px solid #807f6280; 
+    /* align-content: center; */
       position: relative;
       overflow: hidden;
+      /* z-index: -1; */
     }
     
     .button {
