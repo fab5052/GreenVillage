@@ -6,9 +6,22 @@
 
 {% block body %}
 <main class="main">
+	{% set subrubric_images = {
+		'saxo': '/image/subrubric(1).png',
+		'trompette': '/image/subrubric(2).png',
+		'guitare': '/image/subrubric(5).png',
+		'piano': '/image/subrubric(6).png',
+		'batterie': '/image/subrubric(3).png',
+		'tamtam': '/image/subrubric(4).png',
+		'synthetiseur': '/image/subrubric(7).png',
+		'amplificateur': '/image/subrubric(8).png',
+		} %}
 	<div class="container mx-auto mt-16 p-8 bg-gray-50 rounded-xl shadow-xl">
-		<h1 class="text-5xl font-bold text-center text-gray-800 mb-12">Tous nos Instruments concernant :
-			{{ subrubric.slug }}</h1>
+		
+		<h1 class="text-5xl font-bold text-center text-gray-800 mb-12">Tous nos produits:
+			<div class="carousel-content">
+			{{ subrubric.slug }}</h1><img src="{{ subrubric_images[subrubric.slug] }}" alt="{{ subrubric.label }}" >
+		</div>
 
 		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
 			{% for product in products %}
