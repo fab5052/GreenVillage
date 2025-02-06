@@ -11,65 +11,101 @@
         {% endfor %} 
     </ol>
     </nav> #}
+
     <main class="container">    
         {% for rubric in rubrics %}
         <div class="row">  
         
-            {# {% for rubric in rubrics.rubric %} #}
+         
                 <div class="col-12 col-sm-6 col-md-4 col-xl-3 mt-2 ">
-                    {# <div class="rubric text-center">
+                    <div class="rubric text-center">
                       
                             <div class="card">
-                                <img src="/images/{{ rubric.image }}" class="card-img-top" ">
+                                {% set rubric_images = {
+                                    'vent': '/image/rubric/rubric(2).jpg',
+                                    'percus': '/image/rubric/rubric(3).jpg',
+                                    'cordes': '/image/rubric/rubric(1).jpg',
+                                    'electro': '/image/rubric/rubric(4).jpg'
+                                    } %}
+                                    {% if rubric.slug in rubric_images %}
+                                    <img src="{{ rubric_images[rubric.slug] }}" alt="{{ rubric.label }}" class="back-img">
+                                {# {% else %}
+                                    <img src="/image/default.jpg" alt="Image par défaut" class="back-img"> #}
+                                {% endif %}
                                 <div class="card-body">
                                     <h5 class="card-title">{{ rubric.label }}</h5>
                                     
                                 </div>
                             </div>
-                            <img src="/images/{{ rubrics.image }}" class="img-fluid ">
+                            {# <img src="/images/{{ rubrics.image }}" class="img-fluid ">
                             <div class="text-center rubric-texte">
                                 {{ rubrics.label }}
-                            </div>
-                                 {% endfor %}
+                            </div> #}
+                                 {# {% endfor %} #}
                     </div>
                 </div>
             {% endfor %}
-        </div> #}
-
-        {# {% for rubric in rubrics %} #}
-            <img src="{{ asset('images/rubrics/') }}">
-            <div class="prod-content">
+        </div>
+                <div class="clear"></div>
+	
+                {% for rubric in rubrics %}
+                {% if rubric.subrubrics is defined %}
+                    {% for subrubric in rubric.subrubrics %}
+                        <h1>{{ subrubric.slug }}</h1>
+                   
+           
+        {% set subrubric_images = {
+			'saxo': '/image/subrubric(1).png',
+			'trompette': '/image/subrubric(2).png',
+			'guitare': '/image/subrubric(5).png',
+			'piano': '/image/subrubric(6).png',
+			'batterie': '/image/subrubric(3).png',
+			'tamtam': '/image/subrubric(4).png',
+			'synthetiseur': '/image/subrubric(7).png',
+			'amplificateur': '/image/subrubric(8).png',
+			} %}
+            {% if subrubric.slug in subrubric_images %}
+            <img src="{{ subrubric_images[subrubric.slug] }}" alt="{{ subrubric.label }}">
+        {# {% else %}
+            <img src="/image/default.jpg" alt="Image par défaut"> #}
+        {% endif %}
+        {% endfor %}
+        <div class="prod-content">
                 {% for product in rubrics %}
-                    <span class="badge badge-primary badge-lg">{{ rubric.label }}</span>
-                {% endfor %}
-                <h2>{{ rubric.label }}</h2>
-                <div class="rub-content">{{ rubric.description }}</div>
+                    <span class="badge badge-primary badge-lg">{{ subrubric.label }}</span>
+             
+                <h2>{{ subrubric.label }}</h2>
+                <div class="rub-content">{{ subrubric.description }}</div>
             </div>
              {% endfor %}
-             {# {% endfor %} #}
-             <div class="pagination">
-                {{ knp_pagination_render(products) }}
-            </div>
+            
+             {% endif %} 
+ {% endfor %}
         <div class="clear"></div>
         <div class="container">
             <section>
-                <h2 class="text-center my-5">Derniers arrivages!</h2>
+                <h2 class="text-center my-5">Produits</h2>
                 <div class="grid">
-                    {% for rubric in rubrics %}
+                    {% for product in products %}
                         <article class="card">
-                            {# <img src= "{{ asset('images/rubrics/') }}"> #}
+                            {% for image in product.images %}
+                            <img src="{{ image.image }}" alt="Image de {{ product.label }}" width="200">
+                            {% endfor %}
                             <div class="card-body">
                                 {% for product in products %}
-                                    <span class="badge badge-primary">{{ rubric.label }}</span>
+                                    <span class="badge badge-primary">{{ product.label }}</span>
                                 {% endfor %}
-                                <h3>{{ rubric.label }}</h3>
+                                {# <h3>{{ rubric.label }}</h3> #}
                                 {# <p>{{ rubric.user.firstname }}</p> #}
                             </div>
                         </article>
                     {% endfor %}                
                 </div>
     
-            </section> 
+            </section>    
+            <div class="pagination">
+                {{ knp_pagination_render(products) }}
+            </div> 
             <section>
                 <h2>Stocks</h2>
                 {% for order in orders %}

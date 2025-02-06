@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Order;
 use App\Entity\Product;
 use App\Entity\OrderDetails;
+use App\Entity\Image;
 use App\Repository\ProductRepository;
 use App\Repository\ImageRepository;
 use App\Service\SendMailService;
@@ -52,41 +53,43 @@ class CartController extends AbstractController
                 $this->addFlash('warning', 'Vous devez vous connecter pour voir votre panier.');
                 return $this->redirectToRoute('app_login');
             }
-
+    
             $panier = $session->get('panier', []);
             $dataProduct = [];
             $total = 0;
             $totalTaxes = 0;
-        
+            $images = []; 
+            
             foreach ($panier as $id => $quantity) {
-               // $id = $request->get('id');
-               $product = $this->productRepository->findOneBy(['id' => $id]);
-               $images = $this->imageRepository->findAll();
-
-               if ($product) {
-                   $productDetails = $this->calculateProductDetails($product, $quantity);
-                   $total += $productDetails['total'];
-                   $totalTaxes += $productDetails['totalTaxes'];
-               
-                   $dataProduct[] = [
-                       'product' => $product,
-                       'quantity' => $quantity,
-                       'priceWithTax' => $productDetails['priceWithTva'],
-                       'images' => $images,
-                   ];
-               }
+                $product = $this->productRepository->findOneBy(['id' => $id]);
+    
+                if ($product) {
+                    $productDetails = $this->calculateProductDetails($product, $quantity);
+                    $total += $productDetails['total'];
+                    $totalTaxes += $productDetails['totalTaxes'];
+                    
+                    $images = $this->imageRepository->findBy(['product' => $product]);
+    
+                    $dataProduct[] = [
+                        'product' => $product,
+                        'quantity' => $quantity,
+                        'priceWithTax' => $productDetails['priceWithTva'],
+                        'images' => $images,
+                    ];
+                }
             }
-
+    
             $session->set('ttc', $total);
         } catch (\Exception $e) {
             $this->addFlash('error', 'Une erreur est survenue.');
             return $this->redirectToRoute('cart_index');
         }
+    
         return $this->render('cart/index.html.twig', [
             'products' => $dataProduct,
             'total' => $total,
             'totalTaxes' => $totalTaxes,
-            'images' => $images,
+            'images' => $images, // 🔴 Maintenant, cette variable est toujours définie
         ]);
     }
 
@@ -266,7 +269,7 @@ class CartController extends AbstractController
             $address = $session->get('address');
 
             $dataProduct = array_filter(array_map(function ($id) use ($productRepository, $panier) {
-                $product = $productRepository->findBy($id);
+                $product = $productRepository->find($id);
                 return $product ? [
                     'product' => $product,
                     'quantity' => $panier[$id],

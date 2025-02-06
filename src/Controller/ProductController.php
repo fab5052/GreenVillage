@@ -43,7 +43,8 @@ class ProductController extends AbstractController
     {
         try {
             
-            $rubrics = $this->rubricRepository->findAll();
+            $rubrics = $this->rubricRepository->findAll(); 
+            //$rubric = $this->$rubricRepository->findBy(['parent' => null]);
             $productsQuery = $this->productRepository->findAll();
             $query = $this->productRepository->createQueryBuilder('p')->getQuery();
             $paginatedProducts = $this->paginator->paginate(
@@ -52,7 +53,7 @@ class ProductController extends AbstractController
                 12 // Nombre d'éléments par page
             );
             $orders = $this->orderRepository->findAll(); 
-            $images = $this->imageRepository->findAll();
+            $images = [];
      
         } catch (\Exception $exception) {
             $this->addFlash('error', 'Impossible de charger les produits. Veuillez réessayer plus tard.');
@@ -61,6 +62,7 @@ class ProductController extends AbstractController
 
         return $this->render('product/products.html.twig', [
             'orders' => $orders,
+            'rubric' => [],
             'rubrics' => $rubrics,
             'images' => $images,
             'products' => $paginatedProducts,

@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Form\ContactType;
-use App\Service\SendEmailService;
+use App\Service\SendMailService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ContactController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function contact(Request $request, SendEmailService $sendEmailService): Response
+    public function contact(Request $request, SendMailService $sendEmailService): Response
     {
         $form = $this->createForm(ContactType::class);
 
