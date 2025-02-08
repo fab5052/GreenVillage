@@ -35,163 +35,126 @@ class AppFixtures extends Fixture
 public function load(ObjectManager $manager): void
 {
     
-    // $admin = new User();
-    // $admin->setEmail('admin@greenvillage.net')
-    //       ->setFirstname('Fabrice')
-    //       ->setLastname('Beaujois')
-    //       ->setIsVerified(true)
-    //       ->setAddress('12 rue du port')
-    //       ->setZipcode('80850')
-    //       ->setCity('Berto')
-    //       ->setPassword($this->passwordEncoder->hashPassword($admin, 'fb975052'))
-    //       ->setRoles(['ROLE_ADMIN']);
+    $admin = new User();
+    $admin->setEmail('admin@greenvillage.net')
+          ->setFirstname('Fabrice')
+          ->setLastname('Beaujois')
+          ->setIsVerified(true)
+          ->setAddress('12 rue du port')
+          ->setZipcode('80850')
+          ->setCity('Berto')
+          ->setPassword($this->passwordEncoder->hashPassword($admin, 'fb975052'))
+          ->setRoles(['ROLE_ADMIN']);
 
-    // $manager->persist($admin);
+    $manager->persist($admin);
     
-$faker = \Faker\Factory::create('fr_FR');
+//     $faker = \Faker\Factory::create('fr_FR');
 
-    // Utilisateurs
+//     // Utilisateurs
 
-    $users = [];
-    for ($i = 0; $i < 5; $i++) {
-        $user = new User();
-        $user->setCreatedAt(new DateTimeImmutable())
-             ->setEmail($faker->email)
-             ->setLastname($faker->lastName)
-             ->setFirstname($faker->firstName)
-             ->setRoles(['ROLE_USER'])
-             ->setIsVerified(1)
-             ->setAddress($faker->address)
-             ->setZipcode($faker->postcode)
-             ->setCity($faker->city)
-             ->setPassword($this->passwordEncoder->hashPassword($user, 'secret'));
-        $manager->persist($user);
-        $users[] = $user;
-    }
-    $manager->flush(); 
-    $users = [];
-    for ($i = 0; $i < 5; $i++) {
-        $user = new User();
-        $user->setCreatedAt(new DateTimeImmutable())
-             ->setEmail($faker->email)
-             ->setLastname($faker->lastName)
-             ->setFirstname($faker->firstName)
-             ->setRoles(['ROLE_USER'])
-             ->setIsVerified(1)
-             ->setAddress($faker->address)
-             ->setZipcode($faker->postcode)
-             ->setCity($faker->city)
-             ->setPassword($this->passwordEncoder->hashPassword($user, 'secret'));
-        $manager->persist($user);
-        $users[] = $user;
-    }
-    $manager->flush(); 
+//     $users = [];
+//     for ($i = 0; $i < 5; $i++) {
+//         $user = new User();
+//         $user->setCreatedAt(new DateTimeImmutable())
+//              ->setEmail($faker->email)
+//              ->setLastname($faker->lastName)
+//              ->setFirstname($faker->firstName)
+//              ->setRoles(['ROLE_USER'])
+//              ->setIsVerified(1)
+//              ->setAddress($faker->address)
+//              ->setZipcode($faker->postcode)
+//              ->setCity($faker->city)
+//              ->setPassword($this->passwordEncoder->hashPassword($user, 'secret'));
+//         $manager->persist($user);
+//         $users[] = $user;
+//     }
+//     $manager->flush(); 
 
     
-// Rubriques principales
-$rubrics = []; 
-$rubricLabels = ['vent', 'percus', 'cordes', 'electro'];
-// Rubriques principales
-$rubrics = []; 
-$rubricLabels = ['vent', 'percus', 'cordes', 'electro'];
+// // Rubriques principales
+// $rubrics = []; 
+// $rubricLabels = ['vent', 'percus', 'cordes', 'electro'];
 
-foreach ($rubricLabels as $label) {
-    $rubric = new Rubric();
-    $rubric->setCreatedAt(new DateTimeImmutable())
-           ->setLabel($label)
-           ->setSlug($this->slugger->slug($label));
-foreach ($rubricLabels as $label) {
-    $rubric = new Rubric();
-    $rubric->setCreatedAt(new DateTimeImmutable())
-           ->setLabel($label)
-           ->setSlug($this->slugger->slug($label));
+// foreach ($rubricLabels as $label) {
+//     $rubric = new Rubric();
+//     $rubric->setCreatedAt(new DateTimeImmutable())
+//            ->setLabel($label)
+//            ->setSlug($this->slugger->slug($label));
 
-    $manager->persist($rubric);
-    $rubrics[] = $rubric; 
-}
-    $manager->persist($rubric);
-    $rubrics[] = $rubric; 
-}
+//     $manager->persist($rubric);
+//     $rubrics[] = $rubric; 
+// }
 
-$manager->flush(); 
-$manager->flush(); 
+// $manager->flush(); 
 
-// Sous-rubriques
-$subRubrics = []; 
-$subRubricsLabels = ['saxo', 'trompette', 'batterie', 'tamtam', 'guitare', 'piano', 'synthétiseur', 'amplificateur'];
+// // Sous-rubriques
+// $subRubrics = []; 
+// $subRubricsLabels = ['saxo', 'trompette', 'batterie', 'tamtam', 'guitare', 'piano', 'synthétiseur', 'amplificateur'];
 
-foreach ($subRubricsLabels as $label) {
-    $subRubric = new Rubric();
-    $subRubric->setCreatedAt(new DateTimeImmutable())
-              ->setLabel($label)
-              ->setSlug($this->slugger->slug($label))
-              ->setParent($faker->randomElement($rubrics)) 
-              ->setDescription($faker->paragraph());
+// foreach ($subRubricsLabels as $label) {
+//     $subRubric = new Rubric();
+//     $subRubric->setCreatedAt(new DateTimeImmutable())
+//               ->setLabel($label)
+//               ->setSlug($this->slugger->slug($label))
+//               ->setParent($faker->randomElement($rubrics)) 
+//               ->setDescription($faker->paragraph());
 
-    $manager->persist($subRubric);
-    $subRubrics[] = $subRubric; 
+//     $manager->persist($subRubric);
+//     $subRubrics[] = $subRubric; 
 
-$manager->flush(); 
+// $manager->flush(); 
 
-// Fournisseurs
-$infoSuppliersType = ['constructeur', 'importateur'];
-$infoSuppliers = [];
-// Fournisseurs
-$infoSuppliersType = ['constructeur', 'importateur'];
-$infoSuppliers = [];
+// // Fournisseurs
+// $infoSuppliersType = ['constructeur', 'importateur'];
+// $infoSuppliers = [];
 
-foreach ($infoSuppliersType as $type) {
-    $infoSupplier = new InfoSuppliers();
-    $infoSupplier->setType($type)
-                 ->setStatus('Active')
-                 ->setReference("infoSuppliers:" . mt_rand(10000, 99999))
-                 ->setUser($faker->randomElement($users));
+// foreach ($infoSuppliersType as $type) {
+//     $infoSupplier = new InfoSuppliers();
+//     $infoSupplier->setType($type)
+//                  ->setStatus('Active')
+//                  ->setReference("infoSuppliers:" . mt_rand(10000, 99999))
+//                  ->setUser($faker->randomElement($users));
 
-    $manager->persist($infoSupplier);
-    $infoSuppliers[] = $infoSupplier;
-}
-    $manager->persist($infoSupplier);
-    $infoSuppliers[] = $infoSupplier;
-}
+//     $manager->persist($infoSupplier);
+//     $infoSuppliers[] = $infoSupplier;
+// }
 
-$manager->flush(); 
-$manager->flush(); 
+// $manager->flush(); 
 
-//Produits
-for ($i = 0; $i < 50; $i++) {
-    $tva = new Tva();
-    $tva->setRate('18.60');
-    $manager->persist($tva);
+// //Produits
+// for ($i = 0; $i < 50; $i++) {
+//     $tva = new Tva();
+//     $tva->setRate('18.60');
+//     $manager->persist($tva);
 
-    $product = new Product();
-    $product->setLabel($faker->sentence)
-            ->setSlug($this->slugger->slug($faker->sentence)->lower() . '-' . uniqid())
-            ->setStock(mt_rand(1, 100))
-            ->setPrice(mt_rand(1, 100))
-            ->setReference("RefProd:" . mt_rand(10000, 99999))
-            ->setDescription($faker->paragraph)
-            ->setWeight($faker->randomFloat(2, 0, 100))
-            ->setInfoSuppliers($faker->randomElement($infoSuppliers))
-            ->setRubric($faker->randomElement($subRubrics)) 
-            ->setTva($tva)
-            ->setCreatedAt(new DateTimeImmutable())
-            ->setUpdatedAt(new DateTimeImmutable());
+//     $product = new Product();
+//     $product->setLabel($faker->sentence)
+//             ->setSlug($this->slugger->slug($faker->sentence)->lower() . '-' . uniqid())
+//             ->setStock(mt_rand(1, 100))
+//             ->setPrice(mt_rand(1, 100))
+//             ->setReference("RefProd:" . mt_rand(10000, 99999))
+//             ->setDescription($faker->paragraph)
+//             ->setWeight($faker->randomFloat(2, 0, 100))
+//             ->setInfoSuppliers($faker->randomElement($infoSuppliers))
+//             ->setRubric($faker->randomElement($subRubric)) 
+//             ->setTva($tva)
+//             ->setCreatedAt(new DateTimeImmutable())
+//             ->setUpdatedAt(new DateTimeImmutable());
 
-    $manager->persist($product);
-}
+//     $manager->persist($product);
+// }
 
-$manager->flush();
-$manager->flush();
+// $manager->flush();
 
-    // Images
-    for ($i = 0; $i < 50; $i++) {
-        $image = new Image();
-        $image->setImage($faker->imageUrl);
-        $image->setProduct($faker->randomElement($manager->getRepository(Product::class)->findAll()));
-        $manager->persist($image);
-    }
-    $manager->flush();
-}
+//     // Images
+//     for ($i = 0; $i < 50; $i++) {
+//         $image = new Image();
+//         $image->setImage($faker->imageUrl);
+//         $image->setProduct($faker->randomElement($manager->getRepository(Product::class)->findAll()));
+//         $manager->persist($image);
+//     }
+//     $manager->flush();
+// }
 }
 
 
