@@ -14,8 +14,8 @@ use DateTime;
 use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-// use Symfony\Component\Slugger;
-// use App\Entity\Trait\SlugTrait;
+use Symfony\Component\Slugger;
+use App\Entity\Trait\SlugTrait;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 

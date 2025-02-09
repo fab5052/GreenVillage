@@ -16,16 +16,14 @@ class MainController extends AbstractController
     {
         try {
             // Récupérer les rubriques principales (qui n'ont pas de parent)
-            //$rubric = $rubricRepository->findAll();
             $rubrics = $rubricRepository->findBy(['parent' => null]);
+    
         } catch (\Exception $e) {
             $this->addFlash('error', 'Impossible de charger les rubriques. Veuillez réessayer plus tard.');
-           // $rubric = [];
             $rubrics = [];
         }
     
         return $this->render('main/index.html.twig', [
-            //'rubrics' => $rubrics,
             'rubrics' => $rubrics, // On passe bien les rubriques principales
         ]);
     }
