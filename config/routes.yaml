@@ -31,9 +31,9 @@ app_register:
   path: /register
   controller: App\Controller\RegistrationController::register
 
-app_verify:
+app_verif:
   path: /verif/{token}
-  controller: App\Controller\RegistrationController::verify_user
+  controller: App\Controller\RegistrationController::verif_user
 
 app_resend:
   path: /verif/resend

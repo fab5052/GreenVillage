@@ -440,13 +440,20 @@ width: auto;
         height: 100%;
         object-fit: cover;
       } */
+<<<<<<< HEAD
 
 
       /* background-image: url("https://i.etsystatic.com/21916349/r/il/a756da/3962508333/il_794xN.3962508333_jf2j.jpg"); */
+=======
+      
+
+
+>>>>>>> bf8cee66 (cccxcc)
    .bg {
           animation: slide 20s ease-in-out infinite alternate;
-          background-image: linear-gradient(-40deg, rgba(91, 36, 9, 0.448)50%, black 50%);
+          background-image: linear-gradient(-40deg, rgba(91, 36, 9, 0.448)50%, black 50%)
           /*-40deg is the angle of the cut and 50% is how much of the color takes up the screen*/
+          "url='https://i.etsystatic.com/21916349/r/il/a756da/3962508333/il_794xN.3962508333_jf2j.jpg'";
           bottom: 0;
           top: 0;
           left: -50%;
@@ -496,8 +503,8 @@ width: auto;
           100% {
             transform: translateX(25%);
           }
-        }
-
+                }
+   
   .nav {
     width: 100vw;
     height: 200px;

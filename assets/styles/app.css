@@ -1,4 +1,4 @@
-/*!*************************************************************************************************!*\
+/* /*!*************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-4.use[1]!./assets/styles/app.css ***!
   \*************************************************************************************************/
 
@@ -35,7 +35,7 @@
     width: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
-  } */
+  } *
   * {
     box-sizing: border-box;
 
@@ -440,7 +440,7 @@ min-height: 70vh;
   
   .nav div.main_list ul li a {
     font-size: 17px;
-      /* font-family: 'Strait', sans-serif; */
+      /* font-family: 'Strait', sans-serif; *
       font-family: "Audiowide", sans-serif;
       font-weight: 300;
 
@@ -948,7 +948,7 @@ min-height: 70vh;
   
     .nav div.media_button {
       display: block;
-    } */
+    } *
     #search {
       height: 35px;
       width: auto;
@@ -1149,7 +1149,7 @@ min-height: 70vh;
     }
     .countdown-flip {
       position:relative;
-      /* display:inline-block; */
+      /* display:inline-block; *
       text-align:center;
       border-radius:4px;
       margin:0 1px;
@@ -1535,7 +1535,7 @@ min-height: 70vh;
           .prev {
             margin-top: 20vh;
           }
-    } */
+    } *
      
      @media (max-width:768px) {
     .navTrigger {
@@ -1550,7 +1550,7 @@ min-height: 70vh;
       z-index: 10;
       justify-items: center;
   
-    } */
+    } *
   
     .container-nav {
    display: flex;
@@ -1611,7 +1611,7 @@ min-height: 70vh;
   /* .logo img {
     max-width: 10rem;
     max-height: 10.5rem;
-  } */
+  } *
   
      .nav div.main_list {
       width: 100vw;
@@ -2125,7 +2125,7 @@ min-height: 70vh;
   button:hover .text,
   button.active .text {
     animation: text .66s ease-in 1 both;
-  } */
+  } *
   
   
   /* .cards {
@@ -2217,7 +2217,7 @@ min-height: 70vh;
      position: relative;
     
       z-index: -1;
-    } */
+    } *
   
     .cards {
       /* display: block; */
@@ -2349,7 +2349,7 @@ min-height: 70vh;
       padding: 5000;
      
       
-    } */
+    } *
   
   
   hr {
@@ -3317,7 +3317,7 @@ min-height: 70vh;
       width: 20px;
       color: #898888;
       border: solid 2px;
-    } */
+    } *
   
     @media (max-width:768px) {
       .accordion-group {
@@ -3391,4 +3391,4 @@ min-height: 70vh;
       }
       
   
-  /*sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibWFpbi5jc3MiLCJtYXBwaW5ncyI6Ijs7O0FBQUE7SUFDSSx5QkFBeUI7QUFDN0IiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9hc3NldHMvc3R5bGVzL2FwcC5jc3MiXSwic291cmNlc0NvbnRlbnQiOlsiYm9keSB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogc2t5Ymx1ZTtcbn1cbiJdLCJuYW1lcyI6W10sInNvdXJjZVJvb3QiOiIifQ==#}
+  /*sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibWFpbi5jc3MiLCJtYXBwaW5ncyI6Ijs7O0FBQUE7SUFDSSx5QkFBeUI7QUFDN0IiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9hc3NldHMvc3R5bGVzL2FwcC5jc3MiXSwic291cmNlc0NvbnRlbnQiOlsiYm9keSB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogc2t5Ymx1ZTtcbn1cbiJdLCJuYW1lcyI6W10sInNvdXJjZVJvb3QiOiIifQ==#} */
