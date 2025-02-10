@@ -16,11 +16,10 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use DateTimeImmutable;
-// use Proxies\__CG__\App\Entity\InfoSuppliers as EntityInfoSuppliers;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 //#[ORM\UniqueConstraint(name: 'slug', columns: ['slug'])]
-#[ORM\UniqueConstraint(name: 'reference', columns: ['reference'])]
+//#[ORM\UniqueConstraint(name: 'reference', columns: ['reference'])]
 class Product
 {
    // use CreatedAtTrait;
@@ -65,8 +64,10 @@ class Product
     #[ORM\Column(type: 'boolean')]
     private bool $isAvailable = true;
 
+
     #[ORM\Column(type: 'integer')]
     private int $stock;
+
 
     #[ORM\ManyToOne(targetEntity: InfoSuppliers::class, inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
@@ -229,14 +230,14 @@ public function getImages(): Collection
     return $this->images;
 }
 
-public function getRubric(): ?Rubric
+public function getRubrics(): Rubric
 {
     return $this->rubric;
 }
 
-public function setRubric( ?Rubric $rubric): self
+public function setRubric( Rubric $rubrics): self
 {
-    $this->rubric = $rubric;
+    $this->rubric = $rubrics;
 
     return $this;
 }

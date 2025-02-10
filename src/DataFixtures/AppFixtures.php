@@ -18,7 +18,6 @@ use Doctrine\Persistence\ObjectManager;
 // use App\Entity\Trait\SlugTrait;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
-use Faker\Factory;
 
 class AppFixtures extends Fixture
 {
@@ -49,118 +48,115 @@ public function load(ObjectManager $manager): void
 
     // $manager->persist($admin);
     
-    $faker = Factory::create('fr_FR');
+$faker = \Faker\Factory::create('fr_FR');
 
     // Utilisateurs
 
-    // $users = [];
-    // for ($i = 0; $i < 5; $i++) {
-    //     $user = new User();
-    //     $user->setCreatedAt(new DateTimeImmutable())
-    //          ->setEmail($faker->email)
-    //          ->setLastname($faker->lastName)
-    //          ->setFirstname($faker->firstName)
-    //          ->setRoles(['ROLE_USER'])
-    //          ->setIsVerified(1)
-    //          ->setAddress($faker->address)
-    //          ->setZipcode($faker->postcode)
-    //          ->setCity($faker->city)
-    //          ->setPassword($this->passwordEncoder->hashPassword($user, 'secret'));
-    //     $manager->persist($user);
-    //     $users[] = $user;
-    // }
-    // $manager->flush(); 
+    $users = [];
+    for ($i = 0; $i < 5; $i++) {
+        $user = new User();
+        $user->setCreatedAt(new DateTimeImmutable())
+             ->setEmail($faker->email)
+             ->setLastname($faker->lastName)
+             ->setFirstname($faker->firstName)
+             ->setRoles(['ROLE_USER'])
+             ->setIsVerified(1)
+             ->setAddress($faker->address)
+             ->setZipcode($faker->postcode)
+             ->setCity($faker->city)
+             ->setPassword($this->passwordEncoder->hashPassword($user, 'secret'));
+        $manager->persist($user);
+        $users[] = $user;
+    }
+    $manager->flush(); 
 
     
 // Rubriques principales
-// $rubrics = []; 
-// $rubricLabels = ['vent', 'percus', 'cordes', 'electro'];
+$rubrics = []; 
+$rubricLabels = ['vent', 'percus', 'cordes', 'electro'];
 
-// foreach ($rubricLabels as $label) {
-//     $rubric = new Rubric();
-//     $rubric->setCreatedAt(new DateTimeImmutable())
-//            ->setLabel($label)
-//            ->setSlug($this->slugger->slug($label));
+foreach ($rubricLabels as $label) {
+    $rubric = new Rubric();
+    $rubric->setCreatedAt(new DateTimeImmutable())
+           ->setLabel($label)
+           ->setSlug($this->slugger->slug($label));
 
-//     $manager->persist($rubric);
-//     $rubrics[] = $rubric; 
-// }
+    $manager->persist($rubric);
+    $rubrics[] = $rubric; 
+}
 
-// $manager->flush(); 
+$manager->flush(); 
 
 // Sous-rubriques
-// $subRubrics = []; 
-// $subRubricsLabels = ['saxo', 'trompette', 'batterie', 'tamtam', 'guitare', 'piano', 'synthétiseur', 'amplificateur'];
+$subrubrics = []; 
+$subrubricsLabels = ['saxo', 'trompette', 'batterie', 'tamtam', 'guitare', 'piano', 'synthétiseur', 'amplificateur'];
 
-// foreach ($subRubricsLabels as $label) {
-//     $subRubric = new Rubric();
-//     $subRubric->setCreatedAt(new DateTimeImmutable())
-//               ->setLabel($label)
-//               ->setSlug($this->slugger->slug($label))
-//               ->setParent($faker->randomElement($rubrics)) 
-//               ->setDescription($faker->paragraph());
+foreach ($subrubricsLabels as $label) {
+    $subrubric = new Rubric();
+    $subrubric->setCreatedAt(new DateTimeImmutable())
+              ->setLabel($label)
+              ->setSlug($this->slugger->slug($label))
+              ->setParent($faker->randomElement($rubrics)) 
+              ->setDescription($faker->paragraph());
 
-//     $manager->persist($subRubric);
-//     $subRubrics[] = $subRubric; 
+    $manager->persist($subrubric);
+    $subrubrics[] = $subrubric; 
+}
 
-// $manager->flush(); 
+$manager->flush(); 
 
 // Fournisseurs
-// $infoSuppliersType = ['constructeur', 'importateur'];
-// $infoSuppliers = [];
+$infoSuppliersType = ['constructeur', 'importateur'];
+$infoSuppliers = [];
 
-// foreach ($infoSuppliersType as $type) {
-//     $infoSupplier = new InfoSuppliers();
-//     $infoSupplier->setType($type)
-//                  ->setStatus('Active')
-//                  ->setReference("infoSuppliers:" . mt_rand(10000, 99999))
-//                  ->setUser($faker->randomElement($users));
+foreach ($infoSuppliersType as $type) {
+    $infoSupplier = new InfoSuppliers();
+    $infoSupplier->setType($type)
+                 ->setStatus('Active')
+                 ->setReference("infoSuppliers:" . mt_rand(1000, 9999))
+                 ->setUser($faker->randomElement($users));
 
-//     $manager->persist($infoSupplier);
-//     $infoSuppliers[] = $infoSupplier;
-// }
+    $manager->persist($infoSupplier);
+    $infoSuppliers[] = $infoSupplier;
+}
 
-// $manager->flush(); 
+$manager->flush(); 
 
 //Produits
-// for ($i = 0; $i < 50; $i++) {
-//     $tva = new Tva();
-//     $tva->setRate('18.60');
-//     $manager->persist($tva);
+$product = [] ;
 
- //   $product = new Product();
-//     $product->setLabel($faker->sentence)
-//             ->setSlug($this->slugger->slug($faker->sentence)->lower() . '-' . uniqid())
-//             ->setStock(mt_rand(1, 100))
-//             ->setPrice(mt_rand(1, 100))
-//            // ->setReference("RefProd:" . mt_rand(10000, 99999))
-//             ->setDescription($faker->paragraph)
-//             ->setWeight($faker->randomFloat(2, 0, 100))
-//             ->setInfoSuppliers($faker->randomElement($infoSuppliers))
-//             ->setRubric($faker->randomElement($subRubrics)) 
-//             ->setTva($tva)
-//             ->setCreatedAt(new DateTimeImmutable())
-//             ->setUpdatedAt(new DateTimeImmutable());
+for ($i = 0; $i < 50; $i++) {
+    $tva = new Tva();
+    $tva->setRate('18.60');
+    $manager->persist($tva);
 
-//     $manager->persist($product);
-// }
-// }
+    $product = new Product();
+    $product->setLabel($faker->sentence)
+            ->setSlug($this->slugger->slug($faker->sentence)->lower() . '-' . uniqid())
+            ->setStock(mt_rand(1, 100))
+            ->setPrice(mt_rand(1, 100))
+            ->setReference("RefProd:" . mt_rand(10000, 99999))
+            ->setDescription($faker->paragraph)
+            ->setWeight($faker->randomFloat(2, 0, 100))
+            ->setInfoSuppliers($faker->randomElement($infoSuppliers))
+            ->setRubric($faker->randomElement($subrubrics)) 
+            ->setTva($tva)
+            ->setCreatedAt(new DateTimeImmutable())
+            ->setUpdatedAt(new DateTimeImmutable());
+
+    $manager->persist($product);
+   // $product[] = $product; 
+}
+
 $manager->flush();
 
-    // Image
-    $products = $manager->getRepository(Product::class)->findAll();
-        
-    if (empty($products)) {
-        return; // On évite d'insérer des images si aucun produit n'existe
-    }
-
+    // Images
     for ($i = 0; $i < 50; $i++) {
         $image = new Image();
-        $image->setImage($faker->imageUrl());
-        $image->setProduct($faker->randomElement($products));
+        $image->setImage($faker->imageUrl);
+        $image->setProduct($faker->randomElement($manager->getRepository(Product::class)->findAll()));
         $manager->persist($image);
     }
-
     $manager->flush();
 }
 }

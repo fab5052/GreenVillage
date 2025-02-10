@@ -45,7 +45,7 @@ class Rubric
     private ?\DateTimeImmutable $createdAt;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'rubrics', cascade: ['remove'])]    
-    private ?self $parent = null;
+    private ?self $parent;
 
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist', 'remove'])]
     private Collection $rubrics;
@@ -190,8 +190,8 @@ public function getRubrics(): Collection
     public function removeProduct(Product $product): self
     {
         if ($this->products->removeElement($product)) {
-            if ($product->getRubric() === $this) {
-                $product->setRubric(null);
+            if ($product->getRubrics() === $this) {
+                $product->setRubric($this);
             }
         }
 
