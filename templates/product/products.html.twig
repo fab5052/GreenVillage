@@ -3,6 +3,7 @@
 {% block title %}Produits{% endblock %}
 
 {% block body %}
+<div class="breadcrumb">
     <nav aria-label="breadcrumb" class="mt-2">
         <ul class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
@@ -11,8 +12,9 @@
             {% endfor %}
         </ul>
     </nav>
+</div>
 
-    <main class="main">
+    <main class="main w-100 d-flex">
        
                 {% set subrubric_images = {
                     'saxo': '/image/subrubric(1).png',
@@ -25,39 +27,40 @@
                     'amplificateur': '/image/subrubric(8).png',
                     } %}
 
-                 
-                    <div class="container-fluid prod w-100 d-flex">
-               
-{% for rubric in rubrics %}
-                        <div class="row-cols-4 "> 
-                                       
+                        {% for rubric in rubrics %} 
 
-                             <div class="col-12 col-sm-6 col-md-4 col-xl-3 mt-2">
+                    <div class="container-fluid d-flex w-100 ">
+                        <div class="row p-0 ml-0">
+                            <div class="col-12 d-flex ">
+
+                                       
+   
+                            
                {% for subrubric in rubric.rubrics %}
-                        <div id="prod" class="cards-prod text-center">
-                           
+        
+                             <div class="prod d-flex">
                             
                                     <h2>{{ subrubric.slug }}</h2> <img src="{{ subrubric_images[subrubric.slug] }}" class="subrub-image" alt="">
                                     <p>{{ subrubric.description }}</p>
                                    
                                     
                         </div>  
-                         {% endfor %}     
-</div>  
-                                        
+                  
+                       {% endfor %}        
+                    </div>
 
-                </div>            
-             {% endfor %} 
+</div>        
             </div>
 
-        
+            {% endfor %}                          
+  
             {# <div class="prod-content">
                 <h2>{{ rubric.label }}</h2>
                 <div class="rub-content">{{ rubric.description }}</div>
             </div>
         {% endfor %} #}
 
-        <div class="pagination justify-content-center">
+        <div class="pagination">
             {{ knp_pagination_render(products) }}
         </div>
 

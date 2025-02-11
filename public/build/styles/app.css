@@ -170,19 +170,7 @@
   }
   .offset-4 {
     margin-left: 33.33333333%;
-  }
-  .offset-5 {
-    margin-left: 41.66666667%;
-  }
-  .offset-6 {
-    margin-left: 50%;
-  }
-  .offset-7 {
-    margin-left: 58.33333333%;
-  }
-  .offset-8 {
-    margin-left: 66.66666667%;
-  }
+  } 
   .offset-9 {
     margin-left: 75%;
   }
@@ -205,14 +193,7 @@
     font-size: 20px;
     font-family: 'Strait', sans-serif;
   
-  } 
-  
- 
-   .scrollbar {
-  
-    height: 90%;
-    width: 100%;
-    overflow-y: hidden;
+  }  text-cente
     overflow-x: hidden;
   }
   
@@ -230,17 +211,21 @@
         box-sizing: border-box; 
       margin: 0;
       padding: 0;
-
   }
 
-   
-  body, html {
+  body html {
+
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-  }
+           -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box; 
+        margin: 0;
+        padding: 0;
+    
+    }
+   
 
-  .carousel-image {
+  .carousel-image img {
     position: absolute;
     align-items: center;
     top: 0;
@@ -255,20 +240,18 @@
 
   }
 
- .container-fluid .prod {
+ .container-prod {
   display: flex;
-  flex-wrap: wrap; /* Permet aux cartes de passer à la ligne si besoin */
-  justify-content: center; /* Centre les éléments */
+  position: relative;
+  flex-direction: row;
+  /* flex-wrap: wrap;  */
+  justify-content: center; 
   gap: 2px; /* Espacement entre les cartes */
 }
 
-.cards-prod {
-  flex: 1 1 calc(25% - 20px); /* Chaque carte prend 25% de l'espace moins l'espacement */
-  max-width: 250px; /* Taille max pour éviter que ça devienne trop grand */
-  min-width: 200px; /* Évite que les cartes deviennent trop petites */
-  height: 300px; /* Ajuste selon tes besoins */
-}
-
+/* .card-prod {
+  flex: 1 1 calc(25% - 2px); /* Chaque carte prend 25% de l'espace moins l'espacement 
+}*/
   .subrub-image {
     position: absolute; /* Fixe l'image derrière le texte */
     top: 0; /* Aligne l'image en haut */
@@ -279,18 +262,19 @@
     object-fit: cover; /* Ajuste l'image sans déformation */
     opacity: 0.8; /* Rend l'image légèrement transparente */
     z-index: -1; /* Place l'image derrière le texte */
+    display: flex;
 }
 
-.cards-prod h2, .cards-prod p {
+.prod h2, .prod p {
   position: relative; /* Reste au-dessus de l’image */
   color: black; /* Assure une bonne visibilité */
   font-weight: bold;
   text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.7); /* Améliore la lisibilité */
 }
   
-  .cards-prod {
-    position: relative; /* Nécessaire pour le positionnement `absolute` de l’image */
-
+  .prod {
+    position: relative; 
+width: 12vw;
     height: 250px; /* Ajuste selon la taille voulue */
     display: flex;
     flex-direction: column;
@@ -344,9 +328,7 @@
   }
 
   .main {
- 
-     height: 100%;
-min-height: 70%;
+      min-height: 70%;
       margin-top: 7vh; 
       margin-bottom: 5vh;
       /* margin-left: 7vw ; */
