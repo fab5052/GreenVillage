@@ -4,12 +4,12 @@
 
 
 {% block body %}
-<div class="main">
+<div class="main mb-auto">
 
 
 
-<section class="container mt-5 position-relative">
-    <div class="row">
+<section class="container my-auto p-0 top-70 mt-6 w-90 ml-auto mr-auto h-70 position-relative">
+    <div class="row ml-2 mt-5 mb-5">
         <div class="col">
             <form method="post">
                 {% if error %}
@@ -42,8 +42,8 @@
                 <button class="btn btn-lg btn-primary mt-3" type="submit">
                     Me connecter
                 </button>
-                <a href="{{ path('app_register') }}" class="btn btn-secondary mt-3">M'inscrire</a>
-                <a href="{{ path('forgotten_password') }}" class="btn btn-info mt-3">Mot de passe oublié</a>
+                <a href="{{ path('app_register') }}" class="btn btn-info mt-3">M'inscrire</a>
+                <a href="{{ path('forgotten_password') }}" class="btn btn-danger mt-3">Mot de passe oublié</a>
             </form>
         
         </div>
