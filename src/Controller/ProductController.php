@@ -44,7 +44,7 @@ class ProductController extends AbstractController
         try {
             
             $rubric = $this->rubricRepository->findAll(); 
-            //$rubrics = $this->$rubricRepository->findBy(['parent' => null]);
+            //$rubric= $this->$rubricRepository->findBy(['parent' => null]);
             $productsQuery = $this->productRepository->findAll();
             $query = $this->productRepository->createQueryBuilder('p')->getQuery();
             $paginatedProducts = $this->paginator->paginate(
@@ -62,9 +62,10 @@ class ProductController extends AbstractController
 
         return $this->render('product/products.html.twig', [
             'orders' => $orders,
-            'rubric' => [],
             'rubrics' => $rubric,
+            'subrubrics' => $rubric,
             'images' => $images,
+            'product' => $productsQuery,
             'products' => $paginatedProducts,
         ]);
     }

@@ -8,10 +8,17 @@ opcache:
     path: /opcache
     controller: App\Controller\OpcacheController::index
 
+admin_index:
+  path: /admin/dashboard
+  controller: App\controller\Admin\DashboardController::index
+  defaults:
+     role: ROLE_ADMIN
 
-# app_dashboardAdmin:
+# app_dashboard:
 #   path: /admin/dashboard
-#   controller: App\controller\AdminController::admin
+#   controller: App\controller\Admin\DashboardController::index
+#   defaults:
+#      role: ROLE_ADMIN
 
 # app_dashboardClient:
 #   path: /client/dashboard
@@ -23,9 +30,8 @@ opcache:
 
 admin_user_index:
    path: /admin/
-#  controller: App\Controller\RubricController::index
-   defaults:
-     role: ROLE_ADMIN
+   controller: App\Controller\AdminController::index
+
 
 app_register:
   path: /register
@@ -143,3 +149,4 @@ app_profile:
 #   controller: App\Controller\ProfilController::addAddress
 #   defaults:
 #     role: ROLE_USER
+

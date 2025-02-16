@@ -45,14 +45,12 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | b
     && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" \
     && nvm install 22
 
-RUN wget https://getcomposer.org/installer -O /var/www/composer-setup.php
-RUN php /var/www/composer-setup.php 
-RUN mv composer.phar /usr/bin/composer 
-RUN chmod +x /usr/bin/composer
+# RUN wget https://getcomposer.org/installer -O /var/www/composer-setup.php
+# RUN php /var/www/composer-setup.php 
+# RUN mv composer.phar /usr/bin/composer 
+# RUN chmod +x /usr/bin/composer
 
-RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
-    && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
-    && php -r "unlink('composer-setup.php');"
+
 
 # Configurer Xdebug
 RUN echo 'xdebug.mode=develop,debug,coverage' >> /usr/local/etc/php/conf.d/xdebug.ini \
@@ -67,26 +65,40 @@ RUN apt-get update && apt-get install -y curl \
     && apt-get install -y nodejs
 
 # # Installer Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN curl -sSk https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \\
+    && php -r "unlink('composer-setup.php');"
+    
+RUN mv composer.phar /usr/bin/composer 
+RUN chmod +x /usr/bin/composer    
 
-WORKDIR /var/www
+# RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
+#     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
+#     && php -r "unlink('composer-setup.php');"
+
+
+WORKDIR /var/www/
 
 COPY ./automation/docker/default-vhost.conf /etc/apache2/sites-available/default-vhost.conf
 
 RUN a2dissite 000-default.conf \
     && a2ensite default-vhost.conf
+
+RUN cd /var/www && \
+    composer install && \
+    npm install --force && \
+    npm run build    
+
+RUN chmod -R 755 /var/www && chown -R www-data:www-data /var/www
+RUN git config --global --add safe.directory '*' && \
+    git config --global user.email "f.beaujois@gmail.com" && \
+    git config --global user.name "fab5052"     
     
 COPY ./automation/scripts/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 
-CMD ["/usr/local/bin/docker-entrypoint.sh"]
+CMD ["bash", "/usr/local/bin/docker-entrypoint.sh", "./docker/docker.sh"]
 
 # Crée un utilisateur avec un UID/GID correspondant à celui de l'utilisateur hôte
 
-
-RUN chmod -R 777 /var/www && chown -R www-data:www-data /var/www
-
-RUN git config --global --add safe.directory '*' && \
-    git config --global user.email "f.beaujois@gmail.com" && \
-    git config --global user.name "fab5052" 
+EXPOSE 80

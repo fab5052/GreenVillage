@@ -26,7 +26,7 @@
 		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
 			{% for product in products %}
 				<div class="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-					{# {% if is_granted('ROLE_USER') %} #}
+					{% if is_granted('ROLE_USER') %}
 						<div class="p-4 text-sm text-gray-500">
 							<p class="mb-1">
 								<strong>Référence :</strong>
@@ -35,7 +35,7 @@
 								<strong>Fournisseur :</strong>
 								{{ product.infoSuppliers.reference }}</p>
 						</div>
-					{# {% endif %} #}
+					{% endif %}
 
 					<div class="overflow-hidden rounded-t-2xl">
 						<div class="product-images">

@@ -66,9 +66,9 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
   //   Redirection basée sur les rôles
        $roles = $token->getRoleNames(); // Récupère les rôles de l'utilisateur connecté
 
-    //     if (in_array('ROLE_ADMIN', $roles, true)) {
-    //         return new RedirectResponse($this->urlGenerator->generate('admin_dashboard'));
-    //     }
+        if (in_array('ROLE_ADMIN', $roles, true)) {
+            return new RedirectResponse($this->urlGenerator->generate('app_dashboard'));
+        }
     
         if (in_array('ROLE_USER', $roles, true)) {
             return new RedirectResponse($this->urlGenerator->generate('app_home'));

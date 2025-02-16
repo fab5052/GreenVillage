@@ -16,6 +16,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use DateTimeImmutable;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 //#[ORM\UniqueConstraint(name: 'slug', columns: ['slug'])]
@@ -149,6 +150,11 @@ class Product
     public function getStock(): ?int
     {
         return $this->stock;
+    }
+
+    public function getIsAvailable(): bool
+    {
+        return $this->isAvailable;
     }
 
     public function setStock(int $stock): self
