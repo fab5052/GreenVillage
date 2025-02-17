@@ -7,8 +7,8 @@
     <nav aria-label="breadcrumb" class="mt-2">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
-            {% for rubric in rubrics %}
-            {% for subrubric in rubric.rubrics %}
+            {% for rubrics in rubric %}
+            {% for subrubrics in rubrics %}
             <li class="breadcrumb-item"><a href="{{ path('app_products', {'rubrics': rubric.slug }) }}">{{ subrubric.label }}</a></li>
             {% endfor %} 
              {% endfor %}
@@ -33,11 +33,11 @@
                     
                     <div class="container-fluid d-flex w-100 ">
                         <div class="row">
-                            {% for rubric in rubrics %} 
+                            {% for rubrics in rubric %} 
                             <div class="col-12 col-lg-10 col-md 6 col-sm 8 ">
    
-                                {% set subrubrics = rubric.getRubrics() %}           
-               {% for subrubric in rubric.rubrics %}
+                                {% set subrubrics = rubrics.getRubrics() %}           
+               {% for subrubrics in rubrics %}
         
                              <div class="prod d-flex">
                             
@@ -56,7 +56,7 @@
                                    
                                         <article class="card">
                                             {% for image in product.images %} 
-                                            <img src="{{ image.image }}" alt="Image de {{ product.id }}" width="200">
+                                            <img src="{{ image.image }}" alt="Image de {{ product.label }}" width="200">
                                         {% else %}
                                                 <p>Aucune image disponible.</p>
                                             {% endfor %}

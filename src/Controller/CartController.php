@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Order;
 use App\Entity\Product;
-use App\Entity\OrderDetails;
+use App\Entity\OrderDetails; 
 use App\Entity\Image;
+use App\Entity\Tva;
 use App\Repository\ProductRepository;
 use App\Repository\ImageRepository;
+use App\Repository\TvaRepository;
 use App\Service\SendMailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,17 +21,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CartController extends AbstractController
 {
     private ProductRepository $productRepository;
-
     private ImageRepository $imageRepository;
+    private TvaRepository $tvaRepository;
 
     public function __construct(
         ProductRepository $productRepository,
         ImageRepository $imageRepository,
+        TvaRepository $tvaRepository,
     ) {
     
         $this->productRepository = $productRepository;
         $this->imageRepository = $imageRepository;
-
+        $this->tvaRepository = $tvaRepository;
     }
     private function calculateProductDetails(Product $product, int $quantity): array
     {
@@ -72,9 +75,11 @@ class CartController extends AbstractController
     
                     $dataProduct[] = [
                         'product' => $product,
+                        'tva' => [],
                         'quantity' => $quantity,
                         'priceWithTax' => $productDetails['priceWithTva'],
                         'images' => $images,
+                        'image' => [],                      
                     ];
                 }
             }
@@ -89,7 +94,7 @@ class CartController extends AbstractController
             'products' => $dataProduct,
             'total' => $total,
             'totalTaxes' => $totalTaxes,
-            'images' => $images, // 🔴 Maintenant, cette variable est toujours définie
+            'images' => $images, // 🔴
         ]);
     }
 

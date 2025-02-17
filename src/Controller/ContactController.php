@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Form\ContactType;
+use App\Form\ContactFormType;
 use App\Service\SendMailService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,9 +13,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ContactController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function contact(Request $request, SendMailService $sendEmailService): Response
+    public function contact(Request $request, SendMailService $sendMailService): Response
     {
-        $form = $this->createForm(ContactType::class);
+        $form = $this->createForm(ContactFormType::class);
 
         $form->handleRequest($request);
 
@@ -23,7 +23,7 @@ class ContactController extends AbstractController
 
             $this->addFlash('success', 'Votre demande de contact a bien été envoyée. Vous avez reçu un email de confirmation.');
             //mail pour le client
-            $sendEmailService->send(
+            $sendMailService->send(
                 'no-reply@Village-green.fr',
                 $form->get('email')->getData(),
                 $form->get('subject')->getData(),
@@ -32,7 +32,7 @@ class ContactController extends AbstractController
             );
 
             //mail pour l'admin
-            $sendEmailService->send(
+            $sendMailService->send(
                 $form->get('email')->getData(),
                 'Service-Contact@Village-green.fr',
                 $form->get('subject')->getData(),

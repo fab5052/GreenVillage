@@ -102,22 +102,22 @@ app_products_by_rubric:
 app_products:
   path: /products
   controller: App\Controller\ProductController::index
-  # defaults:
-  #   role: ROLE_USER
+  defaults:
+    role: ROLE_USER
 
 ## Details d'un produit
 app_product_details:
   path: /{slug}
   controller: App\Controller\ProductController::productDetails
-  # defaults:
-  #   role: ROLE_USER
-
-## Panier
-app_cart:
-  path: /cart
-  controller: App\Controller\CartController::index
   defaults:
     role: ROLE_USER
+
+## Panier
+# app_cart:
+#   path: /cart
+#   controller: App\Controller\CartController::index
+#   defaults:
+#     role: ROLE_USER
 
 ## Profile
 app_profile:

@@ -131,7 +131,7 @@ public function register(
                 $em->persist($user);
                 $em->flush();
                 $this->addFlash('success', 'Utilisateur activé');
-                return $this->redirectToRoute('app_home');
+                return $this->redirectToRoute('app_login');
             }
         }
         $this->addFlash('danger', 'Le token est invalide ou a expiré');

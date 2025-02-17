@@ -62,7 +62,7 @@
 							<a href="{{ path('app_product_details', {'slug': product.slug}) }}" class="flex-1 px-4 py-2 text-center bg-yellow-500 text-white font-medium rounded-lg shadow-md hover:bg-yellow-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-300">
 								Détails
 							</a>
-							<a href="{{ path('cart_index', {'id': product.id}) }}" class="flex-1 px-4 py-2 text-center bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400">
+							<a href="{{ path('cart_index', {'slug': product.slug}) }}" class="flex-1 px-4 py-2 text-center bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400">
 								Ajouter
 							</a>
 						</div>
