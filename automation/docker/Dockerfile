@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends\
     nano \
     wget \
     zip \
+    unzip \
     git \
     curl \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -79,6 +80,7 @@ RUN chmod +x /usr/bin/composer
 WORKDIR /var/www/
 
 COPY ./automation/docker/default-vhost.conf /etc/apache2/sites-available/default-vhost.conf
+RUN apache2-foreground
 
 RUN a2dissite 000-default.conf \
     && a2ensite default-vhost.conf
@@ -96,6 +98,7 @@ RUN git config --global --add safe.directory '*' && \
 COPY ./automation/scripts/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
+RUN apache2-foreground
 
 CMD ["bash", "/usr/local/bin/docker-entrypoint.sh", "./docker/docker.sh"]
 
