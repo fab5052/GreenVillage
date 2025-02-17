@@ -1,0 +1,380 @@
+{
+    "rubrics": [
+        {
+            "id": 1,
+            "label": "Cordes frottées",
+            "slug": "cordes-frottees",
+            "content": "Instruments à cordes joués avec un archet.",
+            "image": "cordes-frottees.jpg",
+            "children": [
+                {
+                    "id": 2,
+                    "label": "Violons et autres cordes frottées",
+                    "slug": "violons-et-cordes-frottees",
+                    "content": "Violons, altos, violoncelles et contrebasses.",
+                    "image": "violons.jpg"
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "label": "Cordes pincées",
+            "slug": "cordes-pincees",
+            "content": "Instruments à cordes joués en pinçant les cordes.",
+            "image": "cordes-pincees.jpg",
+            "children": [
+                {
+                    "id": 4,
+                    "label": "Guitares et Basses",
+                    "slug": "guitares-basses",
+                    "content": "Guitares acoustiques, électriques, classiques et basses.",
+                    "image": "guitares.jpg"
+                },
+                {
+                    "id": 5,
+                    "label": "Autres cordes pincées",
+                    "slug": "autres-cordes-pincees",
+                    "content": "Harpe, banjo, mandoline, ukulélé et autres instruments à cordes pincées.",
+                    "image": "harpe.jpg"
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "label": "Vents - Bois",
+            "slug": "vents-bois",
+            "content": "Instruments à vent de la famille des bois.",
+            "image": "vents-bois.jpg",
+            "children": [
+                {
+                    "id": 7,
+                    "label": "Anches simples",
+                    "slug": "anches-simples",
+                    "content": "Clarinettes, saxophones et autres instruments à anche simple.",
+                    "image": "clarinette.jpg"
+                },
+                {
+                    "id": 8,
+                    "label": "Anches doubles et flûtes",
+                    "slug": "anches-doubles-flutes",
+                    "content": "Hautbois, bassons, flûtes traversières, flûtes à bec et autres instruments à anche double ou sans anche.",
+                    "image": "flutes.jpg"
+                }
+            ]
+        },
+        {
+            "id": 9,
+            "label": "Vents - Cuivres",
+            "slug": "vents-cuivres",
+            "content": "Instruments à vent de la famille des cuivres.",
+            "image": "cuivres.jpg",
+            "children": [
+                {
+                    "id": 10,
+                    "label": "Cuivres",
+                    "slug": "cuivres",
+                    "content": "Trompettes, cors d'harmonie, trombones, tubas et autres cuivres.",
+                    "image": "trompette.jpg"
+                }
+            ]
+        },
+        {
+            "id": 11,
+            "label": "Percussions",
+            "slug": "percussions",
+            "content": "Instruments de percussion.",
+            "image": "percussions.jpg",
+            "children": [
+                {
+                    "id": 12,
+                    "label": "Percussions mélodiques et batteries",
+                    "slug": "percussions-melodiques-batteries",
+                    "content": "Batteries acoustiques et électroniques, xylophones, vibraphones, marimbas.",
+                    "image": "batterie.jpg"
+                },
+                {
+                    "id": 13,
+                    "label": "Percussions traditionnelles et ethniques",
+                    "slug": "percussions-traditionnelles",
+                    "content": "Congas, bongos, djembés, tambourins, maracas et autres percussions du monde.",
+                    "image": "djembe.jpg"
+                }
+            ]
+        },
+        {
+            "id": 14,
+            "label": "Claviers et instruments polyphoniques",
+            "slug": "claviers-polyphoniques",
+            "content": "Instruments à clavier et autres instruments polyphoniques.",
+            "image": "claviers.jpg",
+            "children": [
+                {
+                    "id": 15,
+                    "label": "Pianos et claviers électroniques",
+                    "slug": "pianos-claviers",
+                    "content": "Pianos acoustiques, pianos numériques, synthétiseurs, orgues électroniques.",
+                    "image": "piano.jpg"
+                },
+                {
+                    "id": 16,
+                    "label": "Accordéons et instruments apparentés",
+                    "slug": "accordeons",
+                    "content": "Accordéons chromatiques, diatoniques, bandonéons et concertinas.",
+                    "image": "accordeon.jpg"
+                }
+            ]
+        }
+    ],
+    "products": [
+        {
+            "id": 1,
+            "label": "Violon 4/4 Première",
+            "content": "Violon taille adulte en érable massif avec archet et étui.",
+            "price": "459.00",
+            "stock": 7,
+            "reference": "INST-003",
+            "slug": "violon-4-4",
+            "parent_id": 2
+        },
+        {
+            "id": 2,
+            "label": "Alto 15.5 pouces",
+            "content": "Alto intermédiaire avec archet en carbone.",
+            "price": "699.99",
+            "stock": 3,
+            "reference": "INST-015",
+            "slug": "alto-15-5",
+            "parent_id": 2
+        },
+        {
+            "id": 3,
+            "label": "Violoncelle 4/4",
+            "content": "Violoncelle entier en épicéa massif.",
+            "price": "1299.99",
+            "stock": 2,
+            "reference": "INST-016",
+            "slug": "violoncelle-4-4",
+            "parent_id": 2
+        },
+        {
+            "id": 4,
+            "label": "Guitare acoustique Folk",
+            "content": "Guitare acoustique en bois massif, table épicéa.",
+            "price": "299.99",
+            "stock": 10,
+            "reference": "INST-001",
+            "slug": "guitare-acoustique",
+            "parent_id": 4
+        },
+        {
+            "id": 5,
+            "label": "Guitare Classique 4/4",
+            "content": "Guitare classique en cèdre, touche ébène.",
+            "price": "249.99",
+            "stock": 8,
+            "reference": "INST-017",
+            "slug": "guitare-classique",
+            "parent_id": 4
+        },
+        {
+            "id": 6,
+            "label": "Basse électrique 4 cordes",
+            "content": "Basse électrique active avec micros Precision/Jazz.",
+            "price": "599.99",
+            "stock": 5,
+            "reference": "INST-009",
+            "slug": "basse-electrique",
+            "parent_id": 4
+        },
+        {
+            "id": 7,
+            "label": "Harpe celtique 34 cordes",
+            "content": "Harpe en érable avec leviers.",
+            "price": "1599.99",
+            "stock": 1,
+            "reference": "INST-013",
+            "slug": "harpe-celtique",
+            "parent_id": 5
+        },
+        {
+            "id": 8,
+            "label": "Mandoline type F",
+            "content": "Mandoline style bluegrass en érable.",
+            "price": "299.99",
+            "stock": 4,
+            "reference": "INST-018",
+            "slug": "mandoline-f",
+            "parent_id": 5
+        },
+        {
+            "id": 9,
+            "label": "Ukulélé soprano",
+            "content": "Ukulélé en acajou massif.",
+            "price": "79.99",
+            "stock": 12,
+            "reference": "INST-011",
+            "slug": "ukulele-soprano",
+            "parent_id": 5
+        },
+        {
+            "id": 10,
+            "label": "Saxophone alto",
+            "content": "Saxophone alto en laiton doré avec bec et étui.",
+            "price": "899.99",
+            "stock": 3,
+            "reference": "INST-005",
+            "slug": "saxophone-alto",
+            "parent_id": 7
+        },
+        {
+            "id": 11,
+            "label": "Clarinette Sib",
+            "content": "Clarinette en ébène système Boehm.",
+            "price": "349.99",
+            "stock": 6,
+            "reference": "INST-006",
+            "slug": "clarinette-sib",
+            "parent_id": 7
+        },
+        {
+            "id": 12,
+            "label": "Flûte traversière",
+            "content": "Flûte traversière plateau creux argentée.",
+            "price": "699.99",
+            "stock": 8,
+            "reference": "INST-007",
+            "slug": "flute-traversiere",
+            "parent_id": 8
+        },
+        {
+            "id": 13,
+            "label": "Hautbois étudiant",
+            "content": "Hautbois système Conservatoire semi-automatique.",
+            "price": "1299.99",
+            "stock": 2,
+            "reference": "INST-019",
+            "slug": "hautbois",
+            "parent_id": 8
+        },
+        {
+            "id": 14,
+            "label": "Trompette Sib",
+            "content": "Trompette en laiton verni.",
+            "price": "499.99",
+            "stock": 4,
+            "reference": "INST-010",
+            "slug": "trompette-sib",
+            "parent_id": 10
+        },
+        {
+            "id": 15,
+            "label": "Trombone ténor",
+            "content": "Trombone ténor à coulisse avec embouchure.",
+            "price": "649.99",
+            "stock": 3,
+            "reference": "INST-020",
+            "slug": "trombone-tenor",
+            "parent_id": 10
+        },
+        {
+            "id": 16,
+            "label": "Cor d'harmonie double",
+            "content": "Cor double Fa/Sib avec pavillon détachable.",
+            "price": "1899.99",
+            "stock": 1,
+            "reference": "INST-021",
+            "slug": "cor-harmonie",
+            "parent_id": 10
+        },
+        {
+            "id": 17,
+            "label": "Batterie acoustique complète",
+            "content": "Batterie 5 fûts avec cymbales et hardware.",
+            "price": "799.99",
+            "stock": 3,
+            "reference": "INST-022",
+            "slug": "batterie-acoustique",
+            "parent_id": 12
+        },
+        {
+            "id": 18,
+            "label": "Batterie électronique mesh",
+            "content": "Batterie électronique 8 pads mesh.",
+            "price": "599.99",
+            "stock": 4,
+            "reference": "INST-004",
+            "slug": "batterie-electronique",
+            "parent_id": 12
+        },
+        {
+            "id": 19,
+            "label": "Xylophone 3.5 octaves",
+            "content": "Xylophone concert avec support.",
+            "price": "449.99",
+            "stock": 2,
+            "reference": "INST-023",
+            "slug": "xylophone",
+            "parent_id": 12
+        },
+        {
+            "id": 20,
+            "label": "Djembé professionnel",
+            "content": "Djembé en bois de lenké sculpté.",
+            "price": "149.99",
+            "stock": 9,
+            "reference": "INST-014",
+            "slug": "djembe",
+            "parent_id": 13
+        },
+        {
+            "id": 21,
+            "label": "Set de congas",
+            "content": "Paire de congas avec support.",
+            "price": "399.99",
+            "stock": 3,
+            "reference": "INST-024",
+            "slug": "congas",
+            "parent_id": 13
+        },
+        {
+            "id": 22,
+            "label": "Piano numérique 88 touches",
+            "content": "Piano numérique toucher lourd, 3 pédales.",
+            "price": "799.99",
+            "stock": 5,
+            "reference": "INST-002",
+            "slug": "piano-numerique",
+            "parent_id": 15
+        },
+        {
+            "id": 23,
+            "label": "Synthétiseur workstation",
+            "content": "Synthétiseur 61 touches avec séquenceur.",
+            "price": "1199.99",
+            "stock": 3,
+            "reference": "INST-025",
+            "slug": "synthétiseur",
+            "parent_id": 15
+        },
+        {
+            "id": 24,
+            "label": "Accordéon 72 basses",
+            "content": "Accordéon chromatique touches piano.",
+            "price": "1299.99",
+            "stock": 2,
+            "reference": "INST-012",
+            "slug": "accordeon-72-basses",
+            "parent_id": 16
+        },
+        {
+            "id": 25,
+            "label": "Bandonéon double ton",
+            "content": "Bandonéon professionnel double ton.",
+            "price": "2499.99",
+            "stock": 1,
+            "reference": "INST-026",
+            "slug": "bandoneón",
+            "parent_id": 16
+        }
+    ]
+}

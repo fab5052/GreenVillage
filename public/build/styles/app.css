@@ -340,24 +340,37 @@
 
   }
 
- .container-prod {
+ /* .container-fluid .prod {
+  display: flex;
+  object-fit: contain;
+  /* position: relative;
+  flex-direction: row;
+  align-items: center; *
+  width: 100vw; 
+  gap: 2px; /* Espacement entre les cartes *
+} */
+
+.container-prod {
   display: flex;
   position: relative;
-  flex-direction: row;
-  flex-wrap: wrap; 
-  justify-content: center;
-  width: 100%; 
-  gap: 2px; /* Espacement entre les cartes */
+  flex-direction: column;
+  width: auto;
+  height: auto;
+  /* min-height: 65vh; */
+  gap: 5px;
+  /* margin: 0 auto; */
+  /* overflow-x: hidden; */
+  padding: 0;
+  align-content: center top;
 }
-
 
   .subrub-image {
     position: absolute; /* Fixe l'image derrière le texte */
-    top: 0; /* Aligne l'image en haut */
-    left: 25%; /* Centre horizontalement */
+    top: 10%; /* Aligne l'image en haut */
+    left: 50%; /* Centre horizontalement */
     transform: translateX(-50%); /* Centre parfaitement */
-    width: 40vh; /* Ajuste la taille à son conteneur */
-    height: 150px; /* S'adapte à la hauteur */
+    width: 60%; /* Ajuste la taille à son conteneur */
+    height: 70%; /* S'adapte à la hauteur */
     object-fit: contain; /* Ajuste l'image sans déformation */
     opacity: 0.6; /* Rend l'image légèrement transparente */
     z-index: -1; /* Place l'image derrière le texte */
@@ -378,22 +391,33 @@
 }
   
   .prod {
-    flex: 0 1 calc(15% - 2px); 
-z-index: 1;
-    position: relative; 
-width: auto;
+    /* flex: 0 1 calc(25% - 5px);  */
+    z-index: 1;
+    position: relative;
+    width: auto;
+    max-width: 40vw; 
+
     height: 250px; /* Ajuste selon la taille voulue */
-    display: flex-start;
+    display: flex;
     flex-direction: column;
     align-items: center;
     /* justify-content: center; */
     text-align: center;
-    /* padding: 20px; */
+    padding: 20px;
     overflow: hidden; /* Empêche l'image de dépasser */
     background: rgba(255, 255, 255, 0.8); /* Ajoute un fond légèrement visible */
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); /* Effet shadow */
     border-radius: 10px;
+    margin: 10px;
+
 }
+
+  /* .cards .prod  {
+  width: auto;
+    max-width: 40vw;
+    display: flex;
+    flex-direction: column;
+ } */
  
          /* header {
     width: 100vw;

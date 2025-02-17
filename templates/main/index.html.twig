@@ -805,11 +805,9 @@ Village Green | Accueil
 		$(document).ready(function () {
 			$(document).on("mouseenter", ".shutter-column.on-hover", function () {
 				$(this).removeClass("divi-transform-none");
-				console.log("Ajout de la classe");
 				setTimeout(() => {
 					$(this).addClass("divi-transform-none");
-					console.log("Suppression de la classe");
-				}, 5000) // 1 seconde
+				}, 5000) 
 			});
 		});
 	})(jQuery);
