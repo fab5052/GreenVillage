@@ -8,9 +8,11 @@
 
 
 
-<section class="container my-auto p-0 top-70 mt-6 w-90 ml-auto mr-auto h-70 position-relative">
-    <div class="row ml-2 mt-5 mb-5">
-        <div class="col">
+    <section class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Connexion</h1>
+
             <form method="post">
                 {% if error %}
                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -34,7 +36,7 @@
 
                     <div class="checkbox mb-3">
                         <label>
-                            <input type="checkbox" name="_remember_me"> Remember me
+                            <input type="checkbox" name="_remember_me"> Restez connecté
                         </label>
                     </div>
                 

@@ -102,12 +102,12 @@ public function register(
         );
 
         $this->addFlash('success', 'Utilisateur inscrit, veuillez cliquer sur le lien reçu pour confirmer votre adresse e-mail.');
-
-        return $userAuthenticator->authenticateUser(
-            $user,
-            $authenticator,
-            $request
-        );
+        return $this->redirectToRoute('app_login');
+        // return $userAuthenticator->authenticateUser(
+        //     $user,
+        //     $authenticator,
+        //     $request
+        // );
     }
 
     return $this->render('registration/register.html.twig', [

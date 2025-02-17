@@ -183,9 +183,10 @@ Village Green | Accueil
 	}*/
 
 	.social-sidebar {
-		position: fixed; /* Fixé à l'écran */
-		top: 50%; /* Centré verticalement */
-		left: 0px; /* Position horizontale */
+		position: fixed;
+		top: 50%;
+		margin-top: 15%; /* Centré verticalement */
+		left: -1px; /* Position horizontale */
 		transform: translateY(-50%); /* Ajustement pour le centrage */
 		display: flex;
 		flex-direction: column; /* Affichage vertical */
@@ -193,10 +194,10 @@ Village Green | Accueil
 		align-items: center;
 		gap: 20px; /* Espacement entre les boutons */
 		z-index: 1000; /* Toujours au-dessus */
-		background-color: rgba(80, 68, 68, 0.78);
-		border-radius: 3%;
-		width: 40px;
-		height: 200px;
+		background-color: rgba(105, 94, 94, 0.78);
+		border-radius: 0px 10% 10% 0%;
+		width: 42px;
+		height: 220px;
 	  }
 	  
 	  /* Style des boutons */
@@ -344,27 +345,45 @@ Village Green | Accueil
 	}*/
 
 	#contentContainer {
+		box-sizing:border-box;
+
+		padding-top: 30px;
 		display: flex;
 		justify-content: center;
 		/* Centre horizontalement */
 		align-items: center;
 		/* Centre verticalement */
 		height: auto;
-		min-height: 550px;
-				overflow-x: hidden;
-		width: 100%;
+		min-height: 700px;
+		overflow-x: hidden;
+		width: 100vw;
 		transform-style: preserve-3d;
-		perspective: 300px;
 		z-index: 1;
+		-webkit-box-flex:0;
+		-ms-flex-preferred-size:100%;
+		box-sizing:border-box;
+		-ms-flex:0 0 auto;
+		flex:0 0 auto;
+		flex-basis:100%;
+		max-width:100%;
+		padding-left:8px;
+		padding-right:8px
 
 
 	}
 
 	#carouselContainer {
+		box-sizing:border-box;
+		margin-left:auto;
+		margin-right:auto;
+		margin-top:auto;
+		margin-bottom:auto;
+		padding-left:18px;
+		padding-right:18px;
 		position: relative;
-		width: auto;
-		height: fit-content;
-		min-height: 550px;
+		width: 100vw;
+		
+		min-height: 700px;
 		/* Ajuste selon le besoin */
 		display: flex;
 		justify-content: center;
@@ -375,56 +394,79 @@ Village Green | Accueil
 	}
 
 	.container-carousel {
+		box-sizing:border-box;
+	
 		position: relative;
-		width: 90vw;
-		height: fit-content;
+		width: 100vw;
+		min-height: 700px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		transform-style: preserve-3d;
-		perspective: 1300px;
+		perspective: 4000px;
 
 	}
 
 	#carouselItem {
 		position: absolute;
-		width: auto;
+		width: 150px;
+		height: 250px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		transform-style: preserve-3d;
+		object-fit: contain;
+
+
 
 	}
 
 	.container-carousel .item {
-	/*	width: auto;
-		height: auto;*/
-		max-width: 60vw;
-		max-height: 90vh;
+	    width: auto;
+		height: auto;
+		max-width: 80vw;
+		max-height: 85vh;
 		justify-content: center;
 		align-items: center;
+		object-fit: contain;
 	}
 
 	.carouselItem {
 		position: absolute;
-		width: 200px;
+		width: auto;
 		/* Ajuste selon la taille des items */
-		height: 250px;
+		height: auto;
 		/* Ajuste selon la taille des items */
 		display: flex;
 		justify-content: center;
 		align-items: center;
-
+		perspective: 6000px;
 		transition: transform 0.5s ease-in-out;
 		transform-style: preserve-3d;
 
 	}
 
-	.carouselItem img {
-		width: 120px;
-		height: 200px;
+	.carousel-image img {
+		position: absolute;
+		align-items: center;
+		top: 20;
+		width: 80%;
+		height: 90%;
+	    right: 30px;
 		object-fit: contain;
-		opacity: 0.7;
+		z-index: -1;
+	   
+	
+	  }
+
+	#carouselItem img {
+		width: 70%;
+		height: 100%;
+		object-fit: contain;
+		align-items: center;
+		opacity: 0.95;
+		
+
 	}
 
 	#carouselItem .item h2 {
@@ -432,25 +474,26 @@ Village Green | Accueil
 		position: relative;
 		color: rgba(184, 174, 84, 0.923);
 		border-color: linear-gradient(#e3ded8, #959c92) 50;
-		font-size: 2.1rem;
+		font-size: 1.8rem;
 		text-shadow: -1px -0.5px 2px rgba(17, 17, 17, 0.712);
 		font-weight: 900;
 		writing-mode: vertical-rl; /* Texte écrit de haut en bas */
 		text-orientation: upright; /* Permet de garder le texte droit */
 		margin: 0;
 		text-transform:  uppercase;
-		letter-spacing: -2px;
+		letter-spacing: -3px;
 	}
 	
 	#carouselItem .item p {
 		font-size: 0.7rem;
-		color: rgba(198, 202, 202, 0.945);
+		color: rgba(224, 224, 224, 0.959);
 		font-weight: bold;
-		text-shadow: -1.3px 0.1px 1px rgba(31, 30, 30, 0.918);
+		text-shadow: -1.3px 0.3px 1px rgba(31, 30, 30, 0.918);
 		position: relative;
 		z-index: 9;
 		text-orientation: mixed;  
 		margin-top: 40%;
+		margin-left: 10%;
 		letter-spacing: 1.5px;
 		text-transform:  uppercase;
 	}
@@ -770,10 +813,10 @@ Village Green | Accueil
 									<div class="item cards carouselItem" data-parent-id="{{ rubric.id }}"
 										style="transform: rotateY('{{ angle }}deg') translateZ(400px);">
 										
-										<div class="carousel-content">
+										<div class="carousel-content w-100">
 											<a href="{{ path('app_products_by_rubric', {'slug': subrubric.slug}) }}">
 											<img src="{{ subrubric_images[subrubric.slug] }}" alt="{{ subrubric.label }}" class="carousel-image">
-											<div class="text-overlay">
+											<div class="item">
 												<h2>{{ subrubric.slug }}</h2>
 												<p>{{ subrubric.description }}</p>
 											</div></a>
@@ -798,7 +841,7 @@ Village Green | Accueil
 	</div>
 </main>
 {% block javascripts %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+{# <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> #}
 
 <script>
 	(function ($) {
@@ -813,11 +856,11 @@ Village Green | Accueil
 	})(jQuery);
 </script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-	function showSubrubrics(rubricId) {
+	/* function showSubrubrics(rubricId) {
 		const allItems = document.querySelectorAll('.carouselItem');
 		const selectedItems = document.querySelectorAll(`.carouselItem[data-parent-id="${rubricId}"]`);
 
@@ -825,7 +868,7 @@ Village Green | Accueil
 		allItems.forEach(item => item.style.display = 'none');
 
 		// Afficher uniquement les sous-rubriques associées
-		selectedItems.forEach(item => item.style.display = 'block');
+		selectedItems.forEach(item => item.style.display = 'block'); 
 
 
 		currdeg = 0;
@@ -834,7 +877,7 @@ Village Green | Accueil
 			rotationY: currdeg,
 			ease: "expo.inOut"
 		});
-	}
+	}*/
 
 	var w,
 		container,
@@ -860,12 +903,12 @@ Village Green | Accueil
 		// set container 3d props
 		itemLength = item.length;
 		rY = 360 / itemLength;
-		radius = Math.round((container.width() / 8) / Math.tan(Math.PI / itemLength));
+		radius = Math.round((container.width() / 4) / Math.tan(Math.PI / itemLength));
 
 		// set container 3d props
 
 		gsap.set(container, {
-			perspective: 2000
+			perspective: 1000
 		});
 		gsap.set(carousel, {
 			z: -(radius),

@@ -50,7 +50,7 @@ class Rubric
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist', 'remove'])]
     private Collection $rubrics;
 
-    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'rubric', cascade: ['remove'])]
+    #[ORM\OneToMany(mappedBy: "rubric", targetEntity: Product::class)]
     private Collection $products;
     
 
@@ -169,32 +169,27 @@ public function getRubrics(): Collection
     //     return $this;
     // }
 
-    /**
-     * @return Collection<int, Product>
-     */
     public function getProducts(): Collection
     {
         return $this->products;
     }
-
+    
     public function addProduct(Product $product): self
     {
         if (!$this->products->contains($product)) {
             $this->products->add($product);
             $product->setRubric($this);
         }
-
         return $this;
     }
-
+    
     public function removeProduct(Product $product): self
     {
         if ($this->products->removeElement($product)) {
-            if ($product->getRubrics() === $this) {
-                $product->setRubric($this);
+            if ($product->getRubric() === $this) {
+                $product->setRubric(null);
             }
         }
-
         return $this;
     }
 
@@ -208,6 +203,11 @@ public function getRubrics(): Collection
     $this->createdAt = $createdAt;
 
     return $this;
+}
+
+public function __toString(): string
+{
+    return $this->rubric; 
 }
 
 }

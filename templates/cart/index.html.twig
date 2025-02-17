@@ -32,16 +32,23 @@
 						<div
 							class="flex items-center space-x-6">
 							<div class="product-images">
-								{% for image in product.images %}
-									<img src="{{ image.image }}" alt="Image de {{ product.label }}" width="200">
-								{% else %}
-									<p>Aucune image disponible.</p>
-								{% endfor %}
-							</div>
+								<h2 class="text-center my-5">Instruments {{ product.slug }}</h2>
+                             
+                                   
+                                        <article class="card">
+                                            {% for image in product.images %} 
+                                            <img src="{{ image.image }}" alt="Image de {{ product.id }}" width="200">
+                                        {% else %}
+                                                <p>Aucune image disponible.</p>
+                                            {% endfor %}
+                                            <div class="card-body">
+                                                <span class="badge badge-primary">{{ product.label }}</span>
+                                                <h3>{{ product.description }}</h3>
+                                            </div>
 							<div>
-								<h2 class="text-xl font-semibold text-gray-800">{{ product.product.label }}</h2>
+								<h2 class="text-xl font-semibold text-gray-800">{{ product.label }}</h2>
 								<p class="text-lg text-gray-600 mt-2">Prix :
-									<span class="font-bold">{{ product.product.price }}
+									<span class="font-bold">{{ product.price }}
 										€</span>
 								</p>
 							</div>

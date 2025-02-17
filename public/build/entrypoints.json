@@ -5,7 +5,8 @@
         "/build/app.js"
       ],
       "css": [
-        "/build/styles/app.css"
+        "/build/styles/app.css",
+        "/build/styles/common_app.css"
       ]
       }
   }

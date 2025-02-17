@@ -16,6 +16,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use DateTimeImmutable;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 //#[ORM\UniqueConstraint(name: 'slug', columns: ['slug'])]
@@ -62,20 +63,21 @@ class Product
     #[ORM\Column(type: 'boolean')]
     private bool $isAvailable = true;
 
-    #[ORM\ManyToOne(targetEntity: InfoSuppliers::class, inversedBy: 'products')]
+    #[ORM\ManyToOne(targetEntity: InfoSuppliers::class, inversedBy: "products")]
     #[ORM\JoinColumn(nullable: false)]
     private ?InfoSuppliers $infoSuppliers = null;
 
-    #[ORM\ManyToOne(targetEntity: Rubric::class, inversedBy: 'products')]
+    #[ORM\ManyToOne(targetEntity: Rubric::class, inversedBy: "products")]
     #[ORM\JoinColumn(nullable: false)]
     private ?Rubric $rubric = null;
+
+    #[ORM\ManyToOne(targetEntity: Tva::class, inversedBy: "products")]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Tva $tva = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $weight = null;
 
-    #[ORM\ManyToOne(targetEntity: Tva::class, inversedBy: 'products')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Tva $tva = null;
 
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Image::class, cascade: ['persist', 'remove'])]
     private Collection $images;
@@ -151,6 +153,11 @@ class Product
         return $this->stock;
     }
 
+    public function getIsAvailable(): bool
+    {
+        return $this->isAvailable;
+    }
+
     public function setStock(int $stock): self
     {
     $this->stock = $stock;
@@ -208,18 +215,36 @@ public function setUpdatedAt(DateTimeImmutable $updatedAt): self
     return $this;
 }
 
-/**
- * @return Collection<int, InfoSuppliers>
- */
 public function getInfoSuppliers(): ?InfoSuppliers
 {
     return $this->infoSuppliers;
 }
 
-public function setInfoSuppliers(?InfoSuppliers $infoSuppliers): static
+public function setInfoSuppliers(?InfoSuppliers $infoSuppliers): self
 {
     $this->infoSuppliers = $infoSuppliers;
+    return $this;
+}
 
+public function getRubric(): ?Rubric
+{
+    return $this->rubric;
+}
+
+public function setRubric(?Rubric $rubric): self
+{
+    $this->rubric = $rubric;
+    return $this;
+}
+
+public function getTva(): ?Tva
+{
+    return $this->tva;
+}
+
+public function setTva(?Tva $tva): self
+{
+    $this->tva = $tva;
     return $this;
 }
 
@@ -228,17 +253,6 @@ public function getImages(): Collection
     return $this->images;
 }
 
-public function getRubrics(): Rubric
-{
-    return $this->rubric;
-}
-
-public function setRubric( Rubric $rubrics): self
-{
-    $this->rubric = $rubrics;
-
-    return $this;
-}
 
 public function getWeight(): ?string
 {
@@ -248,18 +262,6 @@ public function getWeight(): ?string
 public function setWeight(string $weight): self
 {
     $this->weight = $weight;
-
-    return $this;
-}
-
-public function getTva(): ?Tva
-{
-    return $this->tva;
-}
-
-public function setTva(?Tva $tva): static
-{
-    $this->tva = $tva;
 
     return $this;
 }
@@ -303,6 +305,11 @@ public function getOrderDetails(): Collection
 //     $this->orderDetails = $orderDetails;
 
 //     return $this;
+// }
+
+// public function __toString(): string
+// {
+//     return $this->product ?? 'N/A'; // Remplace "nom" par un champ pertinent
 // }
 
 }

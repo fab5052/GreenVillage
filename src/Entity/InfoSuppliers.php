@@ -28,12 +28,8 @@ class InfoSuppliers
     #[ORM\ManyToOne(inversedBy: 'infoSuppliers')]
     private ?User $user = null;
 
-    /**
-     * @var Collection<int, Product>
-     */
-    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'infoSuppliers', orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: "infoSuppliers", targetEntity: Product::class)]
     private Collection $products;
-
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -92,33 +88,33 @@ class InfoSuppliers
         return $this;
     }
 
-    /**
-     * @return Collection<int, Product>
-     */
     public function getProducts(): Collection
-    {
-        return $this->products;
-    }
+{
+    return $this->products;
+}
 
-    public function addProduct(Product $product): self
-    {
-        if (!$this->products->contains($product)) {
-            $this->products->add($product);
-            $product->setInfoSuppliers($this);
+public function addProduct(Product $product): self
+{
+    if (!$this->products->contains($product)) {
+        $this->products->add($product);
+        $product->setInfoSuppliers($this);
+    }
+    return $this;
+}
+
+public function removeProduct(Product $product): self
+{
+    if ($this->products->removeElement($product)) {
+        if ($product->getInfoSuppliers() === $this) {
+            $product->setInfoSuppliers(null);
         }
-
-        return $this;
     }
+    return $this;
+}
 
-    public function removeProduct(Product $product): self
-    {
-        if ($this->products->removeElement($product)) {
-            if ($product->getInfoSuppliers() === $this) {
-                $product->setInfoSuppliers(null);
-            }
-        }
-
-        return $this;
-    }
+public function __toString(): string
+{
+    return $this->type; 
+}
 }
 

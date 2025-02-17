@@ -19,10 +19,7 @@ class Tva
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $rate = null;
 
-    /**
-     * @var Collection<int, Product>
-     */
-    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'tva')]
+    #[ORM\OneToMany(mappedBy: "tva", targetEntity: Product::class)]
     private Collection $products;
 
     public function __construct()
@@ -47,32 +44,33 @@ class Tva
         return $this;
     }
 
-    /**
-     * @return Collection<int, Product>
-     */
     public function getProducts(): Collection
-    {
-        return $this->products;
-    }
+{
+    return $this->products;
+}
 
-    public function addProduct(Product $product): static
-    {
-        if (!$this->products->contains($product)) {
-            $this->products->add($product);
-            $product->setTva($this);
+public function addProduct(Product $product): self
+{
+    if (!$this->products->contains($product)) {
+        $this->products->add($product);
+        $product->setTva($this);
+    }
+    return $this;
+}
+
+public function removeProduct(Product $product): self
+{
+    if ($this->products->removeElement($product)) {
+        if ($product->getTva() === $this) {
+            $product->setTva(null);
         }
-
-        return $this;
     }
+    return $this;
+}
 
-    public function removeProduct(Product $products): static
-    {
-        if ($this->products->removeElement($products)) {
-            if ($products->getTva() === $this) {
-                $products->setTva(null);
-            }
-        }
+public function __toString(): string
+{
+    return $this->tva; 
+}
 
-        return $this;
-    }
 }
