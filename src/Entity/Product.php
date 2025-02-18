@@ -309,7 +309,7 @@ public function getOrderDetails(): Collection
 
 // public function __toString(): string
 // {
-//     return $this->product ?? 'N/A'; // Remplace "nom" par un champ pertinent
+//     return $this->parent; // Remplace "nom" par un champ pertinent
 // }
 
 }

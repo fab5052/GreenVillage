@@ -60,6 +60,7 @@ class CartController extends AbstractController
             $panier = $session->get('panier', []);
             $dataProduct = [];
             $total = 0;
+           // $productDetails = $product;
             $totalTaxes = 0;
             $images = []; 
             
@@ -75,16 +76,16 @@ class CartController extends AbstractController
     
                     $dataProduct[] = [
                         'product' => $product,
-                        'tva' => [],
+                       
                         'quantity' => $quantity,
                         'priceWithTax' => $productDetails['priceWithTva'],
-                        'images' => $images,
-                        'image' => [],                      
+                        'images' => $images,                 
                     ];
                 }
             }
     
             $session->set('ttc', $total);
+
         } catch (\Exception $e) {
             $this->addFlash('error', 'Une erreur est survenue.');
             return $this->redirectToRoute('cart_index');
@@ -92,6 +93,7 @@ class CartController extends AbstractController
     
         return $this->render('cart/index.html.twig', [
             'products' => $dataProduct,
+            //'product' => $productDetails,
             'total' => $total,
             'totalTaxes' => $totalTaxes,
             'images' => $images, // 🔴
@@ -152,7 +154,7 @@ class CartController extends AbstractController
         }
     }
 
-    #[Route('/order', name: 'order')]
+    #[Route('/orders', name: 'orders_index')]
     public function order(SessionInterface $session, EntityManagerInterface $entityManager, SendMailService $mail): Response
     {
         try {

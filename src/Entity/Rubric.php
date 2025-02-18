@@ -11,7 +11,6 @@ use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 use App\EventListener\SlugListener;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 
 #[ORM\Entity(repositoryClass: RubricRepository::class)]
@@ -208,7 +207,7 @@ public function getRubrics(): Collection
 
 public function __toString(): string
 {
-    return $this->rubric; 
+    return $this->label; 
 }
 
 }

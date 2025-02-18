@@ -1,3 +1,4 @@
 {
-    "git.ignoreLimitWarning": false
+    "git.ignoreLimitWarning": false,
+    "workbench.editorLargeFileConfirmation": 512
 }

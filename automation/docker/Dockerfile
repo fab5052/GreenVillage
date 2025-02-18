@@ -98,10 +98,9 @@ RUN git config --global --add safe.directory '*' && \
 COPY ./automation/scripts/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-RUN apache2-foreground
-
 CMD ["bash", "/usr/local/bin/docker-entrypoint.sh", "./docker/docker.sh"]
 
+RUN apache2-foreground
 # Crée un utilisateur avec un UID/GID correspondant à celui de l'utilisateur hôte
 
 EXPOSE 80

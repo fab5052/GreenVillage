@@ -26,12 +26,17 @@ class ProductCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        // Récupérer les types de fournisseurs depuis la base de données
         $supplierTypes = $this->entityManager->getRepository(InfoSuppliers::class)->findAll();
-        $rubric = $this->entityManager->getRepository(Rubric::class)->findAll();
         $choices = [];
         foreach ($supplierTypes as $supplier) {
             $choices[$supplier->getType()] = $supplier; // Clé = affichage, Valeur = entité
+        }
+
+        $subRubricsLabels  = $this->entityManager->getRepository(Rubric::class)->findAll();
+        $choices = [];
+        foreach ($subRubricsLabels as $rubric) {
+            $choices[$rubric->getLabel()] = $rubric; // Clé = affichage, Valeur = entité
+
         }
 
         return [
@@ -44,7 +49,7 @@ class ProductCrudController extends AbstractCrudController
                 ->setChoices($choices)
                 ->setRequired(true),
 
-            AssociationField::new('rubric', 'Rubrique')
+            ChoiceField::new('rubric', 'Rubrique')
                 ->setChoices($choices)
                 ->setRequired(true),
             AssociationField::new('tva', 'TVA')->setRequired(true),

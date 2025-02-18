@@ -78,17 +78,17 @@ app_rubric:
   # defaults:
   #    role: ROLE_USER
 
-app_orders:
-  path: /orders
-  controller: App\Controller\OrderController::index
-  defaults:
-    role: ROLE_USER
+# app_orders:
+#   path: /orders
+#   controller: App\Controller\OrderController::index
+#   defaults:
+#     role: ROLE_USER
 
-app_orders_details:
-  path: /orders_details
-  controller: App\Controller\OrderController::details
-  defaults:
-    role: ROLE_USER    
+# app_orders_details:
+#   path: /orders_details
+#   controller: App\Controller\OrderController::details
+#   defaults:
+#     role: ROLE_USER    
 
 # app_rubrics:
 #   path: /

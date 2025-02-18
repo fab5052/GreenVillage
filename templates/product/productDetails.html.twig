@@ -21,7 +21,7 @@
 						<span class="font-medium">{{ product.infoSuppliers.reference }}</span>
 					</p>
 					<p class="text-gray-500">Rubrique :
-						<span class="font-medium">{{ product.rubrics.label }}</span>
+						<span class="font-medium">{{ product.rubric.label }}</span>
 					</p>
 				</div>
 
@@ -34,11 +34,11 @@
 
 			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
 				<div class="product-images">
-					{% for image in product.images %}
+					{# {% for image in product.images %}
 						<img src="{{ image.image }}" alt="Image de {{ product.label }}" width="200">
 					{% else %}
 						<p>Aucune image disponible.</p>
-					{% endfor %}
+					{% endfor %} #}
 				</div>
 			</div>
 
@@ -65,7 +65,7 @@
 			{% endif %}
 
 			<div class="mt-8 flex justify-center">
-				<a href="{{ path('cart_index', {'slug': product.slug}) }}" class="px-8 py-3 bg-yellow-500 text-white rounded-full shadow-lg hover:bg-yellow-600 focus:outline-none focus:ring-4 focus:ring-yellow-300 transition duration-200 transform hover:scale-105">
+				<a href="{{ path('cart_index', {'id': product.id}) }}" class="px-8 py-3 bg-yellow-500 text-white rounded-full shadow-lg hover:bg-yellow-600 focus:outline-none focus:ring-4 focus:ring-yellow-300 transition duration-200 transform hover:scale-105">
 					Ajouter au panier
 				</a>
 			</div>
