@@ -34,10 +34,11 @@
                     } %}   
                     
                     <div class="container-fluid d-flex w-100 ">
+                      
                         <div class="row">
-                            {% for rubrics in rubric %} 
+                          
                             <div class="col-12 col-lg-10 col-md 6 col-sm 8 ">
-   
+                                {% for rubrics in rubric %} 
                                 {% set subrubrics = rubrics.getRubrics() %}           
                {% for subrubrics in rubrics %}
         

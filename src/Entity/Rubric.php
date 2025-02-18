@@ -45,7 +45,7 @@ class Rubric
     #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeImmutable $createdAt;
 
-    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'rubrics', cascade: ['remove'])]    
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'rubrics', cascade: ['persist'])]    
     private ?self $parent;
 
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist', 'remove'])]
@@ -208,7 +208,7 @@ public function getRubrics(): Collection
 
 public function __toString(): string
 {
-    return $this->rubric; 
+    return $this->label; 
 }
 
 }

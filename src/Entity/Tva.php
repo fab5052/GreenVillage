@@ -70,7 +70,7 @@ public function removeProduct(Product $product): self
 
 public function __toString(): string
 {
-    return $this->tva; 
+    return $this->rate; 
 }
 
 }

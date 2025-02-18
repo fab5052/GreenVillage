@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Product;
 use App\Entity\Rubric;
 use App\Entity\User;
+use App\Entity\InfoSuppliers;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -32,20 +33,26 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Village Green Admin');
+            ->setTitle('Village Green Dashboard Admin');
     }
 
     public function configureMenuItems(): iterable
-    {
+{
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linkToUrl('Accueil', 'fas fa-arrow-left', '/');
+        yield MenuItem::section('Gestion');
+        //yield MenuItem::linkToCrud('Produits', 'fas fa-box', Product::class);
+        //yield MenuItem::linkToCrud('Fournisseurs', 'fas fa-truck', InfoSuppliers::class);
+        yield MenuItem::subMenu('Utlisateurs', 'fas fa-box-open')->setSubItems([
+            MenuItem::linkToCrud('Liste des utilisateurs', 'fas fa-users', User::class)
+        ]);
         yield MenuItem::subMenu('Rubriques', 'fas fa-folder')->setSubItems([
             MenuItem::linkToCrud('Liste des rubriques', 'fas fa-list', Rubric::class)
-              //  ->setController(RubricCrudController::class),
+              
         ]);
         yield MenuItem::subMenu('Produits', 'fas fa-box-open')->setSubItems([
             MenuItem::linkToCrud('Liste des produits', 'fas fa-list', Product::class)
-               // ->setController(ProductCrudController::class),
+
         ]);
-        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-users', User::class);
     }           
 }
