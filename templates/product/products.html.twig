@@ -39,12 +39,12 @@
 
           		<section class="container-fluid">          
 
-			<div class="container-prod w-100 d-flex">
+			<div class="container-fluid w-100 ">
 
 				<div class="row ">
 					{% for rubric in rubrics %}
 
-						<div class="col-12 col-lg-6 col-md-6 col-sm-6 ">
+						<div class="col-lg-6 col-md-8 col-sm-8 ">
 						{% set subrubrics = rubric.getRubrics() %}
 
 							{% for subrubric in subrubrics %}
@@ -56,24 +56,24 @@
 								<section>
 									<h2 class="text-center my-5">Instruments
 										{{ subrubric.slug }}</h2>
-									<div class="grid">
+									<div class="grid col-6 ">
 										{% for product in products %}
-											<article class="cards">
+											<article class="card">
 												{% for image in product.images %}
 													<img src="{{ image.image }}" alt="Image de {{ product.id }}" width="200">
 												{% else %}
 													<p>Aucune image disponible.</p>
 												{% endfor %}
-												<div class="card-body">
-													<span class="badge badge-primary">{{ product.label }}</span>
+												<div class="card-body d-flex">
+													<span class="badge badge-primary text-center">{{ product.label }}</span>
 													<p>{{ product.description }}</p>
 												</div>
-                                                <div class="mt-6 flex space-x-4">
-                                                    <a href="{{ path('app_product_details', {'slug': product.slug}) }}" class="btn btn-secondary focus:ring-yellow-300">
+                                                <div class="mt-6 flex space-x-6">
+                                                    <a href="{{ path('app_product_details', {'slug': product.slug}) }}" class="btn btn-secondary">
                                                         Détails
                                                     </a>
-                                                    <a href="{{ path('cart_index', {'id': product.id}) }}" class="btn btn-primary rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400">
-                                                        Ajouter
+													<a href="{{ path('cart_index', {'id': product.id}) }}" class="btn btn-primary">
+													Ajouter
                                                     </a>
                                                 </div>
 											</article>
@@ -121,9 +121,9 @@
 				<section>
 					<h2>Stocks</h2>
 					{% for order in orders %}
-						<h3>{{ order[0].label }}
-							{{ order.total }}</h3>
-					{% endfor %}
+					<h3>{{ order.products.label }} - Quantité : {{ order.quantity }} - Prix TTC : {{ order.priceWithTva }}</h3>
+				{% endfor %}
+				
 				</section>
 			</div>
 		</main>

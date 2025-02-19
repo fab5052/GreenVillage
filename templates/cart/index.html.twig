@@ -3,57 +3,73 @@
 {% block title %}Mon panier{% endblock %}
 
 {% block body %}
-<div class="container my-5">
+<div class="container-fluid justify-content-center my-5">
     <h1 class="mb-4 text-center">Mon panier</h1>
-
+  
     {# {% if products is empty %}
         <div class="alert alert-info">
             Votre panier est vide.
-        </div>
-    {% else %} #}
-        <div class="row">
-            {% for product in products %}
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card h-100">
+        </div> #}
+    
+        <div class="row justify-content-center">
+              {# {% for product in products.product %}    #}
+                <div class="col-11 w-90 m-3 p4  mb-4">
+                      {% for product in products %} 
+                    <div class="card w-90">
                       
-                            {# Affiche la première image associée au produit #}
-                            <img src="/image[0].image" class="card-img-top" alt="{{ product.label }}">
-                        {# {% else %}#}
-                            <img src="/image/default.png" class="card-img-top" alt="{{ product.label }}"> 
-                      
+                            {# Affiche la première image associée au produit
+                            <img src="{{ product.images[0].image }}" class="card-img-top" alt="{{ product.label }}">
+                            {# {% else %}#}
+                            {# <img src="/image/default.png" class="card-img-top" alt="{{ product.label }}">  #} 
+                 
                         <div class="card-body">
-                            <h5 class="card-title">{{product.label }}</h5>
+                         
+                            <h3 class="card-title">{{product.product.label }}</h3>
                             <p class="card-text">
-                                Référence : {{ product.reference }}<br>
+                                Référence : {{ product.product.reference }}<br>
                                 Quantité : <strong>{{ product.quantity }}</strong>
                             </p>
+                            <a href="{{ path('cart_add', {'id': product.product.id}) }}" class="btn btn-sm btn-primary">Ajouter</a>
+
                         </div>
                         <div class="card-footer">
                             <p class="mb-1">
-                                Prix unitaire (HT) : {{ product.price }} €
+                                Prix HT : {{ product.product.price }} €
                             </p>
+                            
                             <p class="mb-1">
-                                Prix TTC : {{ priceWithTax }} €
-                            </p>
-                            <a href="{{ path('cart_app_remove', {'id': product.id}) }}" class="btn btn-sm btn-danger">Retirer</a>
-                            <a href="{{ path('cart_app_allRemove', {'id': product.id}) }}" class="btn btn-sm btn-warning">Supprimer l'article</a>
+                                
+                                Prix TTC : {{ product.priceWithTva }} € </p>
+                            <a href="{{ path('cart_remove', {'id': product.product.id}) }}" class="btn btn-sm btn-warning">Retirer</a>
+                            <a href="{{ path('cart_allRemove', {'id': product.product.id}) }}" class="btn btn-sm btn-danger">Supprimer l'article</a>
                         </div>
+                        
                     </div>
+                   
                 </div>
-            {% endfor %}
+           
         </div>
 
-        <div class="row mt-4">
-            <div class="col-md-6">
-                <div class="alert alert-secondary">
+        <div class="container-fluid m-6 p-4 position-relative d-block mb-4">
+        <div class="row d-flex justify-content-end mr-4 mt-2">
+            <div class=" col-lg-4 col-md-6 col-sm-8 d-block">
+                <div class="alert alert-secondary position-relative justify-content-end">
+                <div class="text-left position-absolute mb-3 mr-2">
                     <strong>Total HT :</strong> {{ total }} € <br>
                     <strong>Total TVA :</strong> {{ totalTaxes }} €
-                </div>
-            </div>
-            <div class="col-md-6 text-md-right">
-                <a href="{{ path('orders_index') }}" class="btn btn-success btn-lg">Passer commande</a>
-            </div>
+               </div>
+           
+           <div class="text-right">
+                <a href="{{ path('orders_index') }}" class="btn btn-success btn-md">Valider commande</a>
+           </div>
         </div>
-    {# {% endif %} #}
+             {% endfor %} 
+            </div>
+        </div> 
+     </div>
+     {# {% endfor %}    #}
+            
+        
+        {# {% endif %} #}
 </div>
 {% endblock %}

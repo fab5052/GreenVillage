@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/cart', name: 'cart_')]
+//#[Route('/cart', name: 'index')]
 class CartController extends AbstractController
 {
     private ProductRepository $productRepository;
@@ -42,13 +42,14 @@ class CartController extends AbstractController
         $totalTaxes = ($priceWithTva - $product->getPrice()) * $quantity;
 
         return [
+            //'tva' => $tvaRate,
             'priceWithTva' => $priceWithTva,
             'total' => $total,
             'totalTaxes' => $totalTaxes,
         ];
     }
 
-    #[Route('/', name: 'index')]
+    #[Route('/', name: 'cart_index')]
     public function viewCart(SessionInterface $session): Response
     {
         try {
@@ -60,7 +61,7 @@ class CartController extends AbstractController
             $panier = $session->get('panier', []);
             $dataProduct = [];
             $total = 0;
-           // $productDetails = $product;
+            //$products = $productDetails;
             $totalTaxes = 0;
             $images = []; 
             
@@ -72,13 +73,13 @@ class CartController extends AbstractController
                     $total += $productDetails['total'];
                     $totalTaxes += $productDetails['totalTaxes'];
                     
-                    $images = $this->imageRepository->findBy(['product' => $product]);
+                   // $images = $this->imageRepository->findBy(['product' => $product]);
     
                     $dataProduct[] = [
                         'product' => $product,
-                       
+                        
                         'quantity' => $quantity,
-                        'priceWithTax' => $productDetails['priceWithTva'],
+                        'priceWithTva' => $productDetails['priceWithTva'],
                         'images' => $images,                 
                     ];
                 }
@@ -93,14 +94,14 @@ class CartController extends AbstractController
     
         return $this->render('cart/index.html.twig', [
             'products' => $dataProduct,
-            //'product' => $productDetails,
+           // 'products' => $products,
             'total' => $total,
             'totalTaxes' => $totalTaxes,
             'images' => $images, // 🔴
         ]);
     }
 
-    #[Route('/add/{id}', name: 'app_add')]
+    #[Route('/add/{id}', name: 'cart_add')]
     public function add(Product $product = null, SessionInterface $session): Response
     {
         try {
@@ -121,7 +122,7 @@ class CartController extends AbstractController
         }
     }
 
-    #[Route('/allRemove/{id}', name: 'app_allRemove')]
+    #[Route('/allRemove/{id}', name: 'cart_allRemove')]
     public function allRemove(Product $product, SessionInterface $session): Response
     {
         $panier = $session->get('panier', []);
@@ -131,7 +132,7 @@ class CartController extends AbstractController
         return $this->redirectToRoute('cart_index');
     }
 
-    #[Route('/remove/{id}', name: 'app_remove')]
+    #[Route('/remove/{id}', name: 'cart_remove')]
     public function remove(Product $product, SessionInterface $session): Response
     {
         try {
