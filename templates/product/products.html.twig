@@ -37,28 +37,28 @@
                     'amplificateur': '/image/subrubric(8).png'
                     } %}
 
-          		<section class="container-fluid">          
+          		<section class="container-fluid w-100">          
 
-			<div class="container-prod justify-content-center w-100 d-flex">
+			<div class="container-prod mx-auto">
 
-				<div class="row ">
+				<div class="row d-block">
 					{% for rubric in rubrics %}
 						{% set subrubrics = rubric.getRubrics() %}
 
-						<div class="col-12 col-lg-6 col-md-8 col-sm-10 mx-auto justify-content-center">
+						<div class="col-12 col-lg-6 col-md-6 col-sm-6 d-block align-items-center justify-content-center">
 
 							{% for subrubric in subrubrics %}
-								<div class="card prod w-100">
+								<div class="card prod">
 									<h2>{{ subrubric.slug }}</h2>
-									<img src="{{ subrubric_images[subrubric.slug] }}" class="subrub-image" alt="{{ subrubric.label }}">
+									{# <img src="{{ subrubric_images[subrubric.slug] }}" class="subrub-image" alt="{{ subrubric.label }}"> #}
 									<p>{{ subrubric.description }}</p>
 								</div>
 								<section>
 									<h2 class="text-center my-5">Instruments
 										{{ subrubric.slug }}</h2>
-									<div class="grid">
+									<div class="grid col-10">
 										{% for product in products %}
-											<article class="card-grid">
+											<article class="card grid">
 												{% for image in product.images %}
 													<img src="{{ image.image }}" alt="Image de {{ product.id }}" width="200" height="120">
 												{% else %}
