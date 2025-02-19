@@ -4,8 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Entity\Rubric;
-use App\Entity\Order;
-use App\Entity\Image;
 use App\Repository\ProductRepository;
 use App\Repository\RubricRepository;
 use App\Repository\OrderRepository;
@@ -16,7 +14,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 #[Route('/product', name: 'product_')]
 class ProductController extends AbstractController
@@ -46,8 +43,8 @@ class ProductController extends AbstractController
     {
         try {
             
-            $rubrics = $this->rubricRepository->findAll(); 
-           // $rubrics = $this->$rubricRepository->findBy(['parent' => null]);
+            $rubric = $this->rubricRepository->findAll(); 
+            //$rubric= $this->$rubricRepository->findBy(['parent' => null]);
             $productsQuery = $this->productRepository->findAll();
             $query = $this->productRepository->createQueryBuilder('p')->getQuery();
             $paginatedProducts = $this->paginator->paginate(
@@ -65,8 +62,8 @@ class ProductController extends AbstractController
 
         return $this->render('product/products.html.twig', [
             'orders' => $orders,
-            'rubric' => $rubrics,
-            'subrubrics' => $rubrics,
+            'rubrics' => $rubric,
+            'subrubrics' => $rubric,
             'images' => $images,
             'product' => $productsQuery,
             'products' => $paginatedProducts,

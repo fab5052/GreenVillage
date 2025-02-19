@@ -11,7 +11,6 @@ use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 use App\EventListener\SlugListener;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 
 #[ORM\Entity(repositoryClass: RubricRepository::class)]
@@ -45,7 +44,7 @@ class Rubric
     #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeImmutable $createdAt;
 
-    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'rubrics', cascade: ['persist'])]    
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'rubrics', cascade: ['remove'])]    
     private ?self $parent;
 
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist', 'remove'])]
@@ -187,8 +186,8 @@ public function getRubrics(): Collection
     public function removeProduct(Product $product): self
     {
         if ($this->products->removeElement($product)) {
-            if ($product->getRubric() === $this) {
-                $product->setRubric(null);
+            if ($product->getRubrics() === $this) {
+                $product->setRubric($this);
             }
         }
         return $this;
