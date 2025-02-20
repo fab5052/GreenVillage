@@ -16,8 +16,8 @@
 			</h1>
 		</header>
 
-		{% for product in products %}
-		{% if products|length == 0 %}
+		{# {% for products in product %} #}
+		{# {% if product|length == 0 %} #}
 			<!-- Section Panier Vide -->
 			<section class="text-center">
 				<p class="text-lg text-gray-600 mb-4">Votre panier est vide.</p>
@@ -25,10 +25,10 @@
 					Revenir à la page tous nos produits
 				</a>
 			</section>
-		{% else %}
+		{# {% else %} #}
 			<!-- Section Liste des Produits -->
 			<section class="space-y-8">
-				{# {% for product in products %} #}
+				{% for product in products %}
 					<article class="flex items-center justify-between bg-gray-50 p-6 rounded-lg shadow-md">
 						<div
 							class="flex items-center space-x-6">
@@ -71,7 +71,7 @@
 							Supprimer
 						</a>
 					</article>
-			
+			{% endfor %}
 			</section>
 
 			<!-- Section Total et validation -->
@@ -84,7 +84,7 @@
 					Choisir une adresse
 				</a> #}
 			</section>
-		{% endif %}
-		{% endfor %}
+		{# {% endif %} #}
+		
 	</main>
 {% endblock %}

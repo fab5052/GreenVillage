@@ -67,7 +67,15 @@
 												<div class="card-body">
 													<span class="badge badge-primary">{{ product.label }}</span>
 													<p>{{ product.description }}</p>
-												</div>
+                                                    <div class="mt-6 flex space-x-6">
+                                                        <a href="{{ path('app_product_details', {'slug': product.slug}) }}" class="btn btn-secondary">
+                                                            Détails
+                                                        </a>
+                                                        <a href="{{ path('cart_index', {'id': product.id}) }}" class="btn btn-primary">
+                                                        Ajouter
+                                                        </a>
+                                                    </div>
+                                                </div>
 											</article>
                                         {% endfor %}
 											<div class="pagination">

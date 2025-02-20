@@ -69,14 +69,14 @@ class Product
 
     #[ORM\ManyToOne(targetEntity: Rubric::class, inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Rubric $rubric = null;
+    private ?Rubric $rubrics = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $weight = null;
 
     #[ORM\ManyToOne(targetEntity: Tva::class, inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Tva $tva = null;
+    private Tva $tva ;
 
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Image::class, cascade: ['persist', 'remove'])]
     private Collection $images;
@@ -152,9 +152,16 @@ class Product
         return $this->stock;
     }
 
-    public function getIsAvailable(): bool
+    // public function setStock(int $stock): static
+    // {
+    // $this->stock = $stock;
+
+    // }
+
+    public function isAvailable(): bool
     {
-        return $this->isAvailable;
+        return $this->isAvailable == 1;
+      
     }
 
     public function setStock(int $stock): self
@@ -164,6 +171,12 @@ class Product
 
     return $this;
     }
+
+
+  
+
+    // return $this;
+    //}
 
     // public function getViewRubrics(): ?string
     // {
@@ -236,12 +249,12 @@ public function getImages(): Collection
 
 public function getRubrics(): Rubric
 {
-    return $this->rubric;
+    return $this->rubrics;
 }
 
-public function setRubric( Rubric $rubrics): self
+public function setRubric( ?Rubric $rubrics): self
 {
-    $this->rubric = $rubrics;
+    $this->rubrics = $rubrics;
 
     return $this;
 }

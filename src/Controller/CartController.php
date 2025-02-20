@@ -85,13 +85,14 @@ class CartController extends AbstractController
             }
     
             $session->set('ttc', $total);
+
         } catch (\Exception $e) {
             $this->addFlash('error', 'Une erreur est survenue.');
             return $this->redirectToRoute('cart_index');
         }
     
         return $this->render('cart/index.html.twig', [
-            'products' => $dataProduct,
+            //'products' => $dataProduct,
             'total' => $total,
             'totalTaxes' => $totalTaxes,
             'images' => $images, // 🔴

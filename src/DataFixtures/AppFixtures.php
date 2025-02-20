@@ -35,18 +35,18 @@ class AppFixtures extends Fixture
 public function load(ObjectManager $manager): void
 {
     
-    // $admin = new User();
-    // $admin->setEmail('admin@greenvillage.net')
-    //       ->setFirstname('Fabrice')
-    //       ->setLastname('Beaujois')
-    //       ->setIsVerified(true)
-    //       ->setAddress('12 rue du port')
-    //       ->setZipcode('80850')
-    //       ->setCity('Berto')
-    //       ->setPassword($this->passwordEncoder->hashPassword($admin, 'fb975052'))
-    //       ->setRoles(['ROLE_ADMIN']);
+    $admin = new User();
+    $admin->setEmail('admin@greenvillage.net')
+          ->setFirstname('Fabrice')
+          ->setLastname('Beaujois')
+          ->setIsVerified(true)
+          ->setAddress('12 rue du port')
+          ->setZipcode('80850')
+          ->setCity('Berto')
+          ->setPassword($this->passwordEncoder->hashPassword($admin, 'fb975052'))
+          ->setRoles(['ROLE_ADMIN']);
 
-    // $manager->persist($admin);
+    $manager->persist($admin);
     
      $faker = \Faker\Factory::create('fr_FR');
      // Utilisateurs
