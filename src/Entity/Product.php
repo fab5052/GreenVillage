@@ -160,7 +160,7 @@ class Product
 
     public function isAvailable(): bool
     {
-        return $this->isAvailable == 1;
+        return $this->isAvailable ;
       
     }
 
