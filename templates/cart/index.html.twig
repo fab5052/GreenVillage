@@ -24,24 +24,24 @@
                  
                         <div class="card-body">
                          
-                            <h3 class="card-title">{{product.product.label }}</h3>
+                            <h3 class="card-title">{{product.label }}</h3>
                             <p class="card-text">
-                                Référence : {{ product.product.reference }}<br>
+                                Référence : {{ product.reference }}<br>
                                 Quantité : <strong>{{ product.quantity }}</strong>
                             </p>
-                            <a href="{{ path('cart_add', {'id': product.product.id}) }}" class="btn btn-sm btn-primary">Ajouter</a>
+                            <a href="{{ path('app_add', {'slug': product.slug}) }}" class="btn btn-sm btn-primary">Ajouter</a>
 
                         </div>
                         <div class="card-footer">
                             <p class="mb-1">
-                                Prix HT : {{ product.product.price }} €
+                                Prix HT : {{ product.price }} €
                             </p>
                             
                             <p class="mb-1">
                                 
                                 Prix TTC : {{ product.priceWithTva }} € </p>
-                            <a href="{{ path('cart_remove', {'id': product.product.id}) }}" class="btn btn-sm btn-warning">Retirer</a>
-                            <a href="{{ path('cart_allRemove', {'id': product.product.id}) }}" class="btn btn-sm btn-danger">Supprimer l'article</a>
+                            <a href="{{ path('app_remove', {'slug': product.slug}) }}" class="btn btn-sm btn-warning">Retirer</a>
+                            <a href="{{ path('app_allRemove', {'slug': product.slug}) }}" class="btn btn-sm btn-danger">Supprimer l'article</a>
                         </div>
                         
                     </div>

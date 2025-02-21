@@ -113,11 +113,29 @@ app_product_details:
     role: ROLE_USER
 
 ## Panier
-# app_cart:
-#   path: /cart
-#   controller: App\Controller\CartController::index
-#   defaults:
-#     role: ROLE_USER
+app_cart:
+  path: /cart
+  controller: App\Controller\CartController::index
+  defaults:
+    role: ROLE_USER
+
+app_add:
+  path: /cart/add/{slug}
+  controller: App\Controller\CartController::add
+  defaults:
+    role: ROLE_USER 
+
+app_allRemove:
+  path: /cart/allRemove/{slug}
+  controller: App\Controller\CartController::removeAll
+  defaults:
+    role: ROLE_USER       
+
+app_remove:
+  path: /cart/remove/{slug}
+  controller: App\Controller\CartController::remove
+  defaults:
+    role: ROLE_USER       
 
 ## Profile
 app_profile:

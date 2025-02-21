@@ -10,7 +10,7 @@
 			<li class="breadcrumb-item">
 				<a href="{{ path('app_home') }}">Accueil</a>
 			</li>
-			{% for rubric in rubrics %}
+			{% for rubrics in rubrics %}
 				{% for subrubric in rubric.rubrics %}
 					<li class="breadcrumb-item">
 						<a href="{{ path('app_products', {'rubrics': rubric.slug }) }}">{{ subrubric.label }}</a>
@@ -72,7 +72,7 @@
                                                     <a href="{{ path('app_product_details', {'slug': product.slug}) }}" class="btn btn-secondary">
                                                         Détails
                                                     </a>
-													<a href="{{ path('cart_index', {'id': product.id}) }}" class="btn btn-primary">
+													<a href="{{ path('app_cart', {'slug': product.slug}) }}" class="btn btn-primary">
 													Ajouter
                                                     </a>
                                                 </div>

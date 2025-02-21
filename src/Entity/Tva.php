@@ -68,9 +68,9 @@ public function removeProduct(Product $product): self
     return $this;
 }
 
-// public function __toString(): string
-// {
-//     return $this->tva; 
-// }
+public function __toString(): string
+{
+    return $this->rate; 
+}
 
 }
