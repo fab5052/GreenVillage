@@ -639,9 +639,8 @@
   nav .container-nav .logo {
    display: flex;
     float: left;
-    transform: translateY(5%);
-    max-width: 9vw;
-     max-height:7vw;
+    max-width: 12vw;
+     max-height:8.5vw;
      z-index: 10;
      /* align-content: center; */
     margin-left: 5px;
@@ -1958,13 +1957,14 @@
       top:0;
       left: 20px;
   padding: 0;
-      position: absolute;
-      transform: translateY(50%);
+      position: relative;
+        align-items: center;
+      /* transform: translateY(50%); */
     } 
   
   .logo img {
-    max-width: 5vw;
-    max-height: 5.5vh;
+    max-width: 7vw;
+    max-height: 6.5vh;
   }
   
      .nav div.main_list {

@@ -186,8 +186,8 @@ public function getRubrics(): Collection
     public function removeProduct(Product $product): self
     {
         if ($this->products->removeElement($product)) {
-            if ($product->getRubric() === $this) {
-                $product->setRubric(null);
+            if ($product->getRubrics() === $this) {
+                $product->setRubric($this);
             }
         }
         return $this;
