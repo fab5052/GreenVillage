@@ -63,26 +63,20 @@ app_changePassword:
 app_home:
   path: /
   controller: App\Controller\MainController::index
+  defaults:
+     role: ROLE_USER
+
+# app_rubric:
+#   path: /rubric
+#   controller: App\Controller\RubricController::rubrics
   # defaults:
   #    role: ROLE_USER
 
-app_last_rubric:
-  path: /last_rubric
-  controller: App\Controller\RubricController::showLastRubric     
-  # defaults:
-  #    role: ROLE_USER
-
-app_rubric:
-  path: /rubric
-  controller: App\Controller\RubricController::rubrics
-  # defaults:
-  #    role: ROLE_USER
-
-# app_orders:
-#   path: /orders
-#   controller: App\Controller\OrderController::index
-#   defaults:
-#     role: ROLE_USER
+app_orders:
+  path: /orders
+  controller: App\Controller\OrderController::index
+  defaults:
+    role: ROLE_USER
 
 # app_orders_details:
 #   path: /orders_details
@@ -95,47 +89,46 @@ app_rubric:
 #   controller: App\Controller\RubricController::rubrics
 
 app_products_by_rubric:
-  path: /rubric/{slug}
+  path: /rubric/{id}
   controller: App\Controller\ProductController::ByRubric
+
 
 ##Tout les Produits
 app_products:
   path: /products
   controller: App\Controller\ProductController::index
-  defaults:
-    role: ROLE_USER
+
 
 ## Details d'un produit
 app_product_details:
-  path: /{slug}
+  path: /{id}
   controller: App\Controller\ProductController::productDetails
-  defaults:
-    role: ROLE_USER
+
 
 ## Panier
-app_cart:
-  path: /cart
-  controller: App\Controller\CartController::index
-  defaults:
-    role: ROLE_USER
+# cart_index:
+#   path: /cart
+#   controller: App\Controller\CartController::index
+#   defaults:
+#     role: ROLE_USER
 
-app_add:
-  path: /cart/add/{slug}
-  controller: App\Controller\CartController::add
-  defaults:
-    role: ROLE_USER 
+# app_add:
+#   path: /add/{slug}
+#   controller: App\Controller\CartController::add
+#   defaults:
+#     role: ROLE_USER 
 
-app_allRemove:
-  path: /cart/allRemove/{slug}
-  controller: App\Controller\CartController::removeAll
-  defaults:
-    role: ROLE_USER       
+# app_allRemove:
+#   path: /allRemove/{slug}
+#   controller: App\Controller\CartController::allRemove
+#   defaults:
+#     role: ROLE_USER       
 
-app_remove:
-  path: /cart/remove/{slug}
-  controller: App\Controller\CartController::remove
-  defaults:
-    role: ROLE_USER       
+# app_remove:
+#   path: /remove/{slug}
+#   controller: App\Controller\CartController::remove
+#   defaults:
+#     role: ROLE_USER       
 
 ## Profile
 app_profile:

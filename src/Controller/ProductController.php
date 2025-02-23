@@ -39,12 +39,12 @@ class ProductController extends AbstractController
     }
 
     #[Route('/', name: 'products', methods: ['GET'])]
-    public function index(Request $request): Response
+    public function index(Request $request ): Response
     {
         try {
-            
-            $rubric = $this->rubricRepository->findAll(); 
-            //$rubric= $this->$rubricRepository->findBy(['parent' => null]);
+           // $product = $this->productRepository->findAll();
+            $rubrics = $this->rubricRepository->findAll(); 
+          //  $subrubrics = $this->$rubricRepository->findOneBy(['parent' => null]);
             $productsQuery = $this->productRepository->findAll();
             $query = $this->productRepository->createQueryBuilder('p')->getQuery();
             $paginatedProducts = $this->paginator->paginate(
@@ -61,20 +61,21 @@ class ProductController extends AbstractController
         }
 
         return $this->render('product/products.html.twig', [
+            //'products' => $productRepository->findAll(), 
             'orders' => $orders,
-            'rubrics' => $rubric,
-            'subrubrics' => $rubric,
+            'rubric' => [],
+            'rubrics' => $rubrics,
             'images' => $images,
             'product' => $productsQuery,
             'products' => $paginatedProducts,
         ]);
     }
 
-    #[Route('/{slug}', name: 'productDetails', methods: ['GET'])]
-    public function productDetails(string $slug): Response
+    #[Route('/{id}', name: 'productDetails', methods: ['GET'])]
+    public function productDetails($id): Response
     {
         try {
-            $productDetails = $this->productRepository->findOneBy(['slug' => $slug]);
+            $productDetails = $this->productRepository->find($id);
             $orders = $this->orderRepository->findAll();
             $images = $this->imageRepository->findAll();
             if (!$productDetails) {
@@ -92,11 +93,11 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/rubric/{slug}', name: 'by_rubric', methods: ['GET'])]
-    public function ByRubric(string $slug): Response
+    #[Route('/rubric/{id}', name: 'by_rubric', methods: ['GET'])]
+    public function ByRubric($id): Response
     {
         try {
-            $rubrics = $this->rubricRepository->findOneBy(['slug' => $slug]);
+            $rubrics = $this->rubricRepository->find($id);
 
             if (!$rubrics) {
                 throw $this->createNotFoundException('Rubrique introuvable.');

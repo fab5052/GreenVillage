@@ -68,84 +68,79 @@ public function load(ObjectManager $manager): void
         $manager->persist($user);
         $users[] = $user;
     }
-     $manager->flush(); 
-
-    
+  $manager->flush(); 
+ 
 // Rubriques principales
-$rubrics = []; 
-$rubricLabels = ['vent', 'percus', 'cordes', 'electro'];
+$rubricsData = json_decode(file_get_contents(__DIR__ . '/instruments.json'), true);
+$rubrics = [];
 
-foreach ($rubricLabels as $label) {
+foreach ($rubricsData['rubrics'] as $rubricData) {
     $rubric = new Rubric();
-    $rubric->setCreatedAt(new DateTimeImmutable())
-           ->setLabel($label)
-           ->setSlug($this->slugger->slug($label));
+    $rubric->setLabel($rubricData['label'])
+           ->setSlug($rubricData['slug'])
+           ->setDescription($rubricData['content'])
+           ->setCreatedAt(new DateTimeImmutable());
 
     $manager->persist($rubric);
-    $rubrics[] = $rubric; 
+    $rubrics[$rubricData['id']] = $rubric;
+
+    if (isset($rubricData['children'])) {
+        foreach ($rubricData['children'] as $childData) {
+            $subRubric = new Rubric();
+            $subRubric->setLabel($childData['label'])
+                      ->setSlug($childData['slug'])
+                      ->setDescription($childData['content'])
+                      ->setCreatedAt(new DateTimeImmutable())
+                      ->setParent($rubric); 
+            $manager->persist($subRubric);
+            $rubrics[$childData['id']] = $subRubric;
+        }
+    }
 }
-
-$manager->flush(); 
-
-// Sous-rubriques
-$subrubrics = []; 
-$subRubricsLabels = ['saxo', 'trompette', 'batterie', 'tamtam', 'guitare', 'piano', 'synthétiseur', 'amplificateur'];
-
-foreach ($subRubricsLabels as $label) {
-    $subRubric = new Rubric();
-    $subRubric->setCreatedAt(new DateTimeImmutable())
-              ->setLabel($label)
-              ->setSlug($this->slugger->slug($label))
-              ->setParent($faker->randomElement($rubrics)) 
-              ->setDescription($faker->paragraph());
-
-    $manager->persist($subRubric);
-    $subrubrics[] = $subRubric; 
-}
-
-$manager->flush(); 
+$manager->flush();
 
 // Fournisseurs
 $infoSuppliersType = ['constructeur', 'importateur'];
 $infoSuppliers = [];
-
 foreach ($infoSuppliersType as $type) {
     $infoSupplier = new InfoSuppliers();
     $infoSupplier->setType($type)
                  ->setStatus('Active')
                  ->setReference("infoSuppliers:" . mt_rand(10000, 99999))
                  ->setUser($faker->randomElement($users));
-
     $manager->persist($infoSupplier);
     $infoSuppliers[] = $infoSupplier;
 }
-
 $manager->flush(); 
 
 //Produits
 for ($i = 0; $i < 50; $i++) {
-    $tva = new Tva();
-    $tva->setRate('18.60');
-    $manager->persist($tva);
-
-    $product = new Product();
-    $product->setLabel($faker->sentence)
-            ->setSlug($this->slugger->slug($faker->sentence)->lower() . '-' . uniqid())
-            ->setStock(mt_rand(1, 100))
-            ->setPrice(mt_rand(1, 100))
-            ->setReference("RefProd:" . mt_rand(10000, 99999))
-            ->setDescription($faker->paragraph)
-            ->setWeight($faker->randomFloat(2, 0, 100))
-            ->setInfoSuppliers($faker->randomElement($infoSuppliers))
-            ->setRubric($faker->randomElement($subrubrics)) 
-            ->setTva($tva)
-            ->setCreatedAt(new DateTimeImmutable())
-            ->setUpdatedAt(new DateTimeImmutable());
-
-    $manager->persist($product);
+   $tva = new Tva();
+   $tva->setRate('18.60');
+   $manager->persist($tva);
 }
+$manager->flush() ;
 
+foreach ($rubricsData['products'] as $productData) {
+   $product = new Product();
+   $product->setLabel($productData['label'])
+           ->setSlug($productData['slug'])
+           ->setDescription($productData['content'])
+           ->setWeight($faker->randomFloat(2, 0, 100))
+           ->setInfoSuppliers($faker->randomElement($infoSuppliers))
+           ->setPrice($productData['price'])
+           ->setStock($productData['stock'])
+           ->setReference($productData['reference'])
+           ->setTva($tva)
+           ->setCreatedAt(new DateTimeImmutable())
+           ->setUpdatedAt(new DateTimeImmutable())
+           ->setRubric($rubrics[$productData['parent_id']]); // Assigner la sous-rubrique
+
+   $manager->persist($product);
+}
 $manager->flush();
+
+
 
     // Images
     for ($i = 0; $i < 50; $i++) {

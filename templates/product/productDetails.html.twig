@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	{{ product.slug }}
+	{{ product.id }}
 	- Détails du produit
 {% endblock %}
 
@@ -21,7 +21,7 @@
 						<span class="font-medium">{{ product.infoSuppliers.reference }}</span>
 					</p>
 					<p class="text-gray-500">Rubrique :
-						<span class="font-medium">{{ product.rubric.label }}</span>
+						<span class="font-medium">{{ product.rubrics.label }}</span>
 					</p>
 				</div>
 
@@ -65,8 +65,8 @@
 			{% endif %}
 
 			<div class="mt-8 flex justify-center">
-				<a href="{{ path('app_cart', {'slug': product.slug}) }}" class="px-8 py-3 bg-yellow-500 text-white rounded-full shadow-lg hover:bg-yellow-600 focus:outline-none focus:ring-4 focus:ring-yellow-300 transition duration-200 transform hover:scale-105">
-					Ajouter au panier
+				<a href="{{ path('cart_add', {'id': product.id}) }}" class="btn btn-success">
+					<i class="bi bi-cart-plus"></i> Ajouter
 				</a>
 			</div>
 		</div>

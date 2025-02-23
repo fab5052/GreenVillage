@@ -16,7 +16,8 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use DateTimeImmutable;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 //#[ORM\UniqueConstraint(name: 'slug', columns: ['slug'])]
@@ -48,7 +49,7 @@ class Product
 
     #[ORM\Column(type: 'string', length: '100')]
     #[Assert\NotBlank(message: 'Le slug ne peut pas être vide.')]
-    // //#[Assert\Unique]
+    //#[Assert\Unique]
     private ?string $slug = null;
 
     #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
@@ -67,16 +68,16 @@ class Product
     #[ORM\JoinColumn(nullable: false)]
     private ?InfoSuppliers $infoSuppliers = null;
 
-    #[ORM\ManyToOne(targetEntity: Rubric::class, inversedBy: 'products')]
+    #[ORM\ManyToOne(targetEntity: Rubric::class, inversedBy: 'products', cascade: ['remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Rubric $rubrics = null;
+    private ?Rubric $rubric = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $weight = null;
 
     #[ORM\ManyToOne(targetEntity: Tva::class, inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
-    private Tva $tva ;
+    private ?Tva $tva = null;
 
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Image::class, cascade: ['persist', 'remove'])]
     private Collection $images;
@@ -123,12 +124,12 @@ class Product
         return $this;
     }
 
-    public function getPrice(): ?int
+    public function getPrice(): ?float
     {
         return $this->price;
     }
 
-    public function setPrice(int $price): static
+    public function setPrice(float $price): self
     {
         $this->price = $price;
 
@@ -152,18 +153,6 @@ class Product
         return $this->stock;
     }
 
-    // public function setStock(int $stock): static
-    // {
-    // $this->stock = $stock;
-
-    // }
-
-    public function isAvailable(): bool
-    {
-        return $this->isAvailable ;
-      
-    }
-
     public function setStock(int $stock): self
     {
     $this->stock = $stock;
@@ -171,12 +160,6 @@ class Product
 
     return $this;
     }
-
-
-  
-
-    // return $this;
-    //}
 
     // public function getViewRubrics(): ?string
     // {
@@ -187,7 +170,7 @@ class Product
     // {
     //     $this->viewRubrics = $viewRubric;
 
-    //     return $this; 
+    //     return $this;
     // }
 
     public function getReference(): ?string
@@ -249,12 +232,12 @@ public function getImages(): Collection
 
 public function getRubrics(): Rubric
 {
-    return $this->rubrics;
+    return $this->rubric;
 }
 
-public function setRubric( ?Rubric $rubrics): self
+public function setRubric( Rubric $rubrics): self
 {
-    $this->rubrics = $rubrics;
+    $this->rubric = $rubrics;
 
     return $this;
 }
@@ -316,10 +299,9 @@ public function getOrderDetails(): Collection
 {
     return $this->orderDetails;
 }
-
-// public function setOrderDetails(?OrderDetails $orderDetails): static
+// public function setOrderDetail(OrderDetails $orderDetail): self
 // {
-//     $this->orderDetails = $orderDetails;
+//     $this->orderDetails = $orderDetail;
 
 //     return $this;
 // }

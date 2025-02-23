@@ -3,73 +3,148 @@
 {% block title %}Mon panier{% endblock %}
 
 {% block body %}
-<div class="container-fluid justify-content-center my-5">
+
+<section class="bg-light p-3">
+    <h1>Votre panier</h1>
+</section>
+
+<div class="container-fluid align-items-centerm-6 p-4 mb-4">
+    {# <div class="row justify-content-center ">
+        <div class=" col"> #}
+            {# {% for products in product %}  #}
+
+        {# {% endfor %} #}
+<table class="table text-center align-items-center my-auto mt-5">
+        <thead>
+        <tr class="text-center">
+            <th class="text-center">Produit</th>
+            <th class="text-center">Quantité</th>
+            <th class="text-center">Prix HT</th>
+            <th class="text-center">Total HT</th>
+            {# <th class="text-center">Actions</th> #}
+        </tr>
+    </thead>
+    <tbody class="top-15"> 
+            <tr >
+                {% for products in product %} 
+                {% for dataPanier in product %}
+                <td class="text-center mt-5 align-items-center">{{ dataPanier.product.label }}</td>
+                <td class="text-center">{{ dataPanier.quantity }}</td>
+                <td class="text-center">{{ dataPanier.product.price }} €</td>
+
+                <td class="text-center">{{ dataPanier.quantity * dataPanier.product.price }} €</td>
+                
+                {# <td class="text-center"> {{ dataPanier.priceWithTva }} €</td> #}
+                <td class="text-center d-flex justify-content-between mx-auto">
+                    <a href="{{path('cart_add', {'id': dataPanier.product.id}) }}" class="btn btn-success">
+                        <h4><i class="bi bi-cart-plus"></i> </h4>
+                    </a>
+                    <a href="{{path('cart_remove', {'id': dataPanier.product.id}) }}" class="btn btn-warning">
+                     <h4><i class="bi bi-cart-dash "> </i></h4>
+                    </a>
+                    <a href="{{path('cart_allRemove', {'id': dataPanier.product.id}) }}" class="btn btn-danger">
+                        <i class="bi bi-cart-x d-block"></i> Effacer
+                    </a>
+                    <a href="{{path('cart_delete_all') }}" class="btn btn-danger">
+                        <i class="bi bi-cart-x d-block"></i> Vider
+                    </a>
+                </td>
+          
+                 {% endfor %}
+                 {% endfor %}
+
+            </tr>
+            {# <tr>
+                <td colspan="5" class="text-center">Votre panier est vide</td>
+            </tr> #}
+   
+ 
+    </tbody>
+    </table>
+    {% for products in product %} 
+                {% for dataPanier in product %}
+    <p class="card-text">
+        Référence : {{ dataPanier.product.reference }}<br>
+        {# Quantité : <strong>{{ dataPanier.quantity }}</strong> #}
+    </p>
+    {% endfor %}
+ {% endfor %}
+        {# </div>
+    </div> #}
+</div>
+
+{# <div class="container-fluid justify-content-center my-5">
     <h1 class="mb-4 text-center">Mon panier</h1>
   
-    {# {% if products is empty %}
-        <div class="alert alert-info">
-            Votre panier est vide.
-        </div> #}
+
     
         <div class="row justify-content-center">
-              {# {% for product in products.product %}    #}
+
                 <div class="col-11 w-90 m-3 p4  mb-4">
-                      {% for product in products %} 
+                                               
+
                     <div class="card w-90">
-                      
+                       
                             {# Affiche la première image associée au produit
                             <img src="{{ product.images[0].image }}" class="card-img-top" alt="{{ product.label }}">
                             {# {% else %}#}
                             {# <img src="/image/default.png" class="card-img-top" alt="{{ product.label }}">  #} 
-                 
+                            {# {% if is_granted('ROLE_USER') %} #
                         <div class="card-body">
-                         
-                            <h3 class="card-title">{{product.label }}</h3>
+                     
+                            {% for dataPanier in product %}
+                            {% for product in products %}  
+                            <h3 class="card-title">{{ product.slug }}</h3>
                             <p class="card-text">
                                 Référence : {{ product.reference }}<br>
-                                Quantité : <strong>{{ product.quantity }}</strong>
+                                Quantité : <strong>{{ dataPanier.quantity }}</strong>
                             </p>
-                            <a href="{{ path('app_add', {'slug': product.slug}) }}" class="btn btn-sm btn-primary">Ajouter</a>
-
+                        {% endfor %}
+                            <a href="{{ path('cart_add', {'slug': product.slug}) }}" class="btn btn-sm btn-primary">Ajouter</a>
+                          
                         </div>
                         <div class="card-footer">
                             <p class="mb-1">
-                                Prix HT : {{ product.price }} €
+                                Prix HT : {{ price }} €
                             </p>
                             
                             <p class="mb-1">
                                 
-                                Prix TTC : {{ product.priceWithTva }} € </p>
-                            <a href="{{ path('app_remove', {'slug': product.slug}) }}" class="btn btn-sm btn-warning">Retirer</a>
-                            <a href="{{ path('app_allRemove', {'slug': product.slug}) }}" class="btn btn-sm btn-danger">Supprimer l'article</a>
+                                Prix TTC : {{ priceWithTva }} € </p>
+                            <a href="{{ path('cart_remove', {'slug': product.slug}) }}" class="btn btn-sm btn-warning">Retirer</a>
+                            <a href="{{ path('cart_allRemove', {'slug': product.slug}) }}" class="btn btn-sm btn-danger">Supprimer l'article</a>
                         </div>
-                        
+                        {% endfor %} 
                     </div>
-                   
+                
+                    {# {% endif %}   #
                 </div>
-           
-        </div>
-
+              
+        </div> #}
+   
         <div class="container-fluid m-6 p-4 position-relative d-block mb-4">
         <div class="row d-flex justify-content-end mr-4 mt-2">
             <div class=" col-lg-4 col-md-6 col-sm-8 d-block">
                 <div class="alert alert-secondary position-relative justify-content-end">
                 <div class="text-left position-absolute mb-3 mr-2">
                     <strong>Total HT :</strong> {{ total }} € <br>
-                    <strong>Total TVA :</strong> {{ totalTaxes }} €
+                    <strong>Total TVA :</strong> {{ totalTva }} €
                </div>
-           
+              
            <div class="text-right">
-                <a href="{{ path('orders_index') }}" class="btn btn-success btn-md">Valider commande</a>
-           </div>
+            {% for products in product %} 
+            {% for dataPanier in product %}
+             
+                <a href="{{ path('orders_new') }}" class="btn btn-success btn-md">Valider commande</a>
+                {% endfor %}
+                {% endfor %}
+            </div>
         </div>
-             {% endfor %} 
+          
             </div>
         </div> 
      </div>
      {# {% endfor %}    #}
-            
-        
-        {# {% endif %} #}
+         
 </div>
 {% endblock %}

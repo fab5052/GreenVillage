@@ -20,4 +20,7 @@ return [
     Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle::class => ['dev' => true, 'test' => true],
     Symfony\UX\TwigComponent\TwigComponentBundle::class => ['all' => true],
     EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle::class => ['all' => true],
+    //HWI\Bundle\OAuthBundle\HWIOAuthBundle::class => ['all' => true],
+    //Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter::class => ['all' => true],
+
 ];

@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Instrument |
-	{{ subrubric.slug }}
+	{{ subrubric.id }}
 {% endblock %}
 
 {% block body %}
@@ -20,7 +20,8 @@
 		
 		<h1 class="text-5xl font-bold text-center text-gray-800 mb-12">Catégorie 
 			<div class="carousel-content">
-			{{ subrubric.slug }}</h1><img src="{{ subrubric_images[subrubric.slug] }}" alt="{{ subrubric.label }}" >
+			{{ subrubric.id }}</h1>
+			{# <img src="{{ subrubric_images[subrubric.id] }}" alt="{{ subrubric.label }}" > #}
 		</div>
 
 		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
@@ -51,7 +52,7 @@
 					</div>
 
 					<div class="p-6">
-						<p class="text-sm font-medium text-gray-500 uppercase tracking-wider">{{ product.rubric.label }}</p>
+						<p class="text-sm font-medium text-gray-500 uppercase tracking-wider">{{ product.rubrics.label }}</p>
 						<h2 class="mt-2 text-2xl font-bold text-gray-800">{{ product.label }}</h2>
 						<p class="mt-4 text-gray-600 line-clamp-3">{{ product.description }}</p>
 
@@ -59,11 +60,11 @@
 							€ HT</p>
 
 						<div class="mt-6 flex space-x-4">
-							<a href="{{ path('app_product_details', {'slug': product.slug}) }}" class="flex-1 px-4 py-2 text-center bg-yellow-500 text-white font-medium rounded-lg shadow-md hover:bg-yellow-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-300">
+							<a href="{{ path('app_product_details', {'id': product.id}) }}" class="flex-1 px-4 py-2 text-center bg-yellow-500 text-white font-medium rounded-lg shadow-md hover:bg-yellow-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-300">
 								Détails
 							</a>
-							<a href="{{ path('app_cart', {'islug': product.slug}) }}" class="flex-1 px-4 py-2 text-center bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400">
-								Ajouter
+							<a href="{{ path('cart_add', {'id': product.id}) }}" class="btn btn-success">
+								<i class="bi bi-cart-plus"></i> Ajouter
 							</a>
 						</div>
 					</div>
@@ -84,7 +85,7 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
          {% for rubric in rubrics %}
-        <li class="breadcrumb-item"><a href="{{ path('app_products', { rubrics: rubric.slug }) }}">{{ rubric.label }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('app_products', { rubrics: rubric.id }) }}">{{ rubric.label }}</a></li>
 
     </ol>
     </nav>

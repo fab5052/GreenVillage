@@ -3,108 +3,108 @@
         {
             "id": 1,
             "label": "Cordes frottées",
-            "slug": "cordes-frottees",
+            "slug": "Cordes-frottees",
             "content": "Instruments à cordes joués avec un archet.",
             "image": "cordes-frottees.jpg",
             "children": [
                 {
-                    "id": 2,
+                    "id": 7,
                     "label": "Violons et autres cordes frottées",
-                    "slug": "violons-et-cordes-frottees",
+                    "slug": "Cordes-frottees",
                     "content": "Violons, altos, violoncelles et contrebasses.",
                     "image": "violons.jpg"
                 }
             ]
         },
         {
-            "id": 3,
+            "id": 2,
             "label": "Cordes pincées",
-            "slug": "cordes-pincees",
+            "slug": "Cordes-pincees",
             "content": "Instruments à cordes joués en pinçant les cordes.",
             "image": "cordes-pincees.jpg",
             "children": [
                 {
-                    "id": 4,
+                    "id": 8,
                     "label": "Guitares et Basses",
-                    "slug": "guitares-basses",
+                    "slug": "Guitares-basses",
                     "content": "Guitares acoustiques, électriques, classiques et basses.",
                     "image": "guitares.jpg"
                 },
                 {
-                    "id": 5,
+                    "id": 9,
                     "label": "Autres cordes pincées",
-                    "slug": "autres-cordes-pincees",
+                    "slug": "Autres-cordes",
                     "content": "Harpe, banjo, mandoline, ukulélé et autres instruments à cordes pincées.",
                     "image": "harpe.jpg"
                 }
             ]
         },
         {
-            "id": 6,
+            "id": 3,
             "label": "Vents - Bois",
-            "slug": "vents-bois",
+            "slug": "Vents-bois",
             "content": "Instruments à vent de la famille des bois.",
             "image": "vents-bois.jpg",
             "children": [
                 {
-                    "id": 7,
+                    "id": 10,
                     "label": "Anches simples",
-                    "slug": "anches-simples",
+                    "slug": "Anches-simples",
                     "content": "Clarinettes, saxophones et autres instruments à anche simple.",
                     "image": "clarinette.jpg"
                 },
                 {
-                    "id": 8,
+                    "id": 11,
                     "label": "Anches doubles et flûtes",
-                    "slug": "anches-doubles-flutes",
+                    "slug": "Anches-doubles",
                     "content": "Hautbois, bassons, flûtes traversières, flûtes à bec et autres instruments à anche double ou sans anche.",
                     "image": "flutes.jpg"
                 }
             ]
         },
         {
-            "id": 9,
+            "id": 4,
             "label": "Vents - Cuivres",
-            "slug": "vents-cuivres",
+            "slug": "Vents-cuivres",
             "content": "Instruments à vent de la famille des cuivres.",
             "image": "cuivres.jpg",
             "children": [
                 {
-                    "id": 10,
+                    "id": 12,
                     "label": "Cuivres",
-                    "slug": "cuivres",
+                    "slug": "Cuivres",
                     "content": "Trompettes, cors d'harmonie, trombones, tubas et autres cuivres.",
                     "image": "trompette.jpg"
                 }
             ]
         },
         {
-            "id": 11,
+            "id": 5,
             "label": "Percussions",
-            "slug": "percussions",
+            "slug": "Percussions",
             "content": "Instruments de percussion.",
             "image": "percussions.jpg",
             "children": [
                 {
-                    "id": 12,
+                    "id": 13,
                     "label": "Percussions mélodiques et batteries",
-                    "slug": "percussions-melodiques-batteries",
+                    "slug": "Melodiques-batteries",
                     "content": "Batteries acoustiques et électroniques, xylophones, vibraphones, marimbas.",
                     "image": "batterie.jpg"
                 },
                 {
-                    "id": 13,
+                    "id": 14,
                     "label": "Percussions traditionnelles et ethniques",
-                    "slug": "percussions-traditionnelles",
+                    "slug": "Percussions-classiques",
                     "content": "Congas, bongos, djembés, tambourins, maracas et autres percussions du monde.",
                     "image": "djembe.jpg"
                 }
             ]
         },
         {
-            "id": 14,
+            "id": 6,
             "label": "Claviers et instruments polyphoniques",
-            "slug": "claviers-polyphoniques",
+            "slug": "Claviers-polyphoniques",
             "content": "Instruments à clavier et autres instruments polyphoniques.",
             "image": "claviers.jpg",
             "children": [
@@ -118,7 +118,7 @@
                 {
                     "id": 16,
                     "label": "Accordéons et instruments apparentés",
-                    "slug": "accordeons",
+                    "slug": "Accordeons",
                     "content": "Accordéons chromatiques, diatoniques, bandonéons et concertinas.",
                     "image": "accordeon.jpg"
                 }

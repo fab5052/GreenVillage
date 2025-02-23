@@ -10,6 +10,7 @@ use Knp\Bundle\PaginatorBundle\KnpPaginatorBundle;
 use Knp\Component\Pager\PaginatorInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Config\KnpPaginatorConfig;
 
 /**
@@ -32,7 +33,16 @@ class ProductRepository extends ServiceEntityRepository
     //         ->getResult();
     // }
 
-//     public function getAllPaginated(int $page = 1, int $limit = 10): array
+    // public function searchOneBySlug(string $query): array
+    // {
+    //     return $this->createQueryBuilder('p')
+    //         ->where('p.slug LIKE :query')
+    //         ->setParameter('query', '%' . $query . '%')
+    //         ->getQuery()
+    //         ->getResult();
+    // }
+
+//     public function getAllPaginated(int $page = 1, int $limit = 10): void
 // {
 //     $offset = ($page - 1) * $limit;
 //     $productsQuery = $this->createQueryBuilder('p')
@@ -40,13 +50,13 @@ class ProductRepository extends ServiceEntityRepository
 //         ->setFirstResult($offset)
 //         ->setMaxResults($limit);
             
-//     $paginator = new KnpPaginatorConfig($productsQuery);
-//     $data = $paginator->getProductsQuery()->getResult();
-//     $result['products'] = $data;
-//     $result['pages'] = ceil($paginator->count() / $limit);
-//     $result['current'] = $page;
-//     return $result;
-// }
+//     $paginator = new KnpPaginatorConfig([]);
+    // $data = $productsQuery->getQuery()->getResult();
+    // $result['products'] = $data;
+    // $result['pages'] = ceil($paginator->count() / $limit);
+    // $result['current'] = $page;
+    // return $offset;
+
 
 
 //    /**

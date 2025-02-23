@@ -745,12 +745,12 @@ Village Green | Accueil
 		foreground\\/25.px-0.py-0.data-\\[state\\=closed\\]\\:animate-out.data-\\[state\\=closed\\]\\:fade-out-0.data-\\[state\\=open\\]\\:animate-in.data-\\[state\\=open\\]\\:fade-in-0.sm\\:px-6.sm\\:py-20")
 		#}
 
-	{# {% set rubric_images = {
+	{% set rubric_images = {
 		'vent': '/image/rubric/rubric(2).jpg',
 		'percus': '/image/rubric/rubric(3).jpg',
 		'cordes': '/image/rubric/rubric(1).jpg',
 		'electro': '/image/rubric/rubric(4).jpg'
-		} %} #}
+		} %}
 	<div class="container-xxl d-flex w-100 mx-auto p-0 ml--1">
 		<div class="row-cols-sm-2 d-flex offset-0 p-0 ml-0">
 
@@ -788,7 +788,7 @@ Village Green | Accueil
 			<i class="fab fa-linkedin-in"></i>
 		</a>
 	</aside>
-{# 
+
 	{% set subrubric_images = {
 		'saxo': '/image/subrubric(1).png',
 		'trompette': '/image/subrubric(2).png',
@@ -798,7 +798,7 @@ Village Green | Accueil
 		'tamtam': '/image/subrubric(4).png',
 		'synthetiseur': '/image/subrubric(7).png',
 		'amplificateur': '/image/subrubric(8).png',
-		} %} #}
+		} %}
 	<div class="container-fluid w-100 h-100" style="height: auto; width: 100%">
 		<div id="contentContainer" class="trans3d">
 			<section id="carouselContainer" class="trans3d">
@@ -814,7 +814,7 @@ Village Green | Accueil
 										style="transform: rotateY('{{ angle }}deg') translateZ(400px);">
 										
 										<div class="carousel-content w-100">
-											<a href="{{ path('app_products_by_rubric', {'slug': subrubric.slug}) }}">
+											<a href="{{ path('app_products_by_rubric', {'id': subrubric.id}) }}">
 											{# <img src="{{ subrubric_images[subrubric.slug] }}" alt="{{ subrubric.label }}" class="carousel-image"> #}
 											<div class="item">
 												<h2>{{ subrubric.slug }}</h2>
@@ -841,7 +841,7 @@ Village Green | Accueil
 	</div>
 </main>
 {% block javascripts %}
-{# <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> #}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 <script>
 	(function ($) {
@@ -860,7 +860,7 @@ Village Green | Accueil
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
 <script>
-	/* function showSubrubrics(rubricId) {
+ function showSubrubrics(rubricId) {
 		const allItems = document.querySelectorAll('.carouselItem');
 		const selectedItems = document.querySelectorAll(`.carouselItem[data-parent-id="${rubricId}"]`);
 
@@ -877,7 +877,7 @@ Village Green | Accueil
 			rotationY: currdeg,
 			ease: "expo.inOut"
 		});
-	}*/
+	}
 
 	var w,
 		container,
