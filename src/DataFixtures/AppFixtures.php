@@ -21,15 +21,15 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AppFixtures extends Fixture
 {
-    private SluggerInterface $slugger;
+    //private SluggerInterface $slugger;
 
     private UserPasswordHasherInterface $passwordEncoder;
 
 
-    public function __construct(UserPasswordHasherInterface $passwordEncoder, SluggerInterface $slugger)
+    public function __construct(UserPasswordHasherInterface $passwordEncoder)
     {
         $this->passwordEncoder = $passwordEncoder;
-        $this->slugger = $slugger;
+        //$this->slugger = $slugger;
     }
 
 public function load(ObjectManager $manager): void

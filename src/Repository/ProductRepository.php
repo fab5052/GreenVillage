@@ -24,23 +24,23 @@ class ProductRepository extends ServiceEntityRepository
     }
 
 
-    // public function searchByLabel(string $query): array
-    // {
-    //     return $this->createQueryBuilder('p')
-    //         ->where('p.label LIKE :query')
-    //         ->setParameter('query', '%' . $query . '%')
-    //         ->getQuery()
-    //         ->getResult();
-    // }
+    public function searchByLabel(string $query): array
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.label LIKE :query')
+            ->setParameter('query', '%' . $query . '%')
+            ->getQuery()
+            ->getResult();
+    }
 
-    // public function searchOneBySlug(string $query): array
-    // {
-    //     return $this->createQueryBuilder('p')
-    //         ->where('p.slug LIKE :query')
-    //         ->setParameter('query', '%' . $query . '%')
-    //         ->getQuery()
-    //         ->getResult();
-    // }
+    public function searchOneBySlug(string $query): array
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.slug LIKE :query')
+            ->setParameter('query', '%' . $query . '%')
+            ->getQuery()
+            ->getResult();
+    }
 
 //     public function getAllPaginated(int $page = 1, int $limit = 10): void
 // {

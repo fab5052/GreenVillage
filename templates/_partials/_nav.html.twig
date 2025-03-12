@@ -16,18 +16,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet" /> #}
 {% block stylesheets %}
 
-{#
-<link rel="stylesheet" href="{{ asset('css.style.css')}}"> #}
+
+<link rel="stylesheet" href="{{ asset('build/app.css') }}"> 
 
 
 {% endblock %}
 <header>
 
+	<div id="navbar-root"></div>
+	{{ encore_entry_script_tags('app') }}
+		{# <section class="container-fluid d-flex">
 
-		<section class="container-fluid d-flex">
 
-
-			<div class="row-cols-2 d-sm-flex">
+			<div class="row-cols-2 d-sm-flex"> #}
 
 {# 
 				<div class="top-left d-sm-flex">
@@ -133,19 +134,20 @@
 
 
 
-				</div>
+				{# </div>
 			</div>
 	</div>
 
-	</section>
+	</section> #}
 
 	<nav class="nav top-0">
 
-		<div class="container-fluid  w-100  m-0 p-0 ">
-			<div class="row">
-				<div class="col">
-					<section class="container-nav">
-						<div class="logo ">
+		{# <div class="container  w-auto  m-0 p-0 "> #}
+
+			<section class="container-nav d-flex">			
+				{# <div class="col">
+					<div class="row"> #}
+						<div class="logo ">						
 							<a href="{{ path('app_home') }}">
 								<img class="logo" src="/image/logo2.png">
 							</a>
@@ -160,89 +162,68 @@
 
 
 						<div id="mainListDiv" class="main_list">
+						  <ol>
 							<ul class="navlinks ">
 
 
 								<li>
 									<a href="{{ path('app_home') }}">
-										<i class="fa fa-home fa-lg"></i>
-										<span class="nav-text">Home</span>
+										<i class="fa fa-home fa-lg">Home</i>
 									</a>
 								</li>
 
 								<li>
-									<a href="{{ path('app_products') }}">
-										<span class="material-symbols-outlined d-flex" style="font-size: 40">
-
-										</span>
-
-										<i class='fa fa-guitar'></i>
-										<span class="nav-tex m-4">Catégories</span>
-
-										{# <style>
-											.material-symbols-outlined {
-												font-variation-settings: 'Strait', sans-serif, 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 40,
-
-											}
-										</style> #}
+									<a href="{{ path('product_products') }}">
+										<i class='fa fa-guitar fa-lg'>Catégories</i>
 									</a>
 								</li>
-
 								<li>
 									<a href="{{ path('app_login') }}">
-
-										<i class="fa fa-user fa-lg"></i>
-										<span class="nav-text">Login</span>
+										<i class="fa fa-user fa-lg">Login</i>
 									</a>
 								</li>
-
-
 								<li>
-
-									<i class="fa fa-envelope fa-lg"></i>
-									<span class="nav-text">Contact</span>
-
+									<i class="fa fa-envelope fa-lg">Contact</i>
 								</li>
-
-
 								<li>
-									<a href="{{ path('app_register') }}">Inscription</a>
+								<a href="{{ path('app_register') }}">
+									<i class="fa fa-user-plus fa-lg">Inscription</i>
+								</a>
 								</li>
 							</ul>
+						</ol>
 						</div>
 
-						<div class="nav-authentification">
+						<div class="nav-authentification d-flex">
 							{# <div class="container w-20">
 
 								<div class="col-sm-2 offset-sm-2"> #}
-
+								<ol>
 									<ul>
-										<li>
+										{# <li>
 
 											<div id="search">
-												{# <form class="search" action="results.php" method="GET"
-													accept-charset="utf-8"> #}
+												<form class="search" 
+													accept-charset="utf-8"> 
 													<input type="text" name="input" class="input"
 														placeholder="Search" />
 
 
 													<button type="reset" class="search " id="search-button">
-														{# <div id="root"></div> #}
+														{# <div id="root"></div> #
 													</button>
 											</div>
-										</li>
+										</li> #}
 										<li>
 											<a href="{{ path('cart_index') }}">
-												<i class="bi-bag-dash-fill p-4 mr-3"></i>
-												<span class="nav-text">Panier</span>
+												<i class="bi-bag-dash-fill ">Panier</i>
 											</a>
 										</li>
 
 
 										<li>
 											<a href="{{ path('app_profile') }}">
-												<i class="fa fa-user fa-lg p-4 m-5"></i>
-												<span class="nav-text">Profile</span>
+												<i class="fa fa-user  p-4 m-5">Profile</i>
 											</a>
 										</li>
 
@@ -253,7 +234,7 @@
 											</a>
 										</li> #}
 
-										<svg class="icon-help" viewBox="0 0 100 100">
+										{# <svg class="icon-help" viewBox="0 0 100 100">
 											<path
 												d="M75,0H25C11.19,0,0,11.193,0,25v50c0,13.802,11.19,25,25,25h50c13.811,0,25-11.198,25-25V25C100,11.193,88.811,0,75,0z
 					 M57.203,85.067H41.504V72.542h15.699V85.067L57.203,85.067z M73.357,42.041c-0.84,2.066-1.873,3.834-3.102,5.298
@@ -265,21 +246,20 @@
 					c0.073-8.333,0.684-7.963,1.855-10.965c1.164-2.995,2.8-6.132,4.899-8.33c2.099-2.197,4.63-4.179,7.601-5.417
 					c2.962-1.228,6.283-1.977,9.945-1.977c4.736,0,8.683,0.581,11.856,1.876c3.167,1.302,5.713,2.889,7.65,4.817
 					c1.929,1.937,3.312,4.004,4.149,6.234c0.831,2.237,1.245,4.313,1.245,6.242C74.601,37.354,74.187,39.975,73.357,42.041z" />
-										</svg>
+										</svg> #}
 									</ul>
+								</ol>
 								</div>
-								{#
-							</div>
+								
+							{# </div>
 						</div> #}
 					</section>
-				</div>
-			</div>
-		</div>
+			
 	</nav>
 
-	<div class="slider-container home ">
+<div class="slider-container home z-index-0 ">
 
-		<div id="slider" class="images ">
+		<div id="slider" class="images z-index-0">
 			<img src="/image/caption(2).jpg" alt="Image 1" />
 			<img src="/image/caption(1).jpg" alt="Image 2" />
 			<img src="/image/caption(3).jpg" alt="Image 3" />
@@ -290,10 +270,7 @@
 			<img src="/image/caption(8).jpg" alt="Image 8" />
 
 		</div>
-	</div>
-
-
-
+	</div> 
 
 </header>
 

@@ -13,7 +13,7 @@
 			{% for rubric in rubrics %}
 				{% for subrubric in rubric.rubrics %}
 					<li class="breadcrumb-item">
-						<a href="{{ path('app_products', {'rubrics': subrubric.id }) }}">{{ subrubric.label }}</a>
+						<a href="{{ path('product_products', {'rubrics': subrubric.id }) }}">{{ subrubric.label }}</a>
 					</li>
 				{% endfor %}
 			{% endfor %}
@@ -68,7 +68,7 @@
 													<span class="badge badge-primary">{{ product.label }}</span>
 													<p>{{ product.description }}</p>
                                                     <div class="mt-6 flex space-x-6">
-                                                        <a href="{{ path('app_product_details', {'id': product.id}) }}" class="btn btn-secondary">
+                                                        <a href="{{ path('product_details', {'slug': product.slug}) }}" class="btn btn-secondary">
                                                             Détails
                                                         </a>
                                                         <a href="{{ path('cart_add', {'id': product.id}) }}" class="btn btn-success">

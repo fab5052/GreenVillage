@@ -3,13 +3,15 @@
     // Pointez pour afficher la description des attributs existants.
     // Pour plus d'informations, visitez : https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
-    "configurations": [{
+    "configurations": [
+        {
             "type": "node",
             "request": "launch",
             "name": "Run semver",
             "runtimeExecutable": "semver",
             "cwd": "${workspaceFolder}/node_modules/css-loader",
-            "args": []
+            "args": [],
+            
         },
 
         {
@@ -43,7 +45,7 @@
                 "-S",
                 "localhost:0"
             ],
-            "program": "",
+            "program": "${workspaceFolder}",
             "cwd": "${workspaceRoot}",
             "port": 9003,
             "serverReadyAction": {

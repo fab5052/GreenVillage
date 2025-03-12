@@ -7,8 +7,11 @@
         "php": ">=8.1",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "amnuts/opcache-gui": "^3.5",
         "amphp/http": "^2.1",
         "api-platform/core": "*",
+        "api-platform/doctrine-orm": "*",
+        "api-platform/symfony": "*",
         "axios/tools": "^2.1",
         "cocur/slugify": "^4.6",
         "composer/composer": "^2.8",
@@ -27,6 +30,7 @@
         "nodejs-php-fallback/nodejs-php-fallback": "^1.6",
         "phpdocumentor/reflection-docblock": "^5.6",
         "phpstan/phpdoc-parser": "^2.0",
+        "siketyan/yarn-lock": "^1.1",
         "symfony/asset": "6.4.*",
         "symfony/asset-mapper": "6.4.*",
         "symfony/console": "6.4.*",
@@ -62,7 +66,7 @@
         "symfony/ux-turbo": "^2.21",
         "symfony/validator": "6.4.*",
         "symfony/web-link": "6.4.*",
-        "symfony/webpack-encore-bundle": "*",
+        "symfony/webpack-encore-bundle": "^2.2",
         "symfony/yaml": "6.4.*",
         "toneflix-code/fakerphp-lorem-toneflix": "^1.0",
         "twbs/bootstrap": "^5.3",
@@ -70,16 +74,26 @@
         "twig/twig": "^2.12|^3.0"
     },
     "config": {
+        "npm": "npm",
         "allow-plugins": {
             "cweagans/composer-patches": true,
             "enumag/no-thanks": true,
             "nodejs-php-fallback/nodejs-php-fallback": true,
             "php-http/discovery": true,
             "symfony/flex": true,
-            "symfony/runtime": true
+            "symfony/runtime": true,
+            "fullcalendar/core": true,
+            "fullcalendar/daygrid": true,
+            "fullcalendar/interaction": true,
+            "fullcalendar/react": true,
+            "fullcalendar/timegrid": true,
+            "radix-ui/react-slot": true,
+            "bootstrap": true
+            
         },
         "sort-packages": true
     },
+    
     "autoload": {
         "psr-4": {
             "App\\": "src/"

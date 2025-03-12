@@ -49,7 +49,8 @@ class Product
 
     #[ORM\Column(type: 'string', length: '100')]
     #[Assert\NotBlank(message: 'Le slug ne peut pas être vide.')]
-    //#[Assert\Unique]
+    #[Assert\Unique]
+    #[Groups(['product:read'])]
     private ?string $slug = null;
 
     #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]

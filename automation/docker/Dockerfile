@@ -29,15 +29,15 @@ RUN install-php-extensions \
     mysqli \
     intl \
     apcu \
-    xdebug 
-    # opcache 
+    xdebug  \
+    opcache 
 
 
 # Installer OPcache
 RUN docker-php-ext-install opcache
 
 # Copier un fichier de configuration personnalisée d'OPcache
-# COPY ./docker/php/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
+COPY ./docker/php/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 ADD opcache.ini $PHP_INI_DIR/conf.d/opcache.ini
 
 # Install nvm
@@ -61,13 +61,14 @@ RUN echo 'xdebug.mode=develop,debug,coverage' >> /usr/local/etc/php/conf.d/xdebu
 # RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini \
 #     && echo 'short_open_tag = Off' >> /usr/local/etc/php/php.ini
 
-RUN apt-get update && apt-get install -y curl \
-    && curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
-    && apt-get install -y nodejs
+RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | tee /usr/share/keyrings/githubcli-archive-keyring.gpg > /dev/null \
+    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+    && apt update \
+    && apt install gh -y
 
 # # Installer Composer
-RUN curl -sSk https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \\
-    && php -r "unlink('composer-setup.php');"
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+#RUN composer create-project api-platform/api-platform my-api
     
 RUN mv composer.phar /usr/bin/composer 
 RUN chmod +x /usr/bin/composer    
@@ -80,7 +81,7 @@ RUN chmod +x /usr/bin/composer
 WORKDIR /var/www/
 
 COPY ./automation/docker/default-vhost.conf /etc/apache2/sites-available/default-vhost.conf
-RUN apache2-foreground
+#RUN apache2-foreground
 
 RUN a2dissite 000-default.conf \
     && a2ensite default-vhost.conf
@@ -90,7 +91,7 @@ RUN cd /var/www && \
     npm install --force && \
     npm run build    
 
-RUN chmod -R 755 /var/www && chown -R www-data:www-data /var/www
+RUN chmod -R 775 /var/www && chown -R www-data:www-data /var/www
 RUN git config --global --add safe.directory '*' && \
     git config --global user.email "f.beaujois@gmail.com" && \
     git config --global user.name "fab5052"     
@@ -100,7 +101,7 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 CMD ["bash", "/usr/local/bin/docker-entrypoint.sh", "./docker/docker.sh"]
 
-RUN apache2-foreground
+#RUN apache2-foreground
 # Crée un utilisateur avec un UID/GID correspondant à celui de l'utilisateur hôte
 
 EXPOSE 80

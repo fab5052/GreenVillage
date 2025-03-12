@@ -1,5 +1,7 @@
 php -d memory_limit=-1 bin/console cache:clear
+chmod 777 -R /var/www/var/cache/dev/
 rm -rf var/cache/*
+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
 
 
     Produit
@@ -11,7 +13,7 @@ rm -rf var/cache/*
         PrixAchatHT
         Photo
         Stock
-		Created_at (
+		Created_at (DateTimeImmu)
         Actif (booléen)
         ID_SousRubrique (FK)
 

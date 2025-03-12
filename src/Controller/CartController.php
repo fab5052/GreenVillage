@@ -287,13 +287,18 @@ class CartController extends AbstractController
 
         if(!empty($panier[$id])){
             if($panier[$id] > 1){
-                $panier[$id]--;
-            }else{
-                unset($panier[$id]);
-            }
-        }
+               
+             
+            $panier[$id]--;
+            
+                }else{   
+                    $panier[$id] = 0;
+                }
+             }
+             $session->remove('panier');
+        
 
-        $session->set("panier", $panier);
+        $this->addFlash('success', 'Votre panier est vide.');
 
         return $this->redirectToRoute("cart_index");
     }
@@ -347,8 +352,8 @@ class CartController extends AbstractController
 
 
 
-    #[Route('/orders', name: 'orders_new')]
-    public function order(SessionInterface $session, EntityManagerInterface $entityManager, SendMailService $mail): Response
+    #[Route('/orders', name: 'orders_index')]
+    public function order(SessionInterface $session, EntityManagerInterface $entityManager, ProductRepository $productRepository, SendMailService $mail): Response
     {
         try {
             if (!$this->getUser()) {
@@ -356,7 +361,30 @@ class CartController extends AbstractController
                 return $this->redirectToRoute('app_login');
             }
 
+   $product = $productRepository->findAll();
+    
             $panier = $session->get('panier', []);
+           
+            $productDetails =[];
+            $dataPanier = [];
+            $total = 0;
+            $totalTva = 0;
+            $totalHT = 0;
+            $images = []; 
+            
+            
+            foreach ($panier as $id => $quantity) {
+               
+                $product = $productRepository->find($id);
+                $dataPanier[] = [
+                    'product' => $product,
+                    'total' => $total,
+                    'totalHT' => $totalHT,
+                    'totalTva' => $totalTva,
+                    'quantity' => $quantity,
+                    'priceWithTva' => $productDetails['totalTva'],
+                   //'images' => $images,                 
+                ];
             if (empty($panier)) {
                 $this->addFlash('warning', 'Votre panier est vide.');
                 return $this->redirectToRoute('cart_index');
@@ -380,7 +408,7 @@ class CartController extends AbstractController
 
             $totalAmount = 0;
             $orderDetails = []; // Initialize as an array
-
+        }
             foreach ($panier as $id => $quantity) {
                 $product = $entityManager->getRepository(Product::class)->find($id);
                 if ($product) {

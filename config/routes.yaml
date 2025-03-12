@@ -72,11 +72,11 @@ app_home:
   # defaults:
   #    role: ROLE_USER
 
-app_orders:
-  path: /orders
-  controller: App\Controller\OrderController::index
-  defaults:
-    role: ROLE_USER
+# app_orders:
+#   path: /orders
+#   controller: App\Controller\OrderController::index
+#   defaults:
+#     role: ROLE_USER
 
 # app_orders_details:
 #   path: /orders_details
@@ -88,29 +88,28 @@ app_orders:
 #   path: /
 #   controller: App\Controller\RubricController::rubrics
 
-app_products_by_rubric:
-  path: /rubric/{id}
-  controller: App\Controller\ProductController::ByRubric
+# app_products_by_rubric:
+#   path: /rubric/{id}
+#   controller: App\Controller\ProductController::ByRubric
 
 
-##Tout les Produits
-app_products:
-  path: /products
-  controller: App\Controller\ProductController::index
+# ##Tout les Produits
+# app_products:
+#   path: /products
+#   controller: App\Controller\ProductController::index
 
 
-## Details d'un produit
-app_product_details:
-  path: /{id}
-  controller: App\Controller\ProductController::productDetails
+# ## Details d'un produit
+# app_product_details:
+#   path: /{id}
+#   controller: App\Controller\ProductController::productDetails
 
 
 ## Panier
-# cart_index:
-#   path: /cart
-#   controller: App\Controller\CartController::index
-#   defaults:
-#     role: ROLE_USER
+# app_event:
+#   path: /event
+#   controller: App\Controller\EventController::index
+
 
 # app_add:
 #   path: /add/{slug}

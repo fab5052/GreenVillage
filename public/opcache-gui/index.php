@@ -263,7 +263,11 @@ class Service
     {
         $success = false;
         if ($file === null) {
-            $success = opcache_reset();
+            if (function_exists('opcache_reset')) {
+                $success = opcache_reset();
+            } else {
+                $success = false;
+            }
         } elseif (function_exists('opcache_invalidate')) {
             $success = opcache_invalidate(urldecode($file), true);
         }
@@ -285,7 +289,9 @@ class Service
         foreach ($this->getData('files') as $file) {
             if (strpos($file['full_path'], $search) !== false) {
                 ++$found;
-                $success += (int)opcache_invalidate($file['full_path'], true);
+                if (function_exists('opcache_invalidate')) {
+                    $success += (int)opcache_invalidate($file['full_path'], true);
+                }
             }
         }
         if ($success) {
@@ -326,8 +332,16 @@ class Service
      */
     protected function compileState(): array
     {
-        $status = opcache_get_status();
-        $config = opcache_get_configuration();
+        if (function_exists('opcache_get_status')) {
+            $status = opcache_get_status();
+        } else {
+            die('The function opcache_get_status does not exist. Ensure that the OPcache extension is enabled.');
+        }
+        if (function_exists('opcache_get_configuration')) {
+            $config = opcache_get_configuration();
+        } else {
+            die('The function opcache_get_configuration does not exist. Ensure that the OPcache extension is enabled.');
+        }
         $missingConfig = array_diff_key(ini_get_all('zend opcache', false), $config['directives']);
         if (!empty($missingConfig)) {
             $config['directives'] = array_merge($config['directives'], $missingConfig);
